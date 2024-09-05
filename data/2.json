@@ -1,0 +1,771 @@
+{
+    "categoryId": 2,
+    "translations": [
+        {
+            "en": [
+                "health",
+                "well-being"
+            ],
+            "pl": "zdrowie",
+            "id": 1
+        },
+        {
+            "en": [
+                "wellness",
+                "fitness"
+            ],
+            "pl": "dobrostan",
+            "id": 2
+        },
+        {
+            "en": [
+                "exercise",
+                "workout"
+            ],
+            "pl": "ćwiczenia",
+            "id": 3
+        },
+        {
+            "en": [
+                "diet",
+                "nutrition"
+            ],
+            "pl": "dieta",
+            "id": 4
+        },
+        {
+            "en": [
+                "mental health",
+                "emotional well-being"
+            ],
+            "pl": "zdrowie psychiczne",
+            "id": 5
+        },
+        {
+            "en": [
+                "stress",
+                "tension"
+            ],
+            "pl": "stres",
+            "id": 6
+        },
+        {
+            "en": [
+                "relaxation",
+                "calm"
+            ],
+            "pl": "relaksacja",
+            "id": 7
+        },
+        {
+            "en": [
+                "meditation",
+                "mindfulness"
+            ],
+            "pl": "medytacja",
+            "id": 8
+        },
+        {
+            "en": [
+                "sleep",
+                "rest"
+            ],
+            "pl": "sen",
+            "id": 9
+        },
+        {
+            "en": [
+                "hydration",
+                "drinking water"
+            ],
+            "pl": "nawodnienie",
+            "id": 10
+        },
+        {
+            "en": [
+                "immune system",
+                "defense system"
+            ],
+            "pl": "układ odpornościowy",
+            "id": 11
+        },
+        {
+            "en": [
+                "nutrition",
+                "diet"
+            ],
+            "pl": "odżywianie",
+            "id": 12
+        },
+        {
+            "en": [
+                "vitamins",
+                "nutrients"
+            ],
+            "pl": "witaminy",
+            "id": 13
+        },
+        {
+            "en": [
+                "minerals",
+                "micronutrients"
+            ],
+            "pl": "minerały",
+            "id": 14
+        },
+        {
+            "en": [
+                "protein"
+            ],
+            "pl": "białko",
+            "id": 15
+        },
+        {
+            "en": [
+                "carbohydrates",
+                "carbs"
+            ],
+            "pl": "węglowodany",
+            "id": 16
+        },
+        {
+            "en": [
+                "fats",
+                "lipids"
+            ],
+            "pl": "tłuszcze",
+            "id": 17
+        },
+        {
+            "en": [
+                "calories",
+                "energy intake"
+            ],
+            "pl": "kalorie",
+            "id": 18
+        },
+        {
+            "en": [
+                "exercise routine",
+                "workout plan"
+            ],
+            "pl": "plan treningowy",
+            "id": 19
+        },
+        {
+            "en": [
+                "aerobic exercise",
+                "cardio"
+            ],
+            "pl": "ćwiczenia aerobowe",
+            "id": 20
+        },
+        {
+            "en": [
+                "strength training",
+                "weightlifting"
+            ],
+            "pl": "trening siłowy",
+            "id": 21
+        },
+        {
+            "en": [
+                "flexibility",
+                "stretching"
+            ],
+            "pl": "elastyczność",
+            "id": 22
+        },
+        {
+            "en": [
+                "yoga",
+                "stretching exercises"
+            ],
+            "pl": "joga",
+            "id": 23
+        },
+        {
+            "en": [
+                "medication",
+                "medicine"
+            ],
+            "pl": "leki",
+            "id": 24
+        },
+        {
+            "en": [
+                "vaccination",
+                "immunization"
+            ],
+            "pl": "szczepienie",
+            "id": 25
+        },
+        {
+            "en": [
+                "allergy"
+            ],
+            "pl": "alergia",
+            "id": 26
+        },
+        {
+            "en": [
+                "cold",
+                "flu"
+            ],
+            "pl": "przeziębienie",
+            "id": 27
+        },
+        {
+            "en": [
+                "injury",
+                "wound"
+            ],
+            "pl": "uraz",
+            "id": 28
+        },
+        {
+            "en": [
+                "treatment",
+                "therapy"
+            ],
+            "pl": "leczenie",
+            "id": 29
+        },
+        {
+            "en": [
+                "therapy",
+                "counseling"
+            ],
+            "pl": "terapia",
+            "id": 30
+        },
+        {
+            "en": [
+                "rehabilitation",
+                "recovery"
+            ],
+            "pl": "rehabilitacja",
+            "id": 31
+        },
+        {
+            "en": [
+                "mental illness",
+                "mental disorder"
+            ],
+            "pl": "choroba psychiczna",
+            "id": 32
+        },
+        {
+            "en": [
+                "depression"
+            ],
+            "pl": "depresja",
+            "id": 33
+        },
+        {
+            "en": [
+                "anxiety",
+                "nervousness"
+            ],
+            "pl": "niepokój",
+            "id": 34
+        },
+        {
+            "en": [
+                "pain",
+                "ache"
+            ],
+            "pl": "ból",
+            "id": 35
+        },
+        {
+            "en": [
+                "headache",
+                "migraine"
+            ],
+            "pl": "ból głowy",
+            "id": 36
+        },
+        {
+            "en": [
+                "fatigue",
+                "tiredness"
+            ],
+            "pl": "zmęczenie",
+            "id": 37
+        },
+        {
+            "en": [
+                "energy",
+                "vitality"
+            ],
+            "pl": "energia",
+            "id": 38
+        },
+        {
+            "en": [
+                "balance",
+                "stability"
+            ],
+            "pl": "równowaga",
+            "id": 39
+        },
+        {
+            "en": [
+                "blood pressure"
+            ],
+            "pl": "ciśnienie krwi",
+            "id": 40
+        },
+        {
+            "en": [
+                "heart rate",
+                "pulse"
+            ],
+            "pl": "tętno",
+            "id": 41
+        },
+        {
+            "en": [
+                "cholesterol"
+            ],
+            "pl": "cholesterol",
+            "id": 42
+        },
+        {
+            "en": [
+                "blood sugar",
+                "glucose"
+            ],
+            "pl": "poziom cukru we krwi",
+            "id": 43
+        },
+        {
+            "en": [
+                "diabetes"
+            ],
+            "pl": "cukrzyca",
+            "id": 44
+        },
+        {
+            "en": [
+                "obesity",
+                "overweight"
+            ],
+            "pl": "otyłość",
+            "id": 45
+        },
+        {
+            "en": [
+                "smoking cessation",
+                "quitting smoking"
+            ],
+            "pl": "rzucanie palenia",
+            "id": 46
+        },
+        {
+            "en": [
+                "addiction",
+                "dependency"
+            ],
+            "pl": "uzależnienie",
+            "id": 47
+        },
+        {
+            "en": [
+                "alcoholism"
+            ],
+            "pl": "alkoholizm",
+            "id": 48
+        },
+        {
+            "en": [
+                "drug abuse",
+                "substance abuse"
+            ],
+            "pl": "nadużywanie narkotyków",
+            "id": 49
+        },
+        {
+            "en": [
+                "therapy",
+                "psychotherapy"
+            ],
+            "pl": "psychoterapia",
+            "id": 50
+        },
+        {
+            "en": [
+                "doctor",
+                "physician"
+            ],
+            "pl": "lekarz",
+            "id": 51
+        },
+        {
+            "en": [
+                "nurse"
+            ],
+            "pl": "pielęgniarka",
+            "id": 52
+        },
+        {
+            "en": [
+                "dentist"
+            ],
+            "pl": "dentysta",
+            "id": 53
+        },
+        {
+            "en": [
+                "psychologist"
+            ],
+            "pl": "psycholog",
+            "id": 54
+        },
+        {
+            "en": [
+                "nutritionist",
+                "dietitian"
+            ],
+            "pl": "dietetyk",
+            "id": 55
+        },
+        {
+            "en": [
+                "personal trainer"
+            ],
+            "pl": "trener personalny",
+            "id": 56
+        },
+        {
+            "en": [
+                "check-up",
+                "examination"
+            ],
+            "pl": "badanie",
+            "id": 57
+        },
+        {
+            "en": [
+                "diagnosis",
+                "assessment"
+            ],
+            "pl": "diagnoza",
+            "id": 58
+        },
+        {
+            "en": [
+                "prevention",
+                "prophylaxis"
+            ],
+            "pl": "profilaktyka",
+            "id": 59
+        },
+        {
+            "en": [
+                "first aid"
+            ],
+            "pl": "pierwsza pomoc",
+            "id": 60
+        },
+        {
+            "en": [
+                "surgery",
+                "operation"
+            ],
+            "pl": "operacja",
+            "id": 61
+        },
+        {
+            "en": [
+                "x-ray"
+            ],
+            "pl": "prześwietlenie",
+            "id": 62
+        },
+        {
+            "en": [
+                "ultrasound",
+                "scan"
+            ],
+            "pl": "ultrasonografia",
+            "id": 63
+        },
+        {
+            "en": [
+                "therapy",
+                "rehabilitation"
+            ],
+            "pl": "rehabilitacja",
+            "id": 64
+        },
+        {
+            "en": [
+                "recovery",
+                "healing"
+            ],
+            "pl": "wyzdrowienie",
+            "id": 65
+        },
+        {
+            "en": [
+                "injury prevention"
+            ],
+            "pl": "zapobieganie urazom",
+            "id": 66
+        },
+        {
+            "en": [
+                "chronic illness"
+            ],
+            "pl": "choroba przewlekła",
+            "id": 67
+        },
+        {
+            "en": [
+                "acute pain"
+            ],
+            "pl": "ból ostry",
+            "id": 68
+        },
+        {
+            "en": [
+                "infection",
+                "illness"
+            ],
+            "pl": "infekcja",
+            "id": 69
+        },
+        {
+            "en": [
+                "virus",
+                "bacteria"
+            ],
+            "pl": "wirus",
+            "id": 70
+        },
+        {
+            "en": [
+                "immune system"
+            ],
+            "pl": "układ odpornościowy",
+            "id": 71
+        },
+        {
+            "en": [
+                "nutrition plan"
+            ],
+            "pl": "plan żywieniowy",
+            "id": 72
+        },
+        {
+            "en": [
+                "organic food"
+            ],
+            "pl": "żywność ekologiczna",
+            "id": 73
+        },
+        {
+            "en": [
+                "weight loss",
+                "slimming"
+            ],
+            "pl": "odchudzanie",
+            "id": 74
+        },
+        {
+            "en": [
+                "weight gain"
+            ],
+            "pl": "przybieranie na wadze",
+            "id": 75
+        },
+        {
+            "en": [
+                "healthy lifestyle"
+            ],
+            "pl": "zdrowy styl życia",
+            "id": 76
+        },
+        {
+            "en": [
+                "physical activity"
+            ],
+            "pl": "aktywność fizyczna",
+            "id": 77
+        },
+        {
+            "en": [
+                "balance diet"
+            ],
+            "pl": "zbilansowana dieta",
+            "id": 78
+        },
+        {
+            "en": [
+                "plant-based diet",
+                "vegetarianism"
+            ],
+            "pl": "dieta roślinna",
+            "id": 79
+        },
+        {
+            "en": [
+                "vegan diet"
+            ],
+            "pl": "dieta wegańska",
+            "id": 80
+        },
+        {
+            "en": [
+                "alternative medicine"
+            ],
+            "pl": "medycyna alternatywna",
+            "id": 81
+        },
+        {
+            "en": [
+                "herbal remedies"
+            ],
+            "pl": "leki ziołowe",
+            "id": 82
+        },
+        {
+            "en": [
+                "pain relief",
+                "analgesic"
+            ],
+            "pl": "środek przeciwbólowy",
+            "id": 83
+        },
+        {
+            "en": [
+                "mental clarity",
+                "focus"
+            ],
+            "pl": "jasność umysłu",
+            "id": 84
+        },
+        {
+            "en": [
+                "longevity",
+                "life expectancy"
+            ],
+            "pl": "długowieczność",
+            "id": 85
+        },
+        {
+            "en": [
+                "genetics"
+            ],
+            "pl": "genetyka",
+            "id": 86
+        },
+        {
+            "en": [
+                "medication",
+                "drugs"
+            ],
+            "pl": "lekarstwa",
+            "id": 87
+        },
+        {
+            "en": [
+                "public health"
+            ],
+            "pl": "zdrowie publiczne",
+            "id": 88
+        },
+        {
+            "en": [
+                "environmental health"
+            ],
+            "pl": "zdrowie środowiskowe",
+            "id": 89
+        },
+        {
+            "en": [
+                "hygiene",
+                "cleanliness"
+            ],
+            "pl": "higiena",
+            "id": 90
+        },
+        {
+            "en": [
+                "self-care",
+                "personal care"
+            ],
+            "pl": "samopieka",
+            "id": 91
+        },
+        {
+            "en": [
+                "mindfulness",
+                "awareness"
+            ],
+            "pl": "uważność",
+            "id": 92
+        },
+        {
+            "en": [
+                "skin care"
+            ],
+            "pl": "pielęgnacja skóry",
+            "id": 93
+        },
+        {
+            "en": [
+                "weight management"
+            ],
+            "pl": "kontrola wagi",
+            "id": 94
+        },
+        {
+            "en": [
+                "detoxification",
+                "detox"
+            ],
+            "pl": "detoksykacja",
+            "id": 95
+        },
+        {
+            "en": [
+                "cardiovascular health"
+            ],
+            "pl": "zdrowie układu krążenia",
+            "id": 96
+        },
+        {
+            "en": [
+                "breathing exercises"
+            ],
+            "pl": "ćwiczenia oddechowe",
+            "id": 97
+        },
+        {
+            "en": [
+                "body mass index",
+                "BMI"
+            ],
+            "pl": "wskaźnik masy ciała",
+            "id": 98
+        },
+        {
+            "en": [
+                "sun protection",
+                "UV protection"
+            ],
+            "pl": "ochrona przed słońcem",
+            "id": 99
+        },
+        {
+            "en": [
+                "antioxidants"
+            ],
+            "pl": "antyoksydanty",
+            "id": 100
+        }
+    ]
+}

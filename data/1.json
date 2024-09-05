@@ -1,0 +1,775 @@
+{
+    "categoryId": 1,
+    "translations": [
+        {
+            "en": [
+                "family"
+            ],
+            "pl": "rodzina",
+            "id": 1
+        },
+        {
+            "en": [
+                "mother",
+                "mom",
+                "mum"
+            ],
+            "pl": "matka",
+            "id": 2
+        },
+        {
+            "en": [
+                "father",
+                "dad"
+            ],
+            "pl": "ojciec",
+            "id": 3
+        },
+        {
+            "en": [
+                "parent"
+            ],
+            "pl": "rodzic",
+            "id": 4
+        },
+        {
+            "en": [
+                "child",
+                "kid"
+            ],
+            "pl": "dziecko",
+            "id": 5
+        },
+        {
+            "en": [
+                "son"
+            ],
+            "pl": "syn",
+            "id": 6
+        },
+        {
+            "en": [
+                "daughter"
+            ],
+            "pl": "córka",
+            "id": 7
+        },
+        {
+            "en": [
+                "brother",
+                "sibling"
+            ],
+            "pl": "brat",
+            "id": 8
+        },
+        {
+            "en": [
+                "sister",
+                "sibling"
+            ],
+            "pl": "siostra",
+            "id": 9
+        },
+        {
+            "en": [
+                "grandmother",
+                "grandma",
+                "granny"
+            ],
+            "pl": "babcia",
+            "id": 10
+        },
+        {
+            "en": [
+                "grandfather",
+                "grandpa",
+                "granddad"
+            ],
+            "pl": "dziadek",
+            "id": 11
+        },
+        {
+            "en": [
+                "grandparents"
+            ],
+            "pl": "dziadkowie",
+            "id": 12
+        },
+        {
+            "en": [
+                "cousin"
+            ],
+            "pl": "kuzyn",
+            "id": 13
+        },
+        {
+            "en": [
+                "aunt",
+                "auntie"
+            ],
+            "pl": "ciocia",
+            "id": 14
+        },
+        {
+            "en": [
+                "uncle"
+            ],
+            "pl": "wujek",
+            "id": 15
+        },
+        {
+            "en": [
+                "niece"
+            ],
+            "pl": "siostrzenica",
+            "id": 16
+        },
+        {
+            "en": [
+                "nephew"
+            ],
+            "pl": "siostrzeniec",
+            "id": 17
+        },
+        {
+            "en": [
+                "husband"
+            ],
+            "pl": "mąż",
+            "id": 18
+        },
+        {
+            "en": [
+                "wife"
+            ],
+            "pl": "żona",
+            "id": 19
+        },
+        {
+            "en": [
+                "marriage",
+                "wedlock"
+            ],
+            "pl": "małżeństwo",
+            "id": 20
+        },
+        {
+            "en": [
+                "relationship",
+                "partnership"
+            ],
+            "pl": "związek",
+            "id": 21
+        },
+        {
+            "en": [
+                "love",
+                "affection"
+            ],
+            "pl": "miłość",
+            "id": 22
+        },
+        {
+            "en": [
+                "engagement",
+                "betrothal"
+            ],
+            "pl": "zaręczyny",
+            "id": 23
+        },
+        {
+            "en": [
+                "wedding",
+                "marriage ceremony"
+            ],
+            "pl": "ślub",
+            "id": 24
+        },
+        {
+            "en": [
+                "anniversary"
+            ],
+            "pl": "rocznica",
+            "id": 25
+        },
+        {
+            "en": [
+                "friend",
+                "pal",
+                "buddy"
+            ],
+            "pl": "przyjaciel",
+            "id": 26
+        },
+        {
+            "en": [
+                "best friend"
+            ],
+            "pl": "najlepszy przyjaciel",
+            "id": 27
+        },
+        {
+            "en": [
+                "boyfriend",
+                "partner"
+            ],
+            "pl": "chłopak",
+            "id": 28
+        },
+        {
+            "en": [
+                "girlfriend",
+                "partner"
+            ],
+            "pl": "dziewczyna",
+            "id": 29
+        },
+        {
+            "en": [
+                "partner",
+                "companion"
+            ],
+            "pl": "partner",
+            "id": 30
+        },
+        {
+            "en": [
+                "sibling"
+            ],
+            "pl": "rodzeństwo",
+            "id": 31
+        },
+        {
+            "en": [
+                "stepfather"
+            ],
+            "pl": "ojczym",
+            "id": 32
+        },
+        {
+            "en": [
+                "stepmother"
+            ],
+            "pl": "macocha",
+            "id": 33
+        },
+        {
+            "en": [
+                "stepson"
+            ],
+            "pl": "pasierb",
+            "id": 34
+        },
+        {
+            "en": [
+                "stepdaughter"
+            ],
+            "pl": "pasierbica",
+            "id": 35
+        },
+        {
+            "en": [
+                "half-brother",
+                "stepbrother"
+            ],
+            "pl": "przyrodni brat",
+            "id": 36
+        },
+        {
+            "en": [
+                "half-sister",
+                "stepsister"
+            ],
+            "pl": "przyrodnia siostra",
+            "id": 37
+        },
+        {
+            "en": [
+                "adoption"
+            ],
+            "pl": "adopcja",
+            "id": 38
+        },
+        {
+            "en": [
+                "divorce",
+                "separation"
+            ],
+            "pl": "rozwód",
+            "id": 39
+        },
+        {
+            "en": [
+                "separation",
+                "split"
+            ],
+            "pl": "separacja",
+            "id": 40
+        },
+        {
+            "en": [
+                "father-in-law"
+            ],
+            "pl": "teść",
+            "id": 41
+        },
+        {
+            "en": [
+                "mother-in-law"
+            ],
+            "pl": "teściowa",
+            "id": 42
+        },
+        {
+            "en": [
+                "brother-in-law"
+            ],
+            "pl": "szwagier",
+            "id": 43
+        },
+        {
+            "en": [
+                "sister-in-law"
+            ],
+            "pl": "szwagierka",
+            "id": 44
+        },
+        {
+            "en": [
+                "extended family"
+            ],
+            "pl": "rodzina wielopokoleniowa",
+            "id": 45
+        },
+        {
+            "en": [
+                "single",
+                "unmarried"
+            ],
+            "pl": "singiel",
+            "id": 46
+        },
+        {
+            "en": [
+                "engaged"
+            ],
+            "pl": "zaręczony",
+            "id": 47
+        },
+        {
+            "en": [
+                "married",
+                "wed"
+            ],
+            "pl": "żonaty/zamężna",
+            "id": 48
+        },
+        {
+            "en": [
+                "divorced",
+                "separated"
+            ],
+            "pl": "rozwiedziony",
+            "id": 49
+        },
+        {
+            "en": [
+                "widow"
+            ],
+            "pl": "wdowa",
+            "id": 50
+        },
+        {
+            "en": [
+                "widower"
+            ],
+            "pl": "wdowiec",
+            "id": 51
+        },
+        {
+            "en": [
+                "foster parent"
+            ],
+            "pl": "rodzic zastępczy",
+            "id": 52
+        },
+        {
+            "en": [
+                "guardian",
+                "caretaker"
+            ],
+            "pl": "opiekun",
+            "id": 53
+        },
+        {
+            "en": [
+                "godfather"
+            ],
+            "pl": "ojciec chrzestny",
+            "id": 54
+        },
+        {
+            "en": [
+                "godmother"
+            ],
+            "pl": "matka chrzestna",
+            "id": 55
+        },
+        {
+            "en": [
+                "godchild"
+            ],
+            "pl": "chrześniak",
+            "id": 56
+        },
+        {
+            "en": [
+                "mentor"
+            ],
+            "pl": "mentor",
+            "id": 57
+        },
+        {
+            "en": [
+                "role model"
+            ],
+            "pl": "wzór do naśladowania",
+            "id": 58
+        },
+        {
+            "en": [
+                "colleague",
+                "coworker"
+            ],
+            "pl": "kolega z pracy",
+            "id": 59
+        },
+        {
+            "en": [
+                "neighbor"
+            ],
+            "pl": "sąsiad",
+            "id": 60
+        },
+        {
+            "en": [
+                "support",
+                "assistance"
+            ],
+            "pl": "wsparcie",
+            "id": 61
+        },
+        {
+            "en": [
+                "trust",
+                "faith"
+            ],
+            "pl": "zaufanie",
+            "id": 62
+        },
+        {
+            "en": [
+                "communication",
+                "interaction"
+            ],
+            "pl": "komunikacja",
+            "id": 63
+        },
+        {
+            "en": [
+                "understanding",
+                "comprehension"
+            ],
+            "pl": "zrozumienie",
+            "id": 64
+        },
+        {
+            "en": [
+                "care",
+                "attention"
+            ],
+            "pl": "opieka",
+            "id": 65
+        },
+        {
+            "en": [
+                "respect",
+                "esteem"
+            ],
+            "pl": "szacunek",
+            "id": 66
+        },
+        {
+            "en": [
+                "kindness",
+                "compassion"
+            ],
+            "pl": "życzliwość",
+            "id": 67
+        },
+        {
+            "en": [
+                "honesty",
+                "truthfulness"
+            ],
+            "pl": "uczciwość",
+            "id": 68
+        },
+        {
+            "en": [
+                "commitment",
+                "dedication"
+            ],
+            "pl": "zaangażowanie",
+            "id": 69
+        },
+        {
+            "en": [
+                "patience",
+                "tolerance"
+            ],
+            "pl": "cierpliwość",
+            "id": 70
+        },
+        {
+            "en": [
+                "empathy",
+                "sympathy"
+            ],
+            "pl": "empatia",
+            "id": 71
+        },
+        {
+            "en": [
+                "supportive",
+                "encouraging"
+            ],
+            "pl": "wspierający",
+            "id": 72
+        },
+        {
+            "en": [
+                "affection",
+                "fondness"
+            ],
+            "pl": "uczucie",
+            "id": 73
+        },
+        {
+            "en": [
+                "jealousy",
+                "envy"
+            ],
+            "pl": "zazdrość",
+            "id": 74
+        },
+        {
+            "en": [
+                "loyalty",
+                "faithfulness"
+            ],
+            "pl": "lojalność",
+            "id": 75
+        },
+        {
+            "en": [
+                "argument",
+                "dispute",
+                "quarrel"
+            ],
+            "pl": "kłótnia",
+            "id": 76
+        },
+        {
+            "en": [
+                "reconciliation",
+                "resolution"
+            ],
+            "pl": "pojednanie",
+            "id": 77
+        },
+        {
+            "en": [
+                "conflict",
+                "disagreement"
+            ],
+            "pl": "konflikt",
+            "id": 78
+        },
+        {
+            "en": [
+                "compromise"
+            ],
+            "pl": "kompromis",
+            "id": 79
+        },
+        {
+            "en": [
+                "forgiveness",
+                "pardon"
+            ],
+            "pl": "przebaczenie",
+            "id": 80
+        },
+        {
+            "en": [
+                "bond",
+                "connection"
+            ],
+            "pl": "więź",
+            "id": 81
+        },
+        {
+            "en": [
+                "responsibility",
+                "accountability"
+            ],
+            "pl": "odpowiedzialność",
+            "id": 82
+        },
+        {
+            "en": [
+                "protection",
+                "safeguarding"
+            ],
+            "pl": "ochrona",
+            "id": 83
+        },
+        {
+            "en": [
+                "generation"
+            ],
+            "pl": "pokolenie",
+            "id": 84
+        },
+        {
+            "en": [
+                "heritage",
+                "legacy"
+            ],
+            "pl": "dziedzictwo",
+            "id": 85
+        },
+        {
+            "en": [
+                "tradition",
+                "custom"
+            ],
+            "pl": "tradycja",
+            "id": 86
+        },
+        {
+            "en": [
+                "closeness",
+                "intimacy"
+            ],
+            "pl": "bliskość",
+            "id": 87
+        },
+        {
+            "en": [
+                "togetherness",
+                "unity"
+            ],
+            "pl": "wspólnota",
+            "id": 88
+        },
+        {
+            "en": [
+                "privacy",
+                "seclusion"
+            ],
+            "pl": "prywatność",
+            "id": 89
+        },
+        {
+            "en": [
+                "family reunion",
+                "gathering"
+            ],
+            "pl": "zjazd rodzinny",
+            "id": 90
+        },
+        {
+            "en": [
+                "nurture",
+                "care"
+            ],
+            "pl": "pielęgnować",
+            "id": 91
+        },
+        {
+            "en": [
+                "affair",
+                "extramarital relationship"
+            ],
+            "pl": "romans",
+            "id": 92
+        },
+        {
+            "en": [
+                "reliability",
+                "dependability"
+            ],
+            "pl": "niezawodność",
+            "id": 93
+        },
+        {
+            "en": [
+                "attachment",
+                "connection"
+            ],
+            "pl": "przywiązanie",
+            "id": 94
+        },
+        {
+            "en": [
+                "partnership",
+                "collaboration"
+            ],
+            "pl": "partnerstwo",
+            "id": 95
+        },
+        {
+            "en": [
+                "dependence",
+                "reliance"
+            ],
+            "pl": "zależność",
+            "id": 96
+        },
+        {
+            "en": [
+                "dating",
+                "courting"
+            ],
+            "pl": "randkowanie",
+            "id": 97
+        },
+        {
+            "en": [
+                "breakup",
+                "separation",
+                "split"
+            ],
+            "pl": "rozstanie",
+            "id": 98
+        },
+        {
+            "en": [
+                "reunion",
+                "reconnection"
+            ],
+            "pl": "ponowne spotkanie",
+            "id": 99
+        },
+        {
+            "en": [
+                "trustworthiness",
+                "reliability"
+            ],
+            "pl": "wiarygodność",
+            "id": 100
+        }
+    ]
+}

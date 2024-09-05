@@ -1,0 +1,714 @@
+{
+    "categoryId": 4,
+    "translations": [
+        {
+            "en": [
+                "apple"
+            ],
+            "pl": "jabłko",
+            "id": 1
+        },
+        {
+            "en": [
+                "banana"
+            ],
+            "pl": "banan",
+            "id": 2
+        },
+        {
+            "en": [
+                "orange"
+            ],
+            "pl": "pomarańcza",
+            "id": 3
+        },
+        {
+            "en": [
+                "grape"
+            ],
+            "pl": "winogrono",
+            "id": 4
+        },
+        {
+            "en": [
+                "strawberry"
+            ],
+            "pl": "truskawka",
+            "id": 5
+        },
+        {
+            "en": [
+                "blueberry"
+            ],
+            "pl": "borówka",
+            "id": 6
+        },
+        {
+            "en": [
+                "watermelon"
+            ],
+            "pl": "arbuz",
+            "id": 7
+        },
+        {
+            "en": [
+                "peach"
+            ],
+            "pl": "brzoskwinia",
+            "id": 8
+        },
+        {
+            "en": [
+                "cherry"
+            ],
+            "pl": "wiśnia",
+            "id": 9
+        },
+        {
+            "en": [
+                "pear"
+            ],
+            "pl": "gruszka",
+            "id": 10
+        },
+        {
+            "en": [
+                "plum"
+            ],
+            "pl": "śliwka",
+            "id": 11
+        },
+        {
+            "en": [
+                "kiwi"
+            ],
+            "pl": "kiwi",
+            "id": 12
+        },
+        {
+            "en": [
+                "pineapple"
+            ],
+            "pl": "ananas",
+            "id": 13
+        },
+        {
+            "en": [
+                "mango"
+            ],
+            "pl": "mango",
+            "id": 14
+        },
+        {
+            "en": [
+                "lemon"
+            ],
+            "pl": "cytryna",
+            "id": 15
+        },
+        {
+            "en": [
+                "lime"
+            ],
+            "pl": "limonka",
+            "id": 16
+        },
+        {
+            "en": [
+                "tomato"
+            ],
+            "pl": "pomidor",
+            "id": 17
+        },
+        {
+            "en": [
+                "carrot"
+            ],
+            "pl": "marchewka",
+            "id": 18
+        },
+        {
+            "en": [
+                "broccoli"
+            ],
+            "pl": "brokuł",
+            "id": 19
+        },
+        {
+            "en": [
+                "potato"
+            ],
+            "pl": "ziemniak",
+            "id": 20
+        },
+        {
+            "en": [
+                "onion"
+            ],
+            "pl": "cebula",
+            "id": 21
+        },
+        {
+            "en": [
+                "garlic"
+            ],
+            "pl": "czosnek",
+            "id": 22
+        },
+        {
+            "en": [
+                "cucumber"
+            ],
+            "pl": "ogórek",
+            "id": 23
+        },
+        {
+            "en": [
+                "lettuce"
+            ],
+            "pl": "sałata",
+            "id": 24
+        },
+        {
+            "en": [
+                "spinach"
+            ],
+            "pl": "szpinak",
+            "id": 25
+        },
+        {
+            "en": [
+                "cabbage"
+            ],
+            "pl": "kapusta",
+            "id": 26
+        },
+        {
+            "en": [
+                "pepper",
+                "bell pepper"
+            ],
+            "pl": "papryka",
+            "id": 27
+        },
+        {
+            "en": [
+                "zucchini",
+                "courgette"
+            ],
+            "pl": "cukinia",
+            "id": 28
+        },
+        {
+            "en": [
+                "eggplant",
+                "aubergine"
+            ],
+            "pl": "bakłażan",
+            "id": 29
+        },
+        {
+            "en": [
+                "cauliflower"
+            ],
+            "pl": "kalafior",
+            "id": 30
+        },
+        {
+            "en": [
+                "pumpkin"
+            ],
+            "pl": "dynia",
+            "id": 31
+        },
+        {
+            "en": [
+                "sweet potato"
+            ],
+            "pl": "batat",
+            "id": 32
+        },
+        {
+            "en": [
+                "beetroot"
+            ],
+            "pl": "burak",
+            "id": 33
+        },
+        {
+            "en": [
+                "mushroom"
+            ],
+            "pl": "grzyb",
+            "id": 34
+        },
+        {
+            "en": [
+                "corn"
+            ],
+            "pl": "kukurydza",
+            "id": 35
+        },
+        {
+            "en": [
+                "rice"
+            ],
+            "pl": "ryż",
+            "id": 36
+        },
+        {
+            "en": [
+                "bread"
+            ],
+            "pl": "chleb",
+            "id": 37
+        },
+        {
+            "en": [
+                "pasta"
+            ],
+            "pl": "makaron",
+            "id": 38
+        },
+        {
+            "en": [
+                "noodles"
+            ],
+            "pl": "kluski",
+            "id": 39
+        },
+        {
+            "en": [
+                "flour"
+            ],
+            "pl": "mąka",
+            "id": 40
+        },
+        {
+            "en": [
+                "milk"
+            ],
+            "pl": "mleko",
+            "id": 41
+        },
+        {
+            "en": [
+                "cheese"
+            ],
+            "pl": "ser",
+            "id": 42
+        },
+        {
+            "en": [
+                "butter"
+            ],
+            "pl": "masło",
+            "id": 43
+        },
+        {
+            "en": [
+                "yogurt"
+            ],
+            "pl": "jogurt",
+            "id": 44
+        },
+        {
+            "en": [
+                "cream"
+            ],
+            "pl": "śmietana",
+            "id": 45
+        },
+        {
+            "en": [
+                "egg"
+            ],
+            "pl": "jajko",
+            "id": 46
+        },
+        {
+            "en": [
+                "chicken"
+            ],
+            "pl": "kurczak",
+            "id": 47
+        },
+        {
+            "en": [
+                "beef"
+            ],
+            "pl": "wołowina",
+            "id": 48
+        },
+        {
+            "en": [
+                "pork"
+            ],
+            "pl": "wieprzowina",
+            "id": 49
+        },
+        {
+            "en": [
+                "lamb"
+            ],
+            "pl": "jagnięcina",
+            "id": 50
+        },
+        {
+            "en": [
+                "fish"
+            ],
+            "pl": "ryba",
+            "id": 51
+        },
+        {
+            "en": [
+                "salmon"
+            ],
+            "pl": "łosoś",
+            "id": 52
+        },
+        {
+            "en": [
+                "tuna"
+            ],
+            "pl": "tuńczyk",
+            "id": 53
+        },
+        {
+            "en": [
+                "shrimp"
+            ],
+            "pl": "krewetka",
+            "id": 54
+        },
+        {
+            "en": [
+                "crab"
+            ],
+            "pl": "krab",
+            "id": 55
+        },
+        {
+            "en": [
+                "lobster"
+            ],
+            "pl": "homar",
+            "id": 56
+        },
+        {
+            "en": [
+                "oyster"
+            ],
+            "pl": "ostryga",
+            "id": 57
+        },
+        {
+            "en": [
+                "salt"
+            ],
+            "pl": "sól",
+            "id": 58
+        },
+        {
+            "en": [
+                "pepper"
+            ],
+            "pl": "pieprz",
+            "id": 59
+        },
+        {
+            "en": [
+                "sugar"
+            ],
+            "pl": "cukier",
+            "id": 60
+        },
+        {
+            "en": [
+                "honey"
+            ],
+            "pl": "miód",
+            "id": 61
+        },
+        {
+            "en": [
+                "olive oil"
+            ],
+            "pl": "oliwa z oliwek",
+            "id": 62
+        },
+        {
+            "en": [
+                "vinegar"
+            ],
+            "pl": "ocet",
+            "id": 63
+        },
+        {
+            "en": [
+                "soy sauce"
+            ],
+            "pl": "sos sojowy",
+            "id": 64
+        },
+        {
+            "en": [
+                "ketchup"
+            ],
+            "pl": "ketchup",
+            "id": 65
+        },
+        {
+            "en": [
+                "mustard"
+            ],
+            "pl": "musztarda",
+            "id": 66
+        },
+        {
+            "en": [
+                "mayonnaise"
+            ],
+            "pl": "majonez",
+            "id": 67
+        },
+        {
+            "en": [
+                "herbs"
+            ],
+            "pl": "zioła",
+            "id": 68
+        },
+        {
+            "en": [
+                "parsley"
+            ],
+            "pl": "pietruszka",
+            "id": 69
+        },
+        {
+            "en": [
+                "basil"
+            ],
+            "pl": "bazylia",
+            "id": 70
+        },
+        {
+            "en": [
+                "oregano"
+            ],
+            "pl": "oregano",
+            "id": 71
+        },
+        {
+            "en": [
+                "thyme"
+            ],
+            "pl": "tymianek",
+            "id": 72
+        },
+        {
+            "en": [
+                "rosemary"
+            ],
+            "pl": "rozmaryn",
+            "id": 73
+        },
+        {
+            "en": [
+                "ginger"
+            ],
+            "pl": "imbir",
+            "id": 74
+        },
+        {
+            "en": [
+                "cinnamon"
+            ],
+            "pl": "cynamon",
+            "id": 75
+        },
+        {
+            "en": [
+                "turmeric"
+            ],
+            "pl": "kurkuma",
+            "id": 76
+        },
+        {
+            "en": [
+                "chili"
+            ],
+            "pl": "chili",
+            "id": 77
+        },
+        {
+            "en": [
+                "beverage",
+                "drink"
+            ],
+            "pl": "napój",
+            "id": 78
+        },
+        {
+            "en": [
+                "coffee"
+            ],
+            "pl": "kawa",
+            "id": 79
+        },
+        {
+            "en": [
+                "tea"
+            ],
+            "pl": "herbata",
+            "id": 80
+        },
+        {
+            "en": [
+                "juice"
+            ],
+            "pl": "sok",
+            "id": 81
+        },
+        {
+            "en": [
+                "water"
+            ],
+            "pl": "woda",
+            "id": 82
+        },
+        {
+            "en": [
+                "sparkling water",
+                "carbonated water"
+            ],
+            "pl": "woda gazowana",
+            "id": 83
+        },
+        {
+            "en": [
+                "wine"
+            ],
+            "pl": "wino",
+            "id": 84
+        },
+        {
+            "en": [
+                "beer"
+            ],
+            "pl": "piwo",
+            "id": 85
+        },
+        {
+            "en": [
+                "soda",
+                "soft drink"
+            ],
+            "pl": "napój gazowany",
+            "id": 86
+        },
+        {
+            "en": [
+                "smoothie"
+            ],
+            "pl": "koktajl",
+            "id": 87
+        },
+        {
+            "en": [
+                "chocolate"
+            ],
+            "pl": "czekolada",
+            "id": 88
+        },
+        {
+            "en": [
+                "cake"
+            ],
+            "pl": "ciasto",
+            "id": 89
+        },
+        {
+            "en": [
+                "cookie",
+                "biscuit"
+            ],
+            "pl": "ciastko",
+            "id": 90
+        },
+        {
+            "en": [
+                "ice cream"
+            ],
+            "pl": "lody",
+            "id": 91
+        },
+        {
+            "en": [
+                "pie"
+            ],
+            "pl": "placek",
+            "id": 92
+        },
+        {
+            "en": [
+                "candy",
+                "sweets"
+            ],
+            "pl": "cukierki",
+            "id": 93
+        },
+        {
+            "en": [
+                "jam",
+                "jelly"
+            ],
+            "pl": "dżem",
+            "id": 94
+        },
+        {
+            "en": [
+                "peanut butter"
+            ],
+            "pl": "masło orzechowe",
+            "id": 95
+        },
+        {
+            "en": [
+                "granola"
+            ],
+            "pl": "granola",
+            "id": 96
+        },
+        {
+            "en": [
+                "cereal"
+            ],
+            "pl": "płatki śniadaniowe",
+            "id": 97
+        },
+        {
+            "en": [
+                "pancake"
+            ],
+            "pl": "naleśnik",
+            "id": 98
+        },
+        {
+            "en": [
+                "waffle"
+            ],
+            "pl": "gofr",
+            "id": 99
+        },
+        {
+            "en": [
+                "syrup"
+            ],
+            "pl": "syrop",
+            "id": 100
+        }
+    ]
+}
