@@ -1,0 +1,5923 @@
+[
+    {
+        "id": 5,
+        "name": "Home & Living",
+        "words": [
+            {
+                "en": [
+                    "house",
+                    "home",
+                    "residence",
+                    "dwelling"
+                ],
+                "pl": "dom",
+                "id": 1
+            },
+            {
+                "en": [
+                    "apartment",
+                    "flat"
+                ],
+                "pl": "mieszkanie",
+                "id": 2
+            },
+            {
+                "en": [
+                    "room",
+                    "chamber",
+                    "space"
+                ],
+                "pl": "pokój",
+                "id": 3
+            },
+            {
+                "en": [
+                    "living room",
+                    "lounge",
+                    "sitting room"
+                ],
+                "pl": "salon",
+                "id": 4
+            },
+            {
+                "en": [
+                    "kitchen",
+                    "cookhouse"
+                ],
+                "pl": "kuchnia",
+                "id": 5
+            },
+            {
+                "en": [
+                    "bedroom"
+                ],
+                "pl": "sypialnia",
+                "id": 6
+            },
+            {
+                "en": [
+                    "bathroom",
+                    "restroom",
+                    "washroom",
+                    "lavatory"
+                ],
+                "pl": "łazienka",
+                "id": 7
+            },
+            {
+                "en": [
+                    "hallway",
+                    "corridor",
+                    "passage"
+                ],
+                "pl": "korytarz",
+                "id": 8
+            },
+            {
+                "en": [
+                    "attic",
+                    "loft"
+                ],
+                "pl": "strych",
+                "id": 9
+            },
+            {
+                "en": [
+                    "basement",
+                    "cellar"
+                ],
+                "pl": "piwnica",
+                "id": 10
+            },
+            {
+                "en": [
+                    "garage"
+                ],
+                "pl": "garaż",
+                "id": 11
+            },
+            {
+                "en": [
+                    "window",
+                    "pane"
+                ],
+                "pl": "okno",
+                "id": 12
+            },
+            {
+                "en": [
+                    "door",
+                    "entrance",
+                    "gateway"
+                ],
+                "pl": "drzwi",
+                "id": 13
+            },
+            {
+                "en": [
+                    "stairs",
+                    "staircase",
+                    "steps"
+                ],
+                "pl": "schody",
+                "id": 14
+            },
+            {
+                "en": [
+                    "chair",
+                    "seat",
+                    "stool"
+                ],
+                "pl": "krzesło",
+                "id": 15
+            },
+            {
+                "en": [
+                    "table",
+                    "desk",
+                    "counter"
+                ],
+                "pl": "stół",
+                "id": 16
+            },
+            {
+                "en": [
+                    "sofa",
+                    "couch",
+                    "settee"
+                ],
+                "pl": "kanapa",
+                "id": 17
+            },
+            {
+                "en": [
+                    "armchair",
+                    "recliner"
+                ],
+                "pl": "fotel",
+                "id": 18
+            },
+            {
+                "en": [
+                    "cupboard",
+                    "cabinet",
+                    "closet"
+                ],
+                "pl": "szafka",
+                "id": 19
+            },
+            {
+                "en": [
+                    "wardrobe",
+                    "closet"
+                ],
+                "pl": "szafa",
+                "id": 20
+            },
+            {
+                "en": [
+                    "bookshelf",
+                    "bookcase"
+                ],
+                "pl": "regał na książki",
+                "id": 21
+            },
+            {
+                "en": [
+                    "shelf",
+                    "rack"
+                ],
+                "pl": "półka",
+                "id": 22
+            },
+            {
+                "en": [
+                    "drawer"
+                ],
+                "pl": "szuflada",
+                "id": 23
+            },
+            {
+                "en": [
+                    "bed",
+                    "bunk",
+                    "mattress"
+                ],
+                "pl": "łóżko",
+                "id": 24
+            },
+            {
+                "en": [
+                    "pillow",
+                    "cushion"
+                ],
+                "pl": "poduszka",
+                "id": 25
+            },
+            {
+                "en": [
+                    "blanket",
+                    "quilt",
+                    "duvet"
+                ],
+                "pl": "koc",
+                "id": 26
+            },
+            {
+                "en": [
+                    "curtain",
+                    "drapes",
+                    "blinds"
+                ],
+                "pl": "zasłona",
+                "id": 27
+            },
+            {
+                "en": [
+                    "rug",
+                    "carpet",
+                    "mat"
+                ],
+                "pl": "dywan",
+                "id": 28
+            },
+            {
+                "en": [
+                    "lamp",
+                    "light"
+                ],
+                "pl": "lampa",
+                "id": 29
+            },
+            {
+                "en": [
+                    "chandelier"
+                ],
+                "pl": "żyrandol",
+                "id": 30
+            },
+            {
+                "en": [
+                    "fan"
+                ],
+                "pl": "wentylator",
+                "id": 31
+            },
+            {
+                "en": [
+                    "heater",
+                    "radiator"
+                ],
+                "pl": "grzejnik",
+                "id": 32
+            },
+            {
+                "en": [
+                    "air conditioner",
+                    "AC"
+                ],
+                "pl": "klimatyzator",
+                "id": 33
+            },
+            {
+                "en": [
+                    "fridge",
+                    "refrigerator"
+                ],
+                "pl": "lodówka",
+                "id": 34
+            },
+            {
+                "en": [
+                    "freezer"
+                ],
+                "pl": "zamrażarka",
+                "id": 35
+            },
+            {
+                "en": [
+                    "oven",
+                    "stove",
+                    "cooker"
+                ],
+                "pl": "piec",
+                "id": 36
+            },
+            {
+                "en": [
+                    "microwave"
+                ],
+                "pl": "mikrofalówka",
+                "id": 37
+            },
+            {
+                "en": [
+                    "sink",
+                    "basin"
+                ],
+                "pl": "zlew",
+                "id": 38
+            },
+            {
+                "en": [
+                    "tap",
+                    "faucet"
+                ],
+                "pl": "kran",
+                "id": 39
+            },
+            {
+                "en": [
+                    "dishwasher"
+                ],
+                "pl": "zmywarka",
+                "id": 40
+            },
+            {
+                "en": [
+                    "washing machine",
+                    "laundry machine"
+                ],
+                "pl": "pralka",
+                "id": 41
+            },
+            {
+                "en": [
+                    "dryer"
+                ],
+                "pl": "suszarka",
+                "id": 42
+            },
+            {
+                "en": [
+                    "toilet",
+                    "lavatory",
+                    "WC"
+                ],
+                "pl": "toaleta",
+                "id": 43
+            },
+            {
+                "en": [
+                    "mirror"
+                ],
+                "pl": "lustro",
+                "id": 44
+            },
+            {
+                "en": [
+                    "fireplace",
+                    "hearth"
+                ],
+                "pl": "kominek",
+                "id": 45
+            },
+            {
+                "en": [
+                    "ceiling",
+                    "roof"
+                ],
+                "pl": "sufit",
+                "id": 46
+            },
+            {
+                "en": [
+                    "floor",
+                    "ground"
+                ],
+                "pl": "podłoga",
+                "id": 47
+            },
+            {
+                "en": [
+                    "wall"
+                ],
+                "pl": "ściana",
+                "id": 48
+            },
+            {
+                "en": [
+                    "doorbell"
+                ],
+                "pl": "dzwonek do drzwi",
+                "id": 49
+            },
+            {
+                "en": [
+                    "alarm",
+                    "security system"
+                ],
+                "pl": "alarm",
+                "id": 50
+            },
+            {
+                "en": [
+                    "broom",
+                    "sweeper"
+                ],
+                "pl": "miotła",
+                "id": 51
+            },
+            {
+                "en": [
+                    "vacuum cleaner",
+                    "hoover"
+                ],
+                "pl": "odkurzacz",
+                "id": 52
+            },
+            {
+                "en": [
+                    "mop"
+                ],
+                "pl": "mop",
+                "id": 53
+            },
+            {
+                "en": [
+                    "bucket"
+                ],
+                "pl": "wiadro",
+                "id": 54
+            },
+            {
+                "en": [
+                    "iron"
+                ],
+                "pl": "żelazko",
+                "id": 55
+            },
+            {
+                "en": [
+                    "ironing board"
+                ],
+                "pl": "deska do prasowania",
+                "id": 56
+            },
+            {
+                "en": [
+                    "laundry",
+                    "clothes"
+                ],
+                "pl": "pranie",
+                "id": 57
+            },
+            {
+                "en": [
+                    "trash can",
+                    "bin",
+                    "garbage can"
+                ],
+                "pl": "kosz na śmieci",
+                "id": 58
+            },
+            {
+                "en": [
+                    "recycling bin"
+                ],
+                "pl": "kosz na recykling",
+                "id": 59
+            },
+            {
+                "en": [
+                    "light switch"
+                ],
+                "pl": "włącznik światła",
+                "id": 60
+            },
+            {
+                "en": [
+                    "socket",
+                    "power outlet"
+                ],
+                "pl": "gniazdko",
+                "id": 61
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Food & Nutrition",
+        "words": [
+            {
+                "en": [
+                    "food",
+                    "meal",
+                    "dish"
+                ],
+                "pl": "jedzenie",
+                "id": 62
+            },
+            {
+                "en": [
+                    "fruit",
+                    "fruits"
+                ],
+                "pl": "owoc",
+                "id": 63
+            },
+            {
+                "en": [
+                    "vegetable",
+                    "veggie"
+                ],
+                "pl": "warzywo",
+                "id": 64
+            },
+            {
+                "en": [
+                    "meat",
+                    "flesh"
+                ],
+                "pl": "mięso",
+                "id": 65
+            },
+            {
+                "en": [
+                    "fish"
+                ],
+                "pl": "ryba",
+                "id": 66
+            },
+            {
+                "en": [
+                    "egg"
+                ],
+                "pl": "jajko",
+                "id": 67
+            },
+            {
+                "en": [
+                    "bread",
+                    "loaf"
+                ],
+                "pl": "chleb",
+                "id": 68
+            },
+            {
+                "en": [
+                    "rice"
+                ],
+                "pl": "ryż",
+                "id": 69
+            },
+            {
+                "en": [
+                    "pasta",
+                    "noodles"
+                ],
+                "pl": "makaron",
+                "id": 70
+            },
+            {
+                "en": [
+                    "soup",
+                    "broth"
+                ],
+                "pl": "zupa",
+                "id": 71
+            },
+            {
+                "en": [
+                    "salad"
+                ],
+                "pl": "sałatka",
+                "id": 72
+            },
+            {
+                "en": [
+                    "snack",
+                    "bite"
+                ],
+                "pl": "przekąska",
+                "id": 73
+            },
+            {
+                "en": [
+                    "cheese"
+                ],
+                "pl": "ser",
+                "id": 74
+            },
+            {
+                "en": [
+                    "butter"
+                ],
+                "pl": "masło",
+                "id": 75
+            },
+            {
+                "en": [
+                    "milk"
+                ],
+                "pl": "mleko",
+                "id": 76
+            },
+            {
+                "en": [
+                    "juice",
+                    "nectar"
+                ],
+                "pl": "sok",
+                "id": 77
+            },
+            {
+                "en": [
+                    "water",
+                    "liquid"
+                ],
+                "pl": "woda",
+                "id": 78
+            },
+            {
+                "en": [
+                    "tea"
+                ],
+                "pl": "herbata",
+                "id": 79
+            },
+            {
+                "en": [
+                    "coffee"
+                ],
+                "pl": "kawa",
+                "id": 80
+            },
+            {
+                "en": [
+                    "sugar"
+                ],
+                "pl": "cukier",
+                "id": 81
+            },
+            {
+                "en": [
+                    "salt"
+                ],
+                "pl": "sól",
+                "id": 82
+            },
+            {
+                "en": [
+                    "pepper"
+                ],
+                "pl": "pieprz",
+                "id": 83
+            },
+            {
+                "en": [
+                    "oil",
+                    "cooking oil"
+                ],
+                "pl": "olej",
+                "id": 84
+            },
+            {
+                "en": [
+                    "flour"
+                ],
+                "pl": "mąka",
+                "id": 85
+            },
+            {
+                "en": [
+                    "honey"
+                ],
+                "pl": "miód",
+                "id": 86
+            },
+            {
+                "en": [
+                    "cake",
+                    "pastry"
+                ],
+                "pl": "ciasto",
+                "id": 87
+            },
+            {
+                "en": [
+                    "chocolate",
+                    "candy"
+                ],
+                "pl": "czekolada",
+                "id": 88
+            },
+            {
+                "en": [
+                    "jam",
+                    "jelly",
+                    "preserve"
+                ],
+                "pl": "dżem",
+                "id": 89
+            },
+            {
+                "en": [
+                    "apple"
+                ],
+                "pl": "jabłko",
+                "id": 90
+            },
+            {
+                "en": [
+                    "banana"
+                ],
+                "pl": "banan",
+                "id": 91
+            },
+            {
+                "en": [
+                    "orange"
+                ],
+                "pl": "pomarańcza",
+                "id": 92
+            },
+            {
+                "en": [
+                    "grape",
+                    "grapes"
+                ],
+                "pl": "winogrono",
+                "id": 93
+            },
+            {
+                "en": [
+                    "pear"
+                ],
+                "pl": "gruszka",
+                "id": 94
+            },
+            {
+                "en": [
+                    "carrot"
+                ],
+                "pl": "marchew",
+                "id": 95
+            },
+            {
+                "en": [
+                    "potato"
+                ],
+                "pl": "ziemniak",
+                "id": 96
+            },
+            {
+                "en": [
+                    "tomato"
+                ],
+                "pl": "pomidor",
+                "id": 97
+            },
+            {
+                "en": [
+                    "onion"
+                ],
+                "pl": "cebula",
+                "id": 98
+            },
+            {
+                "en": [
+                    "garlic"
+                ],
+                "pl": "czosnek",
+                "id": 99
+            },
+            {
+                "en": [
+                    "lettuce"
+                ],
+                "pl": "sałata",
+                "id": 100
+            },
+            {
+                "en": [
+                    "cucumber"
+                ],
+                "pl": "ogórek",
+                "id": 101
+            },
+            {
+                "en": [
+                    "pepper",
+                    "bell pepper"
+                ],
+                "pl": "papryka",
+                "id": 102
+            },
+            {
+                "en": [
+                    "spinach"
+                ],
+                "pl": "szpinak",
+                "id": 103
+            },
+            {
+                "en": [
+                    "mushroom"
+                ],
+                "pl": "grzyb",
+                "id": 104
+            },
+            {
+                "en": [
+                    "beef",
+                    "steak"
+                ],
+                "pl": "wołowina",
+                "id": 105
+            },
+            {
+                "en": [
+                    "chicken",
+                    "poultry"
+                ],
+                "pl": "kurczak",
+                "id": 106
+            },
+            {
+                "en": [
+                    "pork",
+                    "ham"
+                ],
+                "pl": "wieprzowina",
+                "id": 107
+            },
+            {
+                "en": [
+                    "bacon"
+                ],
+                "pl": "boczek",
+                "id": 108
+            },
+            {
+                "en": [
+                    "sausage",
+                    "wurst"
+                ],
+                "pl": "kiełbasa",
+                "id": 109
+            },
+            {
+                "en": [
+                    "steak"
+                ],
+                "pl": "stek",
+                "id": 110
+            },
+            {
+                "en": [
+                    "sandwich",
+                    "sub"
+                ],
+                "pl": "kanapka",
+                "id": 111
+            },
+            {
+                "en": [
+                    "pizza"
+                ],
+                "pl": "pizza",
+                "id": 112
+            },
+            {
+                "en": [
+                    "hamburger",
+                    "burger"
+                ],
+                "pl": "hamburger",
+                "id": 113
+            },
+            {
+                "en": [
+                    "fries",
+                    "chips"
+                ],
+                "pl": "frytki",
+                "id": 114
+            },
+            {
+                "en": [
+                    "biscuit",
+                    "cookie"
+                ],
+                "pl": "ciastko",
+                "id": 115
+            },
+            {
+                "en": [
+                    "yogurt"
+                ],
+                "pl": "jogurt",
+                "id": 116
+            },
+            {
+                "en": [
+                    "cream"
+                ],
+                "pl": "śmietana",
+                "id": 117
+            },
+            {
+                "en": [
+                    "soup",
+                    "stew"
+                ],
+                "pl": "gulasz",
+                "id": 118
+            },
+            {
+                "en": [
+                    "spices",
+                    "seasonings"
+                ],
+                "pl": "przyprawy",
+                "id": 119
+            },
+            {
+                "en": [
+                    "herbs"
+                ],
+                "pl": "zioła",
+                "id": 120
+            },
+            {
+                "en": [
+                    "vinegar"
+                ],
+                "pl": "ocet",
+                "id": 121
+            },
+            {
+                "en": [
+                    "nuts",
+                    "walnuts"
+                ],
+                "pl": "orzechy",
+                "id": 122
+            },
+            {
+                "en": [
+                    "ice cream"
+                ],
+                "pl": "lody",
+                "id": 123
+            },
+            {
+                "en": [
+                    "pie"
+                ],
+                "pl": "placek",
+                "id": 124
+            },
+            {
+                "en": [
+                    "pancake"
+                ],
+                "pl": "naleśnik",
+                "id": 125
+            },
+            {
+                "en": [
+                    "syrup"
+                ],
+                "pl": "syrop",
+                "id": 126
+            },
+            {
+                "en": [
+                    "buttermilk"
+                ],
+                "pl": "maślanka",
+                "id": 127
+            },
+            {
+                "en": [
+                    "margarine"
+                ],
+                "pl": "margaryna",
+                "id": 128
+            },
+            {
+                "en": [
+                    "pudding"
+                ],
+                "pl": "budyń",
+                "id": 129
+            },
+            {
+                "en": [
+                    "cereal",
+                    "grains"
+                ],
+                "pl": "płatki",
+                "id": 130
+            },
+            {
+                "en": [
+                    "corn",
+                    "maize"
+                ],
+                "pl": "kukurydza",
+                "id": 131
+            },
+            {
+                "en": [
+                    "peppermint",
+                    "mint"
+                ],
+                "pl": "mięta",
+                "id": 132
+            },
+            {
+                "en": [
+                    "sauce",
+                    "gravy"
+                ],
+                "pl": "sos",
+                "id": 133
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "name": "Family & Relationships",
+        "words": [
+            {
+                "en": [
+                    "family"
+                ],
+                "pl": "rodzina",
+                "id": 134
+            },
+            {
+                "en": [
+                    "mother",
+                    "mom",
+                    "mum"
+                ],
+                "pl": "matka",
+                "id": 135
+            },
+            {
+                "en": [
+                    "father",
+                    "dad"
+                ],
+                "pl": "ojciec",
+                "id": 136
+            },
+            {
+                "en": [
+                    "parent"
+                ],
+                "pl": "rodzic",
+                "id": 137
+            },
+            {
+                "en": [
+                    "child",
+                    "kid"
+                ],
+                "pl": "dziecko",
+                "id": 138
+            },
+            {
+                "en": [
+                    "son"
+                ],
+                "pl": "syn",
+                "id": 139
+            },
+            {
+                "en": [
+                    "daughter"
+                ],
+                "pl": "córka",
+                "id": 140
+            },
+            {
+                "en": [
+                    "brother",
+                    "sibling"
+                ],
+                "pl": "brat",
+                "id": 141
+            },
+            {
+                "en": [
+                    "sister",
+                    "sibling"
+                ],
+                "pl": "siostra",
+                "id": 142
+            },
+            {
+                "en": [
+                    "grandmother",
+                    "grandma",
+                    "granny"
+                ],
+                "pl": "babcia",
+                "id": 143
+            },
+            {
+                "en": [
+                    "grandfather",
+                    "grandpa",
+                    "granddad"
+                ],
+                "pl": "dziadek",
+                "id": 144
+            },
+            {
+                "en": [
+                    "grandparents"
+                ],
+                "pl": "dziadkowie",
+                "id": 145
+            },
+            {
+                "en": [
+                    "cousin"
+                ],
+                "pl": "kuzyn",
+                "id": 146
+            },
+            {
+                "en": [
+                    "aunt",
+                    "auntie"
+                ],
+                "pl": "ciocia",
+                "id": 147
+            },
+            {
+                "en": [
+                    "uncle"
+                ],
+                "pl": "wujek",
+                "id": 148
+            },
+            {
+                "en": [
+                    "niece"
+                ],
+                "pl": "siostrzenica",
+                "id": 149
+            },
+            {
+                "en": [
+                    "nephew"
+                ],
+                "pl": "siostrzeniec",
+                "id": 150
+            },
+            {
+                "en": [
+                    "husband"
+                ],
+                "pl": "mąż",
+                "id": 151
+            },
+            {
+                "en": [
+                    "wife"
+                ],
+                "pl": "żona",
+                "id": 152
+            },
+            {
+                "en": [
+                    "marriage",
+                    "wedlock"
+                ],
+                "pl": "małżeństwo",
+                "id": 153
+            },
+            {
+                "en": [
+                    "relationship",
+                    "partnership"
+                ],
+                "pl": "związek",
+                "id": 154
+            },
+            {
+                "en": [
+                    "love",
+                    "affection"
+                ],
+                "pl": "miłość",
+                "id": 155
+            },
+            {
+                "en": [
+                    "engagement",
+                    "betrothal"
+                ],
+                "pl": "zaręczyny",
+                "id": 156
+            },
+            {
+                "en": [
+                    "wedding",
+                    "marriage ceremony"
+                ],
+                "pl": "ślub",
+                "id": 157
+            },
+            {
+                "en": [
+                    "anniversary"
+                ],
+                "pl": "rocznica",
+                "id": 158
+            },
+            {
+                "en": [
+                    "friend",
+                    "pal",
+                    "buddy"
+                ],
+                "pl": "przyjaciel",
+                "id": 159
+            },
+            {
+                "en": [
+                    "best friend"
+                ],
+                "pl": "najlepszy przyjaciel",
+                "id": 160
+            },
+            {
+                "en": [
+                    "boyfriend",
+                    "partner"
+                ],
+                "pl": "chłopak",
+                "id": 161
+            },
+            {
+                "en": [
+                    "girlfriend",
+                    "partner"
+                ],
+                "pl": "dziewczyna",
+                "id": 162
+            },
+            {
+                "en": [
+                    "partner",
+                    "companion"
+                ],
+                "pl": "partner",
+                "id": 163
+            },
+            {
+                "en": [
+                    "sibling"
+                ],
+                "pl": "rodzeństwo",
+                "id": 164
+            },
+            {
+                "en": [
+                    "stepfather"
+                ],
+                "pl": "ojczym",
+                "id": 165
+            },
+            {
+                "en": [
+                    "stepmother"
+                ],
+                "pl": "macocha",
+                "id": 166
+            },
+            {
+                "en": [
+                    "stepson"
+                ],
+                "pl": "pasierb",
+                "id": 167
+            },
+            {
+                "en": [
+                    "stepdaughter"
+                ],
+                "pl": "pasierbica",
+                "id": 168
+            },
+            {
+                "en": [
+                    "half-brother",
+                    "stepbrother"
+                ],
+                "pl": "przyrodni brat",
+                "id": 169
+            },
+            {
+                "en": [
+                    "half-sister",
+                    "stepsister"
+                ],
+                "pl": "przyrodnia siostra",
+                "id": 170
+            },
+            {
+                "en": [
+                    "adoption"
+                ],
+                "pl": "adopcja",
+                "id": 171
+            },
+            {
+                "en": [
+                    "divorce",
+                    "separation"
+                ],
+                "pl": "rozwód",
+                "id": 172
+            },
+            {
+                "en": [
+                    "separation",
+                    "split"
+                ],
+                "pl": "separacja",
+                "id": 173
+            },
+            {
+                "en": [
+                    "father-in-law"
+                ],
+                "pl": "teść",
+                "id": 174
+            },
+            {
+                "en": [
+                    "mother-in-law"
+                ],
+                "pl": "teściowa",
+                "id": 175
+            },
+            {
+                "en": [
+                    "brother-in-law"
+                ],
+                "pl": "szwagier",
+                "id": 176
+            },
+            {
+                "en": [
+                    "sister-in-law"
+                ],
+                "pl": "szwagierka",
+                "id": 177
+            },
+            {
+                "en": [
+                    "extended family"
+                ],
+                "pl": "rodzina wielopokoleniowa",
+                "id": 178
+            },
+            {
+                "en": [
+                    "single",
+                    "unmarried"
+                ],
+                "pl": "singiel",
+                "id": 179
+            },
+            {
+                "en": [
+                    "engaged"
+                ],
+                "pl": "zaręczony",
+                "id": 180
+            },
+            {
+                "en": [
+                    "married",
+                    "wed"
+                ],
+                "pl": "żonaty/zamężna",
+                "id": 181
+            },
+            {
+                "en": [
+                    "divorced",
+                    "separated"
+                ],
+                "pl": "rozwiedziony",
+                "id": 182
+            },
+            {
+                "en": [
+                    "widow"
+                ],
+                "pl": "wdowa",
+                "id": 183
+            },
+            {
+                "en": [
+                    "widower"
+                ],
+                "pl": "wdowiec",
+                "id": 184
+            },
+            {
+                "en": [
+                    "foster parent"
+                ],
+                "pl": "rodzic zastępczy",
+                "id": 185
+            },
+            {
+                "en": [
+                    "guardian",
+                    "caretaker"
+                ],
+                "pl": "opiekun",
+                "id": 186
+            },
+            {
+                "en": [
+                    "godfather"
+                ],
+                "pl": "ojciec chrzestny",
+                "id": 187
+            },
+            {
+                "en": [
+                    "godmother"
+                ],
+                "pl": "matka chrzestna",
+                "id": 188
+            },
+            {
+                "en": [
+                    "godchild"
+                ],
+                "pl": "chrześniak",
+                "id": 189
+            },
+            {
+                "en": [
+                    "mentor"
+                ],
+                "pl": "mentor",
+                "id": 190
+            },
+            {
+                "en": [
+                    "role model"
+                ],
+                "pl": "wzór do naśladowania",
+                "id": 191
+            },
+            {
+                "en": [
+                    "colleague",
+                    "coworker"
+                ],
+                "pl": "kolega z pracy",
+                "id": 192
+            },
+            {
+                "en": [
+                    "neighbor"
+                ],
+                "pl": "sąsiad",
+                "id": 193
+            },
+            {
+                "en": [
+                    "support",
+                    "assistance"
+                ],
+                "pl": "wsparcie",
+                "id": 194
+            },
+            {
+                "en": [
+                    "trust",
+                    "faith"
+                ],
+                "pl": "zaufanie",
+                "id": 195
+            },
+            {
+                "en": [
+                    "communication",
+                    "interaction"
+                ],
+                "pl": "komunikacja",
+                "id": 196
+            },
+            {
+                "en": [
+                    "understanding",
+                    "comprehension"
+                ],
+                "pl": "zrozumienie",
+                "id": 197
+            },
+            {
+                "en": [
+                    "care",
+                    "attention"
+                ],
+                "pl": "opieka",
+                "id": 198
+            },
+            {
+                "en": [
+                    "respect",
+                    "esteem"
+                ],
+                "pl": "szacunek",
+                "id": 199
+            },
+            {
+                "en": [
+                    "kindness",
+                    "compassion"
+                ],
+                "pl": "życzliwość",
+                "id": 200
+            },
+            {
+                "en": [
+                    "honesty",
+                    "truthfulness"
+                ],
+                "pl": "uczciwość",
+                "id": 201
+            },
+            {
+                "en": [
+                    "commitment",
+                    "dedication"
+                ],
+                "pl": "zaangażowanie",
+                "id": 202
+            },
+            {
+                "en": [
+                    "patience",
+                    "tolerance"
+                ],
+                "pl": "cierpliwość",
+                "id": 203
+            },
+            {
+                "en": [
+                    "empathy",
+                    "sympathy"
+                ],
+                "pl": "empatia",
+                "id": 204
+            },
+            {
+                "en": [
+                    "supportive",
+                    "encouraging"
+                ],
+                "pl": "wspierający",
+                "id": 205
+            },
+            {
+                "en": [
+                    "affection",
+                    "fondness"
+                ],
+                "pl": "uczucie",
+                "id": 206
+            },
+            {
+                "en": [
+                    "jealousy",
+                    "envy"
+                ],
+                "pl": "zazdrość",
+                "id": 207
+            },
+            {
+                "en": [
+                    "loyalty",
+                    "faithfulness"
+                ],
+                "pl": "lojalność",
+                "id": 208
+            },
+            {
+                "en": [
+                    "argument",
+                    "dispute",
+                    "quarrel"
+                ],
+                "pl": "kłótnia",
+                "id": 209
+            },
+            {
+                "en": [
+                    "reconciliation",
+                    "resolution"
+                ],
+                "pl": "pojednanie",
+                "id": 210
+            },
+            {
+                "en": [
+                    "conflict",
+                    "disagreement"
+                ],
+                "pl": "konflikt",
+                "id": 211
+            },
+            {
+                "en": [
+                    "compromise"
+                ],
+                "pl": "kompromis",
+                "id": 212
+            },
+            {
+                "en": [
+                    "forgiveness",
+                    "pardon"
+                ],
+                "pl": "przebaczenie",
+                "id": 213
+            },
+            {
+                "en": [
+                    "bond",
+                    "connection"
+                ],
+                "pl": "więź",
+                "id": 214
+            },
+            {
+                "en": [
+                    "responsibility",
+                    "accountability"
+                ],
+                "pl": "odpowiedzialność",
+                "id": 215
+            },
+            {
+                "en": [
+                    "protection",
+                    "safeguarding"
+                ],
+                "pl": "ochrona",
+                "id": 216
+            },
+            {
+                "en": [
+                    "generation"
+                ],
+                "pl": "pokolenie",
+                "id": 217
+            },
+            {
+                "en": [
+                    "heritage",
+                    "legacy"
+                ],
+                "pl": "dziedzictwo",
+                "id": 218
+            },
+            {
+                "en": [
+                    "tradition",
+                    "custom"
+                ],
+                "pl": "tradycja",
+                "id": 219
+            },
+            {
+                "en": [
+                    "closeness",
+                    "intimacy"
+                ],
+                "pl": "bliskość",
+                "id": 220
+            },
+            {
+                "en": [
+                    "togetherness",
+                    "unity"
+                ],
+                "pl": "wspólnota",
+                "id": 221
+            },
+            {
+                "en": [
+                    "privacy",
+                    "seclusion"
+                ],
+                "pl": "prywatność",
+                "id": 222
+            },
+            {
+                "en": [
+                    "family reunion",
+                    "gathering"
+                ],
+                "pl": "zjazd rodzinny",
+                "id": 223
+            },
+            {
+                "en": [
+                    "nurture",
+                    "care"
+                ],
+                "pl": "pielęgnować",
+                "id": 224
+            },
+            {
+                "en": [
+                    "affair",
+                    "extramarital relationship"
+                ],
+                "pl": "romans",
+                "id": 225
+            },
+            {
+                "en": [
+                    "reliability",
+                    "dependability"
+                ],
+                "pl": "niezawodność",
+                "id": 226
+            },
+            {
+                "en": [
+                    "attachment",
+                    "connection"
+                ],
+                "pl": "przywiązanie",
+                "id": 227
+            },
+            {
+                "en": [
+                    "partnership",
+                    "collaboration"
+                ],
+                "pl": "partnerstwo",
+                "id": 228
+            },
+            {
+                "en": [
+                    "dependence",
+                    "reliance"
+                ],
+                "pl": "zależność",
+                "id": 229
+            },
+            {
+                "en": [
+                    "dating",
+                    "courting"
+                ],
+                "pl": "randkowanie",
+                "id": 230
+            },
+            {
+                "en": [
+                    "breakup",
+                    "separation",
+                    "split"
+                ],
+                "pl": "rozstanie",
+                "id": 231
+            },
+            {
+                "en": [
+                    "reunion",
+                    "reconnection"
+                ],
+                "pl": "ponowne spotkanie",
+                "id": 232
+            },
+            {
+                "en": [
+                    "trustworthiness",
+                    "reliability"
+                ],
+                "pl": "wiarygodność",
+                "id": 233
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Work & Career",
+        "words": [
+            {
+                "en": [
+                    "job",
+                    "occupation"
+                ],
+                "pl": "praca",
+                "id": 234
+            },
+            {
+                "en": [
+                    "career"
+                ],
+                "pl": "kariera",
+                "id": 235
+            },
+            {
+                "en": [
+                    "employment"
+                ],
+                "pl": "zatrudnienie",
+                "id": 236
+            },
+            {
+                "en": [
+                    "employer"
+                ],
+                "pl": "pracodawca",
+                "id": 237
+            },
+            {
+                "en": [
+                    "employee",
+                    "worker"
+                ],
+                "pl": "pracownik",
+                "id": 238
+            },
+            {
+                "en": [
+                    "colleague",
+                    "coworker"
+                ],
+                "pl": "kolega z pracy",
+                "id": 239
+            },
+            {
+                "en": [
+                    "manager",
+                    "supervisor"
+                ],
+                "pl": "kierownik",
+                "id": 240
+            },
+            {
+                "en": [
+                    "boss"
+                ],
+                "pl": "szef",
+                "id": 241
+            },
+            {
+                "en": [
+                    "executive"
+                ],
+                "pl": "dyrektor",
+                "id": 242
+            },
+            {
+                "en": [
+                    "promotion",
+                    "advancement"
+                ],
+                "pl": "awans",
+                "id": 243
+            },
+            {
+                "en": [
+                    "salary",
+                    "wage",
+                    "pay"
+                ],
+                "pl": "wynagrodzenie",
+                "id": 244
+            },
+            {
+                "en": [
+                    "raise",
+                    "pay increase"
+                ],
+                "pl": "podwyżka",
+                "id": 245
+            },
+            {
+                "en": [
+                    "bonus"
+                ],
+                "pl": "premia",
+                "id": 246
+            },
+            {
+                "en": [
+                    "overtime"
+                ],
+                "pl": "nadgodziny",
+                "id": 247
+            },
+            {
+                "en": [
+                    "shift"
+                ],
+                "pl": "zmiana",
+                "id": 248
+            },
+            {
+                "en": [
+                    "part-time"
+                ],
+                "pl": "w niepełnym wymiarze godzin",
+                "id": 249
+            },
+            {
+                "en": [
+                    "full-time"
+                ],
+                "pl": "pełny etat",
+                "id": 250
+            },
+            {
+                "en": [
+                    "contract"
+                ],
+                "pl": "umowa",
+                "id": 251
+            },
+            {
+                "en": [
+                    "temporary",
+                    "temp"
+                ],
+                "pl": "tymczasowy",
+                "id": 252
+            },
+            {
+                "en": [
+                    "freelancer"
+                ],
+                "pl": "wolny strzelec",
+                "id": 253
+            },
+            {
+                "en": [
+                    "self-employed"
+                ],
+                "pl": "samozatrudniony",
+                "id": 254
+            },
+            {
+                "en": [
+                    "unemployed"
+                ],
+                "pl": "bezrobotny",
+                "id": 255
+            },
+            {
+                "en": [
+                    "retirement"
+                ],
+                "pl": "emerytura",
+                "id": 256
+            },
+            {
+                "en": [
+                    "internship"
+                ],
+                "pl": "staż",
+                "id": 257
+            },
+            {
+                "en": [
+                    "intern"
+                ],
+                "pl": "stażysta",
+                "id": 258
+            },
+            {
+                "en": [
+                    "apprenticeship"
+                ],
+                "pl": "praktyka zawodowa",
+                "id": 259
+            },
+            {
+                "en": [
+                    "training",
+                    "education"
+                ],
+                "pl": "szkolenie",
+                "id": 260
+            },
+            {
+                "en": [
+                    "skills"
+                ],
+                "pl": "umiejętności",
+                "id": 261
+            },
+            {
+                "en": [
+                    "qualifications"
+                ],
+                "pl": "kwalifikacje",
+                "id": 262
+            },
+            {
+                "en": [
+                    "experience"
+                ],
+                "pl": "doświadczenie",
+                "id": 263
+            },
+            {
+                "en": [
+                    "interview",
+                    "job interview"
+                ],
+                "pl": "rozmowa kwalifikacyjna",
+                "id": 264
+            },
+            {
+                "en": [
+                    "recruitment"
+                ],
+                "pl": "rekrutacja",
+                "id": 265
+            },
+            {
+                "en": [
+                    "application",
+                    "job application"
+                ],
+                "pl": "aplikacja o pracę",
+                "id": 266
+            },
+            {
+                "en": [
+                    "resume",
+                    "CV"
+                ],
+                "pl": "życiorys",
+                "id": 267
+            },
+            {
+                "en": [
+                    "cover letter"
+                ],
+                "pl": "list motywacyjny",
+                "id": 268
+            },
+            {
+                "en": [
+                    "job offer"
+                ],
+                "pl": "oferta pracy",
+                "id": 269
+            },
+            {
+                "en": [
+                    "job listing",
+                    "vacancy"
+                ],
+                "pl": "ogłoszenie o pracę",
+                "id": 270
+            },
+            {
+                "en": [
+                    "team"
+                ],
+                "pl": "zespół",
+                "id": 271
+            },
+            {
+                "en": [
+                    "collaboration",
+                    "teamwork"
+                ],
+                "pl": "współpraca",
+                "id": 272
+            },
+            {
+                "en": [
+                    "meeting",
+                    "conference"
+                ],
+                "pl": "spotkanie",
+                "id": 273
+            },
+            {
+                "en": [
+                    "presentation"
+                ],
+                "pl": "prezentacja",
+                "id": 274
+            },
+            {
+                "en": [
+                    "deadline"
+                ],
+                "pl": "termin",
+                "id": 275
+            },
+            {
+                "en": [
+                    "task",
+                    "assignment"
+                ],
+                "pl": "zadanie",
+                "id": 276
+            },
+            {
+                "en": [
+                    "project"
+                ],
+                "pl": "projekt",
+                "id": 277
+            },
+            {
+                "en": [
+                    "goal",
+                    "objective"
+                ],
+                "pl": "cel",
+                "id": 278
+            },
+            {
+                "en": [
+                    "productivity",
+                    "efficiency"
+                ],
+                "pl": "wydajność",
+                "id": 279
+            },
+            {
+                "en": [
+                    "workplace"
+                ],
+                "pl": "miejsce pracy",
+                "id": 280
+            },
+            {
+                "en": [
+                    "office"
+                ],
+                "pl": "biuro",
+                "id": 281
+            },
+            {
+                "en": [
+                    "remote work",
+                    "telecommuting"
+                ],
+                "pl": "praca zdalna",
+                "id": 282
+            },
+            {
+                "en": [
+                    "home office"
+                ],
+                "pl": "biuro domowe",
+                "id": 283
+            },
+            {
+                "en": [
+                    "company",
+                    "firm"
+                ],
+                "pl": "firma",
+                "id": 284
+            },
+            {
+                "en": [
+                    "business"
+                ],
+                "pl": "biznes",
+                "id": 285
+            },
+            {
+                "en": [
+                    "corporation"
+                ],
+                "pl": "korporacja",
+                "id": 286
+            },
+            {
+                "en": [
+                    "industry"
+                ],
+                "pl": "branża",
+                "id": 287
+            },
+            {
+                "en": [
+                    "market"
+                ],
+                "pl": "rynek",
+                "id": 288
+            },
+            {
+                "en": [
+                    "client",
+                    "customer"
+                ],
+                "pl": "klient",
+                "id": 289
+            },
+            {
+                "en": [
+                    "consumer"
+                ],
+                "pl": "konsument",
+                "id": 290
+            },
+            {
+                "en": [
+                    "entrepreneur"
+                ],
+                "pl": "przedsiębiorca",
+                "id": 291
+            },
+            {
+                "en": [
+                    "innovation"
+                ],
+                "pl": "innowacja",
+                "id": 292
+            },
+            {
+                "en": [
+                    "leadership"
+                ],
+                "pl": "przywództwo",
+                "id": 293
+            },
+            {
+                "en": [
+                    "motivation"
+                ],
+                "pl": "motywacja",
+                "id": 294
+            },
+            {
+                "en": [
+                    "discipline"
+                ],
+                "pl": "dyscyplina",
+                "id": 295
+            },
+            {
+                "en": [
+                    "dedication",
+                    "commitment"
+                ],
+                "pl": "poświęcenie",
+                "id": 296
+            },
+            {
+                "en": [
+                    "success"
+                ],
+                "pl": "sukces",
+                "id": 297
+            },
+            {
+                "en": [
+                    "failure",
+                    "setback"
+                ],
+                "pl": "porażka",
+                "id": 298
+            },
+            {
+                "en": [
+                    "strategy"
+                ],
+                "pl": "strategia",
+                "id": 299
+            },
+            {
+                "en": [
+                    "plan",
+                    "planning"
+                ],
+                "pl": "plan",
+                "id": 300
+            },
+            {
+                "en": [
+                    "decision-making"
+                ],
+                "pl": "podejmowanie decyzji",
+                "id": 301
+            },
+            {
+                "en": [
+                    "problem-solving"
+                ],
+                "pl": "rozwiązywanie problemów",
+                "id": 302
+            },
+            {
+                "en": [
+                    "creativity",
+                    "innovation"
+                ],
+                "pl": "kreatywność",
+                "id": 303
+            },
+            {
+                "en": [
+                    "negotiation"
+                ],
+                "pl": "negocjacje",
+                "id": 304
+            },
+            {
+                "en": [
+                    "sales"
+                ],
+                "pl": "sprzedaż",
+                "id": 305
+            },
+            {
+                "en": [
+                    "marketing"
+                ],
+                "pl": "marketing",
+                "id": 306
+            },
+            {
+                "en": [
+                    "promotion"
+                ],
+                "pl": "promocja",
+                "id": 307
+            },
+            {
+                "en": [
+                    "advertisement",
+                    "ad"
+                ],
+                "pl": "reklama",
+                "id": 308
+            },
+            {
+                "en": [
+                    "contract"
+                ],
+                "pl": "kontrakt",
+                "id": 309
+            },
+            {
+                "en": [
+                    "agreement"
+                ],
+                "pl": "umowa",
+                "id": 310
+            },
+            {
+                "en": [
+                    "legal"
+                ],
+                "pl": "prawny",
+                "id": 311
+            },
+            {
+                "en": [
+                    "deadline pressure"
+                ],
+                "pl": "presja czasu",
+                "id": 312
+            },
+            {
+                "en": [
+                    "workload"
+                ],
+                "pl": "obciążenie pracą",
+                "id": 313
+            },
+            {
+                "en": [
+                    "burnout"
+                ],
+                "pl": "wypalenie zawodowe",
+                "id": 314
+            },
+            {
+                "en": [
+                    "stress"
+                ],
+                "pl": "stres",
+                "id": 315
+            },
+            {
+                "en": [
+                    "work-life balance"
+                ],
+                "pl": "równowaga między życiem a pracą",
+                "id": 316
+            },
+            {
+                "en": [
+                    "networking"
+                ],
+                "pl": "nawiązywanie kontaktów",
+                "id": 317
+            },
+            {
+                "en": [
+                    "mentorship"
+                ],
+                "pl": "mentoring",
+                "id": 318
+            },
+            {
+                "en": [
+                    "leadership"
+                ],
+                "pl": "przywództwo",
+                "id": 319
+            },
+            {
+                "en": [
+                    "management"
+                ],
+                "pl": "zarządzanie",
+                "id": 320
+            },
+            {
+                "en": [
+                    "human resources",
+                    "HR"
+                ],
+                "pl": "zasoby ludzkie",
+                "id": 321
+            },
+            {
+                "en": [
+                    "productivity tools"
+                ],
+                "pl": "narzędzia produktywności",
+                "id": 322
+            },
+            {
+                "en": [
+                    "feedback"
+                ],
+                "pl": "informacja zwrotna",
+                "id": 323
+            },
+            {
+                "en": [
+                    "evaluation",
+                    "assessment"
+                ],
+                "pl": "ocena",
+                "id": 324
+            },
+            {
+                "en": [
+                    "job satisfaction"
+                ],
+                "pl": "satysfakcja z pracy",
+                "id": 325
+            },
+            {
+                "en": [
+                    "workplace culture"
+                ],
+                "pl": "kultura pracy",
+                "id": 326
+            },
+            {
+                "en": [
+                    "job security"
+                ],
+                "pl": "bezpieczeństwo pracy",
+                "id": 327
+            },
+            {
+                "en": [
+                    "responsibility",
+                    "duty"
+                ],
+                "pl": "odpowiedzialność",
+                "id": 328
+            },
+            {
+                "en": [
+                    "accountability"
+                ],
+                "pl": "rozliczalność",
+                "id": 329
+            },
+            {
+                "en": [
+                    "team leader"
+                ],
+                "pl": "lider zespołu",
+                "id": 330
+            },
+            {
+                "en": [
+                    "professional development"
+                ],
+                "pl": "rozwój zawodowy",
+                "id": 331
+            },
+            {
+                "en": [
+                    "conflict resolution"
+                ],
+                "pl": "rozwiązywanie konfliktów",
+                "id": 332
+            },
+            {
+                "en": [
+                    "workplace safety"
+                ],
+                "pl": "bezpieczeństwo w miejscu pracy",
+                "id": 333
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Health & Wellness",
+        "words": [
+            {
+                "en": [
+                    "health",
+                    "well-being"
+                ],
+                "pl": "zdrowie",
+                "id": 334
+            },
+            {
+                "en": [
+                    "wellness",
+                    "fitness"
+                ],
+                "pl": "dobrostan",
+                "id": 335
+            },
+            {
+                "en": [
+                    "exercise",
+                    "workout"
+                ],
+                "pl": "ćwiczenia",
+                "id": 336
+            },
+            {
+                "en": [
+                    "diet",
+                    "nutrition"
+                ],
+                "pl": "dieta",
+                "id": 337
+            },
+            {
+                "en": [
+                    "mental health",
+                    "emotional well-being"
+                ],
+                "pl": "zdrowie psychiczne",
+                "id": 338
+            },
+            {
+                "en": [
+                    "stress",
+                    "tension"
+                ],
+                "pl": "stres",
+                "id": 339
+            },
+            {
+                "en": [
+                    "relaxation",
+                    "calm"
+                ],
+                "pl": "relaksacja",
+                "id": 340
+            },
+            {
+                "en": [
+                    "meditation",
+                    "mindfulness"
+                ],
+                "pl": "medytacja",
+                "id": 341
+            },
+            {
+                "en": [
+                    "sleep",
+                    "rest"
+                ],
+                "pl": "sen",
+                "id": 342
+            },
+            {
+                "en": [
+                    "hydration",
+                    "drinking water"
+                ],
+                "pl": "nawodnienie",
+                "id": 343
+            },
+            {
+                "en": [
+                    "immune system",
+                    "defense system"
+                ],
+                "pl": "układ odpornościowy",
+                "id": 344
+            },
+            {
+                "en": [
+                    "nutrition",
+                    "diet"
+                ],
+                "pl": "odżywianie",
+                "id": 345
+            },
+            {
+                "en": [
+                    "vitamins",
+                    "nutrients"
+                ],
+                "pl": "witaminy",
+                "id": 346
+            },
+            {
+                "en": [
+                    "minerals",
+                    "micronutrients"
+                ],
+                "pl": "minerały",
+                "id": 347
+            },
+            {
+                "en": [
+                    "protein"
+                ],
+                "pl": "białko",
+                "id": 348
+            },
+            {
+                "en": [
+                    "carbohydrates",
+                    "carbs"
+                ],
+                "pl": "węglowodany",
+                "id": 349
+            },
+            {
+                "en": [
+                    "fats",
+                    "lipids"
+                ],
+                "pl": "tłuszcze",
+                "id": 350
+            },
+            {
+                "en": [
+                    "calories",
+                    "energy intake"
+                ],
+                "pl": "kalorie",
+                "id": 351
+            },
+            {
+                "en": [
+                    "exercise routine",
+                    "workout plan"
+                ],
+                "pl": "plan treningowy",
+                "id": 352
+            },
+            {
+                "en": [
+                    "aerobic exercise",
+                    "cardio"
+                ],
+                "pl": "ćwiczenia aerobowe",
+                "id": 353
+            },
+            {
+                "en": [
+                    "strength training",
+                    "weightlifting"
+                ],
+                "pl": "trening siłowy",
+                "id": 354
+            },
+            {
+                "en": [
+                    "flexibility",
+                    "stretching"
+                ],
+                "pl": "elastyczność",
+                "id": 355
+            },
+            {
+                "en": [
+                    "yoga",
+                    "stretching exercises"
+                ],
+                "pl": "joga",
+                "id": 356
+            },
+            {
+                "en": [
+                    "medication",
+                    "medicine"
+                ],
+                "pl": "leki",
+                "id": 357
+            },
+            {
+                "en": [
+                    "vaccination",
+                    "immunization"
+                ],
+                "pl": "szczepienie",
+                "id": 358
+            },
+            {
+                "en": [
+                    "allergy"
+                ],
+                "pl": "alergia",
+                "id": 359
+            },
+            {
+                "en": [
+                    "cold",
+                    "flu"
+                ],
+                "pl": "przeziębienie",
+                "id": 360
+            },
+            {
+                "en": [
+                    "injury",
+                    "wound"
+                ],
+                "pl": "uraz",
+                "id": 361
+            },
+            {
+                "en": [
+                    "treatment",
+                    "therapy"
+                ],
+                "pl": "leczenie",
+                "id": 362
+            },
+            {
+                "en": [
+                    "therapy",
+                    "counseling"
+                ],
+                "pl": "terapia",
+                "id": 363
+            },
+            {
+                "en": [
+                    "rehabilitation",
+                    "recovery"
+                ],
+                "pl": "rehabilitacja",
+                "id": 364
+            },
+            {
+                "en": [
+                    "mental illness",
+                    "mental disorder"
+                ],
+                "pl": "choroba psychiczna",
+                "id": 365
+            },
+            {
+                "en": [
+                    "depression"
+                ],
+                "pl": "depresja",
+                "id": 366
+            },
+            {
+                "en": [
+                    "anxiety",
+                    "nervousness"
+                ],
+                "pl": "niepokój",
+                "id": 367
+            },
+            {
+                "en": [
+                    "pain",
+                    "ache"
+                ],
+                "pl": "ból",
+                "id": 368
+            },
+            {
+                "en": [
+                    "headache",
+                    "migraine"
+                ],
+                "pl": "ból głowy",
+                "id": 369
+            },
+            {
+                "en": [
+                    "fatigue",
+                    "tiredness"
+                ],
+                "pl": "zmęczenie",
+                "id": 370
+            },
+            {
+                "en": [
+                    "energy",
+                    "vitality"
+                ],
+                "pl": "energia",
+                "id": 371
+            },
+            {
+                "en": [
+                    "balance",
+                    "stability"
+                ],
+                "pl": "równowaga",
+                "id": 372
+            },
+            {
+                "en": [
+                    "blood pressure"
+                ],
+                "pl": "ciśnienie krwi",
+                "id": 373
+            },
+            {
+                "en": [
+                    "heart rate",
+                    "pulse"
+                ],
+                "pl": "tętno",
+                "id": 374
+            },
+            {
+                "en": [
+                    "cholesterol"
+                ],
+                "pl": "cholesterol",
+                "id": 375
+            },
+            {
+                "en": [
+                    "blood sugar",
+                    "glucose"
+                ],
+                "pl": "poziom cukru we krwi",
+                "id": 376
+            },
+            {
+                "en": [
+                    "diabetes"
+                ],
+                "pl": "cukrzyca",
+                "id": 377
+            },
+            {
+                "en": [
+                    "obesity",
+                    "overweight"
+                ],
+                "pl": "otyłość",
+                "id": 378
+            },
+            {
+                "en": [
+                    "smoking cessation",
+                    "quitting smoking"
+                ],
+                "pl": "rzucanie palenia",
+                "id": 379
+            },
+            {
+                "en": [
+                    "addiction",
+                    "dependency"
+                ],
+                "pl": "uzależnienie",
+                "id": 380
+            },
+            {
+                "en": [
+                    "alcoholism"
+                ],
+                "pl": "alkoholizm",
+                "id": 381
+            },
+            {
+                "en": [
+                    "drug abuse",
+                    "substance abuse"
+                ],
+                "pl": "nadużywanie narkotyków",
+                "id": 382
+            },
+            {
+                "en": [
+                    "therapy",
+                    "psychotherapy"
+                ],
+                "pl": "psychoterapia",
+                "id": 383
+            },
+            {
+                "en": [
+                    "doctor",
+                    "physician"
+                ],
+                "pl": "lekarz",
+                "id": 384
+            },
+            {
+                "en": [
+                    "nurse"
+                ],
+                "pl": "pielęgniarka",
+                "id": 385
+            },
+            {
+                "en": [
+                    "dentist"
+                ],
+                "pl": "dentysta",
+                "id": 386
+            },
+            {
+                "en": [
+                    "psychologist"
+                ],
+                "pl": "psycholog",
+                "id": 387
+            },
+            {
+                "en": [
+                    "nutritionist",
+                    "dietitian"
+                ],
+                "pl": "dietetyk",
+                "id": 388
+            },
+            {
+                "en": [
+                    "personal trainer"
+                ],
+                "pl": "trener personalny",
+                "id": 389
+            },
+            {
+                "en": [
+                    "check-up",
+                    "examination"
+                ],
+                "pl": "badanie",
+                "id": 390
+            },
+            {
+                "en": [
+                    "diagnosis",
+                    "assessment"
+                ],
+                "pl": "diagnoza",
+                "id": 391
+            },
+            {
+                "en": [
+                    "prevention",
+                    "prophylaxis"
+                ],
+                "pl": "profilaktyka",
+                "id": 392
+            },
+            {
+                "en": [
+                    "first aid"
+                ],
+                "pl": "pierwsza pomoc",
+                "id": 393
+            },
+            {
+                "en": [
+                    "surgery",
+                    "operation"
+                ],
+                "pl": "operacja",
+                "id": 394
+            },
+            {
+                "en": [
+                    "x-ray"
+                ],
+                "pl": "prześwietlenie",
+                "id": 395
+            },
+            {
+                "en": [
+                    "ultrasound",
+                    "scan"
+                ],
+                "pl": "ultrasonografia",
+                "id": 396
+            },
+            {
+                "en": [
+                    "therapy",
+                    "rehabilitation"
+                ],
+                "pl": "rehabilitacja",
+                "id": 397
+            },
+            {
+                "en": [
+                    "recovery",
+                    "healing"
+                ],
+                "pl": "wyzdrowienie",
+                "id": 398
+            },
+            {
+                "en": [
+                    "injury prevention"
+                ],
+                "pl": "zapobieganie urazom",
+                "id": 399
+            },
+            {
+                "en": [
+                    "chronic illness"
+                ],
+                "pl": "choroba przewlekła",
+                "id": 400
+            },
+            {
+                "en": [
+                    "acute pain"
+                ],
+                "pl": "ból ostry",
+                "id": 401
+            },
+            {
+                "en": [
+                    "infection",
+                    "illness"
+                ],
+                "pl": "infekcja",
+                "id": 402
+            },
+            {
+                "en": [
+                    "virus",
+                    "bacteria"
+                ],
+                "pl": "wirus",
+                "id": 403
+            },
+            {
+                "en": [
+                    "immune system"
+                ],
+                "pl": "układ odpornościowy",
+                "id": 404
+            },
+            {
+                "en": [
+                    "nutrition plan"
+                ],
+                "pl": "plan żywieniowy",
+                "id": 405
+            },
+            {
+                "en": [
+                    "organic food"
+                ],
+                "pl": "żywność ekologiczna",
+                "id": 406
+            },
+            {
+                "en": [
+                    "weight loss",
+                    "slimming"
+                ],
+                "pl": "odchudzanie",
+                "id": 407
+            },
+            {
+                "en": [
+                    "weight gain"
+                ],
+                "pl": "przybieranie na wadze",
+                "id": 408
+            },
+            {
+                "en": [
+                    "healthy lifestyle"
+                ],
+                "pl": "zdrowy styl życia",
+                "id": 409
+            },
+            {
+                "en": [
+                    "physical activity"
+                ],
+                "pl": "aktywność fizyczna",
+                "id": 410
+            },
+            {
+                "en": [
+                    "balance diet"
+                ],
+                "pl": "zbilansowana dieta",
+                "id": 411
+            },
+            {
+                "en": [
+                    "plant-based diet",
+                    "vegetarianism"
+                ],
+                "pl": "dieta roślinna",
+                "id": 412
+            },
+            {
+                "en": [
+                    "vegan diet"
+                ],
+                "pl": "dieta wegańska",
+                "id": 413
+            },
+            {
+                "en": [
+                    "alternative medicine"
+                ],
+                "pl": "medycyna alternatywna",
+                "id": 414
+            },
+            {
+                "en": [
+                    "herbal remedies"
+                ],
+                "pl": "leki ziołowe",
+                "id": 415
+            },
+            {
+                "en": [
+                    "pain relief",
+                    "analgesic"
+                ],
+                "pl": "środek przeciwbólowy",
+                "id": 416
+            },
+            {
+                "en": [
+                    "mental clarity",
+                    "focus"
+                ],
+                "pl": "jasność umysłu",
+                "id": 417
+            },
+            {
+                "en": [
+                    "longevity",
+                    "life expectancy"
+                ],
+                "pl": "długowieczność",
+                "id": 418
+            },
+            {
+                "en": [
+                    "genetics"
+                ],
+                "pl": "genetyka",
+                "id": 419
+            },
+            {
+                "en": [
+                    "medication",
+                    "drugs"
+                ],
+                "pl": "lekarstwa",
+                "id": 420
+            },
+            {
+                "en": [
+                    "public health"
+                ],
+                "pl": "zdrowie publiczne",
+                "id": 421
+            },
+            {
+                "en": [
+                    "environmental health"
+                ],
+                "pl": "zdrowie środowiskowe",
+                "id": 422
+            },
+            {
+                "en": [
+                    "hygiene",
+                    "cleanliness"
+                ],
+                "pl": "higiena",
+                "id": 423
+            },
+            {
+                "en": [
+                    "self-care",
+                    "personal care"
+                ],
+                "pl": "samopieka",
+                "id": 424
+            },
+            {
+                "en": [
+                    "mindfulness",
+                    "awareness"
+                ],
+                "pl": "uważność",
+                "id": 425
+            },
+            {
+                "en": [
+                    "skin care"
+                ],
+                "pl": "pielęgnacja skóry",
+                "id": 426
+            },
+            {
+                "en": [
+                    "weight management"
+                ],
+                "pl": "kontrola wagi",
+                "id": 427
+            },
+            {
+                "en": [
+                    "detoxification",
+                    "detox"
+                ],
+                "pl": "detoksykacja",
+                "id": 428
+            },
+            {
+                "en": [
+                    "cardiovascular health"
+                ],
+                "pl": "zdrowie układu krążenia",
+                "id": 429
+            },
+            {
+                "en": [
+                    "breathing exercises"
+                ],
+                "pl": "ćwiczenia oddechowe",
+                "id": 430
+            },
+            {
+                "en": [
+                    "body mass index",
+                    "BMI"
+                ],
+                "pl": "wskaźnik masy ciała",
+                "id": 431
+            },
+            {
+                "en": [
+                    "sun protection",
+                    "UV protection"
+                ],
+                "pl": "ochrona przed słońcem",
+                "id": 432
+            },
+            {
+                "en": [
+                    "antioxidants"
+                ],
+                "pl": "antyoksydanty",
+                "id": 433
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Finances & Money Management",
+        "words": [
+            {
+                "en": [
+                    "money",
+                    "cash"
+                ],
+                "pl": "pieniądze",
+                "id": 434
+            },
+            {
+                "en": [
+                    "income",
+                    "earnings",
+                    "revenue"
+                ],
+                "pl": "dochód",
+                "id": 435
+            },
+            {
+                "en": [
+                    "salary",
+                    "wage",
+                    "pay"
+                ],
+                "pl": "pensja",
+                "id": 436
+            },
+            {
+                "en": [
+                    "expense",
+                    "cost",
+                    "spending"
+                ],
+                "pl": "wydatek",
+                "id": 437
+            },
+            {
+                "en": [
+                    "budget",
+                    "financial plan"
+                ],
+                "pl": "budżet",
+                "id": 438
+            },
+            {
+                "en": [
+                    "savings",
+                    "reserves"
+                ],
+                "pl": "oszczędności",
+                "id": 439
+            },
+            {
+                "en": [
+                    "debt",
+                    "liability"
+                ],
+                "pl": "dług",
+                "id": 440
+            },
+            {
+                "en": [
+                    "loan",
+                    "credit"
+                ],
+                "pl": "pożyczka",
+                "id": 441
+            },
+            {
+                "en": [
+                    "interest",
+                    "interest rate"
+                ],
+                "pl": "odsetki",
+                "id": 442
+            },
+            {
+                "en": [
+                    "bank",
+                    "financial institution"
+                ],
+                "pl": "bank",
+                "id": 443
+            },
+            {
+                "en": [
+                    "account",
+                    "bank account"
+                ],
+                "pl": "konto",
+                "id": 444
+            },
+            {
+                "en": [
+                    "checking account",
+                    "current account"
+                ],
+                "pl": "konto bieżące",
+                "id": 445
+            },
+            {
+                "en": [
+                    "savings account"
+                ],
+                "pl": "konto oszczędnościowe",
+                "id": 446
+            },
+            {
+                "en": [
+                    "credit card"
+                ],
+                "pl": "karta kredytowa",
+                "id": 447
+            },
+            {
+                "en": [
+                    "debit card"
+                ],
+                "pl": "karta debetowa",
+                "id": 448
+            },
+            {
+                "en": [
+                    "investment",
+                    "capital investment"
+                ],
+                "pl": "inwestycja",
+                "id": 449
+            },
+            {
+                "en": [
+                    "profit",
+                    "gain"
+                ],
+                "pl": "zysk",
+                "id": 450
+            },
+            {
+                "en": [
+                    "loss",
+                    "deficit"
+                ],
+                "pl": "strata",
+                "id": 451
+            },
+            {
+                "en": [
+                    "tax",
+                    "levy"
+                ],
+                "pl": "podatek",
+                "id": 452
+            },
+            {
+                "en": [
+                    "fee",
+                    "charge"
+                ],
+                "pl": "opłata",
+                "id": 453
+            },
+            {
+                "en": [
+                    "invoice",
+                    "bill"
+                ],
+                "pl": "faktura",
+                "id": 454
+            },
+            {
+                "en": [
+                    "receipt"
+                ],
+                "pl": "paragon",
+                "id": 455
+            },
+            {
+                "en": [
+                    "payment",
+                    "transaction"
+                ],
+                "pl": "płatność",
+                "id": 456
+            },
+            {
+                "en": [
+                    "transfer",
+                    "bank transfer"
+                ],
+                "pl": "przelew",
+                "id": 457
+            },
+            {
+                "en": [
+                    "withdrawal"
+                ],
+                "pl": "wypłata",
+                "id": 458
+            },
+            {
+                "en": [
+                    "deposit"
+                ],
+                "pl": "depozyt",
+                "id": 459
+            },
+            {
+                "en": [
+                    "balance",
+                    "account balance"
+                ],
+                "pl": "saldo",
+                "id": 460
+            },
+            {
+                "en": [
+                    "financial statement",
+                    "account statement"
+                ],
+                "pl": "wyciąg finansowy",
+                "id": 461
+            },
+            {
+                "en": [
+                    "insurance",
+                    "coverage"
+                ],
+                "pl": "ubezpieczenie",
+                "id": 462
+            },
+            {
+                "en": [
+                    "pension",
+                    "retirement"
+                ],
+                "pl": "emerytura",
+                "id": 463
+            },
+            {
+                "en": [
+                    "fund",
+                    "capital"
+                ],
+                "pl": "fundusz",
+                "id": 464
+            },
+            {
+                "en": [
+                    "stock",
+                    "share",
+                    "equity"
+                ],
+                "pl": "akcja",
+                "id": 465
+            },
+            {
+                "en": [
+                    "bond",
+                    "security"
+                ],
+                "pl": "obligacja",
+                "id": 466
+            },
+            {
+                "en": [
+                    "dividend"
+                ],
+                "pl": "dywidenda",
+                "id": 467
+            },
+            {
+                "en": [
+                    "mortgage"
+                ],
+                "pl": "hipoteka",
+                "id": 468
+            },
+            {
+                "en": [
+                    "rent",
+                    "lease"
+                ],
+                "pl": "czynsz",
+                "id": 469
+            },
+            {
+                "en": [
+                    "asset",
+                    "property"
+                ],
+                "pl": "aktywo",
+                "id": 470
+            },
+            {
+                "en": [
+                    "liability",
+                    "obligation"
+                ],
+                "pl": "zobowiązanie",
+                "id": 471
+            },
+            {
+                "en": [
+                    "net worth"
+                ],
+                "pl": "wartość netto",
+                "id": 472
+            },
+            {
+                "en": [
+                    "bankruptcy",
+                    "insolvency"
+                ],
+                "pl": "bankructwo",
+                "id": 473
+            },
+            {
+                "en": [
+                    "financial advisor",
+                    "wealth manager"
+                ],
+                "pl": "doradca finansowy",
+                "id": 474
+            },
+            {
+                "en": [
+                    "exchange rate",
+                    "currency rate"
+                ],
+                "pl": "kurs wymiany",
+                "id": 475
+            },
+            {
+                "en": [
+                    "currency",
+                    "money"
+                ],
+                "pl": "waluta",
+                "id": 476
+            },
+            {
+                "en": [
+                    "inflation"
+                ],
+                "pl": "inflacja",
+                "id": 477
+            },
+            {
+                "en": [
+                    "economy",
+                    "economic system"
+                ],
+                "pl": "gospodarka",
+                "id": 478
+            },
+            {
+                "en": [
+                    "capital"
+                ],
+                "pl": "kapitał",
+                "id": 479
+            },
+            {
+                "en": [
+                    "interest rate",
+                    "rate of return"
+                ],
+                "pl": "stopa procentowa",
+                "id": 480
+            },
+            {
+                "en": [
+                    "diversification"
+                ],
+                "pl": "dywersyfikacja",
+                "id": 481
+            },
+            {
+                "en": [
+                    "stock market",
+                    "stock exchange"
+                ],
+                "pl": "giełda",
+                "id": 482
+            },
+            {
+                "en": [
+                    "inflation",
+                    "price increase"
+                ],
+                "pl": "inflacja",
+                "id": 483
+            },
+            {
+                "en": [
+                    "savings account",
+                    "deposit account"
+                ],
+                "pl": "rachunek oszczędnościowy",
+                "id": 484
+            },
+            {
+                "en": [
+                    "portfolio"
+                ],
+                "pl": "portfel inwestycyjny",
+                "id": 485
+            },
+            {
+                "en": [
+                    "equity",
+                    "ownership"
+                ],
+                "pl": "kapitał własny",
+                "id": 486
+            },
+            {
+                "en": [
+                    "capital gains",
+                    "investment returns"
+                ],
+                "pl": "zyski kapitałowe",
+                "id": 487
+            },
+            {
+                "en": [
+                    "wealth",
+                    "riches",
+                    "fortune"
+                ],
+                "pl": "bogactwo",
+                "id": 488
+            },
+            {
+                "en": [
+                    "expense report",
+                    "cost report"
+                ],
+                "pl": "raport wydatków",
+                "id": 489
+            },
+            {
+                "en": [
+                    "budgeting",
+                    "financial planning"
+                ],
+                "pl": "planowanie budżetu",
+                "id": 490
+            },
+            {
+                "en": [
+                    "annual percentage rate (APR)"
+                ],
+                "pl": "roczna stopa oprocentowania",
+                "id": 491
+            },
+            {
+                "en": [
+                    "credit score"
+                ],
+                "pl": "ocena kredytowa",
+                "id": 492
+            },
+            {
+                "en": [
+                    "debt consolidation"
+                ],
+                "pl": "konsolidacja zadłużenia",
+                "id": 493
+            },
+            {
+                "en": [
+                    "financial literacy"
+                ],
+                "pl": "świadomość finansowa",
+                "id": 494
+            },
+            {
+                "en": [
+                    "foreclosure"
+                ],
+                "pl": "przejęcie majątku",
+                "id": 495
+            },
+            {
+                "en": [
+                    "overdraft"
+                ],
+                "pl": "debet",
+                "id": 496
+            },
+            {
+                "en": [
+                    "yield",
+                    "return"
+                ],
+                "pl": "zysk z inwestycji",
+                "id": 497
+            },
+            {
+                "en": [
+                    "venture capital"
+                ],
+                "pl": "kapitał wysokiego ryzyka",
+                "id": 498
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Education & Learning",
+        "words": [
+            {
+                "en": [
+                    "school",
+                    "academy"
+                ],
+                "pl": "szkoła",
+                "id": 499
+            },
+            {
+                "en": [
+                    "student",
+                    "pupil",
+                    "learner"
+                ],
+                "pl": "uczeń",
+                "id": 500
+            },
+            {
+                "en": [
+                    "teacher",
+                    "instructor",
+                    "educator"
+                ],
+                "pl": "nauczyciel",
+                "id": 501
+            },
+            {
+                "en": [
+                    "class",
+                    "lesson",
+                    "course"
+                ],
+                "pl": "lekcja",
+                "id": 502
+            },
+            {
+                "en": [
+                    "study",
+                    "learn"
+                ],
+                "pl": "uczyć się",
+                "id": 503
+            },
+            {
+                "en": [
+                    "homework",
+                    "assignment"
+                ],
+                "pl": "praca domowa",
+                "id": 504
+            },
+            {
+                "en": [
+                    "exam",
+                    "test",
+                    "assessment"
+                ],
+                "pl": "egzamin",
+                "id": 505
+            },
+            {
+                "en": [
+                    "grade",
+                    "mark",
+                    "score"
+                ],
+                "pl": "ocena",
+                "id": 506
+            },
+            {
+                "en": [
+                    "subject",
+                    "course"
+                ],
+                "pl": "przedmiot",
+                "id": 507
+            },
+            {
+                "en": [
+                    "university",
+                    "college"
+                ],
+                "pl": "uniwersytet",
+                "id": 508
+            },
+            {
+                "en": [
+                    "degree",
+                    "diploma",
+                    "qualification"
+                ],
+                "pl": "stopień",
+                "id": 509
+            },
+            {
+                "en": [
+                    "lecture",
+                    "seminar",
+                    "class"
+                ],
+                "pl": "wykład",
+                "id": 510
+            },
+            {
+                "en": [
+                    "professor",
+                    "lecturer"
+                ],
+                "pl": "profesor",
+                "id": 511
+            },
+            {
+                "en": [
+                    "library"
+                ],
+                "pl": "biblioteka",
+                "id": 512
+            },
+            {
+                "en": [
+                    "book",
+                    "textbook"
+                ],
+                "pl": "książka",
+                "id": 513
+            },
+            {
+                "en": [
+                    "notebook",
+                    "exercise book"
+                ],
+                "pl": "zeszyt",
+                "id": 514
+            },
+            {
+                "en": [
+                    "pen",
+                    "writing tool"
+                ],
+                "pl": "długopis",
+                "id": 515
+            },
+            {
+                "en": [
+                    "pencil"
+                ],
+                "pl": "ołówek",
+                "id": 516
+            },
+            {
+                "en": [
+                    "eraser",
+                    "rubber"
+                ],
+                "pl": "gumka",
+                "id": 517
+            },
+            {
+                "en": [
+                    "ruler"
+                ],
+                "pl": "linijka",
+                "id": 518
+            },
+            {
+                "en": [
+                    "blackboard",
+                    "chalkboard"
+                ],
+                "pl": "tablica",
+                "id": 519
+            },
+            {
+                "en": [
+                    "chalk"
+                ],
+                "pl": "kreda",
+                "id": 520
+            },
+            {
+                "en": [
+                    "student loan"
+                ],
+                "pl": "kredyt studencki",
+                "id": 521
+            },
+            {
+                "en": [
+                    "scholarship",
+                    "grant"
+                ],
+                "pl": "stypendium",
+                "id": 522
+            },
+            {
+                "en": [
+                    "tutor",
+                    "private teacher"
+                ],
+                "pl": "korepetytor",
+                "id": 523
+            },
+            {
+                "en": [
+                    "principal",
+                    "headmaster",
+                    "school director"
+                ],
+                "pl": "dyrektor szkoły",
+                "id": 524
+            },
+            {
+                "en": [
+                    "curriculum",
+                    "syllabus"
+                ],
+                "pl": "program nauczania",
+                "id": 525
+            },
+            {
+                "en": [
+                    "schedule",
+                    "timetable"
+                ],
+                "pl": "harmonogram",
+                "id": 526
+            },
+            {
+                "en": [
+                    "recess",
+                    "break",
+                    "pause"
+                ],
+                "pl": "przerwa",
+                "id": 527
+            },
+            {
+                "en": [
+                    "classroom",
+                    "lecture hall"
+                ],
+                "pl": "sala lekcyjna",
+                "id": 528
+            },
+            {
+                "en": [
+                    "quiz",
+                    "pop quiz"
+                ],
+                "pl": "kartkówka",
+                "id": 529
+            },
+            {
+                "en": [
+                    "research",
+                    "study"
+                ],
+                "pl": "badania",
+                "id": 530
+            },
+            {
+                "en": [
+                    "science",
+                    "scientific study"
+                ],
+                "pl": "nauka",
+                "id": 531
+            },
+            {
+                "en": [
+                    "mathematics",
+                    "math"
+                ],
+                "pl": "matematyka",
+                "id": 532
+            },
+            {
+                "en": [
+                    "history"
+                ],
+                "pl": "historia",
+                "id": 533
+            },
+            {
+                "en": [
+                    "geography"
+                ],
+                "pl": "geografia",
+                "id": 534
+            },
+            {
+                "en": [
+                    "biology"
+                ],
+                "pl": "biologia",
+                "id": 535
+            },
+            {
+                "en": [
+                    "chemistry"
+                ],
+                "pl": "chemia",
+                "id": 536
+            },
+            {
+                "en": [
+                    "physics"
+                ],
+                "pl": "fizyka",
+                "id": 537
+            },
+            {
+                "en": [
+                    "language",
+                    "tongue"
+                ],
+                "pl": "język",
+                "id": 538
+            },
+            {
+                "en": [
+                    "grammar",
+                    "syntax"
+                ],
+                "pl": "gramatyka",
+                "id": 539
+            },
+            {
+                "en": [
+                    "dictionary",
+                    "lexicon"
+                ],
+                "pl": "słownik",
+                "id": 540
+            },
+            {
+                "en": [
+                    "computer science",
+                    "informatics"
+                ],
+                "pl": "informatyka",
+                "id": 541
+            },
+            {
+                "en": [
+                    "art",
+                    "fine arts"
+                ],
+                "pl": "sztuka",
+                "id": 542
+            },
+            {
+                "en": [
+                    "music",
+                    "musical education"
+                ],
+                "pl": "muzyka",
+                "id": 543
+            },
+            {
+                "en": [
+                    "physical education",
+                    "PE"
+                ],
+                "pl": "wychowanie fizyczne",
+                "id": 544
+            },
+            {
+                "en": [
+                    "essay",
+                    "paper"
+                ],
+                "pl": "wypracowanie",
+                "id": 545
+            },
+            {
+                "en": [
+                    "graduation",
+                    "completion"
+                ],
+                "pl": "ukończenie szkoły",
+                "id": 546
+            },
+            {
+                "en": [
+                    "certificate",
+                    "diploma"
+                ],
+                "pl": "certyfikat",
+                "id": 547
+            },
+            {
+                "en": [
+                    "classmate",
+                    "fellow student"
+                ],
+                "pl": "kolega z klasy",
+                "id": 548
+            },
+            {
+                "en": [
+                    "school bag",
+                    "backpack"
+                ],
+                "pl": "plecak",
+                "id": 549
+            },
+            {
+                "en": [
+                    "exam results",
+                    "grades"
+                ],
+                "pl": "wyniki egzaminów",
+                "id": 550
+            },
+            {
+                "en": [
+                    "lecture notes"
+                ],
+                "pl": "notatki z wykładu",
+                "id": 551
+            },
+            {
+                "en": [
+                    "online learning",
+                    "e-learning"
+                ],
+                "pl": "nauka online",
+                "id": 552
+            },
+            {
+                "en": [
+                    "distance learning"
+                ],
+                "pl": "nauka na odległość",
+                "id": 553
+            },
+            {
+                "en": [
+                    "virtual classroom"
+                ],
+                "pl": "wirtualna klasa",
+                "id": 554
+            },
+            {
+                "en": [
+                    "home schooling"
+                ],
+                "pl": "nauczanie domowe",
+                "id": 555
+            },
+            {
+                "en": [
+                    "interactive learning"
+                ],
+                "pl": "nauczanie interaktywne",
+                "id": 556
+            },
+            {
+                "en": [
+                    "educational platform"
+                ],
+                "pl": "platforma edukacyjna",
+                "id": 557
+            },
+            {
+                "en": [
+                    "scholar"
+                ],
+                "pl": "uczony",
+                "id": 558
+            },
+            {
+                "en": [
+                    "academic",
+                    "researcher"
+                ],
+                "pl": "akademik",
+                "id": 559
+            },
+            {
+                "en": [
+                    "thesis",
+                    "dissertation"
+                ],
+                "pl": "praca dyplomowa",
+                "id": 560
+            },
+            {
+                "en": [
+                    "master's degree",
+                    "graduate degree"
+                ],
+                "pl": "magister",
+                "id": 561
+            },
+            {
+                "en": [
+                    "PhD",
+                    "doctorate"
+                ],
+                "pl": "doktorat",
+                "id": 562
+            },
+            {
+                "en": [
+                    "plagiarism"
+                ],
+                "pl": "plagiat",
+                "id": 563
+            },
+            {
+                "en": [
+                    "research paper"
+                ],
+                "pl": "praca naukowa",
+                "id": 564
+            },
+            {
+                "en": [
+                    "publish",
+                    "release"
+                ],
+                "pl": "publikować",
+                "id": 565
+            },
+            {
+                "en": [
+                    "faculty",
+                    "department"
+                ],
+                "pl": "wydział",
+                "id": 566
+            },
+            {
+                "en": [
+                    "campus"
+                ],
+                "pl": "kampus",
+                "id": 567
+            },
+            {
+                "en": [
+                    "educational system",
+                    "school system"
+                ],
+                "pl": "system edukacyjny",
+                "id": 568
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Exercise & Fitness",
+        "words": [
+            {
+                "en": [
+                    "exercise",
+                    "workout",
+                    "training"
+                ],
+                "pl": "ćwiczenie",
+                "id": 569
+            },
+            {
+                "en": [
+                    "fitness",
+                    "physical fitness"
+                ],
+                "pl": "kondycja fizyczna",
+                "id": 570
+            },
+            {
+                "en": [
+                    "sport",
+                    "athletics"
+                ],
+                "pl": "sport",
+                "id": 571
+            },
+            {
+                "en": [
+                    "gym",
+                    "fitness center"
+                ],
+                "pl": "siłownia",
+                "id": 572
+            },
+            {
+                "en": [
+                    "run",
+                    "jog"
+                ],
+                "pl": "bieg",
+                "id": 573
+            },
+            {
+                "en": [
+                    "walk",
+                    "stroll"
+                ],
+                "pl": "spacer",
+                "id": 574
+            },
+            {
+                "en": [
+                    "stretching",
+                    "flexibility training"
+                ],
+                "pl": "rozciąganie",
+                "id": 575
+            },
+            {
+                "en": [
+                    "strength",
+                    "power"
+                ],
+                "pl": "siła",
+                "id": 576
+            },
+            {
+                "en": [
+                    "endurance",
+                    "stamina"
+                ],
+                "pl": "wytrzymałość",
+                "id": 577
+            },
+            {
+                "en": [
+                    "cardio",
+                    "aerobic exercise"
+                ],
+                "pl": "ćwiczenia cardio",
+                "id": 578
+            },
+            {
+                "en": [
+                    "weightlifting",
+                    "strength training"
+                ],
+                "pl": "podnoszenie ciężarów",
+                "id": 579
+            },
+            {
+                "en": [
+                    "push-up",
+                    "press-up"
+                ],
+                "pl": "pompka",
+                "id": 580
+            },
+            {
+                "en": [
+                    "sit-up",
+                    "crunch"
+                ],
+                "pl": "brzuszek",
+                "id": 581
+            },
+            {
+                "en": [
+                    "plank"
+                ],
+                "pl": "deska",
+                "id": 582
+            },
+            {
+                "en": [
+                    "jump",
+                    "hop"
+                ],
+                "pl": "skok",
+                "id": 583
+            },
+            {
+                "en": [
+                    "squat"
+                ],
+                "pl": "przysiad",
+                "id": 584
+            },
+            {
+                "en": [
+                    "lunges"
+                ],
+                "pl": "wypady",
+                "id": 585
+            },
+            {
+                "en": [
+                    "pull-up",
+                    "chin-up"
+                ],
+                "pl": "podciąganie",
+                "id": 586
+            },
+            {
+                "en": [
+                    "burpee"
+                ],
+                "pl": "burpee",
+                "id": 587
+            },
+            {
+                "en": [
+                    "yoga"
+                ],
+                "pl": "joga",
+                "id": 588
+            },
+            {
+                "en": [
+                    "pilates"
+                ],
+                "pl": "pilates",
+                "id": 589
+            },
+            {
+                "en": [
+                    "warm-up",
+                    "pre-exercise"
+                ],
+                "pl": "rozgrzewka",
+                "id": 590
+            },
+            {
+                "en": [
+                    "cool down"
+                ],
+                "pl": "schłodzenie",
+                "id": 591
+            },
+            {
+                "en": [
+                    "rest",
+                    "recovery"
+                ],
+                "pl": "odpoczynek",
+                "id": 592
+            },
+            {
+                "en": [
+                    "calories",
+                    "caloric burn"
+                ],
+                "pl": "kalorie",
+                "id": 593
+            },
+            {
+                "en": [
+                    "muscle",
+                    "muscle mass"
+                ],
+                "pl": "mięsień",
+                "id": 594
+            },
+            {
+                "en": [
+                    "fat",
+                    "body fat"
+                ],
+                "pl": "tłuszcz",
+                "id": 595
+            },
+            {
+                "en": [
+                    "hydration",
+                    "fluid intake"
+                ],
+                "pl": "nawodnienie",
+                "id": 596
+            },
+            {
+                "en": [
+                    "diet",
+                    "nutrition plan"
+                ],
+                "pl": "dieta",
+                "id": 597
+            },
+            {
+                "en": [
+                    "supplements",
+                    "nutrition supplements"
+                ],
+                "pl": "suplementy",
+                "id": 598
+            },
+            {
+                "en": [
+                    "protein"
+                ],
+                "pl": "białko",
+                "id": 599
+            },
+            {
+                "en": [
+                    "carbohydrates",
+                    "carbs"
+                ],
+                "pl": "węglowodany",
+                "id": 600
+            },
+            {
+                "en": [
+                    "fats",
+                    "lipids"
+                ],
+                "pl": "tłuszcze",
+                "id": 601
+            },
+            {
+                "en": [
+                    "weight",
+                    "body weight"
+                ],
+                "pl": "waga",
+                "id": 602
+            },
+            {
+                "en": [
+                    "BMI",
+                    "body mass index"
+                ],
+                "pl": "BMI",
+                "id": 603
+            },
+            {
+                "en": [
+                    "heart rate",
+                    "pulse"
+                ],
+                "pl": "tętno",
+                "id": 604
+            },
+            {
+                "en": [
+                    "metabolism",
+                    "metabolic rate"
+                ],
+                "pl": "metabolizm",
+                "id": 605
+            },
+            {
+                "en": [
+                    "balance",
+                    "coordination"
+                ],
+                "pl": "równowaga",
+                "id": 606
+            },
+            {
+                "en": [
+                    "core strength",
+                    "core stability"
+                ],
+                "pl": "siła rdzenia",
+                "id": 607
+            },
+            {
+                "en": [
+                    "interval training",
+                    "HIIT"
+                ],
+                "pl": "trening interwałowy",
+                "id": 608
+            },
+            {
+                "en": [
+                    "circuit training"
+                ],
+                "pl": "trening obwodowy",
+                "id": 609
+            },
+            {
+                "en": [
+                    "personal trainer",
+                    "coach"
+                ],
+                "pl": "trener personalny",
+                "id": 610
+            },
+            {
+                "en": [
+                    "group class",
+                    "fitness class"
+                ],
+                "pl": "zajęcia grupowe",
+                "id": 611
+            },
+            {
+                "en": [
+                    "boxing",
+                    "kickboxing"
+                ],
+                "pl": "boks",
+                "id": 612
+            },
+            {
+                "en": [
+                    "martial arts"
+                ],
+                "pl": "sztuki walki",
+                "id": 613
+            },
+            {
+                "en": [
+                    "swimming"
+                ],
+                "pl": "pływanie",
+                "id": 614
+            },
+            {
+                "en": [
+                    "cycling",
+                    "biking"
+                ],
+                "pl": "jazda na rowerze",
+                "id": 615
+            },
+            {
+                "en": [
+                    "jump rope",
+                    "skipping rope"
+                ],
+                "pl": "skakanka",
+                "id": 616
+            },
+            {
+                "en": [
+                    "hiking",
+                    "trekking"
+                ],
+                "pl": "piesze wędrówki",
+                "id": 617
+            },
+            {
+                "en": [
+                    "climbing",
+                    "rock climbing"
+                ],
+                "pl": "wspinaczka",
+                "id": 618
+            },
+            {
+                "en": [
+                    "sprinting"
+                ],
+                "pl": "sprint",
+                "id": 619
+            },
+            {
+                "en": [
+                    "marathon",
+                    "long-distance running"
+                ],
+                "pl": "maraton",
+                "id": 620
+            },
+            {
+                "en": [
+                    "triathlon"
+                ],
+                "pl": "triathlon",
+                "id": 621
+            },
+            {
+                "en": [
+                    "athlete",
+                    "sportsman",
+                    "sportswoman"
+                ],
+                "pl": "sportowiec",
+                "id": 622
+            },
+            {
+                "en": [
+                    "training plan",
+                    "workout plan"
+                ],
+                "pl": "plan treningowy",
+                "id": 623
+            },
+            {
+                "en": [
+                    "rest day",
+                    "recovery day"
+                ],
+                "pl": "dzień odpoczynku",
+                "id": 624
+            },
+            {
+                "en": [
+                    "exercise equipment",
+                    "fitness gear"
+                ],
+                "pl": "sprzęt do ćwiczeń",
+                "id": 625
+            },
+            {
+                "en": [
+                    "treadmill"
+                ],
+                "pl": "bieżnia",
+                "id": 626
+            },
+            {
+                "en": [
+                    "dumbbell"
+                ],
+                "pl": "hantel",
+                "id": 627
+            },
+            {
+                "en": [
+                    "kettlebell"
+                ],
+                "pl": "kettlebell",
+                "id": 628
+            },
+            {
+                "en": [
+                    "barbell"
+                ],
+                "pl": "sztanga",
+                "id": 629
+            },
+            {
+                "en": [
+                    "resistance band",
+                    "stretch band"
+                ],
+                "pl": "taśma oporowa",
+                "id": 630
+            },
+            {
+                "en": [
+                    "foam roller"
+                ],
+                "pl": "wałek do masażu",
+                "id": 631
+            },
+            {
+                "en": [
+                    "yoga mat",
+                    "exercise mat"
+                ],
+                "pl": "mata do jogi",
+                "id": 632
+            },
+            {
+                "en": [
+                    "fitness tracker",
+                    "activity tracker"
+                ],
+                "pl": "monitor aktywności",
+                "id": 633
+            },
+            {
+                "en": [
+                    "bodybuilding"
+                ],
+                "pl": "kulturystyka",
+                "id": 634
+            },
+            {
+                "en": [
+                    "crossfit"
+                ],
+                "pl": "crossfit",
+                "id": 635
+            },
+            {
+                "en": [
+                    "aerobics",
+                    "aerobic workout"
+                ],
+                "pl": "aerobik",
+                "id": 636
+            },
+            {
+                "en": [
+                    "Zumba"
+                ],
+                "pl": "zumba",
+                "id": 637
+            },
+            {
+                "en": [
+                    "meditation",
+                    "mindfulness"
+                ],
+                "pl": "medytacja",
+                "id": 638
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Hobbies & Interests",
+        "words": [
+            {
+                "en": [
+                    "hobby",
+                    "interest",
+                    "pastime"
+                ],
+                "pl": "hobby",
+                "id": 639
+            },
+            {
+                "en": [
+                    "art",
+                    "fine art"
+                ],
+                "pl": "sztuka",
+                "id": 640
+            },
+            {
+                "en": [
+                    "painting",
+                    "drawing"
+                ],
+                "pl": "malowanie",
+                "id": 641
+            },
+            {
+                "en": [
+                    "photography"
+                ],
+                "pl": "fotografia",
+                "id": 642
+            },
+            {
+                "en": [
+                    "reading",
+                    "book reading"
+                ],
+                "pl": "czytanie",
+                "id": 643
+            },
+            {
+                "en": [
+                    "writing",
+                    "creative writing"
+                ],
+                "pl": "pisanie",
+                "id": 644
+            },
+            {
+                "en": [
+                    "music",
+                    "playing music"
+                ],
+                "pl": "muzyka",
+                "id": 645
+            },
+            {
+                "en": [
+                    "singing",
+                    "vocal performance"
+                ],
+                "pl": "śpiew",
+                "id": 646
+            },
+            {
+                "en": [
+                    "playing an instrument",
+                    "musical instrument"
+                ],
+                "pl": "granie na instrumencie",
+                "id": 647
+            },
+            {
+                "en": [
+                    "guitar"
+                ],
+                "pl": "gitara",
+                "id": 648
+            },
+            {
+                "en": [
+                    "piano"
+                ],
+                "pl": "pianino",
+                "id": 649
+            },
+            {
+                "en": [
+                    "cooking",
+                    "baking"
+                ],
+                "pl": "gotowanie",
+                "id": 650
+            },
+            {
+                "en": [
+                    "gardening",
+                    "horticulture"
+                ],
+                "pl": "ogrodnictwo",
+                "id": 651
+            },
+            {
+                "en": [
+                    "fishing",
+                    "angling"
+                ],
+                "pl": "wędkarstwo",
+                "id": 652
+            },
+            {
+                "en": [
+                    "hiking",
+                    "trekking"
+                ],
+                "pl": "piesze wędrówki",
+                "id": 653
+            },
+            {
+                "en": [
+                    "camping",
+                    "outdoor camping"
+                ],
+                "pl": "biwakowanie",
+                "id": 654
+            },
+            {
+                "en": [
+                    "traveling",
+                    "exploring"
+                ],
+                "pl": "podróżowanie",
+                "id": 655
+            },
+            {
+                "en": [
+                    "cycling",
+                    "biking"
+                ],
+                "pl": "jazda na rowerze",
+                "id": 656
+            },
+            {
+                "en": [
+                    "running",
+                    "jogging"
+                ],
+                "pl": "bieganie",
+                "id": 657
+            },
+            {
+                "en": [
+                    "swimming"
+                ],
+                "pl": "pływanie",
+                "id": 658
+            },
+            {
+                "en": [
+                    "yoga"
+                ],
+                "pl": "joga",
+                "id": 659
+            },
+            {
+                "en": [
+                    "dancing",
+                    "dance"
+                ],
+                "pl": "taniec",
+                "id": 660
+            },
+            {
+                "en": [
+                    "knitting",
+                    "crocheting"
+                ],
+                "pl": "robienie na drutach",
+                "id": 661
+            },
+            {
+                "en": [
+                    "sewing",
+                    "stitching"
+                ],
+                "pl": "szycie",
+                "id": 662
+            },
+            {
+                "en": [
+                    "crafts",
+                    "handicrafts"
+                ],
+                "pl": "rękodzieło",
+                "id": 663
+            },
+            {
+                "en": [
+                    "DIY",
+                    "do-it-yourself"
+                ],
+                "pl": "majsterkowanie",
+                "id": 664
+            },
+            {
+                "en": [
+                    "woodworking",
+                    "carpentry"
+                ],
+                "pl": "stolarstwo",
+                "id": 665
+            },
+            {
+                "en": [
+                    "pottery",
+                    "ceramics"
+                ],
+                "pl": "ceramika",
+                "id": 666
+            },
+            {
+                "en": [
+                    "model building",
+                    "miniatures"
+                ],
+                "pl": "modelarstwo",
+                "id": 667
+            },
+            {
+                "en": [
+                    "collecting",
+                    "collections"
+                ],
+                "pl": "kolekcjonowanie",
+                "id": 668
+            },
+            {
+                "en": [
+                    "stamp collecting"
+                ],
+                "pl": "filatelistyka",
+                "id": 669
+            },
+            {
+                "en": [
+                    "coin collecting",
+                    "numismatics"
+                ],
+                "pl": "numizmatyka",
+                "id": 670
+            },
+            {
+                "en": [
+                    "puzzle solving",
+                    "jigsaw puzzles"
+                ],
+                "pl": "rozwiązywanie puzzli",
+                "id": 671
+            },
+            {
+                "en": [
+                    "board games",
+                    "tabletop games"
+                ],
+                "pl": "gry planszowe",
+                "id": 672
+            },
+            {
+                "en": [
+                    "video games",
+                    "gaming"
+                ],
+                "pl": "gry wideo",
+                "id": 673
+            },
+            {
+                "en": [
+                    "chess",
+                    "board chess"
+                ],
+                "pl": "szachy",
+                "id": 674
+            },
+            {
+                "en": [
+                    "writing poetry",
+                    "poetry"
+                ],
+                "pl": "pisanie poezji",
+                "id": 675
+            },
+            {
+                "en": [
+                    "blogging",
+                    "content creation"
+                ],
+                "pl": "blogowanie",
+                "id": 676
+            },
+            {
+                "en": [
+                    "vlogging"
+                ],
+                "pl": "vlogowanie",
+                "id": 677
+            },
+            {
+                "en": [
+                    "social media management"
+                ],
+                "pl": "zarządzanie mediami społecznościowymi",
+                "id": 678
+            },
+            {
+                "en": [
+                    "podcasting"
+                ],
+                "pl": "podcasting",
+                "id": 679
+            },
+            {
+                "en": [
+                    "acting",
+                    "theater"
+                ],
+                "pl": "aktorstwo",
+                "id": 680
+            },
+            {
+                "en": [
+                    "filmmaking",
+                    "video production"
+                ],
+                "pl": "tworzenie filmów",
+                "id": 681
+            },
+            {
+                "en": [
+                    "graphic design",
+                    "digital art"
+                ],
+                "pl": "projektowanie graficzne",
+                "id": 682
+            },
+            {
+                "en": [
+                    "web design",
+                    "website creation"
+                ],
+                "pl": "projektowanie stron internetowych",
+                "id": 683
+            },
+            {
+                "en": [
+                    "coding",
+                    "programming"
+                ],
+                "pl": "programowanie",
+                "id": 684
+            },
+            {
+                "en": [
+                    "astronomy",
+                    "stargazing"
+                ],
+                "pl": "astronomia",
+                "id": 685
+            },
+            {
+                "en": [
+                    "birdwatching"
+                ],
+                "pl": "obserwacja ptaków",
+                "id": 686
+            },
+            {
+                "en": [
+                    "volunteering",
+                    "community service"
+                ],
+                "pl": "wolontariat",
+                "id": 687
+            },
+            {
+                "en": [
+                    "charity work"
+                ],
+                "pl": "praca charytatywna",
+                "id": 688
+            },
+            {
+                "en": [
+                    "languages",
+                    "language learning"
+                ],
+                "pl": "nauka języków",
+                "id": 689
+            },
+            {
+                "en": [
+                    "origami"
+                ],
+                "pl": "origami",
+                "id": 690
+            },
+            {
+                "en": [
+                    "calligraphy"
+                ],
+                "pl": "kaligrafia",
+                "id": 691
+            },
+            {
+                "en": [
+                    "sailing",
+                    "boating"
+                ],
+                "pl": "żeglarstwo",
+                "id": 692
+            },
+            {
+                "en": [
+                    "surfing"
+                ],
+                "pl": "surfowanie",
+                "id": 693
+            },
+            {
+                "en": [
+                    "scuba diving"
+                ],
+                "pl": "nurkowanie",
+                "id": 694
+            },
+            {
+                "en": [
+                    "skiing",
+                    "snowboarding"
+                ],
+                "pl": "narciarstwo",
+                "id": 695
+            },
+            {
+                "en": [
+                    "skateboarding"
+                ],
+                "pl": "jazda na deskorolce",
+                "id": 696
+            },
+            {
+                "en": [
+                    "rollerblading",
+                    "inline skating"
+                ],
+                "pl": "jazda na rolkach",
+                "id": 697
+            },
+            {
+                "en": [
+                    "rock climbing",
+                    "climbing"
+                ],
+                "pl": "wspinaczka",
+                "id": 698
+            },
+            {
+                "en": [
+                    "parkour",
+                    "freerunning"
+                ],
+                "pl": "parkour",
+                "id": 699
+            },
+            {
+                "en": [
+                    "martial arts"
+                ],
+                "pl": "sztuki walki",
+                "id": 700
+            },
+            {
+                "en": [
+                    "hunting"
+                ],
+                "pl": "polowanie",
+                "id": 701
+            },
+            {
+                "en": [
+                    "archery"
+                ],
+                "pl": "łucznictwo",
+                "id": 702
+            },
+            {
+                "en": [
+                    "fencing"
+                ],
+                "pl": "szermierka",
+                "id": 703
+            },
+            {
+                "en": [
+                    "horse riding",
+                    "equestrianism"
+                ],
+                "pl": "jazda konna",
+                "id": 704
+            },
+            {
+                "en": [
+                    "dog training",
+                    "animal training"
+                ],
+                "pl": "szkolenie psów",
+                "id": 705
+            },
+            {
+                "en": [
+                    "wine tasting",
+                    "wine appreciation"
+                ],
+                "pl": "degustacja wina",
+                "id": 706
+            },
+            {
+                "en": [
+                    "brewery",
+                    "home brewing"
+                ],
+                "pl": "warzenie piwa",
+                "id": 707
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Emotional Well-being",
+        "words": [
+            {
+                "en": [
+                    "emotion",
+                    "feeling"
+                ],
+                "pl": "emocja",
+                "id": 708
+            },
+            {
+                "en": [
+                    "happiness",
+                    "joy"
+                ],
+                "pl": "szczęście",
+                "id": 709
+            },
+            {
+                "en": [
+                    "sadness",
+                    "sorrow"
+                ],
+                "pl": "smutek",
+                "id": 710
+            },
+            {
+                "en": [
+                    "anger",
+                    "rage",
+                    "fury"
+                ],
+                "pl": "złość",
+                "id": 711
+            },
+            {
+                "en": [
+                    "fear",
+                    "anxiety"
+                ],
+                "pl": "strach",
+                "id": 712
+            },
+            {
+                "en": [
+                    "calm",
+                    "peace"
+                ],
+                "pl": "spokój",
+                "id": 713
+            },
+            {
+                "en": [
+                    "stress",
+                    "tension"
+                ],
+                "pl": "stres",
+                "id": 714
+            },
+            {
+                "en": [
+                    "relaxation",
+                    "rest"
+                ],
+                "pl": "relaks",
+                "id": 715
+            },
+            {
+                "en": [
+                    "gratitude",
+                    "thankfulness"
+                ],
+                "pl": "wdzięczność",
+                "id": 716
+            },
+            {
+                "en": [
+                    "confidence",
+                    "self-confidence"
+                ],
+                "pl": "pewność siebie",
+                "id": 717
+            },
+            {
+                "en": [
+                    "self-esteem",
+                    "self-worth"
+                ],
+                "pl": "poczucie własnej wartości",
+                "id": 718
+            },
+            {
+                "en": [
+                    "love",
+                    "affection"
+                ],
+                "pl": "miłość",
+                "id": 719
+            },
+            {
+                "en": [
+                    "compassion",
+                    "empathy"
+                ],
+                "pl": "współczucie",
+                "id": 720
+            },
+            {
+                "en": [
+                    "mindfulness",
+                    "awareness"
+                ],
+                "pl": "uważność",
+                "id": 721
+            },
+            {
+                "en": [
+                    "forgiveness",
+                    "pardon"
+                ],
+                "pl": "przebaczenie",
+                "id": 722
+            },
+            {
+                "en": [
+                    "hope",
+                    "optimism"
+                ],
+                "pl": "nadzieja",
+                "id": 723
+            },
+            {
+                "en": [
+                    "fearlessness",
+                    "courage"
+                ],
+                "pl": "odwaga",
+                "id": 724
+            },
+            {
+                "en": [
+                    "depression",
+                    "melancholy"
+                ],
+                "pl": "depresja",
+                "id": 725
+            },
+            {
+                "en": [
+                    "loneliness",
+                    "isolation"
+                ],
+                "pl": "samotność",
+                "id": 726
+            },
+            {
+                "en": [
+                    "resilience",
+                    "inner strength"
+                ],
+                "pl": "odporność psychiczna",
+                "id": 727
+            },
+            {
+                "en": [
+                    "self-care",
+                    "self-love"
+                ],
+                "pl": "dbanie o siebie",
+                "id": 728
+            },
+            {
+                "en": [
+                    "well-being",
+                    "wellness"
+                ],
+                "pl": "dobrostan",
+                "id": 729
+            },
+            {
+                "en": [
+                    "burnout",
+                    "exhaustion"
+                ],
+                "pl": "wypalenie zawodowe",
+                "id": 730
+            },
+            {
+                "en": [
+                    "vulnerability",
+                    "sensitivity"
+                ],
+                "pl": "wrażliwość",
+                "id": 731
+            },
+            {
+                "en": [
+                    "empathy",
+                    "understanding"
+                ],
+                "pl": "empatia",
+                "id": 732
+            },
+            {
+                "en": [
+                    "emotional intelligence",
+                    "EQ"
+                ],
+                "pl": "inteligencja emocjonalna",
+                "id": 733
+            },
+            {
+                "en": [
+                    "self-awareness",
+                    "self-reflection"
+                ],
+                "pl": "samoświadomość",
+                "id": 734
+            },
+            {
+                "en": [
+                    "meditation",
+                    "contemplation"
+                ],
+                "pl": "medytacja",
+                "id": 735
+            },
+            {
+                "en": [
+                    "balance",
+                    "equilibrium"
+                ],
+                "pl": "równowaga",
+                "id": 736
+            },
+            {
+                "en": [
+                    "acceptance",
+                    "tolerance"
+                ],
+                "pl": "akceptacja",
+                "id": 737
+            },
+            {
+                "en": [
+                    "patience",
+                    "endurance"
+                ],
+                "pl": "cierpliwość",
+                "id": 738
+            },
+            {
+                "en": [
+                    "trust",
+                    "faith"
+                ],
+                "pl": "zaufanie",
+                "id": 739
+            },
+            {
+                "en": [
+                    "connection",
+                    "bond"
+                ],
+                "pl": "więź",
+                "id": 740
+            },
+            {
+                "en": [
+                    "comfort",
+                    "solace"
+                ],
+                "pl": "pocieszenie",
+                "id": 741
+            },
+            {
+                "en": [
+                    "relief",
+                    "release"
+                ],
+                "pl": "ulga",
+                "id": 742
+            },
+            {
+                "en": [
+                    "security",
+                    "safety"
+                ],
+                "pl": "bezpieczeństwo",
+                "id": 743
+            },
+            {
+                "en": [
+                    "esteem",
+                    "respect"
+                ],
+                "pl": "szacunek",
+                "id": 744
+            },
+            {
+                "en": [
+                    "harmony",
+                    "serenity"
+                ],
+                "pl": "harmonia",
+                "id": 745
+            },
+            {
+                "en": [
+                    "positivity",
+                    "optimism"
+                ],
+                "pl": "pozytywność",
+                "id": 746
+            },
+            {
+                "en": [
+                    "joyfulness",
+                    "elation"
+                ],
+                "pl": "radość",
+                "id": 747
+            },
+            {
+                "en": [
+                    "mental health",
+                    "psychological health"
+                ],
+                "pl": "zdrowie psychiczne",
+                "id": 748
+            },
+            {
+                "en": [
+                    "inner peace",
+                    "tranquility"
+                ],
+                "pl": "wewnętrzny spokój",
+                "id": 749
+            },
+            {
+                "en": [
+                    "emotional support"
+                ],
+                "pl": "wsparcie emocjonalne",
+                "id": 750
+            },
+            {
+                "en": [
+                    "personal growth",
+                    "self-improvement"
+                ],
+                "pl": "rozwój osobisty",
+                "id": 751
+            },
+            {
+                "en": [
+                    "coping skills",
+                    "coping mechanisms"
+                ],
+                "pl": "umiejętności radzenia sobie",
+                "id": 752
+            },
+            {
+                "en": [
+                    "therapy",
+                    "counseling"
+                ],
+                "pl": "terapia",
+                "id": 753
+            },
+            {
+                "en": [
+                    "motivation",
+                    "drive"
+                ],
+                "pl": "motywacja",
+                "id": 754
+            },
+            {
+                "en": [
+                    "anxiety management",
+                    "stress management"
+                ],
+                "pl": "zarządzanie lękiem",
+                "id": 755
+            },
+            {
+                "en": [
+                    "emotional regulation",
+                    "mood regulation"
+                ],
+                "pl": "regulacja emocjonalna",
+                "id": 756
+            },
+            {
+                "en": [
+                    "self-discipline",
+                    "willpower"
+                ],
+                "pl": "samodyscyplina",
+                "id": 757
+            },
+            {
+                "en": [
+                    "mental clarity",
+                    "clear thinking"
+                ],
+                "pl": "jasność umysłu",
+                "id": 758
+            },
+            {
+                "en": [
+                    "inner strength",
+                    "fortitude"
+                ],
+                "pl": "siła wewnętrzna",
+                "id": 759
+            },
+            {
+                "en": [
+                    "self-expression",
+                    "emotional expression"
+                ],
+                "pl": "ekspresja emocjonalna",
+                "id": 760
+            },
+            {
+                "en": [
+                    "boundaries",
+                    "personal boundaries"
+                ],
+                "pl": "granice",
+                "id": 761
+            },
+            {
+                "en": [
+                    "peace of mind",
+                    "mental peace"
+                ],
+                "pl": "spokój ducha",
+                "id": 762
+            }
+        ]
+    }
+]

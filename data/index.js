@@ -1,16 +1,18 @@
 const fs = require('fs');
-const words = JSON.parse(fs.readFileSync('4.json', 'utf8'));
+const inputFileName = 'words.json'
+const outputFileName = 'words_v2.json'
 
-const {length: wordsLen} = words
+const categories = JSON.parse(fs.readFileSync(inputFileName, 'utf8'));
 
-console.log(wordsLen)
+let id = 1
+const mapped = categories.map((category) => {
+ const { words } = category
+const wordsWithId = words.map(word => ({...word, id: id++ }))
+    return {
+        ...category,
+        words: wordsWithId
+    }    
+})
 
-if(wordsLen < 100) throw Error('Not enough words')
 
-const obj = {
-    categoryId: 3,
-    translations: words.map((word,i) => ({...word, id: i+1}))
-}
-
-
-fs.writeFileSync('4.json', JSON.stringify(obj))
+fs.writeFileSync(outputFileName, JSON.stringify(mapped), 'utf8');
