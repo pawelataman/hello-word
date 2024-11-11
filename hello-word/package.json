@@ -16,13 +16,13 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^6.0.2",
-    "expo": "~51.0.28",
+    "expo": "~51.0.39",
     "expo-constants": "~16.0.2",
     "expo-font": "~12.0.10",
     "expo-linking": "~6.3.1",
-    "expo-router": "~3.5.23",
+    "expo-router": "~3.5.24",
     "expo-speech": "~12.0.2",
-    "expo-splash-screen": "~0.27.5",
+    "expo-splash-screen": "~0.27.7",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
@@ -47,5 +47,6 @@
     "react-test-renderer": "18.2.0",
     "typescript": "~5.3.3"
   },
-  "private": true
+  "private": true,
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

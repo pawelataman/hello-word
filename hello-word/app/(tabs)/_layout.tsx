@@ -1,5 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Layout() {
   return (
@@ -20,11 +21,32 @@ export default function Layout() {
     >
       <Tabs.Screen
         name="index"
-        options={{ headerShown: false, title: "Start" }}
+        options={{
+          headerShown: false,
+          title: "Start",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home" size={24} color={color} />
+          ),
+        }}
       />
-      <Tabs.Screen name="dictionary" options={{ title: "Słownik" }} />
-      <Tabs.Screen name="profile" options={{ title: "Profil" }} />
-      <Tabs.Screen name="settings" options={{ title: "Ustawienia" }} />
+      <Tabs.Screen
+        name="dictionary"
+        options={{
+          title: "Słownik",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="book" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Ustawienia",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="settings" size={24} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
