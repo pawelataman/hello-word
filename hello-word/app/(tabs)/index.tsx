@@ -6,10 +6,8 @@ import { Colors } from "@/constants/Colors";
 
 export default function Home() {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <HomeUserTokens></HomeUserTokens>
-      </View>
+    <SafeAreaView style={styles.container}>
+      <HomeUserTokens></HomeUserTokens>
     </SafeAreaView>
   );
 }

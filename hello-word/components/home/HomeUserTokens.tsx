@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, Button } from "react-native";
 import { Colors } from "@/constants/Colors";
 import CreditCard from "@/assets/images/icons/credit_card.svg";
 import { BOLD, NORMAL, SEMIBOLD } from "@/constants/Typography";
+import HelloButton from "@/components/ui/HelloButton";
 export default function () {
   return (
     <View style={styles.container}>
@@ -11,7 +12,9 @@ export default function () {
         </View>
         <Text style={styles.credits}>200 Kredytów</Text>
       </View>
-      {/*<Button title={"Dodaj tokeny"}></Button>*/}
+      <HelloButton type={"secondary"} color={Colors.light.blue}>
+        Dodaj kredyty
+      </HelloButton>
     </View>
   );
 }
@@ -22,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     borderRadius: 20,
-    paddingVertical: 14,
+    paddingVertical: 10,
     paddingHorizontal: 11,
   },
   icon: {
