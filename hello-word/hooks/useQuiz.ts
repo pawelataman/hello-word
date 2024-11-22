@@ -12,7 +12,7 @@ interface QuizHookProps {
 
 export function useQuiz(props: QuizHookProps): Quiz {
   const router = useRouter();
-  const [questionIndex, setQuestionIndex] = useState<number>(11);
+  const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [points, setPoints] = useState<{ current: number; total: number }>({
     current: 0,
     total: props.questions.length,

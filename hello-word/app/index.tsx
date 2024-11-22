@@ -4,6 +4,7 @@ import { Colors } from "@/constants/Colors";
 import { BOLD } from "@/constants/Typography";
 import { Language } from "@/models/models";
 import { LANG_EN, LANG_PL } from "@/constants/common";
+import WordOfTheDay from "@/components/home/WordOfTheDay";
 
 interface OptionPayload {
   from: Language;
@@ -57,6 +58,9 @@ export default function () {
           </TouchableOpacity>
         ))}
       </View>
+      <View style={{ marginTop: 20 }}>
+        <WordOfTheDay />
+      </View>
     </View>
   );
 }
@@ -64,6 +68,8 @@ export default function () {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    backgroundColor: Colors.light.white,
+    height: "100%",
   },
   title: {
     ...BOLD,
@@ -74,13 +80,12 @@ const styles = StyleSheet.create({
   innerContainer: {
     flexDirection: "row",
     gap: 10,
-    padding: 10,
   },
   squareButton: {
     borderRadius: 8,
     flex: 1,
     height: 100,
-    backgroundColor: Colors.light.white,
+    backgroundColor: Colors.light.bgLight,
     borderBottomWidth: 4,
     borderBottomColor: Colors.light.green,
 
