@@ -25,7 +25,7 @@ export default function () {
             <Text style={styles.wotd}>Ship</Text>
             <Text style={styles.wotdDesc}>Noun</Text>
           </View>
-          <PlaybackWord onPress={playback("responsibility", "en")} />
+          <PlaybackWord word={"Ship"} lang={"en"} />
         </View>
         <View style={styles.wotdContainer}>
           <View style={styles.wotdContainerInner}>
@@ -36,7 +36,7 @@ export default function () {
             <Text style={styles.wotd}>Statek</Text>
             <Text style={styles.wotdDesc}>Rzeczownik</Text>
           </View>
-          <PlaybackWord onPress={playback("odpowiedzialność", "pl")} />
+          <PlaybackWord word={"Statek"} lang={"pl"} />
         </View>
       </View>
     </View>
