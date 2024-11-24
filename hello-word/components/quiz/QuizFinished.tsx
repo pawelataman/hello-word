@@ -1,77 +1,44 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { QuizContext } from "@/context/quiz-context";
 import React, { useContext } from "react";
-import { BOLD } from "@/constants/Typography";
 import AppButton from "@/components/ui/AppButton";
-import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
 
 export default function () {
   const quiz = useContext(QuizContext);
   const router = useRouter();
+
   const handleExit = () => {
     router.replace({ pathname: "/" });
   };
 
-  const getPointsColorStyles = (points: { current: number; total: number }) => {
+  const getPointsColorClass = (points: { current: number; total: number }) => {
     if (points.total > 0) {
-      return {
-        color:
-          points.current / points.total > 0.5
-            ? Colors.light.green
-            : Colors.light.textLight,
-      };
+      return points.current / points.total > 0.5
+        ? "text-green-500"
+        : "text-gray-500";
     }
-    return {};
+    return "";
   };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Ukończyłaś(eś) quiz!</Text>
-      <Text style={styles.result}>Twój wynik to</Text>
-      <Text style={styles.points}>
-        <Text style={[getPointsColorStyles(quiz.points)]}>
+    <View className="w-full py-5 px-5 flex-1 items-center justify-center">
+      <Text className="text-xl font-bold">Ukończyłaś(eś) quiz!</Text>
+      <Text className="text-base">Twój wynik to</Text>
+      <Text className="text-4xl text-gray-500">
+        <Text className={getPointsColorClass(quiz.points)}>
           {quiz.points.current}
         </Text>{" "}
         / {quiz.points.total}
       </Text>
-      <View style={styles.actions}>
+      <View className="flex-row items-center gap-2.5 mt-5">
         <AppButton
+          variant={"primary"}
           onPress={quiz.handleRestart}
-          label={"Spróbuj ponownie"}
-        ></AppButton>
-        <AppButton
-          bgColor={Colors.light.grey}
-          onPress={handleExit}
-          label={"Zakończ"}
-        ></AppButton>
+          label="Spróbuj ponownie"
+        />
+        <AppButton onPress={handleExit} label="Zakończ" variant={"secondary"} />
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    ...BOLD,
-  },
-  result: {
-    fontSize: 16,
-  },
-  actions: {
-    flexDirection: "row",
-    gap: 10,
-    marginTop: 20,
-  },
-  points: {
-    fontSize: 36,
-    color: Colors.light.textLight,
-  },
-});

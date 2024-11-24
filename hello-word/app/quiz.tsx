@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import React, { Suspense, useCallback, useMemo } from "react";
 import { QUIZ_LANGUAGES } from "@/constants/common";
-import { Colors } from "@/constants/Colors";
 import Quiz from "@/components/quiz/Quiz";
 import QuizLoading from "@/components/quiz/QuizLoading";
 import { ErrorBoundary } from "react-error-boundary";
@@ -26,14 +25,14 @@ export default function () {
   const ErrorComponent = useCallback(
     () => (
       <View>
-        <Text>There was an error</Text>
+        <Text className={"text-center text-red-500"}>There was an error</Text>
       </View>
     ),
     [],
   );
 
   return (
-    <View style={styles.container}>
+    <View className="h-full bg-white">
       <Stack.Screen
         options={{ headerTitleAlign: "center", title: headerTitle }}
       ></Stack.Screen>
@@ -49,10 +48,3 @@ export default function () {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    backgroundColor: Colors.light.white,
-  },
-});

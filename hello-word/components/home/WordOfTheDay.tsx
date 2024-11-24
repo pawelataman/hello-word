@@ -1,79 +1,37 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Colors } from "@/constants/Colors";
-import { BOLD, SEMIBOLD } from "@/constants/Typography";
+import { Text, View } from "react-native";
 import { Image } from "expo-image";
 import PlaybackWord from "@/components/ui/PlaybackWord";
-import * as Speech from "expo-speech";
 
 export default function () {
-  const playback = (word: string, lang: string) => {
-    return () => {
-      Speech.speak(word, { language: lang, rate: 0.8 });
-    };
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Słówko na dziś</Text>
-      <View style={styles.containerInner}>
-        <View style={styles.wotdContainer}>
-          <View style={styles.wotdContainerInner}>
+    <View className="pt-5 rounded-3xl h-48 bg-gray-50">
+      <Text className="text-center font-bold text-lg">Słówko na dziś</Text>
+
+      <View className="mt-6 px-5 flex-row justify-around">
+        <View className="flex-row items-center gap-2.5">
+          <View className="gap-1">
             <Image
               style={{ width: 28, height: 20 }}
               source={require("@/assets/images/icons/gb.png")}
-            ></Image>
-            <Text style={styles.wotd}>Ship</Text>
-            <Text style={styles.wotdDesc}>Noun</Text>
+            />
+            <Text className="font-semibold text-base">Ship</Text>
+            <Text className="text-gray-500">Noun</Text>
           </View>
-          <PlaybackWord word={"Ship"} lang={"en"} />
+          <PlaybackWord word="Ship" lang="en" />
         </View>
-        <View style={styles.wotdContainer}>
-          <View style={styles.wotdContainerInner}>
+
+        <View className="flex-row items-center gap-2.5">
+          <View className="gap-1">
             <Image
               style={{ width: 28, height: 20 }}
               source={require("@/assets/images/icons/pl.png")}
-            ></Image>
-            <Text style={styles.wotd}>Statek</Text>
-            <Text style={styles.wotdDesc}>Rzeczownik</Text>
+            />
+            <Text className="font-semibold text-base">Statek</Text>
+            <Text className="text-gray-500">Rzeczownik</Text>
           </View>
-          <PlaybackWord word={"Statek"} lang={"pl"} />
+          <PlaybackWord word="Statek" lang="pl" />
         </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 20,
-    borderRadius: 20,
-    height: 200,
-    backgroundColor: Colors.light.bgLight,
-  },
-  containerInner: {
-    marginTop: 25,
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  title: {
-    textAlign: "center",
-    ...BOLD,
-    fontSize: 18,
-  },
-  wotd: {
-    ...SEMIBOLD,
-    fontSize: 16,
-  },
-  wotdDesc: {
-    color: Colors.light.textLight,
-  },
-  wotdContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-  wotdContainerInner: {
-    gap: 4,
-  },
-});

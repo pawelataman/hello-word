@@ -1,50 +1,22 @@
-import {
-  DimensionValue,
-  GestureResponderEvent,
-  Pressable,
-  StyleSheet,
-  Text,
-} from "react-native";
-import { Colors } from "@/constants/Colors";
+import { GestureResponderEvent, Pressable, Text } from "react-native";
 
 interface AppButtonProps {
   label: string;
   onPress: (event: GestureResponderEvent) => void;
-  textColor?: string;
-  bgColor?: string;
-  width?: DimensionValue;
+  variant: "primary" | "secondary";
 }
-export default function (props: AppButtonProps) {
-  const getButtonStyles = () => {
-    return {
-      ...styles.btnStyle,
-      width: props.width,
-      backgroundColor: props.bgColor || styles.btnStyle.backgroundColor,
-    };
-  };
 
-  const getTextStyles = () => {
-    return {
-      ...styles.labelStyle,
-      color: props.textColor || styles.labelStyle.color,
-    };
-  };
+export default function (props: AppButtonProps) {
   return (
-    <Pressable style={getButtonStyles()} onPress={props.onPress}>
-      <Text style={getTextStyles()}>{props.label}</Text>
+    <Pressable
+      className={`px-5 py-2.5 bg-green-500 rounded-lg ${props.variant === "secondary" && "bg-gray-300"}`}
+      onPress={props.onPress}
+    >
+      <Text
+        className={`text-white font-medium ${props.variant === "secondary" && "color-black"}`}
+      >
+        {props.label}
+      </Text>
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  btnStyle: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: Colors.light.green,
-    borderRadius: 8,
-  },
-  labelStyle: {
-    fontSize: 16,
-    color: Colors.light.white,
-  },
-});

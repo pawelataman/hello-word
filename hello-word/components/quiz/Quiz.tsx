@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import AnswerButton from "@/components/quiz/QuizAnswerButton";
 import { useQuiz } from "@/hooks/useQuiz";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -39,17 +39,15 @@ export default function (props: QuizProps) {
             question={quiz.currentQuestion?.question}
             sourceLangCode={props.sourceLangCode}
           />
-          <View style={styles.questionAnswersContainer}>
-            {quiz.currentQuestion?.answers.map((ans) => {
-              return (
-                <AnswerButton
-                  onPress={() => quiz.handleAnswer(ans)}
-                  label={getAnswerLabel(ans)}
-                  id={ans.id}
-                  key={ans.id}
-                ></AnswerButton>
-              );
-            })}
+          <View className="px-5 flex-row flex-wrap justify-between gap-y-5">
+            {quiz.currentQuestion?.answers.map((ans) => (
+              <AnswerButton
+                onPress={() => quiz.handleAnswer(ans)}
+                label={getAnswerLabel(ans)}
+                id={ans.id}
+                key={ans.id}
+              />
+            ))}
           </View>
         </>
       )}
@@ -57,13 +55,3 @@ export default function (props: QuizProps) {
     </QuizContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  questionAnswersContainer: {
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    rowGap: 20,
-  },
-});
