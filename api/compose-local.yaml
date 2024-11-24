@@ -1,0 +1,16 @@
+services:
+
+  db:
+    image: postgres:16.3
+    volumes:
+      - hello_word_db:/var/lib/postgresql/data
+
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DB}
+
+volumes:
+  hello_word_db:
