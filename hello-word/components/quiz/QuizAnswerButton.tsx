@@ -7,34 +7,37 @@ import {
 import { Colors } from "@/constants/Colors";
 import { useContext, useMemo } from "react";
 import { QuizContext } from "@/context/quiz-context";
+import { HighlightMode } from "@/models/models";
 
 interface AnswerButtonProps {
   onPress: (ev: GestureResponderEvent) => void;
   label: string;
-  id: string;
+  id: number;
 }
 
 export default function (props: AnswerButtonProps) {
   const quiz = useContext(QuizContext);
-  const highlighted = useMemo(() => {
-    if (props.id === quiz.highlightedAnswers.correctAnswerId) return "good";
-    if (props.id === quiz.highlightedAnswers.incorrectAnswerId) return "wrong";
+  const highlighted = useMemo<HighlightMode | null>(() => {
+    if (props.id === quiz.highlightedAnswers.correctAnswerId) return "correct";
+    if (props.id === quiz.highlightedAnswers.incorrectAnswerId) {
+      return "incorrect";
+    }
     return null;
   }, [quiz.highlightedAnswers]);
   const getButtonStyle = () => {
     return [
       styles.button,
 
-      highlighted === "good" ? styles.buttonCorrect : {},
-      highlighted === "wrong" ? styles.buttonWrong : {},
+      highlighted === "correct" ? styles.buttonCorrect : {},
+      highlighted === "incorrect" ? styles.buttonWrong : {},
     ];
   };
 
   const getTextStyle = () => {
     return [
       styles.text,
-      highlighted === "good" ? styles.textCorrect : {},
-      highlighted === "wrong" ? styles.textWrong : {},
+      highlighted === "correct" ? styles.textCorrect : {},
+      highlighted === "incorrect" ? styles.textWrong : {},
     ];
   };
 
@@ -61,8 +64,9 @@ const styles = StyleSheet.create({
     width: "45%",
     backgroundColor: Colors.light.bgLight,
     paddingVertical: 20,
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     borderRadius: 8,
+    justifyContent: "center",
   },
 
   buttonCorrect: {
@@ -80,8 +84,8 @@ const styles = StyleSheet.create({
     color: Colors.light.white,
   },
   text: {
-    color: Colors.light.textLight,
-    fontSize: 24,
+    color: Colors.light.textDark,
+    fontSize: 16,
     textAlign: "center",
   },
 });

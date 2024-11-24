@@ -1,12 +1,13 @@
 import { StyleSheet, View } from "react-native";
-import AnswerButton from "@/components/ui/AnswerButton";
+import AnswerButton from "@/components/quiz/QuizAnswerButton";
 import { useQuiz } from "@/hooks/useQuiz";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getQuizQuestions } from "@/api/getQuizQuestions";
 import QuizQuestion from "@/components/quiz/QuizQuestion";
 import { QuizContext } from "@/context/quiz-context";
 import React from "react";
 import QuizFinished from "./QuizFinished";
+import { getQuiz } from "@/api/getQuiz";
+import { Word } from "@/api/models/quiz";
 
 interface QuizProps {
   sourceLangCode: string;
@@ -14,27 +15,38 @@ interface QuizProps {
 }
 
 export default function (props: QuizProps) {
+  const numOfQuestions = 10;
   const { data } = useSuspenseQuery({
-    queryKey: ["quizQuestions", 10],
-    queryFn: () => getQuizQuestions({ amount: 10 }),
+    queryKey: ["quiz"],
+    queryFn: () => getQuiz(numOfQuestions),
+    retry: false,
   });
+
   const quiz = useQuiz({
     ...props,
-    questions: data.questions,
+    quiz: data,
   });
+
+  const getAnswerLabel = (word: Word): string => {
+    return props.targetLangCode === "en" ? word.en : word.pl;
+  };
+
   return (
     <QuizContext.Provider value={quiz}>
       {quiz.quizStatus === "ongoing" && (
         <>
-          <QuizQuestion question={quiz.currentQuestion!} />
+          <QuizQuestion
+            question={quiz.currentQuestion?.question}
+            sourceLangCode={props.sourceLangCode}
+          />
           <View style={styles.questionAnswersContainer}>
             {quiz.currentQuestion?.answers.map((ans) => {
               return (
                 <AnswerButton
                   onPress={() => quiz.handleAnswer(ans)}
-                  label={ans.value}
+                  label={getAnswerLabel(ans)}
                   id={ans.id}
-                  key={quiz.currentQuestion?.question.id + ans.id}
+                  key={ans.id}
                 ></AnswerButton>
               );
             })}

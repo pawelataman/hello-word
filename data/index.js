@@ -1,18 +1,18 @@
-const fs = require('fs');
-const inputFileName = 'words.json'
-const outputFileName = 'words_v2.json'
+const fs = require("fs");
+const inputFileName = "words_v2.json";
+const outputFileName = "words.json";
 
-const categories = JSON.parse(fs.readFileSync(inputFileName, 'utf8'));
+const output = [];
+const categoriesWithWords = JSON.parse(fs.readFileSync(inputFileName, "utf8"));
+categoriesWithWords.forEach((categoryWithWord) => {
+  categoryWithWord.words.forEach((word) => {
+    output.push({
+      categoryId: categoryWithWord.id,
+      en: word["en"][0],
+      pl: word["pl"],
+    });
+  });
+});
 
-let id = 1
-const mapped = categories.map((category) => {
- const { words } = category
-const wordsWithId = words.map(word => ({...word, id: id++ }))
-    return {
-        ...category,
-        words: wordsWithId
-    }    
-})
-
-
-fs.writeFileSync(outputFileName, JSON.stringify(mapped), 'utf8');
+console.log(output.length);
+fs.writeFileSync(outputFileName, JSON.stringify(output), "utf8");

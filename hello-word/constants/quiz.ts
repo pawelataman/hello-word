@@ -1,7 +1,7 @@
 import { Quiz } from "@/models/models";
 
 export const QUIZ_INITIAL: Quiz = {
-  highlightedAnswers: { correctAnswerId: "", incorrectAnswerId: "" },
+  highlightedAnswers: { correctAnswerId: null, incorrectAnswerId: null },
   quizStatus: "ongoing",
   points: {
     current: 0,

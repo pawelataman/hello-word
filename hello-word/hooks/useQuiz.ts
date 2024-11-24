@@ -1,11 +1,12 @@
 import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
-import { QuestionAnswer, QuizQuestion } from "@/api/models";
-import { HighlightedAnswers, Quiz } from "@/models/models";
+import { useMemo, useRef, useState } from "react";
+import { HighlightedAnswers, Quiz, QuizStatus } from "@/models/models";
 import { QUIZ_INITIAL } from "@/constants/quiz";
+import { QuizQuestion, QuizResponse, Word } from "@/api/models/quiz";
+import { shuffle } from "@/utils/array";
 
 interface QuizHookProps {
-  questions: QuizQuestion[];
+  quiz: QuizResponse;
   sourceLangCode: string;
   targetLangCode: string;
 }
@@ -13,37 +14,54 @@ interface QuizHookProps {
 export function useQuiz(props: QuizHookProps): Quiz {
   const router = useRouter();
   const [questionIndex, setQuestionIndex] = useState<number>(0);
-  const [points, setPoints] = useState<{ current: number; total: number }>({
-    current: 0,
-    total: props.questions.length,
-  });
   const [highlightedAnswers, setHighlightedAnswers] =
     useState<HighlightedAnswers>(QUIZ_INITIAL.highlightedAnswers);
-  const currentQuestion = useMemo(() => {
-    return props.questions[questionIndex];
+  const points = useRef<{ current: number; total: number }>({
+    current: 0,
+    total: props.quiz.questions.length,
+  });
+  const currentQuestion = useMemo<QuizQuestion | null>(() => {
+    const current = props.quiz.questions[questionIndex];
+    if (current) {
+      return { ...current, answers: shuffle(current.answers) };
+    }
+    return null;
   }, [questionIndex]);
 
-  const quizStatus = useMemo(() => {
-    return questionIndex > props.questions.length - 1 ? "finished" : "ongoing";
+  const quizStatus = useMemo<QuizStatus>(() => {
+    return questionIndex > props.quiz.questions.length - 1
+      ? "finished"
+      : "ongoing";
   }, [questionIndex]);
 
-  const handleAnswer = (answer: QuestionAnswer) => {
-    let correctAnswerId: string = "";
-    let incorrectAnswerId: string = "";
+  const addPoint = (pointsToAdd: number) => {
+    points.current = {
+      ...points.current,
+      current: points.current.current + pointsToAdd,
+    };
+  };
 
-    if (answer.id === currentQuestion?.correctAnswerId) {
+  const handleAnswer = (answer: Word) => {
+    if (!currentQuestion) return;
+
+    let correctAnswerId: number | null = null;
+    let incorrectAnswerId: number | null = null;
+    let timeout = 2000;
+
+    if (answer.id === currentQuestion.question.id) {
       correctAnswerId = answer.id;
-      setPoints((prev) => ({ ...prev, current: prev.current + 1 }));
+      addPoint(1);
+      timeout = 1500;
     } else {
       incorrectAnswerId = answer.id;
-      correctAnswerId = currentQuestion!.correctAnswerId;
+      correctAnswerId = currentQuestion.question.id;
     }
     setHighlightedAnswers({ incorrectAnswerId, correctAnswerId });
 
     setTimeout(() => {
-      setHighlightedAnswers({ incorrectAnswerId: "", correctAnswerId: "" });
+      setHighlightedAnswers({ incorrectAnswerId: null, correctAnswerId: null });
       setQuestionIndex((prev) => prev + 1);
-    }, 1000);
+    }, timeout);
   };
 
   const handleRestart = () => {
@@ -61,7 +79,7 @@ export function useQuiz(props: QuizHookProps): Quiz {
     handleRestart,
     currentQuestion,
     highlightedAnswers,
-    points,
+    points: points.current,
     quizStatus,
   };
 }
