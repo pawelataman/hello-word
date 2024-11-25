@@ -1,16 +1,16 @@
 import { Text, View } from "react-native";
 import Animated, {
   useSharedValue,
-  withDelay,
+  withRepeat,
   withSpring,
 } from "react-native-reanimated";
 import { useEffect } from "react";
 
 export default function () {
-  const size = useSharedValue(64);
+  const size = useSharedValue(48);
 
   useEffect(() => {
-    size.value = withDelay(500, withSpring(size.value + 22));
+    size.value = withRepeat(withSpring(size.value + 22), 100, true);
   }, []);
   return (
     <View className="h-full items-center justify-center gap-4">

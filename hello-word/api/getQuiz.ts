@@ -12,6 +12,6 @@ export async function getQuiz(numOfQuestions: number): Promise<QuizResponse> {
       } catch (e) {
         reject(e);
       }
-    }, 5000);
+    }, 200);
   });
 }

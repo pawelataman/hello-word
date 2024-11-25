@@ -1,9 +1,11 @@
 import { Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { Suspense, useCallback, useEffect, useMemo } from "react";
 import { LANG_EN, LANG_PL, QUIZ_LANGUAGES } from "@/constants/common";
 import QuizLoading from "@/components/quiz/QuizLoading";
 import { useQuizStore } from "@/state/quiz.state";
+import { ErrorBoundary } from "react-error-boundary";
+import Quiz from "@/components/quiz/Quiz";
 
 export default function () {
   const { setQuizLanguages } = useQuizStore();
@@ -47,12 +49,11 @@ export default function () {
         options={{ headerTitleAlign: "center", title: headerTitle }}
       ></Stack.Screen>
 
-      <QuizLoading />
-      {/*<Suspense fallback={<QuizLoading />}>*/}
-      {/*  <ErrorBoundary fallback={<ErrorComponent />}>*/}
-      {/*    <Quiz />*/}
-      {/*  </ErrorBoundary>*/}
-      {/*</Suspense>*/}
+      <Suspense fallback={<QuizLoading />}>
+        <ErrorBoundary fallback={<ErrorComponent />}>
+          <Quiz />
+        </ErrorBoundary>
+      </Suspense>
     </View>
   );
 }
