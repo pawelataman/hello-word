@@ -30,15 +30,27 @@
     },
     "plugins": [
       "expo-router",
-      ["expo-font",{
-        "fonts": [
-          "./assets/fonts/InterTight-Bold.ttf",
-          "./assets/fonts/InterTight-Regular.ttf",
-          "./assets/fonts/InterTight-Medium.ttf"]
-      }]
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/InterTight-Bold.ttf",
+            "./assets/fonts/InterTight-Regular.ttf",
+            "./assets/fonts/InterTight-Medium.ttf"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d18ce5f0-c352-454a-8dcd-6a64c4c9a159"
+      }
     }
   }
 }

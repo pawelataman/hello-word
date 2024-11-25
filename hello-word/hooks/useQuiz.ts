@@ -7,8 +7,6 @@ import { shuffle } from "@/utils/array";
 
 interface QuizHookProps {
   quiz: QuizResponse;
-  sourceLangCode: string;
-  targetLangCode: string;
 }
 
 export function useQuiz(props: QuizHookProps): Quiz {

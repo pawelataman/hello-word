@@ -1,26 +1,36 @@
 import { Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import React, { Suspense, useCallback, useMemo } from "react";
-import { QUIZ_LANGUAGES } from "@/constants/common";
-import Quiz from "@/components/quiz/Quiz";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { LANG_EN, LANG_PL, QUIZ_LANGUAGES } from "@/constants/common";
 import QuizLoading from "@/components/quiz/QuizLoading";
-import { ErrorBoundary } from "react-error-boundary";
+import { useQuizStore } from "@/state/quiz.state";
 
 export default function () {
-  const { sourceLangCode, targetLangCode } = useLocalSearchParams<{
+  const { setQuizLanguages } = useQuizStore();
+  const searchParams = useLocalSearchParams<{
     sourceLangCode: string;
     targetLangCode: string;
   }>();
 
   const headerTitle = useMemo(() => {
     const fromLanguage = QUIZ_LANGUAGES.find(
-      (lang) => sourceLangCode === lang.code,
+      (lang) => searchParams.sourceLangCode === lang.code,
     );
     const toLanguage = QUIZ_LANGUAGES.find(
-      (lang) => targetLangCode === lang.code,
+      (lang) => searchParams.targetLangCode === lang.code,
     );
     return `Quiz ${fromLanguage?.label} - ${toLanguage?.label}`;
-  }, [sourceLangCode, targetLangCode]);
+  }, [searchParams.targetLangCode, searchParams.sourceLangCode]);
+
+  useEffect(() => {
+    const sourceLangByCode = QUIZ_LANGUAGES.find(
+      (lang) => lang.code === searchParams.sourceLangCode,
+    );
+    const targetLangByCode = QUIZ_LANGUAGES.find(
+      (lang) => lang.code === searchParams.targetLangCode,
+    );
+    setQuizLanguages(sourceLangByCode || LANG_PL, targetLangByCode || LANG_EN);
+  }, [searchParams.targetLangCode, searchParams.sourceLangCode]);
 
   const ErrorComponent = useCallback(
     () => (
@@ -37,14 +47,12 @@ export default function () {
         options={{ headerTitleAlign: "center", title: headerTitle }}
       ></Stack.Screen>
 
-      <Suspense fallback={<QuizLoading />}>
-        <ErrorBoundary fallback={<ErrorComponent />}>
-          <Quiz
-            sourceLangCode={sourceLangCode}
-            targetLangCode={targetLangCode}
-          ></Quiz>
-        </ErrorBoundary>
-      </Suspense>
+      <QuizLoading />
+      {/*<Suspense fallback={<QuizLoading />}>*/}
+      {/*  <ErrorBoundary fallback={<ErrorComponent />}>*/}
+      {/*    <Quiz />*/}
+      {/*  </ErrorBoundary>*/}
+      {/*</Suspense>*/}
     </View>
   );
 }

@@ -1,36 +1,37 @@
 import { Pressable } from "react-native";
 import { Image } from "expo-image";
 import * as Speech from "expo-speech";
-import { useRef } from "react";
+import { useCallback, useState } from "react";
 
 interface PlaybackWordProps {
   word: string;
   lang: string;
 }
-export default function (props: PlaybackWordProps) {
-  const isDone = useRef<boolean>(true);
 
-  const playbackWord = () => {
-    if (!isDone.current) return;
-    isDone.current = false;
-    Speech.speak(props.word, {
-      language: props.lang,
+export default function PlaybackWord({ word, lang }: PlaybackWordProps) {
+  const [isDone, setIsDone] = useState<boolean>(true);
+
+  const playbackWord = useCallback(() => {
+    if (!isDone) return;
+
+    setIsDone(false);
+    Speech.speak(word, {
+      language: lang,
       rate: 0.8,
-      onDone: () => {
-        isDone.current = true;
-      },
+      onDone: () => setIsDone(true),
     });
-  };
+  }, [isDone, word, lang]);
+
   return (
     <Pressable
       style={{ width: 48, height: 48 }}
-      className="bg-white rounded-[1000px] p-2"
-      onPress={() => playbackWord()}
+      className={`${isDone ? "bg-white" : "bg-gray-300"} rounded-full p-2`}
+      onPress={playbackWord}
     >
       <Image
         style={{ width: "100%", height: "100%" }}
         source={require("@/assets/images/icons/speaker-one.png")}
-      ></Image>
+      />
     </Pressable>
   );
 }

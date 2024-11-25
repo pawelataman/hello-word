@@ -1,3 +1,5 @@
+import { LANG_CODE } from "@/constants/common";
+
 export interface QuizResponse {
   id: string;
   questions: QuizQuestion[];
@@ -17,6 +19,6 @@ export interface QuizQuestion {
 export interface Word {
   id: number;
   categoryId: number;
-  en: string;
-  pl: string;
+  [LANG_CODE.EN]: string;
+  [LANG_CODE.PL]: string;
 }

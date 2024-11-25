@@ -19,28 +19,21 @@ export default function (props: AnswerButtonProps) {
     return null;
   }, [quiz.highlightedAnswers]);
 
-  const getButtonClasses = () => {
-    const baseClasses =
-      "w-[45%] bg-gray-50 py-5 px-5 rounded-lg justify-center";
-
+  const getHighlightColor = () => {
     if (highlighted === "correct") {
-      return `${baseClasses} bg-green-500 border-b-0`;
+      return `bg-green-500`;
     }
     if (highlighted === "incorrect") {
-      return `${baseClasses} bg-red-500 border-b-0`;
+      return `bg-red-500`;
     }
-
-    return baseClasses;
+    return "bg-gray-100";
   };
 
-  const getTextClasses = () => {
-    const baseClasses = "text-gray-900 text-base text-center font-mediumSy";
-
+  const getTextColor = () => {
     if (highlighted === "correct" || highlighted === "incorrect") {
-      return `${baseClasses} text-white`;
+      return `text-white`;
     }
-
-    return baseClasses;
+    return "text-gray-900";
   };
 
   const disabled = useMemo(() => {
@@ -52,11 +45,13 @@ export default function (props: AnswerButtonProps) {
 
   return (
     <Pressable
-      className={getButtonClasses()}
+      className={`${getHighlightColor()} w-[45%] py-5 px-5 rounded-lg justify-center }`}
       onPress={props.onPress}
       disabled={disabled}
     >
-      <Text className={getTextClasses()}>{props.label}</Text>
+      <Text className={`${getTextColor()} text-base text-center font-medium`}>
+        {props.label}
+      </Text>
     </Pressable>
   );
 }

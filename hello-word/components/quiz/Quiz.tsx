@@ -7,15 +7,13 @@ import { QuizContext } from "@/context/quiz-context";
 import React from "react";
 import QuizFinished from "./QuizFinished";
 import { getQuiz } from "@/api/getQuiz";
-import { Word } from "@/api/models/quiz";
+import QuizProgress from "./QuizProgress";
+import { useQuizStore } from "@/state/quiz.state";
+import { useQuizTranslation } from "@/hooks/useQuizTranslation";
 
-interface QuizProps {
-  sourceLangCode: string;
-  targetLangCode: string;
-}
-
-export default function (props: QuizProps) {
-  const numOfQuestions = 10;
+export default function () {
+  const { numOfQuestions } = useQuizStore();
+  const { getAnswerLabel } = useQuizTranslation();
   const { data } = useSuspenseQuery({
     queryKey: ["quiz"],
     queryFn: () => getQuiz(numOfQuestions),
@@ -23,22 +21,15 @@ export default function (props: QuizProps) {
   });
 
   const quiz = useQuiz({
-    ...props,
     quiz: data,
   });
-
-  const getAnswerLabel = (word: Word): string => {
-    return props.targetLangCode === "en" ? word.en : word.pl;
-  };
 
   return (
     <QuizContext.Provider value={quiz}>
       {quiz.quizStatus === "ongoing" && (
         <>
-          <QuizQuestion
-            question={quiz.currentQuestion?.question}
-            sourceLangCode={props.sourceLangCode}
-          />
+          <QuizProgress></QuizProgress>
+          <QuizQuestion question={quiz.currentQuestion?.question} />
           <View className="px-5 flex-row flex-wrap justify-between gap-y-5">
             {quiz.currentQuestion?.answers.map((ans) => (
               <AnswerButton

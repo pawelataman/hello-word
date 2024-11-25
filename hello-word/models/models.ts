@@ -1,9 +1,12 @@
 import { QuizQuestion, Word } from "@/api/models/quiz";
+import { LANG_CODE } from "@/constants/common";
 
 export interface Language {
-  code: string;
+  code: LANG_CODE;
   label: string;
 }
+
+export interface QuizState {}
 export type QuizStatus = "finished" | "ongoing";
 export type HighlightMode = "correct" | "incorrect";
 
