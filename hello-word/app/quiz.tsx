@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import React, { Suspense, useCallback, useEffect, useMemo } from "react";
 import { LANG_EN, LANG_PL, QUIZ_LANGUAGES } from "@/constants/common";
@@ -8,7 +8,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import Quiz from "@/components/quiz/Quiz";
 
 export default function () {
-  const { setQuizLanguages } = useQuizStore();
+  const { setQuizLanguages, reset } = useQuizStore();
   const searchParams = useLocalSearchParams<{
     sourceLangCode: string;
     targetLangCode: string;
@@ -44,16 +44,20 @@ export default function () {
   );
 
   return (
-    <View className="h-full bg-white">
-      <Stack.Screen
-        options={{ headerTitleAlign: "center", title: headerTitle }}
-      ></Stack.Screen>
+    <View className="bg-white">
+      <SafeAreaView>
+        <View className="h-full bg-white">
+          <Stack.Screen
+            options={{ headerTitleAlign: "center", title: headerTitle }}
+          ></Stack.Screen>
 
-      <Suspense fallback={<QuizLoading />}>
-        <ErrorBoundary fallback={<ErrorComponent />}>
-          <Quiz />
-        </ErrorBoundary>
-      </Suspense>
+          <Suspense fallback={<QuizLoading />}>
+            <ErrorBoundary fallback={<ErrorComponent />}>
+              <Quiz />
+            </ErrorBoundary>
+          </Suspense>
+        </View>
+      </SafeAreaView>
     </View>
   );
 }

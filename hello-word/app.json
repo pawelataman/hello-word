@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "name": "hello-word",
     "slug": "hello-word",
     "version": "1.0.0",

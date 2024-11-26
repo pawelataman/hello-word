@@ -1,27 +1,31 @@
 import { useWindowDimensions, View } from "react-native";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useQuizStore } from "@/state/quiz.state";
 
 export default function () {
   const { width } = useWindowDimensions();
+  const { answeredQuestions, questionsTotal } = useQuizStore();
   const segmentWidth = useMemo(() => {
-    return width / 10 - 10;
-  }, [width]);
+    if (questionsTotal === 0) return 0;
+    return width / questionsTotal - 10;
+  }, [width, questionsTotal]);
 
-  const correct = [2, 4, 5, 7, 8];
-  const incorrect = [1, 3, 6];
+  useEffect(() => {}, [questionsTotal]);
 
-  const getColor = (val: number): string => {
-    if (correct.includes(val)) {
-      return "bg-green-500";
-    } else if (incorrect.includes(val)) {
-      return "bg-red-500";
-    } else {
-      return "bg-gray-300";
+  const getColor = (index: number): string => {
+    switch (answeredQuestions[index]) {
+      case true:
+        return "bg-green-500";
+      case false:
+        return "bg-red-500";
+      case undefined:
+        return "bg-gray-300";
     }
   };
+
   return (
     <View className="h-2 mt-10 mx-5 flex-row justify-between">
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((val) => {
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((val) => {
         return (
           <View
             key={val}

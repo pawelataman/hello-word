@@ -4,6 +4,7 @@ import PlaybackWord from "@/components/ui/PlaybackWord";
 import { useQuizStore } from "@/state/quiz.state";
 import { useQuizTranslation } from "@/hooks/useQuizTranslation";
 import { LANG_CODE } from "@/constants/common";
+import Brain from "@/components/ui/Brain";
 
 interface QuizQuestionProps {
   question?: Word;
@@ -21,6 +22,7 @@ export default function (props: QuizQuestionProps) {
       </Text>
 
       {showPlayback && <PlaybackWord word={props.question!.en} lang="en" />}
+      <Brain />
     </View>
   );
 }

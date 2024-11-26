@@ -4,6 +4,7 @@ import { HighlightedAnswers, Quiz, QuizStatus } from "@/models/models";
 import { QUIZ_INITIAL } from "@/constants/quiz";
 import { QuizQuestion, QuizResponse, Word } from "@/api/models/quiz";
 import { shuffle } from "@/utils/array";
+import { useQuizStore } from "@/state/quiz.state";
 
 interface QuizHookProps {
   quiz: QuizResponse;
@@ -11,6 +12,7 @@ interface QuizHookProps {
 
 export function useQuiz(props: QuizHookProps): Quiz {
   const router = useRouter();
+  const quizStore = useQuizStore();
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [highlightedAnswers, setHighlightedAnswers] =
     useState<HighlightedAnswers>(QUIZ_INITIAL.highlightedAnswers);
@@ -48,14 +50,16 @@ export function useQuiz(props: QuizHookProps): Quiz {
 
     if (answer.id === currentQuestion.question.id) {
       correctAnswerId = answer.id;
-      addPoint(1);
       timeout = 1500;
+      addPoint(1);
+      quizStore.addAnsweredQuestion(true);
     } else {
       incorrectAnswerId = answer.id;
       correctAnswerId = currentQuestion.question.id;
+      quizStore.addAnsweredQuestion(false);
     }
-    setHighlightedAnswers({ incorrectAnswerId, correctAnswerId });
 
+    setHighlightedAnswers({ incorrectAnswerId, correctAnswerId });
     setTimeout(() => {
       setHighlightedAnswers({ incorrectAnswerId: null, correctAnswerId: null });
       setQuestionIndex((prev) => prev + 1);
@@ -63,11 +67,12 @@ export function useQuiz(props: QuizHookProps): Quiz {
   };
 
   const handleRestart = () => {
+    quizStore.reset();
     router.replace({
       pathname: "/quiz",
       params: {
-        sourceLangCode: props.sourceLangCode,
-        targetLangCode: props.targetLangCode,
+        sourceLangCode: quizStore.quizLanguages.source?.code,
+        targetLangCode: quizStore.quizLanguages.target?.code,
       },
     });
   };

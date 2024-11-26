@@ -4,19 +4,20 @@ import { useQuiz } from "@/hooks/useQuiz";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import QuizQuestion from "@/components/quiz/QuizQuestion";
 import { QuizContext } from "@/context/quiz-context";
-import React from "react";
+import React, { useEffect } from "react";
 import QuizFinished from "./QuizFinished";
 import { getQuiz } from "@/api/getQuiz";
-import QuizProgress from "./QuizProgress";
-import { useQuizStore } from "@/state/quiz.state";
 import { useQuizTranslation } from "@/hooks/useQuizTranslation";
+import { useQuizStore } from "@/state/quiz.state";
+import QuizProgress from "./QuizProgress";
 
+const TOTAL_QUESTIONS_REQUEST = 10;
 export default function () {
-  const { numOfQuestions } = useQuizStore();
   const { getAnswerLabel } = useQuizTranslation();
+  const { setQuestionsTotal } = useQuizStore();
   const { data } = useSuspenseQuery({
     queryKey: ["quiz"],
-    queryFn: () => getQuiz(numOfQuestions),
+    queryFn: () => getQuiz(TOTAL_QUESTIONS_REQUEST),
     retry: false,
   });
 
@@ -24,10 +25,14 @@ export default function () {
     quiz: data,
   });
 
+  useEffect(() => {
+    setQuestionsTotal(data.questions.length);
+  }, [data.questions.length]);
+
   return (
     <QuizContext.Provider value={quiz}>
       {quiz.quizStatus === "ongoing" && (
-        <>
+        <View className="h-full justify-around">
           <QuizProgress></QuizProgress>
           <QuizQuestion question={quiz.currentQuestion?.question} />
           <View className="px-5 flex-row flex-wrap justify-between gap-y-5">
@@ -40,7 +45,7 @@ export default function () {
               />
             ))}
           </View>
-        </>
+        </View>
       )}
       {quiz.quizStatus === "finished" && <QuizFinished />}
     </QuizContext.Provider>
