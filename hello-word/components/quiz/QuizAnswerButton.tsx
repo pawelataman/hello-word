@@ -45,7 +45,7 @@ export default function (props: AnswerButtonProps) {
 
   return (
     <Pressable
-      className={`${getHighlightColor()} w-[45%] h-28 py-5 px-5 rounded-lg justify-center }`}
+      className={`${getHighlightColor()} w-[45%] h-32 py-5 px-5 rounded-lg justify-center }`}
       onPress={props.onPress}
       disabled={disabled}
     >

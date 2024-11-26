@@ -22,16 +22,18 @@ export default function () {
   };
 
   return (
-    <View className="w-full py-5 px-5 flex-1 items-center justify-center">
-      <Text className="text-xl font-bold">Ukończyłaś(eś) quiz!</Text>
-      <Text className="text-base">Twój wynik to</Text>
-      <Text className="text-4xl text-gray-500">
-        <Text className={getPointsColorClass(quiz.points)}>
-          {quiz.points.current}
-        </Text>{" "}
-        / {quiz.points.total}
-      </Text>
-      <View className="flex-row items-center gap-2.5 mt-5">
+    <View className="w-full py-5 px-5 flex-1 items-center justify-between">
+      <View className="items-center justify-center w-full flex-1 margin ">
+        <Text className="text-3xl font-bold">Ukończyłaś(eś) quiz!</Text>
+        <Text className="text-xl my-4">Twój wynik to</Text>
+        <Text className="text-7xl text-gray-500 mb-6">
+          <Text className={getPointsColorClass(quiz.points)}>
+            {quiz.points.current}
+          </Text>{" "}
+          / {quiz.points.total}
+        </Text>
+      </View>
+      <View className="flex-row flex-0 items-center gap-2.5 mt-5">
         <AppButton
           variant={"primary"}
           onPress={quiz.handleRestart}

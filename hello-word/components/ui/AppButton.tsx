@@ -25,10 +25,10 @@ export default function (props: AppButtonProps) {
 
   return (
     <Pressable
-      className={`px-5 py-2.5 rounded-lg ${getBackgroundColor()}`}
+      className={`px-10 py-5 rounded-lg ${getBackgroundColor()}`}
       onPress={props.onPress}
     >
-      <Text className={`font-medium text-center ${getTextColor()}`}>
+      <Text className={`font-medium text-center text-xl ${getTextColor()}`}>
         {props.label}
       </Text>
     </Pressable>
