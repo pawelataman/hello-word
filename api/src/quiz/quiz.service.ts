@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { QuizRepository } from './quiz.repository';
-import { QuizConfig, QuizQuestion, QuizResponse, Word } from './models/quiz';
+import {HttpException, Injectable} from '@nestjs/common';
+import {QuizRepository} from './quiz.repository';
+import {QuizConfig, QuizQuestion, QuizResponse, Word} from './models/quiz';
 import * as crypto from 'node:crypto';
 
 @Injectable()
@@ -21,9 +21,16 @@ export class QuizService {
   async getQuiz(numOfQuestions: number): Promise<QuizResponse> {
     const numOfWords = numOfQuestions * 4;
 
-    const words = (await this.quizRepository.getRandomWords(numOfWords)).map(
+    let words: Word[]
+
+    try {
+     words = (await this.quizRepository.getRandomWords(numOfWords)).map(
       (result) => result as unknown as Word,
     );
+
+    } catch(e) {
+      throw new HttpException("Words not found", 404)
+    }
 
     const questions: QuizQuestion[] = [];
 
