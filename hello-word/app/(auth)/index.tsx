@@ -6,7 +6,7 @@ export default function () {
   const router = useRouter();
   return (
     <SafeAreaView>
-      <View className="px-4 py-4 gap-2 h-full justify-end">
+      <View className="px-4 py-4 gap-4 h-full justify-end">
         <AppButton
           onPress={() => {
             router.push("/sign-in");

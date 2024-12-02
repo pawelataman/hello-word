@@ -1,25 +1,27 @@
 import * as React from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
-import { Link, useRouter } from "expo-router";
-import FormInput from "@/components/ui/FormInput";
-import AppButton from "@/components/ui/AppButton";
-import { useForm } from "react-hook-form";
+import { useRouter } from "expo-router";
+import Register from "@/components/auth/Register";
+import VerifyEmail from "@/components/auth/VerifyEmail";
+import { RegisterFields, VerifyEmailFields } from "@/models/auth";
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
-  const { control, formState } = useForm();
-  const [pendingVerification, setPendingVerification] = React.useState(false);
-  const [code, setCode] = React.useState("");
 
-  const onSignUpPress = async () => {
+  const [pendingVerification, setPendingVerification] = React.useState(false);
+
+  const onSubmitRegister = async (data: RegisterFields) => {
     if (!isLoaded) {
       return;
     }
 
     try {
-      await signUp.create({});
+      await signUp.create({
+        emailAddress: data.email,
+        password: data.password,
+      });
 
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
 
@@ -31,14 +33,14 @@ export default function SignUpScreen() {
     }
   };
 
-  const onPressVerify = async () => {
+  const onSubmitCode = async (data: VerifyEmailFields) => {
     if (!isLoaded) {
       return;
     }
 
     try {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
-        code,
+        code: data.code,
       });
 
       if (completeSignUp.status === "complete") {
@@ -56,61 +58,8 @@ export default function SignUpScreen() {
 
   return (
     <SafeAreaView>
-      <View className="justify-start h-full p-4">
-        <View>
-          <FormInput
-            control={control}
-            name={"email"}
-            placeholder={"Email"}
-            className="my-2"
-            rules={{
-              required: "Adres e-mail jest wymagany",
-              pattern: {
-                value: /[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/,
-                message: "Nieprawidłowy adres e-mail",
-              },
-            }}
-          ></FormInput>
-          <FormInput
-            control={control}
-            name={"password"}
-            placeholder={"Hasło"}
-            secureTextEntry={true}
-            rules={{
-              minLength: 3,
-              required: true,
-            }}
-          ></FormInput>
-
-          <FormInput
-            control={control}
-            name={"confirmPassword"}
-            placeholder={"Potwierdź hasło"}
-            secureTextEntry={true}
-            rules={{
-              minLength: 3,
-              required: true,
-            }}
-          ></FormInput>
-        </View>
-        <View className="my-8">
-          <AppButton
-            variant={"primary"}
-            label="Zarejestruj się"
-            disabled={!formState.isValid}
-            onPress={() => {}}
-          ></AppButton>
-        </View>
-
-        <View className=" w-full justify-center align-center">
-          <Text className="my-4 text-center">Masz już konto?</Text>
-          <Link href={"./sign-in"} replace={true}>
-            <Text className="text-center color-blue-500 text-l font-semibold underline">
-              Zaloguj się
-            </Text>
-          </Link>
-        </View>
-      </View>
+      {!pendingVerification && <Register onSubmit={onSubmitRegister} />}
+      {pendingVerification && <VerifyEmail onSubmit={onSubmitCode} />}
     </SafeAreaView>
   );
 }
