@@ -4,10 +4,12 @@ interface AppButtonProps {
   label: string;
   onPress: (event: GestureResponderEvent) => void;
   variant: "primary" | "secondary";
+  disabled?: boolean;
 }
 
 export default function (props: AppButtonProps) {
   const getBackgroundColor = () => {
+    if (props.disabled) return "bg-gray-200";
     if (props.variant === "primary") {
       return "bg-green-500";
     } else {
@@ -25,6 +27,7 @@ export default function (props: AppButtonProps) {
 
   return (
     <Pressable
+      disabled={props.disabled}
       className={`px-10 py-5 rounded-lg ${getBackgroundColor()}`}
       onPress={props.onPress}
     >

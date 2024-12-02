@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import { HighlightedAnswers, Quiz, QuizStatus } from "@/models/models";
 import { QUIZ_INITIAL } from "@/constants/quiz";
-import { QuizQuestion, QuizResponse, Word } from "@/api/models/quiz";
+import { QuizQuestion, QuizResponse, Word } from "@/core/api/models/quiz";
 import { shuffle } from "@/utils/array";
 import { useQuizStore } from "@/state/quiz.state";
 
@@ -86,3 +86,4 @@ export function useQuiz(props: QuizHookProps): Quiz {
     quizStatus,
   };
 }
+//https://dictionaryapi.dev/?ref=freepublicapis.com

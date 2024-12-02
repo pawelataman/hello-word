@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { Word } from "@/api/models/quiz";
+import { Word } from "@/core/api/models/quiz";
 import PlaybackWord from "@/components/ui/PlaybackWord";
 import { useQuizStore } from "@/state/quiz.state";
 import { useQuizTranslation } from "@/hooks/useQuizTranslation";

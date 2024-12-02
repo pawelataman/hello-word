@@ -50,12 +50,14 @@ export default function () {
           <Stack.Screen
             options={{ headerTitleAlign: "center", title: headerTitle }}
           ></Stack.Screen>
-
-          <Suspense fallback={<QuizLoading />}>
-            <ErrorBoundary fallback={<ErrorComponent />}>
+          <ErrorBoundary
+            fallback={<ErrorComponent />}
+            onError={(error, info) => console.log("error", error, info)}
+          >
+            <Suspense fallback={<QuizLoading />}>
               <Quiz />
-            </ErrorBoundary>
-          </Suspense>
+            </Suspense>
+          </ErrorBoundary>
         </View>
       </SafeAreaView>
     </View>

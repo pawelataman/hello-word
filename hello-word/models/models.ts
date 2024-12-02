@@ -1,4 +1,4 @@
-import { QuizQuestion, Word } from "@/api/models/quiz";
+import { QuizQuestion, Word } from "@/core/api/models/quiz";
 import { LANG_CODE } from "@/constants/common";
 
 export interface Language {

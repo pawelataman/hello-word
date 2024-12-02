@@ -1,5 +1,5 @@
 import { useQuizStore } from "@/state/quiz.state";
-import { Word } from "@/api/models/quiz";
+import { Word } from "@/core/api/models/quiz";
 
 export function useQuizTranslation() {
   const { quizLanguages } = useQuizStore();

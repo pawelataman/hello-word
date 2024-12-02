@@ -4,6 +4,8 @@ import { Language } from "@/models/models";
 import { LANG_EN, LANG_PL } from "@/constants/common";
 import WordOfTheDay from "@/components/home/WordOfTheDay";
 import { useQuizStore } from "@/state/quiz.state";
+import AppButton from "@/components/ui/AppButton";
+import { useAuth } from "@clerk/clerk-expo";
 
 interface OptionPayload {
   from: Language;
@@ -29,6 +31,7 @@ const options = [
 
 export default function () {
   const router = useRouter();
+  const { signOut } = useAuth();
   const { reset } = useQuizStore();
 
   const navigateToQuiz = (params: OptionPayload): void => {
@@ -40,6 +43,11 @@ export default function () {
         targetLangCode: params.to.code,
       },
     });
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+    router.replace("/");
   };
 
   return (
@@ -67,6 +75,13 @@ export default function () {
           </View>
           <View className="mt-5">
             <WordOfTheDay />
+          </View>
+          <View>
+            <AppButton
+              variant={"secondary"}
+              label={"Wyloguj"}
+              onPress={() => handleLogout()}
+            ></AppButton>
           </View>
         </View>
       </SafeAreaView>

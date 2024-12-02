@@ -6,7 +6,7 @@ import QuizQuestion from "@/components/quiz/QuizQuestion";
 import { QuizContext } from "@/context/quiz-context";
 import React, { useEffect } from "react";
 import QuizFinished from "./QuizFinished";
-import { getQuiz } from "@/api/getQuiz";
+import { getQuiz } from "@/core/api/getQuiz";
 import { useQuizTranslation } from "@/hooks/useQuizTranslation";
 import { useQuizStore } from "@/state/quiz.state";
 import QuizProgress from "./QuizProgress";
@@ -18,9 +18,10 @@ export default function () {
   const { data } = useSuspenseQuery({
     queryKey: ["quiz"],
     queryFn: () => getQuiz(TOTAL_QUESTIONS_REQUEST),
-    retry: false,
   });
 
+  if (!data) return;
+  console.log("data", data);
   const quiz = useQuiz({
     quiz: data,
   });
