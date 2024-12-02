@@ -104,7 +104,7 @@ export default function SignUpScreen() {
 
         <View className=" w-full justify-center align-center">
           <Text className="my-4 text-center">Masz już konto?</Text>
-          <Link href={"./sign-in"}>
+          <Link href={"./sign-in"} replace={true}>
             <Text className="text-center color-blue-500 text-l font-semibold underline">
               Zaloguj się
             </Text>
