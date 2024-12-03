@@ -5,7 +5,7 @@ import { useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import Register from "@/components/auth/Register";
 import VerifyEmail from "@/components/auth/VerifyEmail";
-import { RegisterFields, VerifyEmailFields } from "@/models/auth";
+import { RegisterFields, VerifyEmailFields } from "@/core/models/auth";
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();

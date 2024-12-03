@@ -1,4 +1,4 @@
-import { Quiz } from "@/models/models";
+import { Quiz } from "@/core/models/models";
 
 export const QUIZ_INITIAL: Quiz = {
   highlightedAnswers: { correctAnswerId: null, incorrectAnswerId: null },

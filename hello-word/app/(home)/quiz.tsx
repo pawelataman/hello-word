@@ -1,9 +1,9 @@
 import { SafeAreaView, Text, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import React, { Suspense, useCallback, useEffect, useMemo } from "react";
-import { LANG_EN, LANG_PL, QUIZ_LANGUAGES } from "@/constants/common";
+import { LANG_EN, LANG_PL, QUIZ_LANGUAGES } from "@/core/constants/common";
 import QuizLoading from "@/components/quiz/QuizLoading";
-import { useQuizStore } from "@/state/quiz.state";
+import { useQuizStore } from "@/core/state/quiz.state";
 import { ErrorBoundary } from "react-error-boundary";
 import Quiz from "@/components/quiz/Quiz";
 

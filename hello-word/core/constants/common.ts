@@ -1,4 +1,4 @@
-import { Language } from "@/models/models";
+import { Language } from "@/core/models/models";
 
 export enum LANG_CODE {
   EN = "en",

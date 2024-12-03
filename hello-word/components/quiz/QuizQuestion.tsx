@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 import { Word } from "@/core/api/models/quiz";
 import PlaybackWord from "@/components/ui/PlaybackWord";
-import { useQuizStore } from "@/state/quiz.state";
-import { useQuizTranslation } from "@/hooks/useQuizTranslation";
-import { LANG_CODE } from "@/constants/common";
+import { useQuizStore } from "@/core/state/quiz.state";
+import { useQuizTranslation } from "@/core/hooks/useQuizTranslation";
+import { LANG_CODE } from "@/core/constants/common";
 
 interface QuizQuestionProps {
   question?: Word;

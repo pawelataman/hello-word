@@ -1,12 +1,12 @@
 import { Text, View } from "react-native";
-import FormInput from "@/components/ui/FormInput";
+import FormInput from "@/components/auth/FormInput";
 import AppButton from "@/components/ui/AppButton";
 import { Link } from "expo-router";
 import * as React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { EMAIL_PATTERN } from "@/constants/auth";
-import { RegisterFields } from "@/models/auth";
+import { EMAIL_PATTERN } from "@/core/constants/auth";
+import { RegisterFields } from "@/core/models/auth";
 
 const REGISTER_FIELD_RULES = {
   email: {
@@ -51,7 +51,6 @@ export default function ({ onSubmit }: RegisterProps) {
 
   useEffect(() => {
     trigger(["confirmPassword"]);
-    console.log("effect");
   }, [password]);
 
   return (

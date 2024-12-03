@@ -5,7 +5,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "@/global.css";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { authTokenCache } from "@/core/auth/token-cache";
-import useAuthZoneGuard from "@/hooks/useAuthZoneGuard";
+import useAuthZoneGuard from "@/core/hooks/useAuthZoneGuard";
 
 function MainLayout() {
   useAuthZoneGuard();

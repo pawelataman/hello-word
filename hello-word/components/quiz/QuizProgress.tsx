@@ -1,6 +1,6 @@
 import { Text, useWindowDimensions, View } from "react-native";
 import { useEffect, useMemo } from "react";
-import { useQuizStore } from "@/state/quiz.state";
+import { useQuizStore } from "@/core/state/quiz.state";
 
 export default function () {
   const { width } = useWindowDimensions();

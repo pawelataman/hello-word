@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
-import FormInput from "@/components/ui/FormInput";
+import FormInput from "@/components/auth/FormInput";
 import AppButton from "@/components/ui/AppButton";
 import { Link } from "expo-router";
 import { useForm } from "react-hook-form";
-import { VerifyEmailFields } from "@/models/auth";
+import { VerifyEmailFields } from "@/core/models/auth";
 
 interface VerifyEmailProps {
   onSubmit: (data: VerifyEmailFields) => void;

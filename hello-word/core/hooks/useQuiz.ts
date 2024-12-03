@@ -1,10 +1,10 @@
 import { useRouter } from "expo-router";
 import { useMemo, useRef, useState } from "react";
-import { HighlightedAnswers, Quiz, QuizStatus } from "@/models/models";
-import { QUIZ_INITIAL } from "@/constants/quiz";
+import { HighlightedAnswers, Quiz, QuizStatus } from "@/core/models/models";
+import { QUIZ_INITIAL } from "@/core/constants/quiz";
 import { QuizQuestion, QuizResponse, Word } from "@/core/api/models/quiz";
 import { shuffle } from "@/utils/array";
-import { useQuizStore } from "@/state/quiz.state";
+import { useQuizStore } from "@/core/state/quiz.state";
 
 interface QuizHookProps {
   quiz: QuizResponse;

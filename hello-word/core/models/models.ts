@@ -1,5 +1,5 @@
 import { QuizQuestion, Word } from "@/core/api/models/quiz";
-import { LANG_CODE } from "@/constants/common";
+import { LANG_CODE } from "@/core/constants/common";
 
 export interface Language {
   code: LANG_CODE;

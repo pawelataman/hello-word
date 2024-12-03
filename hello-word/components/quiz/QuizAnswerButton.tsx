@@ -1,7 +1,7 @@
 import { GestureResponderEvent, Pressable, Text } from "react-native";
 import { useContext, useMemo } from "react";
-import { QuizContext } from "@/context/quiz-context";
-import { HighlightMode } from "@/models/models";
+import { QuizContext } from "@/core/context/quiz-context";
+import { HighlightMode } from "@/core/models/models";
 
 interface AnswerButtonProps {
   onPress: (ev: GestureResponderEvent) => void;

@@ -1,9 +1,9 @@
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import { Language } from "@/models/models";
-import { LANG_EN, LANG_PL } from "@/constants/common";
+import { Language } from "@/core/models/models";
+import { LANG_EN, LANG_PL } from "@/core/constants/common";
 import WordOfTheDay from "@/components/home/WordOfTheDay";
-import { useQuizStore } from "@/state/quiz.state";
+import { useQuizStore } from "@/core/state/quiz.state";
 import AppButton from "@/components/ui/AppButton";
 import { useAuth } from "@clerk/clerk-expo";
 

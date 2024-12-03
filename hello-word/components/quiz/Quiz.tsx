@@ -1,14 +1,14 @@
 import { View } from "react-native";
 import AnswerButton from "@/components/quiz/QuizAnswerButton";
-import { useQuiz } from "@/hooks/useQuiz";
+import { useQuiz } from "@/core/hooks/useQuiz";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import QuizQuestion from "@/components/quiz/QuizQuestion";
-import { QuizContext } from "@/context/quiz-context";
+import { QuizContext } from "@/core/context/quiz-context";
 import React, { useEffect } from "react";
 import QuizFinished from "./QuizFinished";
 import { getQuiz } from "@/core/api/getQuiz";
-import { useQuizTranslation } from "@/hooks/useQuizTranslation";
-import { useQuizStore } from "@/state/quiz.state";
+import { useQuizTranslation } from "@/core/hooks/useQuizTranslation";
+import { useQuizStore } from "@/core/state/quiz.state";
 import QuizProgress from "./QuizProgress";
 
 const TOTAL_QUESTIONS_REQUEST = 10;

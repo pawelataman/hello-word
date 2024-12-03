@@ -22,10 +22,10 @@ export default function (props: FormInputProps) {
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
-            className={`bg-gray-50 border text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-16 p-4 ${error && isTouched ? "border-red-500" : "border-gray-300"}`}
+            className={`bg-transparent border-b placeholder:text-white text-white text-xl    block w-full h-16 p-4 mb-1  border-white`}
           />
           {error && isTouched && (
-            <Text className="text-red-500 mb-2">{error.message}</Text>
+            <Text className="text-white mb-2">{error.message}</Text>
           )}
         </View>
       )}

@@ -1,5 +1,5 @@
 import { create } from "zustand/react";
-import { Language } from "@/models/models";
+import { Language } from "@/core/models/models";
 
 type State = {
   quizLanguages: {

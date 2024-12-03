@@ -1,4 +1,4 @@
-import { useQuizStore } from "@/state/quiz.state";
+import { useQuizStore } from "@/core/state/quiz.state";
 import { Word } from "@/core/api/models/quiz";
 
 export function useQuizTranslation() {

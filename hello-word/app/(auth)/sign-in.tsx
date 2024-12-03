@@ -1,8 +1,10 @@
-import { SafeAreaView } from "react-native";
-import { LoginFields } from "@/models/auth";
-import Login from "@/components/auth/Login";
+import { LoginFields } from "@/core/models/auth";
 import { useSignIn } from "@clerk/clerk-expo";
 import { useCallback } from "react";
+import { ImageBackground } from "expo-image";
+import { SafeAreaView, View } from "react-native";
+import Login from "@/components/auth/Login";
+import { Stack } from "expo-router";
 
 export default function LoginPage() {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -30,8 +32,16 @@ export default function LoginPage() {
   );
 
   return (
-    <SafeAreaView className="flex-1">
-      <Login onSubmit={onSubmitLogin} />
-    </SafeAreaView>
+    <ImageBackground
+      source={require("@/assets/images/plant-bg.jpg")}
+      className={"h-full"}
+    >
+      <Stack.Screen options={{ headerShown: false }} />
+      <View className={"h-full"}>
+        <SafeAreaView className="flex-1">
+          <Login onSubmit={onSubmitLogin} />
+        </SafeAreaView>
+      </View>
+    </ImageBackground>
   );
 }

@@ -8,8 +8,7 @@ export default function Layout() {
         <Stack.Screen
           name={"index"}
           options={{
-            title: "Autentykacja",
-            headerBackTitle: "Start",
+            headerShown: false,
           }}
         ></Stack.Screen>
         <Stack.Screen

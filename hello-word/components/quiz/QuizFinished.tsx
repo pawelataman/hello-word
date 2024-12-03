@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { QuizContext } from "@/context/quiz-context";
+import { QuizContext } from "@/core/context/quiz-context";
 import React, { useContext } from "react";
 import AppButton from "@/components/ui/AppButton";
 import { useRouter } from "expo-router";

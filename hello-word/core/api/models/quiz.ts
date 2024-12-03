@@ -1,4 +1,4 @@
-import { LANG_CODE } from "@/constants/common";
+import { LANG_CODE } from "@/core/constants/common";
 
 export interface QuizResponse {
   id: string;
