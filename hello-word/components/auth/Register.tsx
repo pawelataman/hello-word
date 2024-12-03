@@ -3,6 +3,7 @@ import FormInput from "@/components/ui/FormInput";
 import AppButton from "@/components/ui/AppButton";
 import { Link } from "expo-router";
 import * as React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { EMAIL_PATTERN } from "@/constants/auth";
 import { RegisterFields } from "@/models/auth";
@@ -36,16 +37,22 @@ interface RegisterProps {
 }
 
 export default function ({ onSubmit }: RegisterProps) {
-  const { control, formState, watch, handleSubmit } = useForm<RegisterFields>({
-    defaultValues: {
-      email: "",
-      confirmPassword: "",
-      password: "",
-    },
-    mode: "onChange",
-  });
+  const { control, formState, watch, handleSubmit, trigger } =
+    useForm<RegisterFields>({
+      defaultValues: {
+        email: "",
+        confirmPassword: "",
+        password: "",
+      },
+      mode: "onChange",
+    });
 
   const password = watch("password");
+
+  useEffect(() => {
+    trigger(["confirmPassword"]);
+    console.log("effect");
+  }, [password]);
 
   return (
     <View className="justify-start h-full p-4">
@@ -66,7 +73,6 @@ export default function ({ onSubmit }: RegisterProps) {
             name={"password"}
             placeholder={"Hasło"}
             autoCapitalize={"none"}
-            secureTextEntry
             rules={REGISTER_FIELD_RULES["password"]}
           />
         </View>
@@ -76,7 +82,6 @@ export default function ({ onSubmit }: RegisterProps) {
             name={"confirmPassword"}
             placeholder={"Potwierdź hasło"}
             autoCapitalize={"none"}
-            secureTextEntry
             rules={{
               ...REGISTER_FIELD_RULES["confirmPassword"],
               validate: (value: string) =>
