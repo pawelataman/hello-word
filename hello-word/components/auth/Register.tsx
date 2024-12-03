@@ -55,6 +55,7 @@ export default function ({ onSubmit }: RegisterProps) {
             control={control}
             name={"email"}
             placeholder={"Email"}
+            keyboardType={"email-address"}
             autoCapitalize={"none"}
             rules={REGISTER_FIELD_RULES["email"]}
           />
