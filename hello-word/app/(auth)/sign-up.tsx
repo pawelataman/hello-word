@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { SafeAreaView } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
@@ -10,7 +11,8 @@ export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
 
-  const [pendingVerification, setPendingVerification] = React.useState(false);
+  const [pendingVerification, setPendingVerification] =
+    useState<boolean>(false);
 
   const onSubmitRegister = async (data: RegisterFields) => {
     if (!isLoaded) {
@@ -27,8 +29,6 @@ export default function SignUpScreen() {
 
       setPendingVerification(true);
     } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       console.error(JSON.stringify(err, null, 2));
     }
   };
@@ -50,8 +50,6 @@ export default function SignUpScreen() {
         console.error(JSON.stringify(completeSignUp, null, 2));
       }
     } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       console.error(JSON.stringify(err, null, 2));
     }
   };

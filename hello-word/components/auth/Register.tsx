@@ -47,7 +47,6 @@ export default function ({ onSubmit }: RegisterProps) {
 
   const password = watch("password");
 
-  console.log("rerender");
   return (
     <View className="justify-start h-full p-4">
       <View>
@@ -79,10 +78,8 @@ export default function ({ onSubmit }: RegisterProps) {
             secureTextEntry
             rules={{
               ...REGISTER_FIELD_RULES["confirmPassword"],
-              validate: (value: string) => {
-                console.log("valuie", value);
-                return value === password || "Hasła nie są identyczne";
-              },
+              validate: (value: string) =>
+                value === password || "Hasła nie są identyczne",
             }}
           />
         </View>
