@@ -7,6 +7,10 @@ import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { authTokenCache } from "@/core/auth/token-cache";
 import useAuthZoneGuard from "@/core/hooks/useAuthZoneGuard";
 
+if (__DEV__) {
+  require("../ReactotronConfig");
+}
+
 function MainLayout() {
   useAuthZoneGuard();
 

@@ -22,7 +22,8 @@ export default function (props: FormInputProps) {
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
-            className={`bg-transparent border-b placeholder:text-white text-white text-xl    block w-full h-16 p-4 mb-1  border-white`}
+            placeholderTextColor={"rgba(255,255,255,0.64)"}
+            className={` text-white bg-transparent border-b text-xl block w-full h-16 p-4 mb-1 border-white ${props.className}`}
           />
           {error && isTouched && (
             <Text className="text-white mb-2">{error.message}</Text>

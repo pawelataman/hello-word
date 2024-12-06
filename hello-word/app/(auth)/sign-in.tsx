@@ -1,13 +1,16 @@
 import { LoginFields } from "@/core/models/auth";
 import { useSignIn } from "@clerk/clerk-expo";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { ImageBackground } from "expo-image";
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView } from "react-native";
 import Login from "@/components/auth/Login";
 import { Stack } from "expo-router";
+import AuthError from "@/components/auth/AuthError";
+import { extractClerkErrorMessage } from "@/utils/clerk";
 
 export default function LoginPage() {
   const { isLoaded, signIn, setActive } = useSignIn();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const onSubmitLogin = useCallback(
     async (data: LoginFields) => {
@@ -24,24 +27,21 @@ export default function LoginPage() {
         } else {
           console.error(JSON.stringify(signInAttempt, null, 2));
         }
-      } catch (error) {
-        console.error(JSON.stringify(error, null, 2));
+      } catch (error: any) {
+        setErrorMessage(extractClerkErrorMessage(error));
       }
     },
     [isLoaded],
   );
 
   return (
-    <ImageBackground
-      source={require("@/assets/images/plant-bg.jpg")}
-      className={"h-full"}
-    >
+    <ImageBackground source={require("@/assets/images/plant-bg.jpg")}>
       <Stack.Screen options={{ headerShown: false }} />
-      <View className={"h-full"}>
-        <SafeAreaView className="flex-1">
-          <Login onSubmit={onSubmitLogin} />
-        </SafeAreaView>
-      </View>
+      <SafeAreaView>
+        <Login onSubmit={onSubmitLogin}>
+          <AuthError message={errorMessage} />
+        </Login>
+      </SafeAreaView>
     </ImageBackground>
   );
 }

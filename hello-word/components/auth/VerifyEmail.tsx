@@ -1,52 +1,103 @@
 import { Text, View } from "react-native";
-import FormInput from "@/components/auth/FormInput";
-import AppButton from "@/components/ui/AppButton";
-import { Link } from "expo-router";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { VerifyEmailFields } from "@/core/models/auth";
+import React, { ReactNode } from "react";
+import OTP from "@/components/ui/OTP";
+import AppButton from "@/components/ui/AppButton";
 
 interface VerifyEmailProps {
   onSubmit: (data: VerifyEmailFields) => void;
+  onResend: () => void;
+  data: {
+    email: string;
+  };
+  onBack: () => void;
+  children?: ReactNode;
 }
-const VERIFY_EMAIL_FIELD_RULES = {
-  code: {
-    required: "Pole jest wymagane",
+
+const OTPRule = {
+  required: true,
+  minLength: {
+    value: 6,
+    message: "Kod musi mieć 6 znaków",
+  },
+  maxLength: {
+    value: 6,
+    message: "Kod musi mieć 6 znaków",
   },
 };
-export default function ({ onSubmit }: VerifyEmailProps) {
+
+export default function ({
+  onSubmit,
+  data,
+  onResend,
+  onBack,
+  children,
+}: VerifyEmailProps) {
   const {
     control,
     handleSubmit,
     formState: { isValid },
+    reset,
   } = useForm<VerifyEmailFields>();
+
+  const handleBack = () => {
+    reset({ code: "" });
+    onBack();
+  };
+
   return (
-    <View className="justify-start h-full p-4">
-      <View className="mb-4">
-        <FormInput
-          control={control}
-          name={"code"}
-          placeholder={"Kod weryfikacyjny"}
-          autoCapitalize={"none"}
-          rules={VERIFY_EMAIL_FIELD_RULES["code"]}
-        />
+    <View className="h-full justify-between p-4">
+      <View>
+        <Text className={"text-center font-semibold text-xl"}>
+          Sprawdź email
+        </Text>
+        <Text className={"text-center text-m"}>Wysłaliśmy kod na adres:</Text>
+        <Text className={"text-center text-m"}>{data.email}</Text>
       </View>
-
       <View className="mb-8">
-        <AppButton
-          variant="primary"
-          label="Zweryfikuj email"
-          disabled={!isValid}
-          onPress={handleSubmit(onSubmit)}
-        />
+        <Controller
+          name="code"
+          rules={OTPRule}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <OTP
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              length={OTPRule.maxLength.value}
+            />
+          )}
+        ></Controller>
       </View>
-
-      <View className="w-full justify-center items-center">
-        <Text className="my-4 text-center">Nie masz konta?</Text>
-        <Link href="./sign-up" replace={true}>
-          <Text className="text-center text-blue-500 text-lg font-semibold underline">
-            Zarejestruj się
+      <View>
+        <Text className={"text-center"}>
+          Kod nie dotarł? &nbsp;
+          <Text
+            onPress={onResend}
+            className={"font-bold underline text-green-600"}
+          >
+            Wyślij ponownie kod
           </Text>
-        </Link>
+        </Text>
+      </View>
+      <View>
+        {children}
+        <View className="mb-8 flex-row gap-2">
+          <View className={"flex-1"}>
+            <AppButton
+              variant={"secondary"}
+              onPress={handleBack}
+              label="Wróć"
+            />
+          </View>
+          <AppButton
+            variant={"primary"}
+            onPress={handleSubmit(onSubmit)}
+            label="Zweryfikuj e-mail"
+            disabled={!isValid}
+          />
+        </View>
       </View>
     </View>
   );

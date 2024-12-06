@@ -1,35 +1,54 @@
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { SafeAreaView } from "react-native";
-import { useSignUp } from "@clerk/clerk-expo";
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import Register from "@/components/auth/Register";
-import VerifyEmail from "@/components/auth/VerifyEmail";
 import { RegisterFields, VerifyEmailFields } from "@/core/models/auth";
+import { ImageBackground } from "expo-image";
+import AuthError from "@/components/auth/AuthError";
+import { useSignUp } from "@clerk/clerk-expo";
+import { extractClerkErrorMessage } from "@/utils/clerk";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import VerifyEmail from "@/components/auth/VerifyEmail";
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<{
+    type: "register" | "verify";
+    message: string;
+  } | null>(null);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["50%"], []);
+  const [emailVerificationData, setEmailVerificationData] = useState<{
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }>({ email: "", password: "", confirmPassword: "" });
 
-  const [pendingVerification, setPendingVerification] =
-    useState<boolean>(false);
+  const handleResend = useCallback(async () => {}, [emailVerificationData]);
 
   const onSubmitRegister = async (data: RegisterFields) => {
     if (!isLoaded) {
       return;
     }
-
     try {
       await signUp.create({
         emailAddress: data.email,
         password: data.password,
       });
 
-      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-
-      setPendingVerification(true);
-    } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      await signUp.prepareEmailAddressVerification({
+        strategy: "email_code",
+      });
+      bottomSheetRef.current?.expand();
+      setErrorMessage(null);
+      setEmailVerificationData({ ...data });
+    } catch (error: any) {
+      setErrorMessage({
+        type: "register",
+        message: extractClerkErrorMessage(error),
+      });
     }
   };
 
@@ -46,18 +65,56 @@ export default function SignUpScreen() {
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
         router.replace("/");
+        bottomSheetRef.current?.close();
+        setErrorMessage(null);
       } else {
         console.error(JSON.stringify(completeSignUp, null, 2));
+        setErrorMessage({
+          type: "verify",
+          message: extractClerkErrorMessage(),
+        });
       }
-    } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+    } catch (error: any) {
+      console.error(JSON.stringify(error, null, 2));
+      setErrorMessage({
+        type: "verify",
+        message: extractClerkErrorMessage(error),
+      });
     }
   };
 
   return (
-    <SafeAreaView>
-      {!pendingVerification && <Register onSubmit={onSubmitRegister} />}
-      {pendingVerification && <VerifyEmail onSubmit={onSubmitCode} />}
-    </SafeAreaView>
+    <ImageBackground source={require("@/assets/images/plant-bg.jpg")}>
+      <Stack.Screen options={{ headerShown: false }} />
+      <SafeAreaView>
+        <Register onSubmit={onSubmitRegister}>
+          {errorMessage && errorMessage.type === "register" && (
+            <AuthError message={errorMessage.message} />
+          )}
+        </Register>
+        <BottomSheet
+          ref={bottomSheetRef}
+          snapPoints={snapPoints}
+          index={-1}
+          enablePanDownToClose={false}
+          handleComponent={null}
+          keyboardBlurBehavior={"restore"}
+          enableContentPanningGesture={false}
+        >
+          <BottomSheetView>
+            <VerifyEmail
+              onBack={() => bottomSheetRef.current?.close()}
+              onResend={handleResend}
+              data={emailVerificationData}
+              onSubmit={onSubmitCode}
+            >
+              {errorMessage && errorMessage.type === "verify" && (
+                <AuthError message={errorMessage.message} />
+              )}
+            </VerifyEmail>
+          </BottomSheetView>
+        </BottomSheet>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }

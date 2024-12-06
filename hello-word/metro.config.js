@@ -9,6 +9,7 @@ const { transformer, resolver } = config;
 
 config.transformer = {
   ...transformer,
+  sourceMap: true,
   babelTransformerPath: require.resolve("react-native-svg-transformer/expo"),
 };
 config.resolver = {

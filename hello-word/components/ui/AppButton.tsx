@@ -9,11 +9,11 @@ interface AppButtonProps {
 
 export default function (props: AppButtonProps) {
   const getBackgroundColor = () => {
-    if (props.disabled) return "bg-gray-200";
-    if (props.variant === "primary") {
-      return "bg-green-500";
-    } else {
-      return "bg-gray-300";
+    switch (props.variant) {
+      case "primary":
+        return "bg-green-500";
+      case "secondary":
+        return "bg-gray-300";
     }
   };
 
@@ -28,7 +28,7 @@ export default function (props: AppButtonProps) {
   return (
     <Pressable
       disabled={props.disabled}
-      className={`px-10 py-5 rounded-lg ${getBackgroundColor()}`}
+      className={`px-10 py-5 rounded-lg ${getBackgroundColor()} ${props.disabled && "opacity-30"}`}
       onPress={props.onPress}
     >
       <Text className={`font-medium text-center text-xl ${getTextColor()}`}>

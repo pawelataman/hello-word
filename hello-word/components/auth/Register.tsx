@@ -1,9 +1,14 @@
-import { Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import FormInput from "@/components/auth/FormInput";
-import AppButton from "@/components/ui/AppButton";
 import { Link } from "expo-router";
 import * as React from "react";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { EMAIL_PATTERN } from "@/core/constants/auth";
 import { RegisterFields } from "@/core/models/auth";
@@ -18,15 +23,15 @@ const REGISTER_FIELD_RULES = {
   },
   password: {
     minLength: {
-      value: 3,
-      message: "Minimalna długość to 3 znaki",
+      value: 8,
+      message: "Hasło zbyt krótkie",
     },
     required: "Pole jest wymagane",
   },
   confirmPassword: {
     minLength: {
-      value: 3,
-      message: "Minimalna długość to 3 znaki",
+      value: 8,
+      message: "Hasło zbyt krótkie",
     },
     required: "Pole jest wymagane",
   },
@@ -34,18 +39,24 @@ const REGISTER_FIELD_RULES = {
 
 interface RegisterProps {
   onSubmit: (data: RegisterFields) => void;
+  children?: ReactNode;
 }
 
-export default function ({ onSubmit }: RegisterProps) {
-  const { control, formState, watch, handleSubmit, trigger } =
-    useForm<RegisterFields>({
-      defaultValues: {
-        email: "",
-        confirmPassword: "",
-        password: "",
-      },
-      mode: "onChange",
-    });
+export default function ({ onSubmit, children }: RegisterProps) {
+  const {
+    control,
+    formState: { isValid },
+    watch,
+    handleSubmit,
+    trigger,
+  } = useForm<RegisterFields>({
+    defaultValues: {
+      email: "",
+      confirmPassword: "",
+      password: "",
+    },
+    mode: "onChange",
+  });
 
   const password = watch("password");
 
@@ -54,56 +65,65 @@ export default function ({ onSubmit }: RegisterProps) {
   }, [password]);
 
   return (
-    <View className="justify-start h-full p-4">
-      <View>
-        <View className={"mb-4"}>
-          <FormInput
-            control={control}
-            name={"email"}
-            placeholder={"Email"}
-            keyboardType={"email-address"}
-            autoCapitalize={"none"}
-            rules={REGISTER_FIELD_RULES["email"]}
-          />
+    <View className="justify-end h-full p-4">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <View>
+          <View className={"mb-4"}>
+            <FormInput
+              control={control}
+              name={"email"}
+              placeholder={"Email"}
+              keyboardType={"email-address"}
+              autoCapitalize={"none"}
+              rules={REGISTER_FIELD_RULES["email"]}
+              className={"text-white"}
+            />
+          </View>
+          <View className={"mb-4"}>
+            <FormInput
+              control={control}
+              name={"password"}
+              placeholder={"Hasło"}
+              autoCapitalize={"none"}
+              rules={REGISTER_FIELD_RULES["password"]}
+            />
+          </View>
+          <View className={"mb-8"}>
+            <FormInput
+              control={control}
+              name={"confirmPassword"}
+              placeholder={"Potwierdź hasło"}
+              autoCapitalize={"none"}
+              rules={{
+                ...REGISTER_FIELD_RULES["confirmPassword"],
+                validate: (value: string) =>
+                  value === password || "Hasła nie są identyczne",
+              }}
+            />
+          </View>
+          {children}
         </View>
-        <View className={"mb-4"}>
-          <FormInput
-            control={control}
-            name={"password"}
-            placeholder={"Hasło"}
-            autoCapitalize={"none"}
-            rules={REGISTER_FIELD_RULES["password"]}
-          />
-        </View>
-        <View className={"mb-8"}>
-          <FormInput
-            control={control}
-            name={"confirmPassword"}
-            placeholder={"Potwierdź hasło"}
-            autoCapitalize={"none"}
-            rules={{
-              ...REGISTER_FIELD_RULES["confirmPassword"],
-              validate: (value: string) =>
-                value === password || "Hasła nie są identyczne",
-            }}
-          />
-        </View>
-      </View>
-      <AppButton
-        variant={"primary"}
-        label="Zarejestruj się"
-        disabled={!formState.isValid}
-        onPress={handleSubmit(onSubmit)}
-      ></AppButton>
-
-      <View className="w-full mt-8 justify-center align-center">
-        <Text className="my-4 text-center">Masz już konto?</Text>
-        <Link href={"./sign-in"} replace={true}>
-          <Text className="text-center color-blue-500 text-l font-semibold underline">
-            Zaloguj się
+        <TouchableOpacity
+          className={`px-10 py-5 rounded-lg  bg-white ${!isValid && "opacity-30"}`}
+          disabled={!isValid}
+          onPress={handleSubmit(onSubmit)}
+        >
+          <Text className="font-medium text-center text-xl text-green-600">
+            Zarejestruj się
           </Text>
-        </Link>
-      </View>
+        </TouchableOpacity>
+
+        <View className="w-full mt-8 justify-center align-center">
+          <Text className="my-4 text-center text-white">Masz już konto?</Text>
+          <Link href={"./sign-in"} replace={true}>
+            <Text className="text-center color-blue-600 text-lg font-semibold underline">
+              Zaloguj się
+            </Text>
+          </Link>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
