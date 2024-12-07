@@ -1,12 +1,14 @@
 import { LoginFields } from "@/core/models/auth";
 import { useSignIn } from "@clerk/clerk-expo";
+import * as React from "react";
 import { useCallback, useState } from "react";
 import { ImageBackground } from "expo-image";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import Login from "@/components/auth/Login";
 import { Stack } from "expo-router";
 import AuthError from "@/components/auth/AuthError";
 import { extractClerkErrorMessage } from "@/utils/clerk";
+import Logo from "@/components/ui/Logo";
 
 export default function LoginPage() {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -16,6 +18,7 @@ export default function LoginPage() {
     async (data: LoginFields) => {
       if (!isLoaded) return;
 
+      setErrorMessage(null);
       try {
         const signInAttempt = await signIn.create({
           identifier: data.email,
@@ -37,7 +40,10 @@ export default function LoginPage() {
   return (
     <ImageBackground source={require("@/assets/images/plant-bg.jpg")}>
       <Stack.Screen options={{ headerShown: false }} />
-      <SafeAreaView>
+      <SafeAreaView className={"h-full justify-between"}>
+        <View className="items-center mt-12">
+          <Logo />
+        </View>
         <Login onSubmit={onSubmitLogin}>
           <AuthError message={errorMessage} />
         </Login>

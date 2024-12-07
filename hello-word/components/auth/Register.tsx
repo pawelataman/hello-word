@@ -65,10 +65,10 @@ export default function ({ onSubmit, children }: RegisterProps) {
   }, [password]);
 
   return (
-    <View className="justify-end h-full p-4">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View className="p-4">
         <View>
           <View className={"mb-4"}>
             <FormInput
@@ -115,7 +115,7 @@ export default function ({ onSubmit, children }: RegisterProps) {
           </Text>
         </TouchableOpacity>
 
-        <View className="w-full mt-8 justify-center align-center">
+        <View className="w-full mt-4 justify-center align-center">
           <Text className="my-4 text-center text-white">Masz już konto?</Text>
           <Link href={"./sign-in"} replace={true}>
             <Text className="text-center color-blue-600 text-lg font-semibold underline">
@@ -123,7 +123,7 @@ export default function ({ onSubmit, children }: RegisterProps) {
             </Text>
           </Link>
         </View>
-      </KeyboardAvoidingView>
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }

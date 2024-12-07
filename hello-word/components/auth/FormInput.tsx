@@ -22,11 +22,11 @@ export default function (props: FormInputProps) {
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
-            placeholderTextColor={"rgba(255,255,255,0.64)"}
-            className={` text-white bg-transparent border-b text-xl block w-full h-16 p-4 mb-1 border-white ${props.className}`}
+            placeholderTextColor={"rgba(255,255,255,0.5)"}
+            className={` text-white bg-transparent border-b-2 text-xl block w-full h-16 p-4 mb-1 ${error && isTouched ? "border-red-500" : "border-white"} ${props.className}`}
           />
           {error && isTouched && (
-            <Text className="text-white mb-2">{error.message}</Text>
+            <Text className="text-red-500 mb-2">{error.message}</Text>
           )}
         </View>
       )}

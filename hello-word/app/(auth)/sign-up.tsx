@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import Register from "@/components/auth/Register";
 import { RegisterFields, VerifyEmailFields } from "@/core/models/auth";
@@ -10,6 +10,7 @@ import { useSignUp } from "@clerk/clerk-expo";
 import { extractClerkErrorMessage } from "@/utils/clerk";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import VerifyEmail from "@/components/auth/VerifyEmail";
+import Logo from "@/components/ui/Logo";
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -32,6 +33,7 @@ export default function SignUpScreen() {
     if (!isLoaded) {
       return;
     }
+    setErrorMessage(null);
     try {
       await signUp.create({
         emailAddress: data.email,
@@ -42,7 +44,6 @@ export default function SignUpScreen() {
         strategy: "email_code",
       });
       bottomSheetRef.current?.expand();
-      setErrorMessage(null);
       setEmailVerificationData({ ...data });
     } catch (error: any) {
       setErrorMessage({
@@ -56,7 +57,7 @@ export default function SignUpScreen() {
     if (!isLoaded) {
       return;
     }
-
+    setErrorMessage(null);
     try {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: data.code,
@@ -66,7 +67,6 @@ export default function SignUpScreen() {
         await setActive({ session: completeSignUp.createdSessionId });
         router.replace("/");
         bottomSheetRef.current?.close();
-        setErrorMessage(null);
       } else {
         console.error(JSON.stringify(completeSignUp, null, 2));
         setErrorMessage({
@@ -87,11 +87,18 @@ export default function SignUpScreen() {
     <ImageBackground source={require("@/assets/images/plant-bg.jpg")}>
       <Stack.Screen options={{ headerShown: false }} />
       <SafeAreaView>
-        <Register onSubmit={onSubmitRegister}>
-          {errorMessage && errorMessage.type === "register" && (
-            <AuthError message={errorMessage.message} />
-          )}
-        </Register>
+        <View className={"h-full justify-between"}>
+          <View className="items-center mt-12">
+            <Logo />
+          </View>
+
+          <Register onSubmit={onSubmitRegister}>
+            {errorMessage && errorMessage.type === "register" && (
+              <AuthError message={errorMessage.message} />
+            )}
+          </Register>
+        </View>
+
         <BottomSheet
           ref={bottomSheetRef}
           snapPoints={snapPoints}

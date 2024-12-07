@@ -47,10 +47,10 @@ export default function ({ onSubmit, children }: LoginProps) {
   });
 
   return (
-    <View className="justify-end h-full p-4">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View className="p-4">
         <View className="mb-4">
           <FormInput
             control={control}
@@ -97,7 +97,7 @@ export default function ({ onSubmit, children }: LoginProps) {
             </Text>
           </Link>
         </View>
-      </KeyboardAvoidingView>
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
