@@ -6,7 +6,6 @@ export interface Language {
   label: string;
 }
 
-export interface QuizState {}
 export type QuizStatus = "finished" | "ongoing";
 export type HighlightMode = "correct" | "incorrect";
 

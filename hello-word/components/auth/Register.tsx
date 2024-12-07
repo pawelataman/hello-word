@@ -1,17 +1,12 @@
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import FormInput from "@/components/auth/FormInput";
 import { Link } from "expo-router";
 import * as React from "react";
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { EMAIL_PATTERN } from "@/core/constants/auth";
 import { RegisterFields } from "@/core/models/auth";
+import AppButton from "@/components/ui/AppButton";
 
 const REGISTER_FIELD_RULES = {
   email: {
@@ -39,10 +34,9 @@ const REGISTER_FIELD_RULES = {
 
 interface RegisterProps {
   onSubmit: (data: RegisterFields) => void;
-  children?: ReactNode;
 }
 
-export default function ({ onSubmit, children }: RegisterProps) {
+export default function ({ onSubmit }: RegisterProps) {
   const {
     control,
     formState: { isValid },
@@ -77,13 +71,14 @@ export default function ({ onSubmit, children }: RegisterProps) {
               placeholder={"Email"}
               keyboardType={"email-address"}
               autoCapitalize={"none"}
+              type={"email"}
               rules={REGISTER_FIELD_RULES["email"]}
-              className={"text-white"}
             />
           </View>
           <View className={"mb-4"}>
             <FormInput
               control={control}
+              type={"secured"}
               name={"password"}
               placeholder={"Hasło"}
               autoCapitalize={"none"}
@@ -94,6 +89,7 @@ export default function ({ onSubmit, children }: RegisterProps) {
             <FormInput
               control={control}
               name={"confirmPassword"}
+              type={"secured"}
               placeholder={"Potwierdź hasło"}
               autoCapitalize={"none"}
               rules={{
@@ -103,18 +99,13 @@ export default function ({ onSubmit, children }: RegisterProps) {
               }}
             />
           </View>
-          {children}
         </View>
-        <TouchableOpacity
-          className={`px-10 py-5 rounded-lg  bg-white ${!isValid && "opacity-30"}`}
+        <AppButton
+          variant={"secondary"}
+          label={"Zarejestruj się"}
           disabled={!isValid}
           onPress={handleSubmit(onSubmit)}
-        >
-          <Text className="font-medium text-center text-xl text-green-600">
-            Zarejestruj się
-          </Text>
-        </TouchableOpacity>
-
+        />
         <View className="w-full mt-4 justify-center align-center">
           <Text className="my-4 text-center text-white">Masz już konto?</Text>
           <Link href={"./sign-in"} replace={true}>

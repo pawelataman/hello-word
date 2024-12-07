@@ -1,16 +1,10 @@
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
 import FormInput from "@/components/auth/FormInput";
-import { Link } from "expo-router";
 import { EMAIL_PATTERN } from "@/core/constants/auth";
 import { useForm } from "react-hook-form";
 import { LoginFields } from "@/core/models/auth";
-import React, { ReactNode } from "react";
+import React from "react";
+import AppButton from "@/components/ui/AppButton";
 
 const LOGIN_FIELDS_RULES = {
   password: {
@@ -31,9 +25,8 @@ const LOGIN_FIELDS_RULES = {
 
 interface LoginProps {
   onSubmit: (data: LoginFields) => void;
-  children?: ReactNode;
 }
-export default function ({ onSubmit, children }: LoginProps) {
+export default function ({ onSubmit }: LoginProps) {
   const {
     control,
     handleSubmit,
@@ -43,25 +36,23 @@ export default function ({ onSubmit, children }: LoginProps) {
       email: "",
       password: "",
     },
-    mode: "onChange", // Important for real-time validation
+    mode: "onChange",
   });
 
   return (
     <KeyboardAvoidingView
+      keyboardVerticalOffset={-100}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View className="p-4">
         <View className="mb-4">
           <FormInput
             control={control}
-            autoComplete={"off"}
-            autoCorrect={false}
             name={"email"}
+            type={"email"}
             placeholder={"Email"}
             keyboardType={"email-address"}
-            autoCapitalize={"none"}
             rules={{ ...LOGIN_FIELDS_RULES["email"] }}
-            className={"bg-red-50"}
           />
         </View>
 
@@ -69,33 +60,19 @@ export default function ({ onSubmit, children }: LoginProps) {
           <FormInput
             control={control}
             name={"password"}
-            secureTextEntry
+            type={"secured"}
             placeholder={"Hasło"}
             rules={{ ...LOGIN_FIELDS_RULES["password"] }}
           />
         </View>
 
-        {children}
-
         <View className="mb-8">
-          <TouchableOpacity
-            className={`px-10 py-5 rounded-lg  bg-white ${!isValid && "opacity-30"}`}
+          <AppButton
+            variant={"secondary"}
+            label={"Zaloguj się"}
             disabled={!isValid}
             onPress={handleSubmit(onSubmit)}
-          >
-            <Text className="font-medium text-center text-xl text-green-600">
-              Zaloguj sie
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View className="w-full justify-center items-center">
-          <Text className="my-4 text-center text-white">Nie masz konta?</Text>
-          <Link href="./sign-up" replace={true}>
-            <Text className="text-center text-blue-600 text-lg font-semibold underline">
-              Zarejestruj się
-            </Text>
-          </Link>
+          />
         </View>
       </View>
     </KeyboardAvoidingView>

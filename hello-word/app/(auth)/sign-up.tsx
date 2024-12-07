@@ -1,39 +1,36 @@
 import * as React from "react";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import Register from "@/components/auth/Register";
 import { RegisterFields, VerifyEmailFields } from "@/core/models/auth";
 import { ImageBackground } from "expo-image";
-import AuthError from "@/components/auth/AuthError";
 import { useSignUp } from "@clerk/clerk-expo";
 import { extractClerkErrorMessage } from "@/utils/clerk";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
 import VerifyEmail from "@/components/auth/VerifyEmail";
-import Logo from "@/components/ui/Logo";
+import Logo from "@/components/ui/svg/Logo";
+import { useToast } from "@/core/hooks/useToast";
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState<{
-    type: "register" | "verify";
-    message: string;
-  } | null>(null);
+  const { showToast } = useToast();
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["50%"], []);
   const [emailVerificationData, setEmailVerificationData] = useState<{
     email: string;
     password: string;
     confirmPassword: string;
   }>({ email: "", password: "", confirmPassword: "" });
-
   const handleResend = useCallback(async () => {}, [emailVerificationData]);
 
   const onSubmitRegister = async (data: RegisterFields) => {
     if (!isLoaded) {
       return;
     }
-    setErrorMessage(null);
     try {
       await signUp.create({
         emailAddress: data.email,
@@ -46,10 +43,7 @@ export default function SignUpScreen() {
       bottomSheetRef.current?.expand();
       setEmailVerificationData({ ...data });
     } catch (error: any) {
-      setErrorMessage({
-        type: "register",
-        message: extractClerkErrorMessage(error),
-      });
+      showToast(extractClerkErrorMessage(error));
     }
   };
 
@@ -57,7 +51,6 @@ export default function SignUpScreen() {
     if (!isLoaded) {
       return;
     }
-    setErrorMessage(null);
     try {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: data.code,
@@ -69,40 +62,55 @@ export default function SignUpScreen() {
         bottomSheetRef.current?.close();
       } else {
         console.error(JSON.stringify(completeSignUp, null, 2));
-        setErrorMessage({
-          type: "verify",
-          message: extractClerkErrorMessage(),
-        });
+        showToast(extractClerkErrorMessage());
       }
     } catch (error: any) {
       console.error(JSON.stringify(error, null, 2));
-      setErrorMessage({
-        type: "verify",
-        message: extractClerkErrorMessage(error),
-      });
+      showToast(extractClerkErrorMessage(error));
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      bottomSheetRef.current?.expand();
+    }, 100);
+  }, []);
+
+  const backDropComponent = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+        opacity={0.4}
+      />
+    ),
+    [],
+  );
+
   return (
     <ImageBackground source={require("@/assets/images/plant-bg.jpg")}>
-      <Stack.Screen options={{ headerShown: false }} />
+      <Stack.Screen
+        options={{
+          headerTransparent: true,
+          headerBackTitle: "Wstecz",
+          headerTintColor: "white",
+          headerTitle: "",
+        }}
+      />
       <SafeAreaView>
         <View className={"h-full justify-between"}>
           <View className="items-center mt-12">
             <Logo />
           </View>
 
-          <Register onSubmit={onSubmitRegister}>
-            {errorMessage && errorMessage.type === "register" && (
-              <AuthError message={errorMessage.message} />
-            )}
-          </Register>
+          <Register onSubmit={onSubmitRegister}></Register>
         </View>
 
         <BottomSheet
           ref={bottomSheetRef}
-          snapPoints={snapPoints}
           index={-1}
+          backdropComponent={backDropComponent}
           enablePanDownToClose={false}
           handleComponent={null}
           keyboardBlurBehavior={"restore"}
@@ -114,11 +122,7 @@ export default function SignUpScreen() {
               onResend={handleResend}
               data={emailVerificationData}
               onSubmit={onSubmitCode}
-            >
-              {errorMessage && errorMessage.type === "verify" && (
-                <AuthError message={errorMessage.message} />
-              )}
-            </VerifyEmail>
+            ></VerifyEmail>
           </BottomSheetView>
         </BottomSheet>
       </SafeAreaView>

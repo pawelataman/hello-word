@@ -2,7 +2,7 @@ import { SafeAreaView, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import AppButton from "@/components/ui/AppButton";
 import { ImageBackground } from "expo-image";
-import Logo from "@/components/ui/Logo";
+import Logo from "@/components/ui/svg/Logo";
 import * as React from "react";
 
 export default function () {
