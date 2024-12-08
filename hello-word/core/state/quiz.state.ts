@@ -45,7 +45,6 @@ export const useQuizStore = create<QuizState>((set) => ({
   setQuestionsTotal: (total: number) =>
     set((state) => ({ ...state, questionsTotal: total })),
   reset: () => {
-    console.log("rseet");
     return set({ ...INITIAL_STATE });
   },
 }));

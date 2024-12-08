@@ -51,9 +51,9 @@ export default function () {
   };
 
   return (
-    <View className="bg-white">
+    <View className="bg-gray-200">
       <SafeAreaView>
-        <View className="p-5 bg-white h-full">
+        <View className="p-5 bg-gray-200 h-full">
           <Stack.Screen
             options={{ headerShown: false, title: "Start" }}
           ></Stack.Screen>
@@ -78,7 +78,7 @@ export default function () {
           </View>
           <View>
             <AppButton
-              variant={"secondary"}
+              variant={"tertiary"}
               label={"Wyloguj"}
               onPress={() => handleLogout()}
             ></AppButton>

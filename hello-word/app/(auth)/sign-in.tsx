@@ -9,15 +9,18 @@ import { extractClerkErrorMessage } from "@/utils/clerk";
 import Logo from "@/components/ui/svg/Logo";
 import { useToast } from "@/core/hooks/useToast";
 import { Stack } from "expo-router";
+import { useAppStore } from "@/core/state/app.state";
 
 export default function LoginPage() {
   const { isLoaded, signIn, setActive } = useSignIn();
   const { showToast } = useToast();
+  const { setIsLoading } = useAppStore();
   const onSubmitLogin = useCallback(
     async (data: LoginFields) => {
       if (!isLoaded) return;
 
       try {
+        setIsLoading(true);
         const signInAttempt = await signIn.create({
           identifier: data.email,
           password: data.password,
@@ -30,6 +33,8 @@ export default function LoginPage() {
         }
       } catch (error: any) {
         showToast(extractClerkErrorMessage(error));
+      } finally {
+        setIsLoading(false);
       }
     },
     [isLoaded],

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { SafeAreaView, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import Register from "@/components/auth/Register";
@@ -14,6 +14,7 @@ import BottomSheet, {
 import VerifyEmail from "@/components/auth/VerifyEmail";
 import Logo from "@/components/ui/svg/Logo";
 import { useToast } from "@/core/hooks/useToast";
+import { useAppStore } from "@/core/state/app.state";
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -25,6 +26,7 @@ export default function SignUpScreen() {
     password: string;
     confirmPassword: string;
   }>({ email: "", password: "", confirmPassword: "" });
+  const { setIsLoading } = useAppStore();
   const handleResend = useCallback(async () => {}, [emailVerificationData]);
 
   const onSubmitRegister = async (data: RegisterFields) => {
@@ -32,6 +34,7 @@ export default function SignUpScreen() {
       return;
     }
     try {
+      setIsLoading(true);
       await signUp.create({
         emailAddress: data.email,
         password: data.password,
@@ -44,6 +47,8 @@ export default function SignUpScreen() {
       setEmailVerificationData({ ...data });
     } catch (error: any) {
       showToast(extractClerkErrorMessage(error));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,6 +57,8 @@ export default function SignUpScreen() {
       return;
     }
     try {
+      setIsLoading(true);
+
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: data.code,
       });
@@ -67,14 +74,10 @@ export default function SignUpScreen() {
     } catch (error: any) {
       console.error(JSON.stringify(error, null, 2));
       showToast(extractClerkErrorMessage(error));
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      bottomSheetRef.current?.expand();
-    }, 100);
-  }, []);
 
   const backDropComponent = useCallback(
     (props: any) => (

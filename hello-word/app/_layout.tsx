@@ -7,6 +7,7 @@ import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { authTokenCache } from "@/core/auth/token-cache";
 import useAuthZoneGuard from "@/core/hooks/useAuthZoneGuard";
 import { RootSiblingParent } from "react-native-root-siblings";
+import AppLoader from "@/core/components/AppLoader";
 
 if (__DEV__) {
   require("../ReactotronConfig");
@@ -18,10 +19,12 @@ function MainLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <RootSiblingParent>
-        <Stack>
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(home)" options={{ headerShown: false }} />
-        </Stack>
+        <AppLoader>
+          <Stack>
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="(home)" options={{ headerShown: false }} />
+          </Stack>
+        </AppLoader>
       </RootSiblingParent>
     </GestureHandlerRootView>
   );
