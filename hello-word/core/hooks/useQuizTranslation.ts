@@ -1,11 +1,10 @@
-import { useQuizStore } from "@/core/state/quiz.state";
-import { Word } from "@/core/api/models/quiz";
+import {useQuizStore} from "@/core/state/quiz.state";
+import {Word} from "@/core/api/models/quiz";
 
 export function useQuizTranslation() {
   const { quizLanguages } = useQuizStore();
 
   const getQuestionLabel = (word: Word): string => {
-    console.log(quizLanguages);
     if (quizLanguages.source) {
       return word[quizLanguages.source.code];
     }

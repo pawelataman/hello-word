@@ -1,14 +1,14 @@
-import { View } from "react-native";
+import {View} from "react-native";
 import AnswerButton from "@/components/quiz/QuizAnswerButton";
-import { useQuiz } from "@/core/hooks/useQuiz";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import {useQuiz} from "@/core/hooks/useQuiz";
+import {useSuspenseQuery} from "@tanstack/react-query";
 import QuizQuestion from "@/components/quiz/QuizQuestion";
-import { QuizContext } from "@/core/context/quiz-context";
-import React, { useEffect } from "react";
+import {QuizContext} from "@/core/context/quiz-context";
+import React, {useEffect} from "react";
 import QuizFinished from "./QuizFinished";
-import { getQuiz } from "@/core/api/getQuiz";
-import { useQuizTranslation } from "@/core/hooks/useQuizTranslation";
-import { useQuizStore } from "@/core/state/quiz.state";
+import {getQuiz} from "@/core/api/getQuiz";
+import {useQuizTranslation} from "@/core/hooks/useQuizTranslation";
+import {useQuizStore} from "@/core/state/quiz.state";
 import QuizProgress from "./QuizProgress";
 
 const TOTAL_QUESTIONS_REQUEST = 10;
@@ -21,7 +21,6 @@ export default function () {
   });
 
   if (!data) return;
-  console.log("data", data);
   const quiz = useQuiz({
     quiz: data,
   });

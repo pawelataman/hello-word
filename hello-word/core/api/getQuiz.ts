@@ -2,9 +2,8 @@ import {QuizResponse} from "@/core/api/models/quiz";
 import {useAuth} from "@clerk/clerk-expo";
 
 export async function getQuiz(numOfQuestions: number): Promise<QuizResponse> {
-  const {getToken} = useAuth()
-  const token = await getToken()
-  console.log('token',token)
+  const { getToken } = useAuth();
+  const token = await getToken();
   const response = await fetch(
     `http://192.168.0.28:3000/quiz?numOfQuestions=${numOfQuestions}`,
     {
