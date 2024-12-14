@@ -27,7 +27,6 @@ export class QuizService {
      words = (await this.quizRepository.getRandomWords(numOfWords)).map(
       (result) => result as unknown as Word,
     );
-
     } catch(e) {
       throw new HttpException("Words not found", 404)
     }
