@@ -1,8 +1,9 @@
 import {Module} from "@nestjs/common";
+import {AuthMiddleware} from "./auth/auth.middleware";
 
 @Module({
-    providers: [],
-    exports: []
+    providers: [AuthMiddleware],
+    exports: [AuthMiddleware]
 })
 export class CoreModule {
 

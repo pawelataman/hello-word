@@ -2,6 +2,7 @@ import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import {ValidationPipe} from '@nestjs/common';
 import {config} from "dotenv";
+import {clerkMiddleware} from "@clerk/express";
 
 
 async function bootstrap() {
@@ -13,6 +14,10 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // Forbid undefined properties
     }),
   );
+
+    app.use(clerkMiddleware())
+
+
     await app.listen(process.env.PORT ?? 3000);
 }
 
