@@ -10,7 +10,7 @@ export default function () {
   const size = useSharedValue(48);
 
   useEffect(() => {
-    size.value = withRepeat(withSpring(size.value + 22), 100, true);
+    size.value = withRepeat(withSpring(48 + 22), 100, true);
   }, []);
   return (
     <View className="h-full items-center justify-center gap-4">

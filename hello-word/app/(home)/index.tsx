@@ -6,6 +6,9 @@ import WordOfTheDay from "@/components/home/WordOfTheDay";
 import { useQuizStore } from "@/core/state/quiz.state";
 import AppButton from "@/components/ui/AppButton";
 import { useAuth } from "@clerk/clerk-expo";
+import { useToast } from "@/core/hooks/useToast";
+import { extractClerkErrorMessage } from "@/utils/clerk";
+import { useAppStore } from "@/core/state/app.state";
 
 interface OptionPayload {
   from: Language;
@@ -33,6 +36,8 @@ export default function () {
   const router = useRouter();
   const { signOut } = useAuth();
   const { reset } = useQuizStore();
+  const { showToast } = useToast();
+  const { setIsLoading } = useAppStore();
 
   const navigateToQuiz = (params: OptionPayload): void => {
     reset();
@@ -46,8 +51,15 @@ export default function () {
   };
 
   const handleLogout = async () => {
-    await signOut();
-    router.replace("/");
+    try {
+      setIsLoading(true);
+      await signOut();
+      router.replace("/");
+    } catch (e) {
+      showToast(extractClerkErrorMessage(e));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

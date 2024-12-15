@@ -1,9 +1,12 @@
-import {Injectable, NestMiddleware} from "@nestjs/common";
+import {ForbiddenException, Injectable, NestMiddleware} from '@nestjs/common';
+import {NextFunction, Request, Response} from 'express';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-
-    use(req: any, res: any, next: (error?: Error | any) => void) {
-        throw new Error("Method not implemented.");
+    use(req: Request, res: Response, next: NextFunction) {
+        if (!req['auth']?.userId) {
+            return next(new ForbiddenException())
+        }
+        next();
     }
 }

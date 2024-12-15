@@ -14,5 +14,4 @@ categoriesWithWords.forEach((categoryWithWord) => {
   });
 });
 
-console.log(output.length);
 fs.writeFileSync(outputFileName, JSON.stringify(output), "utf8");
