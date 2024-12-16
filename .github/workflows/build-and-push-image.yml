@@ -35,4 +35,6 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:api"
-          tags: ghcr.io/pawelataman/hello-word-api@${{github.sha}}
+          tags: |
+            ghcr.io/pawelataman/hello-word-api:latest
+            ghcr.io/pawelataman/hello-word-api:${{github.sha}}
