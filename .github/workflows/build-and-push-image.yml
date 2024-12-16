@@ -1,5 +1,9 @@
 name: "Build and Push API docker image"
 
+permissions:
+  packages: write
+  contents: read
+
 on:
   push:
     branches:
@@ -7,9 +11,9 @@ on:
     paths:
       - "api/**/*"
 
-permissions:
-  packages: write
-  contents: read
+  workflow_dispatch:
+    branches:
+      - dev
 
 jobs:
   build-and-push:
@@ -31,6 +35,4 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:api"
-          tags: |
-            ghcr.io/pawelataman/hello-word-api@latest
-            ghcr.io/pawelataman/hello-word-api@${{github.sha}}
+          tags: ghcr.io/pawelataman/hello-word-api@${{github.sha}}
