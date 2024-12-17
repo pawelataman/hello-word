@@ -1,0 +1,51 @@
+services:
+  reverse-proxy:
+    image: traefik:v3.2
+    restart: always
+    networks:
+      - reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./acme.json:/acme.json"
+      - "./traefik.yml:/etc/traefik/traefik.yml"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`${DOMAIN_NAME}`) && (PathPrefix(``) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.routers.dashboard.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.auth.basicauth.users=${REVERSE_PROXY_USERNAME}:${REVERSE_PROXY_PASSWORD}"
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    networks:
+      - reverse-proxy
+    command:
+      - "--label-enable"
+      - "--interval"
+      - "30"
+      - "--rolling-restart"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  api:
+    image: ghcr.io/pawelataman/hello-word-api:latest
+    networks:
+      - reverse-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=myresolver"
+      - "com.centurylinklabs.watchtower.enable=true"
+    env_file:
+      - .env
+    deploy:
+      replicas: 2
+      mode: replicated
+
+networks:
+  reverse-proxy:
