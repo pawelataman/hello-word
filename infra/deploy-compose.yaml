@@ -31,6 +31,7 @@ services:
       - "--rolling-restart"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - .docker/config.json:/config.json
   api:
     image: ghcr.io/pawelataman/hello-word-api:latest
     networks:
