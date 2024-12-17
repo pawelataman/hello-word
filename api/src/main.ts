@@ -3,6 +3,7 @@ import {AppModule} from './app.module';
 import {ValidationPipe} from '@nestjs/common';
 import {config} from "dotenv";
 import {clerkMiddleware} from "@clerk/express";
+const morgan = require('morgan')
 
 
 async function bootstrap() {
@@ -14,6 +15,8 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // Forbid undefined properties
     }),
   );
+
+    app.use(morgan('combined'))
 
     app.use(clerkMiddleware())
     await app.listen(3000);
