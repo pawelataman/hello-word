@@ -16,14 +16,8 @@ async function bootstrap() {
   );
 
     app.use(clerkMiddleware())
-
-
     await app.listen(3000);
 }
 
 config();
 bootstrap();
-
-// this is for the ci/cd test
-// this is for the ci/cd test too
-// this is for the ci/cd test too
