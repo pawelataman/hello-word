@@ -1,8 +1,8 @@
 services:
 
   api:
-    image: "api-test"
-    ports:
-      - "3000:3000"
+    image: ghcr.io/pawelataman/hello-word-api:latest
     env_file:
       - .env
+    ports:
+      - "3000:3000"

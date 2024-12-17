@@ -5,15 +5,13 @@ permissions:
   contents: read
 
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
-      - dev
+      - master
     paths:
       - "api/**/*"
-
-  workflow_dispatch:
-    branches:
-      - dev
 
 jobs:
   build-and-push:
