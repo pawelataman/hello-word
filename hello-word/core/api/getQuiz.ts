@@ -5,10 +5,10 @@ export async function getQuiz(numOfQuestions: number): Promise<QuizResponse> {
   const { getToken } = useAuth();
   const token = await getToken();
   const response = await fetch(
-    `http://192.168.0.28:3000/quiz?numOfQuestions=${numOfQuestions}`,
+    `https://ataman.cloud/backend/quiz?numOfQuestions=${numOfQuestions}`,
     {
       headers: {
-        Authorization: `Bearer ${token}`, // Add token here
+        Authorization: `Bearer ${token}`, // Add token here r
         "Content-Type": "application/json", // Optional
       },
     },

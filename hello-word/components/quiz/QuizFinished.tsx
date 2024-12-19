@@ -24,7 +24,8 @@ export default function () {
   return (
     <View className="w-full py-5 px-5 flex-1 items-center justify-between">
       <View className="items-center justify-center w-full flex-1 margin ">
-        <Text className="text-3xl font-bold">Ukończyłaś(eś) quiz!</Text>
+        <Text className="text-3xl font-bold">Brawo Madzia!</Text>
+        <Text className="text-3xl font-bold">Ukończyłaś quiz!</Text>
         <Text className="text-xl my-4">Twój wynik to</Text>
         <Text className="text-7xl text-gray-500 mb-6">
           <Text className={getPointsColorClass(quiz.points)}>
@@ -39,7 +40,7 @@ export default function () {
           onPress={quiz.handleRestart}
           label="Spróbuj ponownie"
         />
-        <AppButton onPress={handleExit} label="Zakończ" variant={"secondary"} />
+        <AppButton onPress={handleExit} label="Zakończ" variant={"tertiary"} />
       </View>
     </View>
   );
