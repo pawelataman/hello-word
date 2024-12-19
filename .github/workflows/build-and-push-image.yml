@@ -55,8 +55,8 @@ jobs:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
-          envkey_HOST_NAME: ${{env.HOST_NAME}}
-          envkey_DASHBOARD_USERNAME: ${{env.DASHBOARD_USERNAM}}
+          envkey_HOST_NAME: ${{vars.HOST_NAME}}
+          envkey_DASHBOARD_USERNAME: ${{vars.DASHBOARD_USERNAME}}
           envkey_DASHBOARD_PASSWORD: ${{secrets.DASHBOARD_PASSWORD}}
           envkey_DB_URL: ${{secrets.DB_URL}}
           envkey_CLERK_PUBLISHABLE_KEY: ${{secrets.CLERK_PUBLISHABLE_KEY}}
