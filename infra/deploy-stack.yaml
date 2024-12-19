@@ -1,4 +1,5 @@
 services:
+
   reverse-proxy:
     image: traefik:v3.2
     restart: always
@@ -19,6 +20,7 @@ services:
       - "traefik.http.routers.dashboard.middlewares=auth"
       - "traefik.http.routers.dashboard.tls.certresolver=myresolver"
       - "traefik.http.middlewares.auth.basicauth.users=${DASHBOARD_USERNAME}:${DASHBOARD_PASSWORD}"
+
   backend:
     image: ghcr.io/pawelataman/hello-word-api:latest
     networks:
