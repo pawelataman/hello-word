@@ -2,8 +2,6 @@ services:
 
   reverse-proxy:
     image: traefik:v3.2
-    networks:
-      - reverse-proxy
     ports:
       - mode: host
         protocol: tcp
@@ -60,9 +58,6 @@ services:
     deploy:
       update_config:
         order: start-first
-
-networks:
-  reverse-proxy:
 
 volumes:
   letsencrypt:

@@ -56,9 +56,6 @@ jobs:
           envkey_CLERK_PUBLISHABLE_KEY: ${{secrets.CLERK_PUBLISHABLE_KEY}}
           envkey_CLERK_SECRET_KEY: ${{secrets.CLERK_SECRET_KEY}}
 
-      - name: Show envs
-        run: "cat .env && echo `cat .env`"
-
       - name: Docker Stack Deploy
         uses: jtwebman/stack-deploy-action@proposed_registry_login_change
         with:
