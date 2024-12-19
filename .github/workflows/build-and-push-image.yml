@@ -10,9 +10,6 @@ on:
     branches: [ master ]
     paths:
       - "api/**/*"
-      - ".github/workflows/**/*"
-      - "infra/**/*"
-
 
 jobs:
   build-and-push:
