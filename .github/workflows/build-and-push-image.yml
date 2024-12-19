@@ -5,6 +5,7 @@ permissions:
   contents: read
 
 on:
+  workflow_dispatch:
   pull_request:
     types:
       - closed
@@ -13,6 +14,8 @@ on:
     paths:
       - "api/**/*"
       - ".github/workflows/**/*"
+      - "infra/**/*"
+
 
 jobs:
   build-and-push:
