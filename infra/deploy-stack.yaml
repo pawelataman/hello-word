@@ -13,44 +13,31 @@ services:
       - "./traefik.yml:/etc/traefik/traefik.yml"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`${DOMAIN_NAME}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard.rule=Host(`${HOST_NAME}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=auth"
       - "traefik.http.routers.dashboard.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.auth.basicauth.users=${REVERSE_PROXY_USERNAME}:${REVERSE_PROXY_PASSWORD}"
-  watchtower:
-    image: containrrr/watchtower
-    restart: always
-    networks:
-      - reverse-proxy
-    command:
-      - "--label-enable"
-      - "--interval"
-      - "30"
-      - "--rolling-restart"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ~/.docker/config.json:/config.json
+      - "traefik.http.middlewares.auth.basicauth.users=${DASHBOARD_USERNAME}:${DASHBOARD_PASSWORD}"
   backend:
     image: ghcr.io/pawelataman/hello-word-api:latest
     networks:
       - reverse-proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`/backend`)"
+      - "traefik.http.routers.backend.rule=Host(`${HOST_NAME}`) && PathPrefix(`/backend`)"
       - "traefik.http.middlewares.stripPath.stripPrefix.prefixes=/backend"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
       - "traefik.http.routers.backend.middlewares=stripPath"
-      - "com.centurylinklabs.watchtower.enable=true"
     environment:
       - DB_URL=${DB_URL}
       - CLERK_PUBLISHABLE_KEY=${CLERK_PUBLISHABLE_KEY}
       - CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
     deploy:
-      replicas: 2
-      mode: replicated
+      update_config:
+        order: start-first
 
 networks:
   reverse-proxy:
+
