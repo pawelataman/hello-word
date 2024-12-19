@@ -5,11 +5,18 @@ services:
     networks:
       - reverse-proxy
     ports:
-      - "80:80"
-      - "443:443"
+      - mode: host
+        protocol: tcp
+        published: 80
+        target: 80
+      - mode: host
+        protocol: tcp
+        published: 443
+        target: 443
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "letsencrypt:/letsencrypt"
+
     command:
       - "--api=true"
       - "--entryPoints.web.address=:80"
@@ -21,7 +28,7 @@ services:
       - "--certificatesResolvers.myresolver.acme.email=tytanus97@gmail.com"
       - "--certificatesResolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--certificatesResolvers.myresolver.acme.tlsChallenge=true"
-      - "--log.level=INFO"
+      - "--log.level=DEBUG"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.rule=Host(`${HOST_NAME}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
