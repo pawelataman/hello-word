@@ -61,9 +61,9 @@ jobs:
           envkey_DB_URL: ${{secrets.DB_URL}}
           envkey_CLERK_PUBLISHABLE_KEY: ${{secrets.CLERK_PUBLISHABLE_KEY}}
           envkey_CLERK_SECRET_KEY: ${{secrets.CLERK_SECRET_KEY}}
-          file_name: .env
-          fail_on_empty: false
-          sort_keys: false
+
+      - name: Show envs
+        run: "cat .env && echo `cat .env`"
 
       - name: Docker Stack Deploy
         uses: cssnr/stack-deploy-action@v1
@@ -73,6 +73,6 @@ jobs:
           host: ${{vars.HOST_NAME}}
           user: ${{vars.DEPLOY_SSH_USER}}
           ssh_key: ${{ secrets.DEPLOY_SSH_PK}}
-          env_file: ./.env
+          env_file: .env
 
 
