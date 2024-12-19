@@ -41,8 +41,6 @@ services:
 
   backend:
     image: ghcr.io/pawelataman/hello-word-api:latest
-    networks:
-      - reverse-proxy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`${HOST_NAME}`) && PathPrefix(`/backend`)"
