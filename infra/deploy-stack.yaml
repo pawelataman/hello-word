@@ -2,7 +2,6 @@ services:
 
   reverse-proxy:
     image: traefik:v3.2
-    restart: always
     networks:
       - reverse-proxy
     ports:
@@ -10,8 +9,19 @@ services:
       - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./acme.json:/acme.json"
-      - "./traefik.yml:/etc/traefik/traefik.yml"
+      - "letsencrypt:/letsencrypt"
+    command:
+      - "--api=true"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entryPoints.websecure.address=:443"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedByDefault=false"
+      - "--certificatesResolvers.myresolver.acme.email=tytanus97@gmail.com"
+      - "--certificatesResolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesResolvers.myresolver.acme.tlsChallenge=true"
+      - "--log.level=INFO"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.rule=Host(`${HOST_NAME}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
@@ -42,4 +52,8 @@ services:
 
 networks:
   reverse-proxy:
+
+volumes:
+  letsencrypt:
+
 

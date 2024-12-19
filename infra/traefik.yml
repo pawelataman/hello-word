@@ -18,7 +18,7 @@ certificatesResolvers:
   myresolver:
     acme:
       email: tytanus97@gmail.com
-      storage: /acme.json
+      storage: /letsencrypt/acme.json
       tlsChallenge: {}
 log:
   level: INFO
