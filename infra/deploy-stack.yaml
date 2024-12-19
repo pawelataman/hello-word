@@ -37,6 +37,9 @@ services:
       - "traefik.http.routers.dashboard.middlewares=auth"
       - "traefik.http.routers.dashboard.tls.certresolver=myresolver"
       - "traefik.http.middlewares.auth.basicauth.users=${DASHBOARD_USERNAME}:${DASHBOARD_PASSWORD}"
+    deploy:
+      update_config:
+        order: stop-first
 
   backend:
     image: ghcr.io/pawelataman/hello-word-api:latest
