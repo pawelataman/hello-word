@@ -46,6 +46,7 @@ services:
       - "traefik.http.routers.portainer.rule=Host(`${HOST_NAME}`) && PathPrefix(`/portainer`)"
       - "traefik.http.routers.portainer.middlewares=stripPathPortainer"
       - "traefik.http.middlewares.stripPathPortainer.stripPrefix.prefixes=/portainer"
+      - "traefik.http.services.websecure.loadbalancer.server.port=9443"
       - "traefik.http.routers.portainer.entrypoints=websecure"
       - "traefik.http.routers.portainer.tls.certresolver=myresolver"
     volumes:
