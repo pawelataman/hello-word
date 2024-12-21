@@ -34,7 +34,7 @@ services:
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=auth"
       - "traefik.http.routers.dashboard.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$apr1$uvdsyj4e$QA54F37p2Dh3kO83cegyB0"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$uvdsyj4e$$QA54F37p2Dh3kO83cegyB0"
     deploy:
       update_config:
         order: stop-first
