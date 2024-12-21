@@ -44,8 +44,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.portainer.rule=Host(`${HOST_NAME}`) && PathPrefix(`/portainer`)"
-      - "traefik.http.routers.portainer.middlewares=stripPath"
-      - "traefik.http.middlewares.stripPath.stripPrefix.prefixes=/portainer"
+      - "traefik.http.routers.portainer.middlewares=stripPathPortainer"
+      - "traefik.http.middlewares.stripPathPortainer.stripPrefix.prefixes=/portainer"
       - "traefik.http.routers.portainer.entrypoints=websecure"
       - "traefik.http.routers.portainer.tls.certresolver=myresolver"
     volumes:
@@ -60,11 +60,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`${HOST_NAME}`) && PathPrefix(`/backend`)"
-      - "traefik.http.middlewares.stripPath.stripPrefix.prefixes=/backend"
+      - "traefik.http.middlewares.stripPathBackend.stripPrefix.prefixes=/backend"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.services.web.loadbalancer.server.port=3000"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
-      - "traefik.http.routers.backend.middlewares=stripPath"
+      - "traefik.http.routers.backend.middlewares=stripPathBackend"
     environment:
       - DB_URL=${DB_URL}
       - HOST_NAME=${HOST_NAME}
