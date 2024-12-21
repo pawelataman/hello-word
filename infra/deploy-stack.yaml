@@ -39,6 +39,22 @@ services:
       update_config:
         order: stop-first
 
+  portainer:
+    image: portainer/portainer-ce:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`${HOST_NAME}`) && PathPrefix(`/portainer`)"
+      - "traefik.http.routers.backend.middlewares=stripPath"
+      - "traefik.http.middlewares.stripPath.stripPrefix.prefixes=/portainer"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=myresolver"
+    volumes:
+        - "data:/data"
+        - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      update_config:
+        order: stop-first
+
   backend:
     image: ghcr.io/pawelataman/hello-word-api:latest
     labels:
@@ -60,5 +76,6 @@ services:
 
 volumes:
   letsencrypt:
+  data:
 
 
