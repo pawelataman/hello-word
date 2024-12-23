@@ -5,19 +5,17 @@ import { Stack, useRouter } from 'expo-router';
 import Register from '@/components/auth/Register';
 import { RegisterFields, VerifyEmailFields } from '@/core/models/auth';
 import { ImageBackground } from 'expo-image';
-import { useSignUp, useUser } from '@clerk/clerk-expo';
+import { useSignUp } from '@clerk/clerk-expo';
 import { extractClerkErrorMessage } from '@/utils/clerk';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
 import VerifyEmail from '@/components/auth/VerifyEmail';
 import Logo from '@/components/ui/svg/Logo';
 import { useToast } from '@/core/hooks/useToast';
 import { useAppStore } from '@/core/state/app.state';
-import { CreateUser } from '@/core/api/models/user';
 
 export default function SignUpScreen() {
 	const { isLoaded, signUp, setActive } = useSignUp();
 	const router = useRouter();
-	const { user } = useUser();
 	const { showToast } = useToast();
 	const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -30,15 +28,6 @@ export default function SignUpScreen() {
 	const handleResend = useCallback(async () => {
 	}, [emailVerificationData]);
 
-	const onSyncUserWithDb = async () => {
-		if (user) {
-			const { id, username, firstName, lastName, fullName, emailAddresses, createdAt } = user;
-			const [{ emailAddress }] = emailAddresses;
-			const createUser: CreateUser = {
-				id, createdAt, firstName, fullName, lastName, username, emailAddress,
-			};
-		}
-	};
 
 	const onSubmitRegister = async (data: RegisterFields) => {
 		if (!isLoaded) {
@@ -76,7 +65,6 @@ export default function SignUpScreen() {
 
 			if (completeSignUp.status === 'complete') {
 				await setActive({ session: completeSignUp.createdSessionId });
-				await onSyncUserWithDb();
 				router.replace('/');
 				bottomSheetRef.current?.close();
 			} else {
