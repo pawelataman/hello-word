@@ -18,7 +18,7 @@ export default function Layout() {
 				<HttpClientContext.Provider value={httpClient}>
 					<GestureHandlerRootView style={{ flex: 1 }}>
 						<Stack>
-							<Stack.Screen name="index" />
+							<Stack.Screen name="main" options={{ headerShown: false }} />
 							<Stack.Screen name="quiz" />
 						</Stack>
 					</GestureHandlerRootView>
