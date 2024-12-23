@@ -3,24 +3,19 @@ import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import '@/global.css';
-import { ClerkLoaded, ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { ClerkLoaded, ClerkProvider } from '@clerk/clerk-expo';
 import { authTokenCache } from '@/core/auth/token-cache';
 import useAuthZoneGuard from '@/core/hooks/useAuthZoneGuard';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import AppLoader from '@/core/components/AppLoader';
-import { configureInterceptors } from '@/core/api/client';
 
 if (__DEV__) {
 	require('../ReactotronConfig');
 }
 
 function MainLayout() {
-	const { getToken } = useAuth();
 	useAuthZoneGuard();
 
-	useEffect(() => {
-		configureInterceptors({ tokenCb: getToken() });
-	}, [getToken]);
 
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>

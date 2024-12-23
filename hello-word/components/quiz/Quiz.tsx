@@ -4,17 +4,18 @@ import { useQuiz } from '@/core/hooks/useQuiz';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import QuizQuestion from '@/components/quiz/QuizQuestion';
 import { QuizContext } from '@/core/context/quiz-context';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import QuizFinished from './QuizFinished';
-import { getQuiz } from '@/core/api/requests/getQuiz';
 import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 import { useQuizStore } from '@/core/state/quiz.state';
 import QuizProgress from './QuizProgress';
+import { HttpClientContext } from '@/core/context/client-context';
 
 const TOTAL_QUESTIONS_REQUEST = 10;
 export default function() {
 	const { getAnswerLabel } = useQuizTranslation();
 	const { setQuestionsTotal } = useQuizStore();
+	const { getQuiz } = useContext(HttpClientContext)!;
 	const { data } = useSuspenseQuery({
 		queryKey: ['quiz'],
 		queryFn: () => getQuiz(TOTAL_QUESTIONS_REQUEST),
