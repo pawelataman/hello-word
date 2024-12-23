@@ -5,7 +5,7 @@ node_modules/
 ios
 android
 
-./.envs
+.env
 
 expo-env.d.ts
 # @end expo-cli
