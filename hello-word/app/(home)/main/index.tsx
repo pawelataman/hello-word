@@ -59,7 +59,7 @@ export default function() {
 								key={opt.description}
 								onPress={() => navigateToQuiz(opt.payload)}
 							>
-								<View>s
+								<View>
 									<Text>{opt.description}</Text>
 								</View>
 							</TouchableOpacity>

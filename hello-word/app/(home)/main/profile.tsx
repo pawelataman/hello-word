@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function() {
 	return (
-		<View>
+		<View className={'flex-1 bg-gray-200'}>
 			<Text> </Text>
 		</View>
 	);

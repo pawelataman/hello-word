@@ -25,7 +25,7 @@ export default function() {
 	};
 
 	return (
-		<View className="p-4 flex-1 justify-end">
+		<View className="p-4 flex-1 justify-end bg-gray-200">
 			<AppButton
 				variant={'tertiary'}
 				label={'Wyloguj'}
