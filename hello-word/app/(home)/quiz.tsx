@@ -1,38 +1,25 @@
 import { SafeAreaView, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import React, { Suspense, useCallback, useEffect, useMemo } from 'react';
-import { LANG_EN, LANG_PL, QUIZ_LANGUAGES } from '@/core/constants/common';
+import React, { Suspense, useCallback, useEffect } from 'react';
+import { QUIZ_LANGUAGES } from '@/core/constants/common';
 import QuizLoading from '@/components/quiz/QuizLoading';
 import { useQuizStore } from '@/core/state/quiz.state';
 import { ErrorBoundary } from 'react-error-boundary';
 import Quiz from '@/components/quiz/Quiz';
 
 export default function() {
-	const { setQuizLanguages, reset } = useQuizStore();
+	const { setQuizLanguage, reset } = useQuizStore();
 	const searchParams = useLocalSearchParams<{
-		sourceLangCode: string;
-		targetLangCode: string;
+		language: string
 	}>();
 
-	const headerTitle = useMemo(() => {
-		const fromLanguage = QUIZ_LANGUAGES.find(
-			(lang) => searchParams.sourceLangCode === lang.code,
-		);
-		const toLanguage = QUIZ_LANGUAGES.find(
-			(lang) => searchParams.targetLangCode === lang.code,
-		);
-		return `Quiz ${fromLanguage?.label} - ${toLanguage?.label}`;
-	}, [searchParams.targetLangCode, searchParams.sourceLangCode]);
-
 	useEffect(() => {
-		const sourceLangByCode = QUIZ_LANGUAGES.find(
-			(lang) => lang.code === searchParams.sourceLangCode,
+		const quizLanguage = QUIZ_LANGUAGES.find(
+			(lang) => lang.code === searchParams.language,
 		);
-		const targetLangByCode = QUIZ_LANGUAGES.find(
-			(lang) => lang.code === searchParams.targetLangCode,
-		);
-		setQuizLanguages(sourceLangByCode || LANG_PL, targetLangByCode || LANG_EN);
-	}, [searchParams.targetLangCode, searchParams.sourceLangCode]);
+
+		setQuizLanguage(quizLanguage!);
+	}, [searchParams.language]);
 
 	const ErrorComponent = useCallback(
 		() => (
@@ -48,7 +35,7 @@ export default function() {
 			<SafeAreaView>
 				<View className="h-full bg-white">
 					<Stack.Screen
-						options={{ headerTitleAlign: 'center', title: headerTitle, headerBackTitle: 'Start' }}
+						options={{ headerTitleAlign: 'center', title: 'Quiz', headerBackTitle: 'Start' }}
 					></Stack.Screen>
 					<ErrorBoundary
 						fallback={<ErrorComponent />}
