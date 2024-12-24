@@ -10,9 +10,10 @@ export default function() {
 		<Tabs screenOptions={{
 			tabBarActiveTintColor: '#22c55e',
 			tabBarStyle: {
-				height: 100,
+				height: 92,
 				paddingTop: 12,
 			},
+			tabBarShowLabel: false,
 		}}>
 			<Tabs.Screen name="profile" options={{
 				title: 'Profil',
@@ -24,7 +25,6 @@ export default function() {
 
 			}}></Tabs.Screen>
 			<Tabs.Screen name="index" options={{
-				tabBarLabel: 'Start',
 				tabBarLabelStyle: styles.tabBarLabelStyle,
 				tabBarIcon: ({ color }) => (<>
 					<Brain width={32} height={32} fill={color} />

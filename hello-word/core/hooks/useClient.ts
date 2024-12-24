@@ -44,14 +44,12 @@ export const useClient = (): HttpClient => {
 				response: error.response,
 			});
 		};
-		console.log('run quiz');
 		return client(options).then(onSuccess).catch(onError);
 	};
 
 
 	return {
 		getQuiz(numOfQuestions: number): Promise<QuizResponse> {
-			console.log('get quiz', numOfQuestions);
 			return request({
 				url: `/quiz?numOfQuestions=${numOfQuestions}`, method: 'GET',
 			});
