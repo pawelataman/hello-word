@@ -43,19 +43,14 @@ export const useClient = (): HttpClient => {
 				response: error.response,
 			});
 		};
-		return new Promise<AxiosResponse<any>>((resolve, reject) => {
 
-			setTimeout(() => {
-				resolve(client(options).then(onSuccess).catch(onError));
-			}, 1000);
-		});
+		return client(options).then(onSuccess).catch(onError);
 
 	};
 
 
 	return {
 		getQuiz(numOfQuestions: number): Promise<any> {
-			console.log('sending request');
 			return request({
 				url: `/quiz?numOfQuestions=${numOfQuestions}`, method: 'GET',
 			});
