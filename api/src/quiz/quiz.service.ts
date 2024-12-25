@@ -25,6 +25,7 @@ export class QuizService {
       }
 
       questions.push({
+        id: i,
         question: answers[0],
         answers: answers,
       });
