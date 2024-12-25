@@ -1,16 +1,18 @@
-import { SafeAreaView, Text, View } from 'react-native';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Alert, SafeAreaView, Text, View } from 'react-native';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { Suspense, useCallback, useMemo } from 'react';
 import { LANG_EN, QUIZ_LANGUAGES } from '@/core/constants/common';
 import QuizLoading from '@/components/quiz/QuizLoading';
 import { ErrorBoundary } from 'react-error-boundary';
 import Quiz from '@/components/quiz/Quiz';
+import { HeaderBackButton } from '@react-navigation/elements';
 
 export default function() {
+	const router = useRouter();
 	const searchParams = useLocalSearchParams<{
 		language: string
 	}>();
-	
+
 	const quizLanguage = useMemo(() => QUIZ_LANGUAGES.find(
 		(lang) => lang.code === searchParams.language,
 	) || LANG_EN, [searchParams.language]);
@@ -24,12 +26,28 @@ export default function() {
 		[],
 	);
 
+	const beforeNavigateBack = () => {
+		Alert.alert('', 'Zakończyć istniejący quiz ?', [
+			{
+				text: 'Anuluj',
+				style: 'cancel',
+			},
+			{ text: 'Zakończ', onPress: () => router.back() },
+		]);
+	};
+
 	return (
 		<View className="bg-white">
 			<SafeAreaView>
 				<View className="h-full bg-white">
 					<Stack.Screen
-						options={{ headerTitleAlign: 'center', title: 'Quiz', headerBackTitle: 'Start' }}
+						options={{
+							headerTitleAlign: 'center',
+							title: 'Quiz',
+							headerBackTitle: 'Cofnij',
+							headerLeft: (props) => <HeaderBackButton {...props}
+																	 onPress={() => beforeNavigateBack()} />,
+						}}
 					></Stack.Screen>
 					<ErrorBoundary
 						fallback={<ErrorComponent />}

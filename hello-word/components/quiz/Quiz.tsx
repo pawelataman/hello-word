@@ -32,7 +32,6 @@ export default function({ language }: QuizProps) {
 
 	if (!data) return;
 
-
 	//shuffled answers
 	const answers = useMemo(() => {
 		if (currentQuestion) {
