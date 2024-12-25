@@ -1,24 +1,15 @@
-import { QuizQuestion, Word } from "@/core/api/models/quiz";
-import { LANG_CODE } from "@/core/constants/common";
+import { Word } from '@/core/api/models/quiz';
+import { LANG_CODE } from '@/core/constants/common';
 
 export interface Language {
-  code: LANG_CODE;
-  label: string;
+	code: LANG_CODE;
+	label: string;
 }
 
-export type QuizStatus = "finished" | "ongoing";
-export type HighlightMode = "correct" | "incorrect";
+export type QuizStatus = 'finished' | 'ongoing';
+export type QuestionStatus = 'answered' | 'notAnswered'
+export type HighlightMode = 'correct' | 'incorrect' | 'idle';
 
-export interface HighlightedAnswers {
-  correctAnswerId: number | null;
-  incorrectAnswerId: number | null;
-}
-
-export interface Quiz {
-  handleAnswer: (answer: Word) => void;
-  handleRestart: () => void;
-  currentQuestion: QuizQuestion | null;
-  highlightedAnswers: HighlightedAnswers;
-  points: { current: number; total: number };
-  quizStatus: QuizStatus;
+export interface QuizHook {
+	handleAnswer: (answer: Word) => void;
 }

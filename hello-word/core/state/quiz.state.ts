@@ -1,41 +1,84 @@
 import { create } from 'zustand/react';
-import { Language } from '@/core/models/models';
+import { Language, QuestionStatus, QuizStatus } from '@/core/models/models';
+import { QuizResponse } from '@/core/api/models/quiz';
 
 type State = {
+	quizData: QuizResponse | null,
 	quizLanguage: Language | null,
-	questionsTotal: number;
-	answeredQuestions: boolean[];
+	answeredQuestions: {
+		questionId: number,
+		userAnswerId: number,
+		correctAnswerId: number
+	}[],
+	questionIndex: number,
+	currentQuestionStatus: QuestionStatus
+
 };
 type Actions = {
-	setQuizLanguage: (language: Language) => void;
-	addAnsweredQuestion: (correct: boolean) => void;
-	setQuestionsTotal: (total: number) => void;
+	initializeQuiz: (quiz: QuizResponse, quizLanguage: Language) => void,
+	addAnsweredQuestion: (questionId: number, userAnswerId: number, correctAnswerId: number) => void;
+	nextQuestion: () => void,
 	reset: () => void;
 };
 
-type QuizState = State & Actions;
+
+type QuizState = State & Actions
 
 const INITIAL_STATE: State = {
 	quizLanguage: null,
-	questionsTotal: 0,
+	quizData: null,
 	answeredQuestions: [],
+	questionIndex: 0,
+	currentQuestionStatus: 'notAnswered',
 };
 
 export const useQuizStore = create<QuizState>((set) => ({
 	...INITIAL_STATE,
-	setQuizLanguage: (language: Language) =>
+	addAnsweredQuestion: (questionId: number, userAnswerId: number, correctAnswerId: number) =>
 		set((state) => ({
 			...state,
-			quizLanguage: language,
+			answeredQuestions: [...state.answeredQuestions, { questionId, userAnswerId, correctAnswerId }],
+			currentQuestionStatus: 'answered',
 		})),
-	addAnsweredQuestion: (correct: boolean) =>
-		set((state) => ({
-			...state,
-			answeredQuestions: [...state.answeredQuestions, correct],
-		})),
-	setQuestionsTotal: (total: number) =>
-		set((state) => ({ ...state, questionsTotal: total })),
+	nextQuestion: () => set(state => ({
+		...state,
+		questionIndex: state.questionIndex + 1,
+		currentQuestionStatus: 'notAnswered',
+	})),
+	initializeQuiz: (quiz: QuizResponse, quizLanguage: Language) => set(() => ({
+		...INITIAL_STATE,
+		quizData: quiz,
+		quizLanguage,
+	})),
 	reset: () => {
 		return set({ ...INITIAL_STATE });
 	},
 }));
+
+
+// COMPUTED VALUES
+export const selectCurrentQuestion = (state: State) => {
+	const questions = state.quizData?.questions;
+	const currentQuestionIndex = state.questionIndex;
+
+	return questions ? questions[currentQuestionIndex] : null;
+};
+
+export const selectNumOfQuestions = (state: State) => {
+	return state.quizData?.quizConfig.totalQuestions || 0;
+};
+
+export const selectQuizStatus: (state: State) => QuizStatus | null = (state: State) => {
+	const currentQuestionIndex = state.questionIndex;
+	const numOfQuestions = state.quizData?.quizConfig.totalQuestions;
+
+	if (!Boolean(numOfQuestions)) return null;
+
+	return currentQuestionIndex > numOfQuestions! - 1 ? 'finished' : 'ongoing';
+
+};
+
+
+
+
+

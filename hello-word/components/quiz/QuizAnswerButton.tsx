@@ -1,57 +1,64 @@
-import { GestureResponderEvent, Pressable, Text } from "react-native";
-import { useContext, useMemo } from "react";
-import { QuizContext } from "@/core/context/quiz-context";
-import { HighlightMode } from "@/core/models/models";
+import { GestureResponderEvent, Pressable, Text } from 'react-native';
+import { useMemo } from 'react';
+import { HighlightMode } from '@/core/models/models';
+import { useQuizStore } from '@/core/state/quiz.state';
 
 interface AnswerButtonProps {
-  onPress: (ev: GestureResponderEvent) => void;
-  label: string;
-  id: number;
+	onPress: (ev: GestureResponderEvent) => void;
+	label: string;
+	id: number;
 }
 
-export default function (props: AnswerButtonProps) {
-  const quiz = useContext(QuizContext);
+export default function({ id, onPress, label }: AnswerButtonProps) {
 
-  const highlighted = useMemo<HighlightMode | null>(() => {
-    if (props.id === quiz.highlightedAnswers.correctAnswerId) return "correct";
-    if (props.id === quiz.highlightedAnswers.incorrectAnswerId)
-      return "incorrect";
-    return null;
-  }, [quiz.highlightedAnswers]);
+	const { questionIndex, answeredQuestions, currentQuestionStatus } = useQuizStore();
 
-  const getHighlightColor = () => {
-    if (highlighted === "correct") {
-      return `bg-green-500`;
-    }
-    if (highlighted === "incorrect") {
-      return `bg-red-500`;
-    }
-    return "bg-gray-100";
-  };
+	const highlighted = useMemo<HighlightMode>(() => {
+		if (questionIndex > answeredQuestions.length || questionIndex === -1) return 'idle';
 
-  const getTextColor = () => {
-    if (highlighted === "correct" || highlighted === "incorrect") {
-      return `text-white`;
-    }
-    return "text-gray-900";
-  };
+		const answeredQuestion = answeredQuestions[questionIndex];
 
-  const disabled = useMemo(() => {
-    return !!(
-      quiz.highlightedAnswers.incorrectAnswerId ||
-      quiz.highlightedAnswers.correctAnswerId
-    );
-  }, [quiz.highlightedAnswers]);
+		if (!answeredQuestion) return 'idle';
+		if (id === answeredQuestion.correctAnswerId) return 'correct';
+		if (id === answeredQuestion.userAnswerId) return 'incorrect';
 
-  return (
-    <Pressable
-      className={`${getHighlightColor()} w-[45%] h-32 py-5 px-5 rounded-lg justify-center }`}
-      onPress={props.onPress}
-      disabled={disabled}
-    >
-      <Text className={`${getTextColor()} text-xl text-center font-medium`}>
-        {props.label}
-      </Text>
-    </Pressable>
-  );
+		return 'idle';
+
+	}, [questionIndex, answeredQuestions]);
+
+	const disabled = useMemo<boolean>(() => {
+		return currentQuestionStatus === 'answered';
+	}, [currentQuestionStatus]);
+
+
+	const getHighlightColor = () => {
+		if (highlighted === 'correct') {
+			return `bg-green-500`;
+		}
+
+		if (highlighted === 'incorrect') {
+			return `bg-red-500`;
+		}
+
+		return 'bg-gray-100';
+	};
+
+	const getTextColor = () => {
+		if (highlighted === 'correct' || highlighted === 'incorrect') {
+			return `text-white`;
+		}
+		return 'text-gray-900';
+	};
+
+	return (
+		<Pressable
+			className={`${getHighlightColor()} w-[45%] h-32 py-5 px-5 rounded-lg justify-center }`}
+			onPress={onPress}
+			disabled={disabled}
+		>
+			<Text className={`${getTextColor()} text-xl text-center font-medium`}>
+				{label}
+			</Text>
+		</Pressable>
+	);
 }

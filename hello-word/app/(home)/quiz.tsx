@@ -1,25 +1,19 @@
 import { SafeAreaView, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import React, { Suspense, useCallback, useEffect } from 'react';
-import { QUIZ_LANGUAGES } from '@/core/constants/common';
+import React, { Suspense, useCallback, useMemo } from 'react';
+import { LANG_EN, QUIZ_LANGUAGES } from '@/core/constants/common';
 import QuizLoading from '@/components/quiz/QuizLoading';
-import { useQuizStore } from '@/core/state/quiz.state';
 import { ErrorBoundary } from 'react-error-boundary';
 import Quiz from '@/components/quiz/Quiz';
 
 export default function() {
-	const { setQuizLanguage, reset } = useQuizStore();
 	const searchParams = useLocalSearchParams<{
 		language: string
 	}>();
-
-	useEffect(() => {
-		const quizLanguage = QUIZ_LANGUAGES.find(
-			(lang) => lang.code === searchParams.language,
-		);
-
-		setQuizLanguage(quizLanguage!);
-	}, [searchParams.language]);
+	
+	const quizLanguage = useMemo(() => QUIZ_LANGUAGES.find(
+		(lang) => lang.code === searchParams.language,
+	) || LANG_EN, [searchParams.language]);
 
 	const ErrorComponent = useCallback(
 		() => (
@@ -42,7 +36,7 @@ export default function() {
 						onError={(error, info) => console.log('error', error, info)}
 					>
 						<Suspense fallback={<QuizLoading />}>
-							<Quiz />
+							<Quiz language={quizLanguage} />
 						</Suspense>
 					</ErrorBoundary>
 				</View>
