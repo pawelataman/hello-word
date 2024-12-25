@@ -1,8 +1,8 @@
 import { QuizHook } from '@/core/models/models';
 import { Word } from '@/core/api/models/quiz';
 import { selectCurrentQuestion, useQuizStore } from '@/core/state/quiz.state';
-import * as Speech from 'expo-speech';
 import { LANG_CODE } from '@/core/constants/common';
+import * as Speech from 'expo-speech';
 
 export function useQuiz(): QuizHook {
 	const { addAnsweredQuestion, nextQuestion } = useQuizStore();
@@ -14,21 +14,26 @@ export function useQuiz(): QuizHook {
 
 		addAnsweredQuestion(currentQuestion.id, answer.id, currentQuestion.question.id);
 
-		Speech.speak(currentQuestion.question[LANG_CODE.EN], {
-			language: LANG_CODE.EN,
-			rate: 0.8,
-			onDone: () => {
-				setTimeout(() => {
-					nextQuestion();
-				}, 1000);
-			},
-		});
+		setTimeout(() => {
+			playbackWord(currentQuestion.question[LANG_CODE.EN], () => nextQuestion());
+		}, 250);
 
 	};
-
 	return {
 		handleAnswer,
 	};
+}
+
+function playbackWord(word: string, onDone: () => void): void {
+	Speech.speak(word, {
+		language: LANG_CODE.EN,
+		rate: 0.8,
+		onDone: () => {
+			setTimeout(() => {
+				onDone();
+			}, 1000);
+		},
+	});
 }
 
 //https://dictionaryapi.dev/?ref=freepublicapis.com
