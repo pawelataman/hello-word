@@ -6,13 +6,13 @@ import QuizLoading from '@/components/quiz/QuizLoading';
 import { ErrorBoundary } from 'react-error-boundary';
 import Quiz from '@/components/quiz/Quiz';
 import { HeaderBackButton } from '@react-navigation/elements';
+import QuizSettings from '@/components/quiz/QuizSettings';
 
 export default function() {
 	const router = useRouter();
 	const searchParams = useLocalSearchParams<{
 		language: string
 	}>();
-
 	const quizLanguage = useMemo(() => QUIZ_LANGUAGES.find(
 		(lang) => lang.code === searchParams.language,
 	) || LANG_EN, [searchParams.language]);
@@ -43,12 +43,17 @@ export default function() {
 					<Stack.Screen
 						options={{
 							headerTitleAlign: 'center',
-							title: 'Quiz',
-							headerBackTitle: 'Cofnij',
-							headerLeft: (props) => <HeaderBackButton {...props}
-																	 onPress={() => beforeNavigateBack()} />,
+							title: '',
+							headerShadowVisible: false,
+							headerBackTitle: '',
+							headerTintColor: 'black',
+							headerLeft: (props) => <HeaderBackButton  {...props}
+																	  onPress={() => beforeNavigateBack()} />,
+							headerRight: (props) => <QuizSettings tintColor={props.tintColor} />,
+
 						}}
 					></Stack.Screen>
+
 					<ErrorBoundary
 						fallback={<ErrorComponent />}
 						onError={(error, info) => console.log('error', error, info)}

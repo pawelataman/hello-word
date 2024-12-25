@@ -8,6 +8,7 @@ import { authTokenCache } from '@/core/auth/token-cache';
 import useAuthZoneGuard from '@/core/hooks/useAuthZoneGuard';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import AppLoader from '@/core/components/AppLoader';
+import { MenuProvider } from 'react-native-popup-menu';
 
 if (__DEV__) {
 	require('../ReactotronConfig');
@@ -21,10 +22,12 @@ function MainLayout() {
 		<GestureHandlerRootView style={{ flex: 1 }}>
 			<RootSiblingParent>
 				<AppLoader>
-					<Stack>
-						<Stack.Screen name="(auth)" options={{ headerShown: false }} />
-						<Stack.Screen name="(home)" options={{ headerShown: false }} />
-					</Stack>
+					<MenuProvider>
+						<Stack>
+							<Stack.Screen name="(auth)" options={{ headerShown: false }} />
+							<Stack.Screen name="(home)" options={{ headerShown: false }} />
+						</Stack>
+					</MenuProvider>
 				</AppLoader>
 			</RootSiblingParent>
 		</GestureHandlerRootView>
