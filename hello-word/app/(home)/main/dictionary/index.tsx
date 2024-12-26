@@ -1,13 +1,23 @@
-import { Stack } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { Stack, useRouter } from 'expo-router';
+import { TouchableOpacity, View } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function() {
+	const router = useRouter();
+
+	const onFab = () => {
+		router.push('/main/dictionary/new-words');
+	};
 	return (
-		<View>
+		<View className="flex-1 relative">
 			<Stack.Screen options={{ title: 'Słownik' }} />
-			<Text> </Text>
+			<View className="justify-center items-center absolute w-20 h-20 bg-green-500 bottom-8 right-8 rounded-full">
+
+				<TouchableOpacity onPress={onFab}>
+					<AntDesign name="plus" size={32} color="white" />
+				</TouchableOpacity>
+			</View>
 		</View>
 	);
 }
 
-const styles = StyleSheet.create({});
