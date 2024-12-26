@@ -58,19 +58,13 @@ export default function() {
 									<Text className={'font-semibold text-center'}>{opt.lang.label}</Text>
 								</View>
 							</TouchableOpacity>))}
-
-
-					</View>
-
-					<View>
-
 					</View>
 
 					<View className="mt-5">
 						<WordOfTheDay />
 					</View>
-					<View>
-
+					<View className="mt-5">
+						
 					</View>
 				</View>
 			</SafeAreaView>

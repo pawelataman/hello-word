@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import Svg, { Circle, Path, SvgProps } from 'react-native-svg';
 
 export default function({ width, height, fill }: SvgProps) {
@@ -13,4 +12,3 @@ export default function({ width, height, fill }: SvgProps) {
 	);
 }
 
-const styles = StyleSheet.create({});

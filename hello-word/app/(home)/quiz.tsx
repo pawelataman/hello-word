@@ -27,7 +27,7 @@ export default function() {
 	);
 
 	const beforeNavigateBack = () => {
-		Alert.alert('', 'Zakończyć istniejący quiz ?', [
+		Alert.alert('', 'Zakończyć quiz ?', [
 			{
 				text: 'Anuluj',
 				style: 'cancel',

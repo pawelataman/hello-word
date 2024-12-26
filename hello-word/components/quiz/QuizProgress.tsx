@@ -4,7 +4,7 @@ import { selectNumOfQuestions, useQuizStore } from '@/core/state/quiz.state';
 
 export default function() {
 	const { width } = useWindowDimensions();
-	const { answeredQuestions } = useQuizStore();
+	const { answeredQuestions, questionIndex } = useQuizStore();
 	const numOfQuestions = useQuizStore(selectNumOfQuestions);
 
 	const segmentWidth = useMemo(() => {
@@ -55,17 +55,16 @@ export default function() {
 					);
 				})}
 			</View>
-			<View className="self-end flex-row gap-2">
+			<View className="flex-row justify-between gap-2">
 				<View className="py-2 px-2 bg-gray-100 rounded-md">
 					<View className=" flex-row gap-4 justify-between">
-						<Text className="text-green-500 font-medium">Dobre</Text>
-						<Text className="text-green-500 font-bold">{correct}</Text>
+						<Text
+							className="text-black text-lg font-semibold">Pytanie {questionIndex + 1} z {numOfQuestions}</Text>
 					</View>
 				</View>
 				<View className="py-2 px-2  bg-gray-100 rounded-md">
-					<View className="flex-row  gap-4 justify-between">
-						<Text className="text-red-500 font-medium">Złe</Text>
-						<Text className="text-red-500 font-bold">{incorrect}</Text>
+					<View className=" flex-row gap-4 justify-between">
+						<Text className="text-green-500 text-lg font-semibold">Punkty {correct}</Text>
 					</View>
 				</View>
 			</View>

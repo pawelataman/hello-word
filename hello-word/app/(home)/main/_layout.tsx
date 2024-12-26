@@ -1,8 +1,12 @@
 import { Tabs } from 'expo-router';
-import Brain from '@/components/ui/svg/Brain';
-import Person from '@/components/ui/svg/Person';
-import SettingsIcon from '@/components/ui/svg/SettingsIcon';
+//import Brain from '@/components/ui/svg/Brain';
+//import Person from '@/components/ui/svg/Person';
 import { Platform, StyleSheet } from 'react-native';
+import Book from '@/assets/images/icons/book_open.svg';
+import Brain from '@/assets/images/icons/brain.svg';
+import Settings from '@/assets/images/icons/settings.svg';
+import Person from '@/assets/images/icons/person.svg';
+
 
 export default function() {
 
@@ -19,8 +23,9 @@ export default function() {
 			<Tabs.Screen name="profile" options={{
 				title: 'Profil',
 				tabBarIcon: ({ color }) => (<>
-					<Person width={32} height={32} fill={color} />
+					<Person width={32} height={32} color={color} />
 				</>),
+				headerShadowVisible: false,
 				tabBarLabelStyle: styles.tabBarLabelStyle,
 				animation: 'shift',
 
@@ -29,16 +34,29 @@ export default function() {
 			<Tabs.Screen name="index" options={{
 				tabBarLabelStyle: styles.tabBarLabelStyle,
 				animation: 'shift',
+				headerShadowVisible: false,
+
 				tabBarIcon: ({ color }) => (<>
-					<Brain width={32} height={32} fill={color} />
+					<Brain width={32} height={32} color={color} />
 
 				</>),
 			}}></Tabs.Screen>
-			<Tabs.Screen name="settings" options={{
-				title: 'Opcje', tabBarIcon: ({ color }) => (<>
-					<SettingsIcon width={32} height={32} fill={color} />
+
+			<Tabs.Screen name="dictionary" options={{
+				tabBarIcon: ({ color }) => (<>
+					<Book width={32} height={32} color={color} />
 				</>),
 				animation: 'shift',
+				headerShown: false,
+				tabBarLabelStyle: styles.tabBarLabelStyle,
+			}}></Tabs.Screen>
+
+			<Tabs.Screen name="settings" options={{
+				title: 'Opcje', tabBarIcon: ({ color }) => (<>
+					<Settings width={32} height={32} color={color} />
+				</>),
+				animation: 'shift',
+				headerShadowVisible: false,
 				tabBarLabelStyle: styles.tabBarLabelStyle,
 			}}></Tabs.Screen>
 		</Tabs>
