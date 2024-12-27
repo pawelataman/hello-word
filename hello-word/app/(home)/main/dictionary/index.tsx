@@ -11,9 +11,8 @@ export default function() {
 	return (
 		<View className="flex-1 relative">
 			<Stack.Screen options={{ title: 'Słownik' }} />
-			<View className="justify-center items-center absolute w-20 h-20 bg-green-500 bottom-8 right-8 rounded-full">
-
-				<TouchableOpacity onPress={onFab}>
+			<View className="absolute w-20 h-20 bg-green-500 bottom-8 right-8 rounded-full">
+				<TouchableOpacity onPress={onFab} className={'h-full w-full justify-center items-center'}>
 					<AntDesign name="plus" size={32} color="white" />
 				</TouchableOpacity>
 			</View>
