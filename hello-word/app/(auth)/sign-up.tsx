@@ -7,11 +7,12 @@ import { RegisterFields, VerifyEmailFields } from '@/core/models/auth';
 import { ImageBackground } from 'expo-image';
 import { useSignUp } from '@clerk/clerk-expo';
 import { extractClerkErrorMessage } from '@/utils/clerk';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import VerifyEmail from '@/components/auth/VerifyEmail';
 import Logo from '@/components/ui/svg/Logo';
 import { useToast } from '@/core/hooks/useToast';
 import { useAppStore } from '@/core/state/app.state';
+import { bottomSheetBackdrop } from '@/components/ui/BottomSheetBackDrop';
 
 export default function SignUpScreen() {
 	const { isLoaded, signUp, setActive } = useSignUp();
@@ -79,17 +80,6 @@ export default function SignUpScreen() {
 		}
 	};
 
-	const backDropComponent = useCallback(
-		(props: any) => (
-			<BottomSheetBackdrop
-				{...props}
-				appearsOnIndex={0}
-				disappearsOnIndex={-1}
-				opacity={0.4}
-			/>
-		),
-		[],
-	);
 
 	return (
 		<ImageBackground source={require('@/assets/images/plant-bg.jpg')}>
@@ -113,7 +103,7 @@ export default function SignUpScreen() {
 				<BottomSheet
 					ref={bottomSheetRef}
 					index={-1}
-					backdropComponent={backDropComponent}
+					backdropComponent={bottomSheetBackdrop}
 					enablePanDownToClose={false}
 					handleComponent={null}
 					keyboardBlurBehavior={'restore'}
