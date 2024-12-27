@@ -1,6 +1,4 @@
 import { Tabs } from 'expo-router';
-//import Brain from '@/components/ui/svg/Brain';
-//import Person from '@/components/ui/svg/Person';
 import { Platform, StyleSheet } from 'react-native';
 import Book from '@/assets/images/icons/book_open.svg';
 import Brain from '@/assets/images/icons/brain.svg';
@@ -35,12 +33,12 @@ export default function() {
 				tabBarLabelStyle: styles.tabBarLabelStyle,
 				animation: 'shift',
 				headerShadowVisible: false,
-
 				tabBarIcon: ({ color }) => (<>
 					<Brain width={32} height={32} color={color} />
 
 				</>),
-			}}></Tabs.Screen>
+			}}
+			></Tabs.Screen>
 
 			<Tabs.Screen name="dictionary" options={{
 				tabBarIcon: ({ color }) => (<>

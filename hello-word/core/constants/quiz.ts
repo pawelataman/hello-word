@@ -1,8 +1,13 @@
-import { QuizHook } from '@/core/models/models';
+import { LANG_CODE } from '@/core/constants/common';
+import { QuizConfig } from '@/core/models/models';
 
-export const QUIZ_INITIAL: QuizHook = {
-	handleAnswer: (ans) => {
+export const QUIZ_CONFIG: { [p in LANG_CODE]: QuizConfig } = {
+	[LANG_CODE.EN]: {
+		availableModes: ['reading', 'writing'],
+		playbackQuestion: false,
 	},
-	handleRestart: () => {
+	[LANG_CODE.PL]: {
+		availableModes: ['reading', 'hearing'],
+		playbackQuestion: true,
 	},
 };

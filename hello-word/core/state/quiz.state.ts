@@ -65,12 +65,12 @@ export const selectCurrentQuestion = (state: State) => {
 };
 
 export const selectNumOfQuestions = (state: State) => {
-	return state.quizData?.quizConfig.totalQuestions || 0;
+	return state.quizData?.questions.length || 0;
 };
 
 export const selectQuizStatus: (state: State) => QuizStatus | null = (state: State) => {
 	const currentQuestionIndex = state.questionIndex;
-	const numOfQuestions = state.quizData?.quizConfig.totalQuestions;
+	const numOfQuestions = state.quizData?.questions.length;
 
 	if (!Boolean(numOfQuestions)) return null;
 

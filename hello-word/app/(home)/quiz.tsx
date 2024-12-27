@@ -7,15 +7,17 @@ import { ErrorBoundary } from 'react-error-boundary';
 import Quiz from '@/components/quiz/Quiz';
 import { HeaderBackButton } from '@react-navigation/elements';
 import QuizSettings from '@/components/quiz/QuizSettings';
+import { QuizMode } from '@/core/models/models';
 
 export default function() {
 	const router = useRouter();
-	const searchParams = useLocalSearchParams<{
-		language: string
+	const { language, mode } = useLocalSearchParams<{
+		language: string,
+		mode: QuizMode
 	}>();
 	const quizLanguage = useMemo(() => QUIZ_LANGUAGES.find(
-		(lang) => lang.code === searchParams.language,
-	) || LANG_EN, [searchParams.language]);
+		(lang) => lang.code === language,
+	) || LANG_EN, [language]);
 
 	const ErrorComponent = useCallback(
 		() => (

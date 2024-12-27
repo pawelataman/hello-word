@@ -1,50 +1,70 @@
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
-import { Language } from '@/core/models/models';
-import WordOfTheDay from '@/components/home/WordOfTheDay';
+import { router, Tabs } from 'expo-router';
+import { Language, QuizMode } from '@/core/models/models';
 import { LANG_EN, LANG_PL } from '@/core/constants/common';
 import PL from '@/assets/images/icons/PL.svg';
 import EN from '@/assets/images/icons/GB.svg';
 import { useQueryClient } from '@tanstack/react-query';
 import { useQuizStore } from '@/core/state/quiz.state';
+import { bottomSheetBackdrop } from '@/components/ui/BottomSheetBackDrop';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import * as React from 'react';
+import { useRef, useState } from 'react';
+import QuizLaunch from '@/components/quiz/QuizLaunch';
+import { Portal } from '@gorhom/portal';
 
 interface QuizOptions {
 	language: Language,
 }
 
 
+const LANG_OPTIONS = [
+	{
+		lang: LANG_PL, icon: <PL width={64} height={48} />,
+	},
+	{
+		lang: LANG_EN,
+		icon: <EN width={64} height={48} />,
+	}];
+
+
 export default function() {
-	const router = useRouter();
 	const queryClient = useQueryClient();
 	const { reset } = useQuizStore();
+	const bottomSheetRef = useRef<BottomSheet>(null);
+	const [quizLanguage, setQuizLanguage] = useState<Language>(LANG_EN);
+
 
 	const navigateToQuiz = (quizOptions: QuizOptions): void => {
 		queryClient.clear(); // clear queryClient cache
 		reset(); // reset quiz store
 
+		setQuizLanguage(quizOptions.language);
+
+		bottomSheetRef.current?.expand();
+
+	};
+
+	const modeChanged = (opt: { language: Language, mode: QuizMode }) => {
+		bottomSheetRef.current?.close();
+
 		router.push({
 			pathname: '/quiz',
 			params: {
-				language: quizOptions.language.code,
+				language: opt.language.code,
+				mode: opt.mode,
 			},
 		});
 	};
 
-	const langOptions = [{ lang: LANG_PL, icon: <PL width={64} height={48} /> }, {
-		lang: LANG_EN,
-		icon: <EN width={64} height={48} />,
-	}];
-
 	return (
 		<View className="bg-gray-200">
+			<Tabs.Screen options={{ title: 'Rozpocznij Quiz!' }}
+			></Tabs.Screen>
 			<SafeAreaView>
 				<View className="p-5 bg-gray-200 h-full">
-					<Stack.Screen
-						options={{ title: 'Zacznij quiz!' }}
-					></Stack.Screen>
-
 					<View className="flex-row gap-6">
-						{langOptions.map(opt => (
+						{LANG_OPTIONS.map(opt => (
 							<TouchableOpacity
 								className=" flex-1 gap-2 p-4 items-center bg-gray-50  rounded-2xl relative"
 								key={opt.lang.code}
@@ -60,12 +80,19 @@ export default function() {
 							</TouchableOpacity>))}
 					</View>
 
-					<View className="mt-5">
-						<WordOfTheDay />
-					</View>
-					<View className="mt-5">
-						
-					</View>
+					<Portal>
+						<BottomSheet
+							ref={bottomSheetRef}
+							index={-1}
+							backdropComponent={bottomSheetBackdrop}
+							handleComponent={null}
+						>
+							<BottomSheetView>
+								<QuizLaunch language={quizLanguage} onChange={modeChanged} />
+							</BottomSheetView>
+						</BottomSheet>
+					</Portal>
+
 				</View>
 			</SafeAreaView>
 		</View>

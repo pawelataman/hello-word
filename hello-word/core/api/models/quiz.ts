@@ -3,12 +3,6 @@ import { LANG_CODE } from '@/core/constants/common';
 export interface QuizResponse {
 	id: string;
 	questions: QuizQuestion[];
-	quizConfig: QuizConfig;
-}
-
-export interface QuizConfig {
-	totalQuestions: number;
-	timePerQuestion?: number;
 }
 
 export interface QuizQuestion {
