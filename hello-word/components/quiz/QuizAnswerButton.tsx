@@ -11,7 +11,7 @@ interface AnswerButtonProps {
 
 export default function({ id, onPress, label }: AnswerButtonProps) {
 
-	const { questionIndex, answeredQuestions, currentQuestionStatus } = useQuizStore();
+	const { questionIndex, answeredQuestions, currentQuestionStatus, answeringEnabled } = useQuizStore();
 
 	const highlighted = useMemo<HighlightMode>(() => {
 		if (questionIndex > answeredQuestions.length || questionIndex === -1) return 'idle';
@@ -27,20 +27,26 @@ export default function({ id, onPress, label }: AnswerButtonProps) {
 	}, [questionIndex, answeredQuestions]);
 
 	const disabled = useMemo<boolean>(() => {
-		return currentQuestionStatus === 'answered';
-	}, [currentQuestionStatus]);
+		return currentQuestionStatus === 'answered' || !answeringEnabled;
+	}, [currentQuestionStatus, answeringEnabled]);
 
 
-	const getHighlightColor = () => {
+	const getHighlightColor = (disabled: boolean) => {
 		if (highlighted === 'correct') {
-			return `bg-green-500`;
+			return `bg-green-500 border-2 border-green-500`;
 		}
 
 		if (highlighted === 'incorrect') {
 			return `bg-red-500`;
 		}
 
-		return 'bg-gray-100';
+
+		const defaultStyle = 'bg-gray-50 border-2 border-gray-200';
+		if (disabled) {
+			return defaultStyle.concat(' opacity-40');
+		}
+
+		return 'bg-gray-50 border-2 border-gray-200';
 	};
 
 	const getTextColor = () => {
@@ -52,7 +58,7 @@ export default function({ id, onPress, label }: AnswerButtonProps) {
 
 	return (
 		<Pressable
-			className={`${getHighlightColor()} w-[45%] h-32 py-5 px-5 rounded-lg justify-center }`}
+			className={`${getHighlightColor(disabled)} w-[45%] h-32 py-5 px-5 rounded-lg justify-center }`}
 			onPress={onPress}
 			disabled={disabled}
 		>

@@ -22,8 +22,8 @@ export default function({ tintColor }: { tintColor: string | undefined }) {
 					title: voiceover ? 'Wycisz' : 'Odcisz',
 					titleColor: 'black',
 					image: Platform.select({
-						ios: voiceover ? 'speaker.wave.3' : 'speaker.slash',
-						android: voiceover ? 'ic_lock_silent_mode' : 'ic_lock_silent_mode_off',
+						ios: voiceover ? 'speaker.slash' : 'speaker.wave.3',
+						android: voiceover ? 'ic_lock_silent_mode_off' : 'ic_lock_silent_mode',
 					}),
 					imageColor: tintColor,
 

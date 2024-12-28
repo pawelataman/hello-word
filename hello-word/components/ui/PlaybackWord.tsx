@@ -2,25 +2,33 @@ import { Pressable } from 'react-native';
 import { Image } from 'expo-image';
 import * as Speech from 'expo-speech';
 import { useCallback, useState } from 'react';
+import { useQuizStore } from '@/core/state/quiz.state';
 
 interface PlaybackWordProps {
 	word: string;
 	lang: string;
+	onDone?: () => void;
 }
 
-export default function PlaybackWord({ word, lang }: PlaybackWordProps) {
+export default function PlaybackWord({ word, lang, onDone }: PlaybackWordProps) {
 	const [isDone, setIsDone] = useState<boolean>(true);
+	const { currentQuestionStatus } = useQuizStore();
 
 	const playbackWord = useCallback(async () => {
-		if (!isDone || await Speech.isSpeakingAsync()) return;
+		if (!isDone || await Speech.isSpeakingAsync() || currentQuestionStatus === 'answered') return;
 
 		setIsDone(false);
 		Speech.speak(word, {
 			language: lang,
 			rate: 0.8,
-			onDone: () => setIsDone(true),
+			onDone: () => {
+				setIsDone(true);
+				if (onDone) {
+					onDone();
+				}
+			},
 		});
-	}, [isDone, word, lang]);
+	}, [isDone, word, lang, currentQuestionStatus]);
 
 	return (
 		<Pressable
