@@ -11,13 +11,15 @@ type State = {
 		correctAnswerId: number
 	}[],
 	questionIndex: number,
-	currentQuestionStatus: QuestionStatus
+	currentQuestionStatus: QuestionStatus,
+	answeringEnabled: boolean
 
 };
 type Actions = {
 	initializeQuiz: (quiz: QuizResponse, quizLanguage: Language) => void,
 	addAnsweredQuestion: (questionId: number, userAnswerId: number, correctAnswerId: number) => void;
 	nextQuestion: () => void,
+	setAnsweringEnabled: (answeringEnabled: boolean) => void,
 	reset: () => void;
 };
 
@@ -30,6 +32,7 @@ const INITIAL_STATE: State = {
 	answeredQuestions: [],
 	questionIndex: 0,
 	currentQuestionStatus: 'notAnswered',
+	answeringEnabled: true,
 };
 
 export const useQuizStore = create<QuizState>((set) => ({
@@ -50,6 +53,7 @@ export const useQuizStore = create<QuizState>((set) => ({
 		quizData: quiz,
 		quizLanguage,
 	})),
+	setAnsweringEnabled: (answeringEnabled: boolean) => set((state: State) => ({ ...state, answeringEnabled })),
 	reset: () => {
 		return set({ ...INITIAL_STATE });
 	},
