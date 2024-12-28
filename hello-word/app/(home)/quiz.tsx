@@ -61,7 +61,7 @@ export default function() {
 						onError={(error, info) => console.log('error', error, info)}
 					>
 						<Suspense fallback={<QuizLoading />}>
-							<Quiz language={quizLanguage} />
+							<Quiz language={quizLanguage} mode={mode} />
 						</Suspense>
 					</ErrorBoundary>
 				</View>

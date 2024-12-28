@@ -9,16 +9,17 @@ import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 import QuizProgress from './QuizProgress';
 import { HttpClientContext } from '@/core/context/client-context';
 import { selectCurrentQuestion, selectQuizStatus, useQuizStore } from '@/core/state/quiz.state';
-import { Language } from '@/core/models/models';
+import { Language, QuizMode } from '@/core/models/models';
 import { shuffle } from '@/utils/array';
 
 const TOTAL_QUESTIONS_REQUEST = 10;
 
 interface QuizProps {
 	language: Language;
+	mode: QuizMode;
 }
 
-export default function({ language }: QuizProps) {
+export default function({ language, mode }: QuizProps) {
 	const { getAnswerLabel } = useQuizTranslation();
 	const { handleAnswer } = useQuiz();
 	const { initializeQuiz } = useQuizStore();
@@ -53,7 +54,7 @@ export default function({ language }: QuizProps) {
 						<QuizProgress />
 					</View>
 					<View className="flex-1 justify-around">
-						<QuizQuestion question={currentQuestion?.question} />
+						<QuizQuestion question={currentQuestion?.question} mode={mode} />
 						<View className="px-5 flex-row flex-wrap justify-between gap-y-5">
 							{answers.map((ans) => (
 								<AnswerButton
