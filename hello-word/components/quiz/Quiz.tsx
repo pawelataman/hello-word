@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import AnswerButton from '@/components/quiz/QuizAnswerButton';
 import { useQuiz } from '@/core/hooks/useQuiz';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -11,6 +11,7 @@ import { HttpClientContext } from '@/core/context/client-context';
 import { selectCurrentQuestion, selectQuizStatus, useQuizStore } from '@/core/state/quiz.state';
 import { Language, QuizMode } from '@/core/models/models';
 import { shuffle } from '@/utils/array';
+import AnswerInput from '@/components/quiz/AnswerInput';
 
 const TOTAL_QUESTIONS_REQUEST = 10;
 
@@ -46,29 +47,41 @@ export default function({ language, mode }: QuizProps) {
 		initializeQuiz(data, language);
 	}, [data]);
 
+	const isWriting = mode === 'writing';
+
 	return (
-		<>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={150}
+		>
 			{quizStatus === 'ongoing' && (
 				<View className="h-full">
-					<View>
-						<QuizProgress />
-					</View>
-					<View className="flex-1 justify-around">
+
+					<QuizProgress />
+
+					<View className="justify-around flex-1">
 						<QuizQuestion question={currentQuestion?.question} mode={mode} />
-						<View className="px-5 flex-row flex-wrap justify-between gap-y-5">
-							{answers.map((ans) => (
-								<AnswerButton
-									onPress={() => handleAnswer(ans)}
-									label={getAnswerLabel(ans)}
-									id={ans.id}
-									key={ans.id}
-								/>
-							))}
-						</View>
+						{
+							!isWriting && (<View className="px-5 flex-row flex-wrap justify-between gap-y-5">
+								{answers.map((ans) => (
+									<AnswerButton
+										onPress={() => handleAnswer(ans)}
+										label={getAnswerLabel(ans)}
+										id={ans.id}
+										key={ans.id}
+									/>
+								))}
+							</View>)
+						}
+						{
+							isWriting && <AnswerInput answer={currentQuestion!.question} onSubmit={handleAnswer} />
+						}
+
 					</View>
 				</View>
 			)}
 			{quizStatus === 'finished' && <QuizFinished />}
-		</>
+
+		</KeyboardAvoidingView>
+
 	);
 }
