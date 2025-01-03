@@ -1,10 +1,10 @@
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Word } from '@/core/api/models/quiz';
 import { useSegmentAnswer } from '@/core/hooks/useSegmentAnswer';
-import { LANG_CODE } from '@/core/constants/common';
 import QuizWritableAnswerSegment from '@/components/quiz/QuizWritableAnswerSegment';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import AppButton from '@/components/ui/AppButton';
+import { LANG_CODE } from '@/core/constants/common';
 
 interface QuizWritableAnswerProps {
 	answer: Word,
@@ -12,14 +12,16 @@ interface QuizWritableAnswerProps {
 }
 
 export default function({ answer, onSubmit }: QuizWritableAnswerProps) {
+
+	const [valid, setIsValid] = useState<boolean>(false);
 	answer = {
-		[LANG_CODE.EN]: 'hfsdfeg sdw',
+		[LANG_CODE.EN]: 'accountability',
 		id: 1,
-		[LANG_CODE.PL]: 'klasa grupowa',
+		[LANG_CODE.PL]: 'rozliczalnosc',
 		categoryId: 2,
 	};
 
-	const { segments } = useSegmentAnswer(answer);
+	const { segments, checkIsFilled } = useSegmentAnswer(answer);
 
 	const segmentAnswers = useMemo(() => {
 		return segments.map(() => '', []);
@@ -27,17 +29,20 @@ export default function({ answer, onSubmit }: QuizWritableAnswerProps) {
 
 	const onSegmentChange = (value: string, index: number) => {
 		segmentAnswers[index] = value;
+		setIsValid(checkIsFilled(segmentAnswers));
 	};
+
 
 	const checkAnswers = () => {
 		console.log(segmentAnswers.join(' '));
 	};
 
 	return (
-		<View className="w-full flex-1 justify-between">
-			<KeyboardAvoidingView
-				behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={150}
-			>
+		<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+							  keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 0}
+							  className="flex-grow justify-around">
+			<View className={'flex-grow justify-between gap-24'}>
+
 				<View className=" gap-x-8 flex-row flex-wrap justify-center">
 					{
 						segments.map((segment, index) => <View className="flex-row" key={index}>
@@ -45,11 +50,14 @@ export default function({ answer, onSubmit }: QuizWritableAnswerProps) {
 						</View>)
 					}
 				</View>
-			</KeyboardAvoidingView>
 
-			<View className=" w-full flex-1 justify-center">
-				<AppButton disabled variant={'primary'} label={'Odpowiedz'} onPress={checkAnswers} />
+
+				<View className=" w-full px-4 justify-center">
+					<AppButton disabled={!valid} variant={'primary'} label={'Odpowiedz'} onPress={checkAnswers} />
+				</View>
 			</View>
-		</View>
+
+		</KeyboardAvoidingView>
+
 	);
 }

@@ -56,7 +56,7 @@ export default function({ language, mode }: QuizProps) {
 
 					<QuizProgress />
 
-					<View className="justify-around flex-1">
+					<View className="justify-between flex-1">
 						<QuizQuestion question={currentQuestion?.question} mode={mode} />
 						{
 							!isWriting && (<View className="px-5 flex-row flex-wrap justify-between gap-y-5">

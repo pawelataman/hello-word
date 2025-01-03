@@ -27,7 +27,7 @@ export default function({ question, mode }: QuizQuestionProps) {
 	const enableAnswering = () => setAnsweringEnabled(true);
 
 	return (
-		<View className="m-5 py-16 px-2.5 rounded-lg bg-gray-100 h-48 gap-5 items-center justify-evenly">
+		<View className="m-5 py-16 px-2.5 rounded-lg bg-gray-100 h-42 gap-5 items-center justify-evenly">
 			{(showQuestion || questionAnswered) &&
 				<Text className="text-center font-bold text-4xl text-gray-900">
 					{getQuestionLabel(question!)}
