@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import { View } from 'react-native';
 import AnswerButton from '@/components/quiz/QuizAnswerButton';
 import { useQuiz } from '@/core/hooks/useQuiz';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -11,7 +11,7 @@ import { HttpClientContext } from '@/core/context/client-context';
 import { selectCurrentQuestion, selectQuizStatus, useQuizStore } from '@/core/state/quiz.state';
 import { Language, QuizMode } from '@/core/models/models';
 import { shuffle } from '@/utils/array';
-import AnswerInput from '@/components/quiz/AnswerInput';
+import QuizWritableAnswer from '@/components/quiz/QuizWritableAnswer';
 
 const TOTAL_QUESTIONS_REQUEST = 10;
 
@@ -50,9 +50,7 @@ export default function({ language, mode }: QuizProps) {
 	const isWriting = mode === 'writing';
 
 	return (
-		<KeyboardAvoidingView
-			behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={150}
-		>
+		<>
 			{quizStatus === 'ongoing' && (
 				<View className="h-full">
 
@@ -73,15 +71,16 @@ export default function({ language, mode }: QuizProps) {
 							</View>)
 						}
 						{
-							isWriting && <AnswerInput answer={currentQuestion!.question} onSubmit={handleAnswer} />
+							isWriting &&
+							<QuizWritableAnswer answer={currentQuestion!.question} onSubmit={handleAnswer} />
+
 						}
 
 					</View>
 				</View>
 			)}
 			{quizStatus === 'finished' && <QuizFinished />}
-
-		</KeyboardAvoidingView>
+		</>
 
 	);
 }

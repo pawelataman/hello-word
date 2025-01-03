@@ -62,7 +62,7 @@ export default function({ id, onPress, label }: AnswerButtonProps) {
 			onPress={onPress}
 			disabled={disabled}
 		>
-			<Text className={`${getTextColor()} text-xl text-center font-medium`}>
+			<Text className={`${getTextColor()} text-xl text-center font-medium break-words`}>
 				{label}
 			</Text>
 		</Pressable>
