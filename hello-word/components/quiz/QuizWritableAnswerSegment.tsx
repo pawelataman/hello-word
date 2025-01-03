@@ -12,7 +12,7 @@ interface QuizWritableAnswerSegmentProps {
 
 export default function({ segment, index, onChange }: QuizWritableAnswerSegmentProps) {
 	const segmentLength = segment.length;
-	const { questionIndex } = useQuizStore();
+	const { questionIndex, currentQuestionStatus } = useQuizStore();
 	const {
 		control,
 		setValue,
@@ -37,7 +37,9 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 		reset();
 	}, [questionIndex]);
 
-	return <Controller
+	const isAnswered = currentQuestionStatus === 'answered';
+
+	return !isAnswered ? <Controller
 		name="segment"
 		rules={{ required: true }}
 		control={control}
@@ -58,13 +60,13 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 					<View
 						key={index}
 						onLayout={getCellOnLayoutHandler(index)}
-						className={`w-8 h-10 flex-row content-center items-center px-1`}
+						className={`w-10 h-10 flex-row content-center items-center px-1`}
 					>
 						<View
 							className={`w-full h-full ${isFocused ? 'border-b-green-500 border-b-[3px]' : 'border-b-gray-400 border-b-2'}`}
 						>
 							<View className="relative">
-								<Text className="color-black text-3xl font-bold text-center">
+								<Text className="color-black text-4xl font-bold text-center">
 									{symbol}
 								</Text>
 							</View>
@@ -73,7 +75,9 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 				}
 			/>
 		)}
-	/>;
+	/> : <Text className="color-black text-4xl font-bold text-center tracking-[12px]">
+		{value}
+	</Text>;
 }
 
 const styles = StyleSheet.create({
@@ -81,7 +85,6 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		marginLeft: 'auto',
 		marginRight: 'auto',
-		//flexWrap: 'wrap',
 		justifyContent: 'center',
 		rowGap: 18,
 	},

@@ -51,7 +51,7 @@ export default function({ question, mode }: QuizQuestionProps) {
 
 
 	return (
-		<View className="m-5 py-16 px-2.5 rounded-lg bg-gray-100 h-42 gap-5 items-center justify-evenly">
+		<View className="py-16 px-2.5 rounded-lg bg-gray-100 h-42 gap-5 items-center justify-evenly">
 			{
 				quizMode !== 'writing' && (showQuestion || questionAnswered) &&
 				<Text className="text-center font-bold text-4xl text-gray-900">

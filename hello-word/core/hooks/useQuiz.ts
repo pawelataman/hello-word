@@ -7,11 +7,10 @@ import { CONFIG_VOICEOVER, storage } from '@/core/constants/storage';
 import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 
 export function useQuiz() {
-	const { addAnsweredQuestion, nextQuestion } = useQuizStore();
+	const { addAnsweredQuestion, nextQuestion, quizLanguage } = useQuizStore();
 	const { getAnswerLabel } = useQuizTranslation();
 	const currentQuestion = useQuizStore(selectCurrentQuestion);
 	const [voiceover] = useMMKVBoolean(CONFIG_VOICEOVER, storage);
-
 
 	const handleChooseAnswer = (answer: Word): void => {
 		if (!currentQuestion) return;
@@ -21,7 +20,7 @@ export function useQuiz() {
 		addAnsweredQuestion(currentQuestion, answer, 'choose', isCorrect);
 
 		setTimeout(() => {
-			if (voiceover) {
+			if (voiceover && quizLanguage?.code !== LANG_CODE.PL) {
 				playbackWord(getAnswerLabel(currentQuestion.question), 1000, () => nextQuestion());
 			} else {
 				setTimeout(() => {
@@ -41,10 +40,6 @@ export function useQuiz() {
 		setTimeout(() => {
 			if (voiceover) {
 				playbackWord(getAnswerLabel(currentQuestion.question), 1000);
-			} else {
-				setTimeout(() => {
-					nextQuestion();
-				}, 5000);
 			}
 		}, 250);
 	};

@@ -33,7 +33,7 @@ export default function() {
 	const { reset } = useQuizStore();
 	const bottomSheetRef = useRef<BottomSheet>(null);
 	const [quizLanguage, setQuizLanguage] = useState<Language>(LANG_EN);
-	
+
 	const navigateToQuiz = (quizOptions: QuizOptions): void => {
 		queryClient.clear(); // clear queryClient cache
 		reset(); // reset quiz store
@@ -61,10 +61,10 @@ export default function() {
 			></Tabs.Screen>
 			<SafeAreaView>
 				<View className="p-5 bg-gray-200 h-full">
-					<View className="flex-row gap-6">
+					<View className="gap-6">
 						{LANG_OPTIONS.map(opt => (
 							<TouchableOpacity
-								className=" flex-1 gap-2 p-4 items-center bg-gray-50  rounded-2xl relative"
+								className=" gap-2 p-4 flex-row items-center justify-between bg-gray-50  rounded-2xl relative"
 								key={opt.lang.code}
 								onPress={() => navigateToQuiz({ language: opt.lang })}
 							>
@@ -72,8 +72,7 @@ export default function() {
 									{opt.icon}
 								</View>
 								<View>
-									<Text className={'font-semibold text-center'}>Przetłumacz na</Text>
-									<Text className={'font-semibold text-center'}>{opt.lang.label}</Text>
+									<Text className={'font-semibold text-center'}>Przetłumacz na {opt.lang.label}</Text>
 								</View>
 							</TouchableOpacity>))}
 					</View>
