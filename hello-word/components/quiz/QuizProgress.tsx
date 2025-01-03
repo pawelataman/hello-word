@@ -15,7 +15,7 @@ export default function() {
 	const { correct, incorrect } = useMemo(() => {
 			return answeredQuestions.reduce((acc, curr) => {
 
-				if (curr.correctAnswerId === curr.userAnswerId) {
+				if (curr.isCorrect) {
 					return { ...acc, correct: acc.correct + 1 };
 				}
 				return { ...acc, incorrect: acc.incorrect + 1 };
@@ -31,8 +31,8 @@ export default function() {
 		if (!answeredQuestion) return 'bg-gray-300';
 
 
-		const { correctAnswerId, userAnswerId } = answeredQuestion;
-		switch (correctAnswerId === userAnswerId) {
+		const { isCorrect } = answeredQuestion;
+		switch (isCorrect) {
 			case true:
 				return 'bg-green-500';
 			case false:

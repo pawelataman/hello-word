@@ -12,11 +12,13 @@ export function useQuiz(): QuizHook {
 	const [voiceover] = useMMKVBoolean(CONFIG_VOICEOVER, storage);
 
 
-	const handleAnswer = (answer: Word) => {
+	const handleChooseAnswer = (answer: Word) => {
 		if (!currentQuestion) return;
 
-		addAnsweredQuestion(currentQuestion.id, answer.id, currentQuestion.question.id);
 
+		const isCorrect = answer.id === currentQuestion.question.id;
+
+		addAnsweredQuestion(currentQuestion, answer, 'choose', isCorrect);
 
 		setTimeout(() => {
 			if (voiceover) {
@@ -30,7 +32,7 @@ export function useQuiz(): QuizHook {
 
 	};
 	return {
-		handleAnswer,
+		handleChooseAnswer,
 	};
 }
 

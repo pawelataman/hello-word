@@ -6,7 +6,12 @@ export const useSegmentAnswer = (answer: Word) => {
 	const answerText = useMemo(() => answer[LANG_EN.code], [answer]);
 	const segments = useMemo(() => answerText.split(' '), [answerText]);
 
+	function checkIsFilled(answerSegments: string[]): boolean {
+		return answerSegments.every((seg: string, index: number) => seg.length === segments[index].length);
+	}
+
 	return {
 		segments,
+		checkIsFilled,
 	};
 };

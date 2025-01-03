@@ -5,7 +5,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import QuizQuestion from '@/components/quiz/QuizQuestion';
 import React, { useContext, useEffect, useMemo } from 'react';
 import QuizFinished from './QuizFinished';
-import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 import QuizProgress from './QuizProgress';
 import { HttpClientContext } from '@/core/context/client-context';
 import { selectCurrentQuestion, selectQuizStatus, useQuizStore } from '@/core/state/quiz.state';
@@ -21,8 +20,7 @@ interface QuizProps {
 }
 
 export default function({ language, mode }: QuizProps) {
-	const { getAnswerLabel } = useQuizTranslation();
-	const { handleAnswer } = useQuiz();
+	const { handleChooseAnswer } = useQuiz();
 	const { initializeQuiz } = useQuizStore();
 	const quizStatus = useQuizStore(selectQuizStatus);
 	const currentQuestion = useQuizStore(selectCurrentQuestion);
@@ -56,24 +54,23 @@ export default function({ language, mode }: QuizProps) {
 
 					<QuizProgress />
 
-					<View className="justify-between flex-1">
+					<View className="justify-between mb-12 flex-1">
 						<QuizQuestion question={currentQuestion?.question} mode={mode} />
 						{
 							!isWriting && (<View className="px-5 flex-row flex-wrap justify-between gap-y-5">
 								{answers.map((ans) => (
 									<AnswerButton
-										onPress={() => handleAnswer(ans)}
-										label={getAnswerLabel(ans)}
-										id={ans.id}
+										onPress={() => handleChooseAnswer(ans)}
 										key={ans.id}
+										answer={ans}
 									/>
 								))}
 							</View>)
 						}
 						{
 							isWriting &&
-							<QuizWritableAnswer answer={currentQuestion!.question} onSubmit={handleAnswer} />
-
+							<QuizWritableAnswer answer={currentQuestion!.question} onSubmit={() => {
+							}} />
 						}
 
 					</View>

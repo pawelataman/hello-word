@@ -10,9 +10,10 @@ export type QuizStatus = 'finished' | 'ongoing';
 export type QuestionStatus = 'answered' | 'notAnswered'
 export type HighlightMode = 'correct' | 'incorrect' | 'idle';
 export type QuizMode = 'hearing' | 'writing' | 'reading'
+export type QuizAnswerType = 'choose' | 'typed'
 
 export interface QuizHook {
-	handleAnswer: (answer: Word) => void;
+	handleChooseAnswer: (answer: Word) => void;
 }
 
 export interface QuizConfig {

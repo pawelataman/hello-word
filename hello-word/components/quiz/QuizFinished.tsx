@@ -4,15 +4,25 @@ import AppButton from '@/components/ui/AppButton';
 import { useRouter } from 'expo-router';
 import { selectNumOfQuestions, useQuizStore } from '@/core/state/quiz.state';
 import { useQueryClient } from '@tanstack/react-query';
+import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
+import { Word } from '@/core/api/models/quiz';
 
 export default function() {
 	const router = useRouter();
 	const queryClient = useQueryClient();
+	const { getAnswerLabel } = useQuizTranslation();
 	const { answeredQuestions, reset, quizLanguage } = useQuizStore();
 	const numOfQuestions = useQuizStore(selectNumOfQuestions);
 	const points = useMemo(() => {
-		return answeredQuestions.filter(aq => aq.userAnswerId === aq.correctAnswerId).length;
+		return answeredQuestions.filter(aq => {
+
+			if (typeof aq.userAnswer === 'string') {
+				return aq.userAnswer === getAnswerLabel(aq.question.question);
+			} else return (aq.userAnswer as Word).id === aq.question.question.id;
+		}).length;
+
 	}, [answeredQuestions]);
+
 
 	const handleExit = () => {
 		router.replace({ pathname: '/(home)/main' });

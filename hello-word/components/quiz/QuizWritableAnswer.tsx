@@ -4,7 +4,6 @@ import { useSegmentAnswer } from '@/core/hooks/useSegmentAnswer';
 import QuizWritableAnswerSegment from '@/components/quiz/QuizWritableAnswerSegment';
 import { useMemo, useState } from 'react';
 import AppButton from '@/components/ui/AppButton';
-import { LANG_CODE } from '@/core/constants/common';
 
 interface QuizWritableAnswerProps {
 	answer: Word,
@@ -14,12 +13,12 @@ interface QuizWritableAnswerProps {
 export default function({ answer, onSubmit }: QuizWritableAnswerProps) {
 
 	const [valid, setIsValid] = useState<boolean>(false);
-	answer = {
-		[LANG_CODE.EN]: 'accountability',
-		id: 1,
-		[LANG_CODE.PL]: 'rozliczalnosc',
-		categoryId: 2,
-	};
+	// answer = {
+	// 	[LANG_CODE.EN]: 'accountability',
+	// 	id: 1,
+	// 	[LANG_CODE.PL]: 'rozliczalnosc',
+	// 	categoryId: 2,
+	// };
 
 	const { segments, checkIsFilled } = useSegmentAnswer(answer);
 

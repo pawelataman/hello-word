@@ -2,25 +2,30 @@ import { GestureResponderEvent, Pressable, Text } from 'react-native';
 import { useMemo } from 'react';
 import { HighlightMode } from '@/core/models/models';
 import { useQuizStore } from '@/core/state/quiz.state';
+import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
+import { Word } from '@/core/api/models/quiz';
 
 interface AnswerButtonProps {
 	onPress: (ev: GestureResponderEvent) => void;
-	label: string;
-	id: number;
+	answer: Word;
 }
 
-export default function({ id, onPress, label }: AnswerButtonProps) {
-
+export default function({ onPress, answer }: AnswerButtonProps) {
+	const { getAnswerLabel } = useQuizTranslation();
 	const { questionIndex, answeredQuestions, currentQuestionStatus, answeringEnabled } = useQuizStore();
 
 	const highlighted = useMemo<HighlightMode>(() => {
 		if (questionIndex > answeredQuestions.length || questionIndex === -1) return 'idle';
 
 		const answeredQuestion = answeredQuestions[questionIndex];
+		if (!answeredQuestion || answeredQuestion.type === 'typed') return 'idle';
 
-		if (!answeredQuestion) return 'idle';
-		if (id === answeredQuestion.correctAnswerId) return 'correct';
-		if (id === answeredQuestion.userAnswerId) return 'incorrect';
+		if (answer.id === answeredQuestion.question.question.id) return 'correct';
+		
+		if ((answeredQuestion.userAnswer as Word).id === answer.id && answer.id !== answeredQuestion.question.id) {
+			return 'incorrect';
+		}
+
 
 		return 'idle';
 
@@ -63,7 +68,7 @@ export default function({ id, onPress, label }: AnswerButtonProps) {
 			disabled={disabled}
 		>
 			<Text className={`${getTextColor()} text-xl text-center font-medium break-words`}>
-				{label}
+				{getAnswerLabel(answer)}
 			</Text>
 		</Pressable>
 	);

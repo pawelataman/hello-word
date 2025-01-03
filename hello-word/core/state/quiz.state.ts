@@ -1,14 +1,15 @@
 import { create } from 'zustand/react';
-import { Language, QuestionStatus, QuizStatus } from '@/core/models/models';
-import { QuizResponse } from '@/core/api/models/quiz';
+import { Language, QuestionStatus, QuizAnswerType, QuizStatus } from '@/core/models/models';
+import { QuizQuestion, QuizResponse, Word } from '@/core/api/models/quiz';
 
 type State = {
 	quizData: QuizResponse | null,
 	quizLanguage: Language | null,
 	answeredQuestions: {
-		questionId: number,
-		userAnswerId: number,
-		correctAnswerId: number
+		question: QuizQuestion
+		type: QuizAnswerType
+		userAnswer: Word | string,
+		isCorrect: boolean
 	}[],
 	questionIndex: number,
 	currentQuestionStatus: QuestionStatus,
@@ -17,12 +18,11 @@ type State = {
 };
 type Actions = {
 	initializeQuiz: (quiz: QuizResponse, quizLanguage: Language) => void,
-	addAnsweredQuestion: (questionId: number, userAnswerId: number, correctAnswerId: number) => void;
+	addAnsweredQuestion: (question: QuizQuestion, userAnswer: Word | string, type: QuizAnswerType, isCorrect: boolean) => void;
 	nextQuestion: () => void,
 	setAnsweringEnabled: (answeringEnabled: boolean) => void,
 	reset: () => void;
 };
-
 
 type QuizState = State & Actions
 
@@ -37,10 +37,10 @@ const INITIAL_STATE: State = {
 
 export const useQuizStore = create<QuizState>((set) => ({
 	...INITIAL_STATE,
-	addAnsweredQuestion: (questionId: number, userAnswerId: number, correctAnswerId: number) =>
+	addAnsweredQuestion: (question: QuizQuestion, userAnswer: Word | string, type: QuizAnswerType, isCorrect: boolean) =>
 		set((state) => ({
 			...state,
-			answeredQuestions: [...state.answeredQuestions, { questionId, userAnswerId, correctAnswerId }],
+			answeredQuestions: [...state.answeredQuestions, { question, userAnswer, type, isCorrect }],
 			currentQuestionStatus: 'answered',
 		})),
 	nextQuestion: () => set(state => ({
