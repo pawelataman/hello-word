@@ -20,7 +20,7 @@ export default function PlaybackWord({ word, lang, onDone }: PlaybackWordProps) 
 		setIsDone(false);
 		Speech.speak(word, {
 			language: lang,
-			rate: 0.8,
+			rate: 0.5,
 			onDone: () => {
 				setIsDone(true);
 				if (onDone) {
