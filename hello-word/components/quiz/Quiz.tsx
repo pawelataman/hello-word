@@ -42,7 +42,7 @@ export default function({ language, mode }: QuizProps) {
 
 
 	useEffect(() => {
-		initializeQuiz(data, language);
+		initializeQuiz(data, language, mode);
 	}, [data]);
 
 	const isWriting = mode === 'writing';

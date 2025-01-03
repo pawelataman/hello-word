@@ -1,11 +1,11 @@
 import { Text, View } from 'react-native';
 import { Word } from '@/core/api/models/quiz';
 import PlaybackWord from '@/components/ui/PlaybackWord';
-import { useQuizStore } from '@/core/state/quiz.state';
+import { selectCurrentQuestion, useQuizStore } from '@/core/state/quiz.state';
 import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 import { LANG_CODE } from '@/core/constants/common';
 import { QuizMode } from '@/core/models/models';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 interface QuizQuestionProps {
 	question?: Word;
@@ -13,8 +13,16 @@ interface QuizQuestionProps {
 }
 
 export default function({ question, mode }: QuizQuestionProps) {
-	const { quizLanguage, setAnsweringEnabled, currentQuestionStatus } = useQuizStore();
-	const { getQuestionLabel } = useQuizTranslation();
+	const { quizLanguage, setAnsweringEnabled, currentQuestionStatus, quizMode, answeredQuestions } = useQuizStore();
+	const currentQuestion = useQuizStore(selectCurrentQuestion);
+	const { getQuestionLabel, getAnswerLabel } = useQuizTranslation();
+
+	const lastAnsweredCorrect = useMemo(() => {
+		if (answeredQuestions.length) {
+			const lastAnswered = answeredQuestions[answeredQuestions.length - 1];
+			return lastAnswered.isCorrect;
+		}
+	}, [answeredQuestions]);
 
 	useEffect(() => {
 		setAnsweringEnabled(!(mode === 'hearing'));
@@ -26,12 +34,32 @@ export default function({ question, mode }: QuizQuestionProps) {
 
 	const enableAnswering = () => setAnsweringEnabled(true);
 
+	const WritingModeQuestion = useCallback(() => <View className="justify-around">
+		<Text
+			className={`text-center font-bold ${currentQuestionStatus === 'answered' ? 'text-xl' : 'text-3xl'}  text-gray-900`}>
+			{getQuestionLabel(question!)}
+		</Text>
+		{
+			currentQuestionStatus === 'answered' &&
+			<Text
+				className={`text-center font-bold text-4xl ${lastAnsweredCorrect ? 'text-green-500' : 'text-red-500'} mt-4`}>
+				{getAnswerLabel(currentQuestion!.question)}
+			</Text>
+		}
+
+	</View>, [currentQuestionStatus, lastAnsweredCorrect, currentQuestion]);
+
+
 	return (
 		<View className="m-5 py-16 px-2.5 rounded-lg bg-gray-100 h-42 gap-5 items-center justify-evenly">
-			{(showQuestion || questionAnswered) &&
+			{
+				quizMode !== 'writing' && (showQuestion || questionAnswered) &&
 				<Text className="text-center font-bold text-4xl text-gray-900">
 					{getQuestionLabel(question!)}
 				</Text>
+			}
+			{
+				quizMode === 'writing' && <WritingModeQuestion />
 			}
 			{(!questionAnswered && showPlayback) &&
 				<PlaybackWord word={question!.en} lang="en" onDone={enableAnswering} />}

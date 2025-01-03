@@ -17,6 +17,7 @@ const ICON_FOR_MODE: { [p in QuizMode]: { label: string, icon: ReactNode } } = {
 		label: 'Czytanie',
 	},
 	writing: { icon: <Pen color={'#6b7280'} width={48} height={48} />, label: 'Pisanie' },
+	none: { label: 'Żaden', icon: null },
 };
 
 interface QuizLaunchProps {

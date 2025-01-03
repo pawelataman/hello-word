@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { CodeField, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
+import { useQuizStore } from '@/core/state/quiz.state';
 
 interface QuizWritableAnswerSegmentProps {
 	segment: string;
@@ -10,12 +11,13 @@ interface QuizWritableAnswerSegmentProps {
 }
 
 export default function({ segment, index, onChange }: QuizWritableAnswerSegmentProps) {
-
 	const segmentLength = segment.length;
+	const { questionIndex } = useQuizStore();
 	const {
 		control,
 		setValue,
 		watch,
+		reset,
 	} = useForm<{ segment: string }>({ defaultValues: { segment: '' } });
 
 	const value = watch('segment');
@@ -30,6 +32,10 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 	useEffect(() => {
 		onChange(value, index);
 	}, [value]);
+
+	useEffect(() => {
+		reset();
+	}, [questionIndex]);
 
 	return <Controller
 		name="segment"

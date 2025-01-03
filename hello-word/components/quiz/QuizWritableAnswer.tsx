@@ -4,6 +4,8 @@ import { useSegmentAnswer } from '@/core/hooks/useSegmentAnswer';
 import QuizWritableAnswerSegment from '@/components/quiz/QuizWritableAnswerSegment';
 import { useMemo, useState } from 'react';
 import AppButton from '@/components/ui/AppButton';
+import { useQuiz } from '@/core/hooks/useQuiz';
+import { useQuizStore } from '@/core/state/quiz.state';
 
 interface QuizWritableAnswerProps {
 	answer: Word,
@@ -12,15 +14,11 @@ interface QuizWritableAnswerProps {
 
 export default function({ answer, onSubmit }: QuizWritableAnswerProps) {
 
+	const { handleTypedAnswer } = useQuiz();
+	const { currentQuestionStatus, nextQuestion } = useQuizStore();
 	const [valid, setIsValid] = useState<boolean>(false);
-	// answer = {
-	// 	[LANG_CODE.EN]: 'accountability',
-	// 	id: 1,
-	// 	[LANG_CODE.PL]: 'rozliczalnosc',
-	// 	categoryId: 2,
-	// };
-
 	const { segments, checkIsFilled } = useSegmentAnswer(answer);
+	const isAnswered = useMemo(() => currentQuestionStatus === 'answered', [currentQuestionStatus]);
 
 	const segmentAnswers = useMemo(() => {
 		return segments.map(() => '', []);
@@ -31,9 +29,9 @@ export default function({ answer, onSubmit }: QuizWritableAnswerProps) {
 		setIsValid(checkIsFilled(segmentAnswers));
 	};
 
-
 	const checkAnswers = () => {
-		console.log(segmentAnswers.join(' '));
+		const answer = segmentAnswers.join(' ');
+		handleTypedAnswer(answer);
 	};
 
 	return (
@@ -50,9 +48,17 @@ export default function({ answer, onSubmit }: QuizWritableAnswerProps) {
 					}
 				</View>
 
-
-				<View className=" w-full px-4 justify-center">
-					<AppButton disabled={!valid} variant={'primary'} label={'Odpowiedz'} onPress={checkAnswers} />
+				<View className=" w-full items-center justify-center">
+					{
+						!isAnswered &&
+						<AppButton disabled={!valid || isAnswered} variant={'primary'} label={'Odpowiedz'}
+								   onPress={checkAnswers} />
+					}
+					{
+						isAnswered &&
+						<AppButton variant={'tertiary'} label={'Następne pytanie'}
+								   onPress={nextQuestion} />
+					}
 				</View>
 			</View>
 

@@ -33,8 +33,7 @@ export default function() {
 	const { reset } = useQuizStore();
 	const bottomSheetRef = useRef<BottomSheet>(null);
 	const [quizLanguage, setQuizLanguage] = useState<Language>(LANG_EN);
-
-
+	
 	const navigateToQuiz = (quizOptions: QuizOptions): void => {
 		queryClient.clear(); // clear queryClient cache
 		reset(); // reset quiz store
@@ -47,7 +46,6 @@ export default function() {
 
 	const modeChanged = (opt: { language: Language, mode: QuizMode }) => {
 		bottomSheetRef.current?.close();
-
 		router.push({
 			pathname: '/quiz',
 			params: {

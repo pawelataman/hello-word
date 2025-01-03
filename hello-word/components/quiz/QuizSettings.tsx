@@ -23,7 +23,7 @@ export default function({ tintColor }: { tintColor: string | undefined }) {
 					titleColor: 'black',
 					image: Platform.select({
 						ios: voiceover ? 'speaker.slash' : 'speaker.wave.3',
-						android: voiceover ? 'ic_lock_silent_mode_off' : 'ic_lock_silent_mode',
+						android: voiceover ? 'ic_lock_silent_mode' : 'ic_lock_silent_mode_off',
 					}),
 					imageColor: tintColor,
 
