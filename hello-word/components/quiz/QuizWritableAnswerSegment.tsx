@@ -16,7 +16,7 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 		control,
 		setValue,
 		watch,
-	} = useForm<{ segment: string }>();
+	} = useForm<{ segment: string }>({ defaultValues: { segment: '' } });
 
 	const value = watch('segment');
 	const ref = useBlurOnFulfill({ value, cellCount: segmentLength });
@@ -45,20 +45,20 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 				cellCount={segmentLength}
 				keyboardType={'ascii-capable'}
 				autoCapitalize={'none'}
-				autoFocus={true}
+				autoFocus={index === 0}
 				rootStyle={styles.codeFieldRoot}
 				inputMode={'text'}
 				renderCell={({ index, symbol, isFocused }) =>
 					<View
 						key={index}
 						onLayout={getCellOnLayoutHandler(index)}
-						className={`w-12 h-12 flex-row content-center items-center px-2`}
+						className={`w-8 h-10 flex-row content-center items-center px-1`}
 					>
 						<View
 							className={`w-full h-full ${isFocused ? 'border-b-green-500 border-b-[3px]' : 'border-b-gray-400 border-b-2'}`}
 						>
 							<View className="relative">
-								<Text className="color-black text-4xl font-bold text-center">
+								<Text className="color-black text-3xl font-bold text-center">
 									{symbol}
 								</Text>
 							</View>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		marginLeft: 'auto',
 		marginRight: 'auto',
-		flexWrap: 'wrap',
+		//flexWrap: 'wrap',
 		justifyContent: 'center',
 		rowGap: 18,
 	},
