@@ -12,3 +12,4 @@ expo-env.d.ts
 
 # dotenv environment variable files
 
+build-*.apk
