@@ -1,23 +1,24 @@
-import { Alert, SafeAreaView, Text, View } from 'react-native';
+import { Alert, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { Suspense, useCallback, useMemo } from 'react';
 import { LANG_EN, QUIZ_LANGUAGES } from '@/core/constants/common';
 import QuizLoading from '@/components/quiz/QuizLoading';
 import { ErrorBoundary } from 'react-error-boundary';
 import Quiz from '@/components/quiz/Quiz';
-import { HeaderBackButton } from '@react-navigation/elements';
-import QuizSettings from '@/components/quiz/QuizSettings';
 import { QuizMode } from '@/core/models/models';
+import QuizSettings from '@/components/quiz/QuizSettings';
+import ArrowLeft from '@/assets/images/icons/arrow_left.svg';
 
 export default function() {
 	const router = useRouter();
 	const { language, mode } = useLocalSearchParams<{
-		language: string,
-		mode: QuizMode
+		language: string;
+		mode: QuizMode;
 	}>();
-	const quizLanguage = useMemo(() => QUIZ_LANGUAGES.find(
-		(lang) => lang.code === language,
-	) || LANG_EN, [language]);
+	const quizLanguage = useMemo(
+		() => QUIZ_LANGUAGES.find((lang) => lang.code === language) || LANG_EN,
+		[language],
+	);
 
 	const ErrorComponent = useCallback(
 		() => (
@@ -28,7 +29,7 @@ export default function() {
 		[],
 	);
 
-	const beforeNavigateBack = () => {
+	const beforeNavigateBack = useCallback(() => {
 		Alert.alert('', 'Zakończyć quiz ?', [
 			{
 				text: 'Anuluj',
@@ -36,7 +37,7 @@ export default function() {
 			},
 			{ text: 'Zakończ', onPress: () => router.back() },
 		]);
-	};
+	}, [router]);
 
 	return (
 		<View className="bg-white">
@@ -49,8 +50,10 @@ export default function() {
 							headerShadowVisible: false,
 							headerBackTitle: '',
 							headerTintColor: 'black',
-							headerLeft: (props) => <HeaderBackButton  {...props}
-																	  onPress={() => beforeNavigateBack()} />,
+							headerLeft: (props) =>
+								<TouchableOpacity onPressOut={beforeNavigateBack} className={'pt-2'}>
+									<ArrowLeft width={36} height={36} color={props.tintColor} />
+								</TouchableOpacity>,
 							headerRight: (props) => <QuizSettings tintColor={props.tintColor} />,
 
 						}}

@@ -36,13 +36,13 @@ export default function({ question, mode }: QuizQuestionProps) {
 
 	const WritingModeQuestion = useCallback(() => <View className="justify-around">
 		<Text
-			className={`text-center font-bold ${currentQuestionStatus === 'answered' ? 'text-xl' : 'text-3xl'}  text-gray-900`}>
+			className={`text-center font-bold ${currentQuestionStatus === 'answered' ? 'text-xl' : 'text-2xl'}  text-gray-900`}>
 			{getQuestionLabel(question!)}
 		</Text>
 		{
 			currentQuestionStatus === 'answered' &&
 			<Text
-				className={`text-center font-bold text-4xl ${lastAnsweredCorrect ? 'text-green-500' : 'text-red-500'} mt-4`}>
+				className={`text-center font-bold text-2xl ${lastAnsweredCorrect ? 'text-green-500' : 'text-red-500'} mt-4`}>
 				{getAnswerLabel(currentQuestion!.question)}
 			</Text>
 		}
@@ -51,10 +51,10 @@ export default function({ question, mode }: QuizQuestionProps) {
 
 
 	return (
-		<View className="py-16 px-2.5 rounded-lg bg-gray-100 h-42 gap-5 items-center justify-evenly">
+		<View className="p-2 rounded-lg bg-gray-100 h-36 gap-5 items-center justify-evenly">
 			{
 				quizMode !== 'writing' && (showQuestion || questionAnswered) &&
-				<Text className="text-center font-bold text-4xl text-gray-900">
+				<Text className="text-center font-bold text-2xl text-gray-900">
 					{getQuestionLabel(question!)}
 				</Text>
 			}

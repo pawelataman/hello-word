@@ -43,7 +43,7 @@ export default function() {
 	if (numOfQuestions === 0) return;
 
 	return (
-		<View className="mt-10 mx-5 gap-8">
+		<View className="mt-2 mx-5 gap-8">
 			<View className="h-2 flex-row justify-between">
 				{segments.map((val) => {
 					return (

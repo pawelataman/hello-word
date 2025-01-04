@@ -1,5 +1,5 @@
 import { Word } from '@/core/api/models/quiz';
-import { selectCurrentQuestion, useQuizStore } from '@/core/state/quiz.state';
+import { selectCurrentQuestion, selectNumOfQuestions, useQuizStore } from '@/core/state/quiz.state';
 import { LANG_CODE } from '@/core/constants/common';
 import * as Speech from 'expo-speech';
 import { useMMKVBoolean } from 'react-native-mmkv';
@@ -7,7 +7,8 @@ import { CONFIG_VOICEOVER, storage } from '@/core/constants/storage';
 import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 
 export function useQuiz() {
-	const { addAnsweredQuestion, nextQuestion, quizLanguage } = useQuizStore();
+	const { addAnsweredQuestion, nextQuestion, quizLanguage, questionIndex } = useQuizStore();
+	const numOfQuestions = useQuizStore(selectNumOfQuestions);
 	const { getAnswerLabel } = useQuizTranslation();
 	const currentQuestion = useQuizStore(selectCurrentQuestion);
 	const [voiceover] = useMMKVBoolean(CONFIG_VOICEOVER, storage);
@@ -25,7 +26,7 @@ export function useQuiz() {
 			} else {
 				setTimeout(() => {
 					nextQuestion();
-				}, 1000);
+				}, 200);
 			}
 		}, 250);
 	};
@@ -39,7 +40,11 @@ export function useQuiz() {
 
 		setTimeout(() => {
 			if (voiceover) {
-				playbackWord(getAnswerLabel(currentQuestion.question), 1000);
+				playbackWord(getAnswerLabel(currentQuestion.question), 1000, () => {
+					if (questionIndex + 1 === numOfQuestions) {
+						nextQuestion();
+					}
+				});
 			}
 		}, 250);
 	};

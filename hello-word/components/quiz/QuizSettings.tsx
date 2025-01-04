@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import { MenuComponentRef, MenuView } from '@react-native-menu/menu';
 import SettingsIcon from '@/components/ui/svg/SettingsIcon';
 import React, { useRef } from 'react';
@@ -40,5 +40,3 @@ export default function({ tintColor }: { tintColor: string | undefined }) {
 		</MenuView>
 	);
 }
-
-const styles = StyleSheet.create({});

@@ -11,7 +11,7 @@ export default function() {
 	const router = useRouter();
 	const queryClient = useQueryClient();
 	const { getAnswerLabel } = useQuizTranslation();
-	const { answeredQuestions, reset, quizLanguage } = useQuizStore();
+	const { answeredQuestions, reset, quizLanguage, quizMode } = useQuizStore();
 	const numOfQuestions = useQuizStore(selectNumOfQuestions);
 	const points = useMemo(() => {
 		return answeredQuestions.filter(aq => {
@@ -46,6 +46,7 @@ export default function() {
 			pathname: '/(home)/quiz',
 			params: {
 				language: quizLanguage?.code,
+				mode: quizMode,
 			},
 		});
 	};
