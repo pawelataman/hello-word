@@ -1,0 +1,8 @@
+version: '3'
+
+dotenv: [ '.env.docker', ]
+
+tasks:
+  docker-dev:
+    cmds:
+      - docker compose -f ./compose-local.yaml --env-file .env up --build
