@@ -52,7 +52,6 @@ jobs:
           envkey_HOST_NAME: ${{vars.HOST_NAME}}
           envkey_DASHBOARD_USERNAME: ${{vars.DASHBOARD_USERNAME}}
           envkey_DB_URL: ${{secrets.DB_URL}}
-          envkey_CLERK_PUBLISHABLE_KEY: ${{secrets.CLERK_PUBLISHABLE_KEY}}
           envkey_CLERK_SECRET_KEY: ${{secrets.CLERK_SECRET_KEY}}
 
       - name: Docker Stack Deploy
