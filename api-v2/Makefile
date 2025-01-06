@@ -1,5 +1,5 @@
 # Simple Makefile for a Go project
-DB_URL ?="postgres://admin:password@localhost:5432/chat_db"
+DB_URL ?="postgresql://admin:password@localhost:5432/hello-word"
 
 build:
 	@echo "Building..."
@@ -42,6 +42,6 @@ watch:
         fi
 
 docker-dev:
-	@cd ../docker && docker compose -f ./compose.dev.yml --env-file ../.env -p chat-app up --build
+	@docker compose -f ./compose-local.yaml --env-file .env up --build
 
 .PHONY: all build run test clean watch
