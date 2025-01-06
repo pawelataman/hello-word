@@ -1,17 +1,15 @@
-FROM node:20-alpine
+FROM golang:1.23 AS builder
 
-WORKDIR /usr/src/app
-
-COPY package.json package-lock.json* ./
-
-RUN npm ci && npm cache clean --force
-
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
 COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o ./build/hello-word-api ./cmd/main.go
 
-RUN npm run build
-
+# Final image
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+COPY --from=builder /app/build/hello-word-api /hello-word-api
 EXPOSE 3000
-
-CMD ["node","dist/src/main.js"]
-
+CMD ["/hello-word-api"]
 

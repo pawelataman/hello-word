@@ -6,7 +6,26 @@ services:
       dockerfile: Dockerfile
     environment:
       - DB_URL=${DB_URL}
-      - CLERK_PUBLISHABLE_KEY=${CLERK_PUBLISHABLE_KEY}
       - CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
     ports:
       - "3000:3000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist data across container restarts
+
+volumes:
+  postgres_data:
+    driver: local
+
+

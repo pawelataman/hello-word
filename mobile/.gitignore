@@ -1,0 +1,15 @@
+node_modules/
+.expo/
+
+
+ios
+android
+
+.env
+
+expo-env.d.ts
+# @end expo-cli
+
+# dotenv environment variable files
+
+build-*.apk
