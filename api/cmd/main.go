@@ -33,7 +33,9 @@ func main() {
 	app := server.New()
 	app.Use(logger.New())
 
+	// to include auth headers
 	app.Use(adaptor.HTTPMiddleware(http.WithHeaderAuthorization()))
+	// to validate auth headers
 	app.Use(middleware.AuthMiddleware)
 
 	handlers.RegisterQuizHandlers(app)
