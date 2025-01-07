@@ -21,7 +21,7 @@ export default function({ onPress, answer }: AnswerButtonProps) {
 		if (!answeredQuestion || answeredQuestion.type === 'typed') return 'idle';
 
 		if (answer.id === answeredQuestion.question.question.id) return 'correct';
-		
+
 		if ((answeredQuestion.userAnswer as Word).id === answer.id && answer.id !== answeredQuestion.question.id) {
 			return 'incorrect';
 		}
@@ -63,11 +63,11 @@ export default function({ onPress, answer }: AnswerButtonProps) {
 
 	return (
 		<Pressable
-			className={`${getHighlightColor(disabled)} w-[45%] h-32 py-5 px-5 rounded-lg justify-center }`}
+			className={`${getHighlightColor(disabled)} w-[48%] h-28 py-5 px-5 rounded-lg justify-center }`}
 			onPress={onPress}
 			disabled={disabled}
 		>
-			<Text className={`${getTextColor()} text-xl text-center font-medium break-words`}>
+			<Text className={`${getTextColor()} text-lg text-center font-medium break-words whitespace-break-spaces`}>
 				{getAnswerLabel(answer)}
 			</Text>
 		</Pressable>

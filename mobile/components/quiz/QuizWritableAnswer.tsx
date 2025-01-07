@@ -5,6 +5,8 @@ import { useMemo, useState } from 'react';
 import { useQuizStore } from '@/core/state/quiz.state';
 import QuizWritableAnswerSegment from '@/components/quiz/QuizWritableAnswerSegment';
 import AppButton from '@/components/ui/AppButton';
+import { useMMKVBoolean } from 'react-native-mmkv';
+import { CONFIG_AUTO_NEXT_QUESTION, storage } from '@/core/constants/storage';
 
 interface QuizWritableAnswerProps {
 	answer: Word,
@@ -17,6 +19,7 @@ export default function({ answer, submitAnswer }: QuizWritableAnswerProps) {
 	const [valid, setIsValid] = useState<boolean>(false);
 	const { segments, checkIsFilled } = useSegmentAnswer(answer);
 	const isAnswered = useMemo(() => currentQuestionStatus === 'answered', [currentQuestionStatus]);
+	const [autoNextQuestion] = useMMKVBoolean(CONFIG_AUTO_NEXT_QUESTION, storage);
 
 	const segmentAnswers = useMemo(() => {
 		return segments.map(() => '', []);
@@ -40,19 +43,17 @@ export default function({ answer, submitAnswer }: QuizWritableAnswerProps) {
 				</View>)
 			}
 		</View>
-		<View className=" w-full items-center justify-center">
+		<View className="w-full items-center justify-center">
 			{
 				!isAnswered &&
 				<AppButton disabled={!valid || isAnswered} variant={'primary'} label={'Odpowiedz'}
 						   onPress={handleAnswer} />
 			}
 			{
-				isAnswered &&
+				isAnswered && !autoNextQuestion &&
 				<AppButton variant={'tertiary'} label={'Następne pytanie'}
 						   onPress={nextQuestion} />
 			}
 		</View>
 	</View>;
-
-
 }

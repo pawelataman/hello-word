@@ -12,6 +12,7 @@ export default function() {
 
 	return (
 		<View className="h-full items-center justify-center gap-4">
+
 			<Animated.Image
 				style={{ width: size, height: size }}
 				source={require('@/assets/images/icons/brain.png')}

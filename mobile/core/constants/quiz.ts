@@ -11,3 +11,5 @@ export const QUIZ_CONFIG: { [p in LANG_CODE]: QuizConfig } = {
 		playbackQuestion: true,
 	},
 };
+
+export const NEXT_QUESTION_TIMEOUT = 2000;

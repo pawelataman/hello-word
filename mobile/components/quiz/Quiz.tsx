@@ -1,5 +1,4 @@
 import { KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
-import AnswerButton from '@/components/quiz/QuizAnswerButton';
 import { useQuiz } from '@/core/hooks/useQuiz';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import QuizQuestion from '@/components/quiz/QuizQuestion';
@@ -12,6 +11,7 @@ import { Language, QuizMode } from '@/core/models/models';
 import { shuffle } from '@/utils/array';
 import QuizWritableAnswer from '@/components/quiz/QuizWritableAnswer';
 import Bulb from '@/assets/images/icons/bulb.svg';
+import QuizChosenAnswer from '@/components/quiz/QuizChosenAnswer';
 
 const TOTAL_QUESTIONS_REQUEST = 10;
 
@@ -47,6 +47,7 @@ export default function({ language, mode }: QuizProps) {
 	}, [data]);
 
 	const isWriting = useMemo(() => mode === 'writing', [mode]);
+	const isChoosing = useMemo(() => mode !== 'writing', [mode]);
 	const isAnswered = useMemo(() => currentQuestionStatus === 'answered', [currentQuestionStatus]);
 
 	const giveUpAnswer = () => {
@@ -57,11 +58,11 @@ export default function({ language, mode }: QuizProps) {
 		<>
 			{quizStatus === 'ongoing' && (
 				<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-									  keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 0}
+									  keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
 				>
 					<View className="h-full">
 						<QuizProgress />
-						<View className="px-5 justify-between items-center mb-12 flex-1">
+						<View className="px-5 justify-between items-center flex-1">
 							<View className={'w-full my-5'}>
 								<QuizQuestion question={currentQuestion?.question} mode={mode} />
 							</View>
@@ -75,15 +76,10 @@ export default function({ language, mode }: QuizProps) {
 							}
 
 							{
-								!isWriting && (<View className="px-5 flex-row flex-wrap justify-between gap-y-5">
-									{answers.map((ans) => (
-										<AnswerButton
-											onPress={() => handleChooseAnswer(ans)}
-											key={ans.id}
-											answer={ans}
-										/>
-									))}
-								</View>)
+								isChoosing && (
+									<View className="px-5 pb-2 flex-row flex-wrap justify-between gap-y-5">
+										<QuizChosenAnswer answers={answers} submitAnswer={handleChooseAnswer} />
+									</View>)
 							}
 							{
 								isWriting &&

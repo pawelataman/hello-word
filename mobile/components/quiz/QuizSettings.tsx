@@ -1,42 +1,33 @@
-import { Platform, TouchableOpacity, View } from 'react-native';
-import { MenuComponentRef, MenuView } from '@react-native-menu/menu';
-import SettingsIcon from '@/components/ui/svg/SettingsIcon';
-import React, { useRef } from 'react';
+import { Switch, Text, View } from 'react-native';
+import React from 'react';
 import { useMMKVBoolean } from 'react-native-mmkv';
-import { CONFIG_VOICEOVER, storage } from '@/core/constants/storage';
+import { CONFIG_AUTO_NEXT_QUESTION, CONFIG_VOICEOVER, storage } from '@/core/constants/storage';
 
-export default function({ tintColor }: { tintColor: string | undefined }) {
-	const menuRef = useRef<MenuComponentRef>(null);
+export default function() {
 	const [voiceover, setVoiceover] = useMMKVBoolean(CONFIG_VOICEOVER, storage);
+	const [autoNextQuestion, setAutoNextQuestion] = useMMKVBoolean(CONFIG_AUTO_NEXT_QUESTION, storage);
 
 	return (
-
-		<MenuView
-			ref={menuRef}
-			onPressAction={() => {
-				setVoiceover(!voiceover);
-			}}
-			actions={[
-				{
-					id: 'toggle_voiceover',
-					title: voiceover ? 'Wycisz' : 'Odcisz',
-					titleColor: 'black',
-					image: Platform.select({
-						ios: voiceover ? 'speaker.slash' : 'speaker.wave.3',
-						android: voiceover ? 'ic_lock_silent_mode' : 'ic_lock_silent_mode_off',
-					}),
-					imageColor: tintColor,
-
-				},
-			]}
-			shouldOpenOnLongPress={false}
-		>
-			<View>
-				<TouchableOpacity>
-					<SettingsIcon width={28} height={28}
-								  fill={tintColor} />
-				</TouchableOpacity>
+		<View className={'h-64 p-4 gap-4'}>
+			<View className={'flex-row items-center justify-between'}>
+				<Text className={'color-gray-500 text-lg'}>Odtwórz odpowiedź</Text>
+				<Switch
+					trackColor={{ false: '#767577', true: '#22c55e' }}
+					thumbColor={voiceover ? '#f4f3f4' : '#f4f3f4'}
+					onValueChange={setVoiceover}
+					value={voiceover}
+				/>
 			</View>
-		</MenuView>
+
+			<View className={'flex-row items-center justify-between'}>
+				<Text className={'color-gray-500 text-lg'}>Autoprzełączanie</Text>
+				<Switch
+					trackColor={{ false: '#767577', true: '#22c55e' }}
+					thumbColor={autoNextQuestion ? '#f4f3f4' : '#f4f3f4'}
+					onValueChange={setAutoNextQuestion}
+					value={autoNextQuestion}
+				/>
+			</View>
+		</View>
 	);
 }

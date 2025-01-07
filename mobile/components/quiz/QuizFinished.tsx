@@ -52,8 +52,8 @@ export default function() {
 	};
 
 	return (
-		<View className="w-full py-5 px-5 flex-1 items-center justify-between">
-			<View className="items-center justify-center w-full flex-1 margin ">
+		<View className="w-full py-5 px-2 flex-1 items-center justify-around">
+			<View className="items-center justify-center w-full ">
 				<Text className="text-3xl font-bold">Brawo Madzia!</Text>
 				<Text className="text-3xl font-bold">Ukończyłaś quiz!</Text>
 				<Text className="text-xl my-4">Twój wynik to</Text>
@@ -64,7 +64,7 @@ export default function() {
 					/ {numOfQuestions}
 				</Text>
 			</View>
-			<View className="flex-row flex-0 items-center gap-2.5 mt-5">
+			<View className="w-full items-stretch gap-2.5">
 				<AppButton
 					variant={'primary'}
 					onPress={handleRestart}

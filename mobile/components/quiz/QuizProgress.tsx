@@ -13,16 +13,14 @@ export default function() {
 	}, [width, numOfQuestions]);
 
 	const { correct, incorrect } = useMemo(() => {
-			return answeredQuestions.reduce((acc, curr) => {
+		return answeredQuestions.reduce((acc, curr) => {
 
-				if (curr.isCorrect) {
-					return { ...acc, correct: acc.correct + 1 };
-				}
-				return { ...acc, incorrect: acc.incorrect + 1 };
-			}, { correct: 0, incorrect: 0 });
-		}, [answeredQuestions])
-
-	;
+			if (curr.isCorrect) {
+				return { ...acc, correct: acc.correct + 1 };
+			}
+			return { ...acc, incorrect: acc.incorrect + 1 };
+		}, { correct: 0, incorrect: 0 });
+	}, [answeredQuestions]);
 
 	const segments = new Array(numOfQuestions).fill(0).map((val, index) => index);
 
