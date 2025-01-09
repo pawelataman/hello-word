@@ -13,7 +13,14 @@ var (
 )
 
 func InitDbConnection(ctx context.Context) error {
-	conn, err := pgx.Connect(ctx, os.Getenv("DB_URL"))
+
+	connectionConfig, err := pgx.ParseConfig(os.Getenv("DB_URL"))
+
+	//connectionConfig.Tracer = &tracelog.TraceLog{
+	//	Logger:   pgx_logrus.NewLogger(logrus.StandardLogger()),
+	//	LogLevel: tracelog.LogLevelInfo}
+
+	conn, err := pgx.ConnectConfig(ctx, connectionConfig)
 
 	if err != nil {
 		log.Fatal(fmt.Fprintf(os.Stderr, "unable to connect to database: %v\n", err))

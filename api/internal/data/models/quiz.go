@@ -1,4 +1,4 @@
-package data
+package models
 
 type QuizWord struct {
 	Id         int    `json:"id"`
@@ -16,8 +16,4 @@ type QuizQuestion struct {
 type Quiz struct {
 	Id        string         `json:"id"`
 	Questions []QuizQuestion `json:"questions"`
-}
-
-type GetQuizParam struct {
-	QuestionsQty int `json:"questionsQty"`
 }

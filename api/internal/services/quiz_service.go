@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
-	"github.com/pawelataman/hello-word/internal/data"
+	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/db"
 )
 
@@ -23,24 +23,24 @@ func NewQuizServiceImpl() *QuizServiceImpl {
 	}
 }
 
-func (qs *QuizServiceImpl) CreateQuiz(ctx *fiber.Ctx, questionsQty int) (data.Quiz, error) {
+func (qs *QuizServiceImpl) CreateQuiz(ctx *fiber.Ctx, questionsQty int) (models.Quiz, error) {
 	const answersPerQuestion = 4
 
 	words, err := qs.queries.GetQuizQuestions(ctx.Context(), int32(questionsQty*answersPerQuestion))
 
 	if err != nil {
 		fmt.Println(err)
-		return data.Quiz{}, err
+		return models.Quiz{}, err
 	}
 
-	questions := make([]data.QuizQuestion, questionsQty)
+	questions := make([]models.QuizQuestion, questionsQty)
 
 	for i := 0; i < questionsQty; i++ {
-		answers := make([]data.QuizWord, 4)
+		answers := make([]models.QuizWord, 4)
 		for j := 0; j < answersPerQuestion; j++ {
 			index := i*answersPerQuestion + j
 
-			quizWord := data.QuizWord{
+			quizWord := models.QuizWord{
 				Id:         int(words[index].ID),
 				Pl:         words[index].Pl,
 				En:         words[index].En,
@@ -50,7 +50,7 @@ func (qs *QuizServiceImpl) CreateQuiz(ctx *fiber.Ctx, questionsQty int) (data.Qu
 			answers[j] = quizWord
 		}
 
-		quizQuestion := data.QuizQuestion{
+		quizQuestion := models.QuizQuestion{
 			Id:       i + 1,
 			Question: answers[0],
 			Answers:  answers,
@@ -59,7 +59,7 @@ func (qs *QuizServiceImpl) CreateQuiz(ctx *fiber.Ctx, questionsQty int) (data.Qu
 		questions[i] = quizQuestion
 	}
 
-	quiz := data.Quiz{
+	quiz := models.Quiz{
 		Id:        uuid.New().String(),
 		Questions: questions,
 	}

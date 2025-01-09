@@ -12,6 +12,7 @@ import (
 	"github.com/pawelataman/hello-word/internal/middleware"
 	"github.com/pawelataman/hello-word/internal/server"
 	"github.com/pawelataman/hello-word/internal/services"
+	"github.com/pawelataman/hello-word/internal/validation"
 	"log"
 	"os"
 )
@@ -28,16 +29,21 @@ func main() {
 	defer dispose(ctx)
 
 	initServices()
+	validation.InitTranslator()
 	initClerk()
 
 	app := server.New()
+
 	app.Use(logger.New())
-
-	// to include auth headers
+	app.Use(middleware.HandleErrorMiddleware)
 	app.Use(adaptor.HTTPMiddleware(http.WithHeaderAuthorization()))
-	// to validate auth headers
-	app.Use(middleware.AuthMiddleware)
 
+	if os.Getenv("SECURE_API") == "true" {
+		app.Use(middleware.AuthMiddleware)
+		log.Println("securing API with Clerk")
+	}
+
+	handlers.RegisterDictionaryHandler(app)
 	handlers.RegisterQuizHandlers(app)
 
 	log.Println("Server is listening on port :3000")
@@ -46,6 +52,7 @@ func main() {
 
 func initServices() {
 	services.QuizService = services.NewQuizServiceImpl()
+	services.DictionaryService = services.NewDictionaryServiceImpl()
 }
 
 func initClerk() {

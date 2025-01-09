@@ -2,16 +2,13 @@ package handlers
 
 import (
 	"fmt"
-	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"github.com/pawelataman/hello-word/internal/api_errors"
+	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/services"
+	"github.com/pawelataman/hello-word/internal/validation"
+	"log/slog"
 )
-
-var validate = validator.New(validator.WithRequiredStructEnabled())
-
-type GetQuizQueryParams struct {
-	NumOfQuestions int `json:"numOfQuestions" validate:"number,gte=5,lte=20"`
-}
 
 func RegisterQuizHandlers(router fiber.Router) {
 	app := router.Group("/quiz")
@@ -19,19 +16,17 @@ func RegisterQuizHandlers(router fiber.Router) {
 }
 
 func handleCreateQuiz(c *fiber.Ctx) error {
-
-	var getQuizQueryParams GetQuizQueryParams
+	var getQuizQueryParams models.GetQuizQueryParams
 
 	err := c.QueryParser(&getQuizQueryParams)
 
 	if err != nil {
-		fmt.Println(err)
+		slog.Error(err.Error())
+		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
 	}
 
-	err = validate.Struct(getQuizQueryParams)
-
-	if err != nil {
-		return c.SendStatus(fiber.StatusBadRequest)
+	if validationErrs, ok := validation.ValidateStruct(getQuizQueryParams); !ok {
+		return api_errors.InvalidReqDataErr(validationErrs)
 	}
 
 	quiz, err := services.QuizService.CreateQuiz(c, getQuizQueryParams.NumOfQuestions)
