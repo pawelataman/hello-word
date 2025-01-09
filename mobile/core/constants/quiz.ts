@@ -13,3 +13,5 @@ export const QUIZ_CONFIG: { [p in LANG_CODE]: QuizConfig } = {
 };
 
 export const NEXT_QUESTION_TIMEOUT = 2000;
+
+export const SPECIAL_CHARACTERS = ['\'', '`', '-', '—'];

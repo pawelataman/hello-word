@@ -14,6 +14,7 @@ interface QuizWritableAnswerProps {
 }
 
 export default function({ answer, submitAnswer }: QuizWritableAnswerProps) {
+	
 	const { currentQuestionStatus, nextQuestion } = useQuizStore();
 	const isAnswered = useMemo(() => currentQuestionStatus === 'answered', [currentQuestionStatus]);
 	const { segments, checkIsFilled } = useSegmentAnswer(answer);

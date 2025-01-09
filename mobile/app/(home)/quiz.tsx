@@ -1,6 +1,6 @@
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import React, { Suspense, useCallback, useMemo, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useMemo, useRef } from 'react';
 import { LANG_EN, QUIZ_LANGUAGES } from '@/core/constants/common';
 import QuizLoading from '@/components/quiz/QuizLoading';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -15,7 +15,6 @@ import QuizSettings from '@/components/quiz/QuizSettings';
 
 export default function() {
 	const router = useRouter();
-	const [isEnabled, setIsEnabled] = useState<boolean>(false);
 	const { language, mode } = useLocalSearchParams<{
 		language: string;
 		mode: QuizMode;
