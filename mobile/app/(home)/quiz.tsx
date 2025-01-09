@@ -60,7 +60,6 @@ export default function() {
 							<TouchableOpacity onPressOut={beforeNavigateBack} className={'pt-2'}>
 								<ArrowLeft width={36} height={36} color={props.tintColor} />
 							</TouchableOpacity>,
-						//headerRight: (props) => <QuizSettings tintColor={props.tintColor} />,
 						headerRight: (props) => <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
 							<SettingsIcon width={28} height={28}
 										  fill={props.tintColor} />

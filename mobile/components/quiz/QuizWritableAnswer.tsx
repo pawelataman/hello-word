@@ -14,16 +14,13 @@ interface QuizWritableAnswerProps {
 }
 
 export default function({ answer, submitAnswer }: QuizWritableAnswerProps) {
-
 	const { currentQuestionStatus, nextQuestion } = useQuizStore();
-	const [valid, setIsValid] = useState<boolean>(false);
-	const { segments, checkIsFilled } = useSegmentAnswer(answer);
 	const isAnswered = useMemo(() => currentQuestionStatus === 'answered', [currentQuestionStatus]);
+	const { segments, checkIsFilled } = useSegmentAnswer(answer);
+	const [valid, setIsValid] = useState<boolean>(false);
 	const [autoNextQuestion] = useMMKVBoolean(CONFIG_AUTO_NEXT_QUESTION, storage);
+	const segmentAnswers = useMemo(() => segments.map(() => '', []), [segments]);
 
-	const segmentAnswers = useMemo(() => {
-		return segments.map(() => '', []);
-	}, [segments]);
 
 	const onSegmentChange = (value: string, index: number) => {
 		segmentAnswers[index] = value;
