@@ -1,20 +1,33 @@
 import { Word } from '@/core/api/models/quiz';
-import { selectCurrentQuestion, selectNumOfQuestions, useQuizStore } from '@/core/state/quiz.state';
+import { selectCurrentQuestion, useQuizStore } from '@/core/state/quiz.state';
 import { LANG_CODE } from '@/core/constants/common';
 import * as Speech from 'expo-speech';
 import { useMMKVBoolean } from 'react-native-mmkv';
 import { CONFIG_AUTO_NEXT_QUESTION, CONFIG_VOICEOVER, storage } from '@/core/constants/storage';
 import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 import { NEXT_QUESTION_TIMEOUT } from '@/core/constants/quiz';
+import { useEffect, useRef } from 'react';
 
 
 export function useQuiz() {
-	const { addAnsweredQuestion, nextQuestion, quizLanguage, questionIndex } = useQuizStore();
-	const numOfQuestions = useQuizStore(selectNumOfQuestions);
+	const { addAnsweredQuestion, nextQuestion, currentQuestionStatus } = useQuizStore();
 	const { getAnswerLabel } = useQuizTranslation();
 	const currentQuestion = useQuizStore(selectCurrentQuestion);
 	const [voiceover] = useMMKVBoolean(CONFIG_VOICEOVER, storage);
 	const [autoNextQuestion] = useMMKVBoolean(CONFIG_AUTO_NEXT_QUESTION, storage);
+	const nextQuestionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+	useEffect(() => {
+		if (currentQuestionStatus === 'answered') {
+			if (autoNextQuestion && nextQuestionTimeoutRef.current === null) {
+				invokeNextQuestion();
+			}
+			if (!autoNextQuestion && nextQuestionTimeoutRef.current !== null) {
+				clearTimeout(nextQuestionTimeoutRef.current);
+				nextQuestionTimeoutRef.current = null;
+			}
+		}
+	}, [autoNextQuestion]);
 
 	const handleChooseAnswer = (answer: Word): void => {
 		if (!currentQuestion) return;
@@ -50,7 +63,7 @@ export function useQuiz() {
 
 	function invokeNextQuestion() {
 		if (autoNextQuestion) {
-			setTimeout(() => {
+			nextQuestionTimeoutRef.current = setTimeout(() => {
 				nextQuestion();
 			}, NEXT_QUESTION_TIMEOUT);
 		}
