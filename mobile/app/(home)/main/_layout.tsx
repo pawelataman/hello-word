@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { Platform, SafeAreaView, StyleSheet } from 'react-native';
 import Book from '@/assets/images/icons/book_open.svg';
 import Brain from '@/assets/images/icons/brain.svg';
 import Settings from '@/assets/images/icons/settings.svg';
@@ -13,8 +13,9 @@ export default function() {
 			<Tabs screenOptions={{
 				tabBarActiveTintColor: '#22c55e',
 				tabBarStyle: {
-					height: 48,
+					height: Platform.select({ android: 64, ios: 48 }),
 					paddingTop: 12,
+					
 				},
 				headerStatusBarHeight: 0,
 				headerShown: true,

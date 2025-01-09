@@ -48,10 +48,8 @@ export function useQuiz() {
 	};
 
 
-	function invokeNextQuestion(immediate: boolean = false) {
-		if (immediate) {
-			nextQuestion();
-		} else {
+	function invokeNextQuestion() {
+		if (autoNextQuestion) {
 			setTimeout(() => {
 				nextQuestion();
 			}, NEXT_QUESTION_TIMEOUT);
