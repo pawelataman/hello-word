@@ -8,9 +8,10 @@ import { Word } from '@/core/api/models/quiz';
 interface AnswerButtonProps {
 	onPress: (ev: GestureResponderEvent) => void;
 	answer: Word;
+	index: number;
 }
 
-export default function({ onPress, answer }: AnswerButtonProps) {
+export default function({ onPress, answer, index }: AnswerButtonProps) {
 	const { getAnswerLabel } = useQuizTranslation();
 	const { questionIndex, answeredQuestions, currentQuestionStatus, answeringEnabled } = useQuizStore();
 
@@ -42,16 +43,15 @@ export default function({ onPress, answer }: AnswerButtonProps) {
 		}
 
 		if (highlighted === 'incorrect') {
-			return `bg-red-500`;
+			return `bg-red-500 border-2 border-red-500`;
 		}
-
 
 		const defaultStyle = 'bg-gray-50 border-2 border-gray-200';
 		if (disabled) {
 			return defaultStyle.concat(' opacity-40');
 		}
 
-		return 'bg-gray-50 border-2 border-gray-200';
+		return defaultStyle;
 	};
 
 	const getTextColor = () => {
@@ -63,11 +63,13 @@ export default function({ onPress, answer }: AnswerButtonProps) {
 
 	return (
 		<Pressable
-			className={`${getHighlightColor(disabled)} w-[48%] h-28 py-5 px-5 rounded-lg justify-center }`}
+			className={`${getHighlightColor(disabled)} w-full py-2 pr-2 pl-2 rounded-lg flex-row items-center gap-2`}
 			onPress={onPress}
 			disabled={disabled}
 		>
-			<Text className={`${getTextColor()} text-lg text-center font-medium break-words whitespace-break-spaces`}>
+			<Text
+				className={'text-lg font-medium bg-gray-200 px-3 py-1 rounded-md'}>{String.fromCharCode(65 + index)}</Text>
+			<Text className={`${getTextColor()} text-lg font-medium break-words whitespace-break-spaces`}>
 				{getAnswerLabel(answer)}
 			</Text>
 		</Pressable>

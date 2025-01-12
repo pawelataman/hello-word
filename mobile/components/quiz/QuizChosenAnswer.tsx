@@ -19,15 +19,16 @@ export default function({ answers, submitAnswer }: QuizChosenAnswersProps) {
 
 	return <>
 		{
-			answers.map((ans) => (
+			answers.map((ans, index) => (
 				<AnswerButton
 					onPress={() => submitAnswer(ans)}
 					key={ans.id}
 					answer={ans}
+					index={index}
 				/>
 			))}
 
-		<View className={'h-20 items-center justify-center w-full'}>
+		<View className={'h-24 pb-4 items-center justify-center w-full'}>
 			{
 				isAnswered && !autoNextQuestion && <AppButton variant={'tertiary'} label={'Następne pytanie'}
 															  onPress={nextQuestion} />

@@ -45,7 +45,7 @@ export default function({ giveUpAnswer }: QuizProgresProps) {
 	if (numOfQuestions === 0) return;
 
 	return (
-		<View className="mt-2 mx-5 gap-4">
+		<View className="mt-2 gap-4">
 			<View className="h-2 flex-row justify-between">
 				{segments.map((val) => {
 					return (

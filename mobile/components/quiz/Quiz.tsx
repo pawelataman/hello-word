@@ -60,7 +60,7 @@ export default function({ language, mode }: QuizProps) {
 				<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 									  keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
 				>
-					<View className="h-full">
+					<View className="h-full px-4">
 						<QuizProgress giveUpAnswer={
 							isWriting &&
 							<TouchableOpacity disabled={isAnswered} onPress={giveUpAnswer}
@@ -68,13 +68,13 @@ export default function({ language, mode }: QuizProps) {
 								<Bulb color={'#22c55e'} fill={'white'} width={24} height={24} />
 							</TouchableOpacity>} />
 
-						<View className="px-5 justify-between items-center flex-1">
-							<View className={'w-full my-2'}>
+						<View className="justify-between items-center flex-1">
+							<View className={'w-full my-2 '}>
 								<QuizQuestion question={currentQuestion?.question} mode={mode} />
 							</View>
 							{
 								isChoosing && (
-									<View className="px-5 pb-2 flex-row flex-wrap justify-between gap-y-5">
+									<View className="pb-2 w-full justify-between gap-y-3">
 										<QuizChosenAnswer answers={answers} submitAnswer={handleChooseAnswer} />
 									</View>)
 							}
