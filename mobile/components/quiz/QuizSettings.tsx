@@ -10,7 +10,7 @@ export default function() {
 	return (
 		<View className={'h-64 p-4 gap-4'}>
 			<View className={'flex-row items-center justify-between'}>
-				<Text className={'color-gray-500 text-lg'}>Odtwórz odpowiedź</Text>
+				<Text className={'color-gray-900 text-lg'}>Odtwórz odpowiedź</Text>
 				<Switch
 					trackColor={{ false: '#767577', true: '#22c55e' }}
 					thumbColor={voiceover ? '#f4f3f4' : '#f4f3f4'}
@@ -20,7 +20,7 @@ export default function() {
 			</View>
 
 			<View className={'flex-row items-center justify-between'}>
-				<Text className={'color-gray-500 text-lg'}>Autoprzełączanie</Text>
+				<Text className={'color-gray-900 text-lg'}>Autoprzełączanie</Text>
 				<Switch
 					trackColor={{ false: '#767577', true: '#22c55e' }}
 					thumbColor={autoNextQuestion ? '#f4f3f4' : '#f4f3f4'}

@@ -1,10 +1,14 @@
 import { Text, useWindowDimensions, View } from 'react-native';
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { selectNumOfQuestions, useQuizStore } from '@/core/state/quiz.state';
 
-export default function() {
+interface QuizProgresProps {
+	giveUpAnswer?: ReactNode;
+}
+
+export default function({ giveUpAnswer }: QuizProgresProps) {
 	const { width } = useWindowDimensions();
-	const { answeredQuestions, questionIndex } = useQuizStore();
+	const { answeredQuestions } = useQuizStore();
 	const numOfQuestions = useQuizStore(selectNumOfQuestions);
 
 	const segmentWidth = useMemo(() => {
@@ -12,7 +16,7 @@ export default function() {
 		return width / numOfQuestions - 10;
 	}, [width, numOfQuestions]);
 
-	const { correct, incorrect } = useMemo(() => {
+	const { correct } = useMemo(() => {
 		return answeredQuestions.reduce((acc, curr) => {
 
 			if (curr.isCorrect) {
@@ -41,7 +45,7 @@ export default function() {
 	if (numOfQuestions === 0) return;
 
 	return (
-		<View className="mt-2 mx-5 gap-8">
+		<View className="mt-2 mx-5 gap-4">
 			<View className="h-2 flex-row justify-between">
 				{segments.map((val) => {
 					return (
@@ -53,17 +57,10 @@ export default function() {
 					);
 				})}
 			</View>
-			<View className="flex-row justify-between gap-2">
-				<View className="py-2 px-2 bg-gray-100 rounded-md">
-					<View className=" flex-row gap-4 justify-between">
-						<Text
-							className="text-black text-lg font-semibold">Pytanie {questionIndex + 1} z {numOfQuestions}</Text>
-					</View>
-				</View>
-				<View className="py-2 px-2  bg-gray-100 rounded-md">
-					<View className=" flex-row gap-4 justify-between">
-						<Text className="text-green-500 text-lg font-semibold">Punkty {correct}</Text>
-					</View>
+			<View className="flex-row justify-between">
+				{giveUpAnswer}
+				<View className="py-2 px-2 rounded-xl  bg-white border-2 border-gray-100">
+					<Text className="text-green-500 text-md font-semibold">Punkty {correct}</Text>
 				</View>
 			</View>
 

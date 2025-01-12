@@ -14,7 +14,7 @@ interface QuizWritableAnswerSegmentProps {
 
 export default function({ segment, index, onChange }: QuizWritableAnswerSegmentProps) {
 	const segmentLength = segment.length;
-	const { questionIndex, currentQuestionStatus } = useQuizStore();
+	const { questionIndex, currentQuestionStatus, answeredQuestions } = useQuizStore();
 	const {
 		control,
 		setValue,
@@ -48,17 +48,22 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 	}, [segment]);
 
 	useEffect(() => {
-		/* need to insert special characters again */
-		onChange(value, index);
+		const withSpecialCharacters = value.split('').map((char, index) => {
+			const specialChar = specialCharacterMap.get(index);
+			if (specialChar) {
+				return `${char}${specialChar}`;
+			}
+			return char;
+		}).join('');
+
+		onChange(withSpecialCharacters, index);
 	}, [value]);
 
 	useEffect(() => {
 		reset();
 	}, [questionIndex]);
 
-	const isAnswered = currentQuestionStatus === 'answered';
-
-	return !isAnswered ? <Controller
+	return <Controller
 		name="segment"
 		rules={{ required: true }}
 		control={control}
@@ -80,13 +85,13 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 						  onLayout={getCellOnLayoutHandler(index)}
 						  className={'flex-row items-center'}>
 						<View
-							className={`w-10 h-10 flex-row content-center items-center px-1`}
+							className={`w-8 h-10 flex-row content-center items-center px-1`}
 						>
 							<View
 								className={`w-full h-full ${isFocused ? 'border-b-green-500 border-b-[3px]' : 'border-b-gray-400 border-b-2'}`}
 							>
 								<View className="relative">
-									<Text className="color-black text-4xl font-bold text-center">
+									<Text className="color-black text-3xl font-bold text-center">
 										{symbol}
 									</Text>
 								</View>
@@ -100,9 +105,7 @@ export default function({ segment, index, onChange }: QuizWritableAnswerSegmentP
 				}
 			/>
 		)}
-	/> : <Text className="color-black text-4xl font-bold text-center tracking-[12px]">
-		{value}
-	</Text>;
+	/>;
 }
 
 const styles = StyleSheet.create({

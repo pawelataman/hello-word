@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Word } from '@/core/api/models/quiz';
 import { useSegmentAnswer } from '@/core/hooks/useSegmentAnswer';
 import { useMemo, useState } from 'react';
@@ -7,40 +7,50 @@ import QuizWritableAnswerSegment from '@/components/quiz/QuizWritableAnswerSegme
 import AppButton from '@/components/ui/AppButton';
 import { useMMKVBoolean } from 'react-native-mmkv';
 import { CONFIG_AUTO_NEXT_QUESTION, storage } from '@/core/constants/storage';
+import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 
 interface QuizWritableAnswerProps {
 	answer: Word,
 	submitAnswer: (answer: string) => void
 }
 
+
 export default function({ answer, submitAnswer }: QuizWritableAnswerProps) {
-	
-	const { currentQuestionStatus, nextQuestion } = useQuizStore();
+	const { getAnswerLabel } = useQuizTranslation();
+	const { currentQuestionStatus, nextQuestion, answeredQuestions } = useQuizStore();
 	const isAnswered = useMemo(() => currentQuestionStatus === 'answered', [currentQuestionStatus]);
 	const { segments, checkIsFilled } = useSegmentAnswer(answer);
 	const [valid, setIsValid] = useState<boolean>(false);
 	const [autoNextQuestion] = useMMKVBoolean(CONFIG_AUTO_NEXT_QUESTION, storage);
-	const segmentAnswers = useMemo(() => segments.map(() => '', []), [segments]);
-
-
+	const segmentAnswers = useMemo(() => segments.map(() => ''), [segments]);
 	const onSegmentChange = (value: string, index: number) => {
 		segmentAnswers[index] = value;
 		setIsValid(checkIsFilled(segmentAnswers));
 	};
-
-	const handleAnswer = () => {
-		const answer = segmentAnswers.join(' ');
-		submitAnswer(answer);
-	};
+	const handleAnswer = () => submitAnswer(segmentAnswers.join(' '));
+	const currentQuestion = useMemo(() => answeredQuestions[answeredQuestions.length - 1], [answeredQuestions]);
+	const isCorrect = useMemo(() => isAnswered && currentQuestion.isCorrect, [isAnswered && currentQuestion]);
 
 	return <View className="gap-12 items-center">
-		<View className="gap-x-8 flex-row flex-wrap justify-center">
+		{!isAnswered && <View className="gap-x-4 flex-row flex-wrap justify-center">
 			{
 				segments.map((segment, index) => <View className="flex-row" key={index}>
 					<QuizWritableAnswerSegment index={index} segment={segment} onChange={onSegmentChange} />
 				</View>)
 			}
 		</View>
+		}
+		{
+			isAnswered &&
+			<Text className={`${isCorrect ? 'color-green-500' : 'color-black'} text-2xl font-bold text-center`}>{
+				segmentAnswers.map(segAns => segAns + ' ')
+			}</Text>
+		}
+		{
+			isAnswered && !isCorrect && <Text
+				className={'text-4xl color-red-500 font-bold text-center'}>{getAnswerLabel(currentQuestion.question.question)}</Text>
+		}
+
 		<View className="w-full items-center justify-center">
 			{
 				!isAnswered &&

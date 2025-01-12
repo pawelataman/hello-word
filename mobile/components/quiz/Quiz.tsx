@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, TouchableOpacity, View } from 'react-native';
 import { useQuiz } from '@/core/hooks/useQuiz';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import QuizQuestion from '@/components/quiz/QuizQuestion';
@@ -61,20 +61,17 @@ export default function({ language, mode }: QuizProps) {
 									  keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
 				>
 					<View className="h-full">
-						<QuizProgress />
+						<QuizProgress giveUpAnswer={
+							isWriting &&
+							<TouchableOpacity disabled={isAnswered} onPress={giveUpAnswer}
+											  className={`self-start px-2 py-1 rounded-xl justify-end items-center gap-2 flex-row border-2 ${isAnswered && 'opacity-30'} border-gray-100`}>
+								<Bulb color={'#22c55e'} fill={'white'} width={24} height={24} />
+							</TouchableOpacity>} />
+
 						<View className="px-5 justify-between items-center flex-1">
-							<View className={'w-full my-5'}>
+							<View className={'w-full my-2'}>
 								<QuizQuestion question={currentQuestion?.question} mode={mode} />
 							</View>
-							{
-								isWriting &&
-								<TouchableOpacity disabled={isAnswered} onPress={giveUpAnswer}
-												  className={'self-end px-4 py-1 rounded-xl justify-end items-center gap-4 flex-row border-2 border-gray-100 '}>
-									<Text className={'font-semibold'}>Sprawdź odpowiedź</Text>
-									<Bulb color={'#22c55e'} fill={'white'} width={28} height={28} />
-								</TouchableOpacity>
-							}
-
 							{
 								isChoosing && (
 									<View className="px-5 pb-2 flex-row flex-wrap justify-between gap-y-5">
@@ -89,7 +86,6 @@ export default function({ language, mode }: QuizProps) {
 								</View>
 
 							}
-
 						</View>
 					</View>
 				</KeyboardAvoidingView>

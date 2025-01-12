@@ -15,7 +15,7 @@ interface QuizQuestionProps {
 export default function({ question, mode }: QuizQuestionProps) {
 	const { quizLanguage, setAnsweringEnabled, currentQuestionStatus, quizMode, answeredQuestions } = useQuizStore();
 	const currentQuestion = useQuizStore(selectCurrentQuestion);
-	const { getQuestionLabel, getAnswerLabel } = useQuizTranslation();
+	const { getQuestionLabel } = useQuizTranslation();
 
 	const lastAnsweredCorrect = useMemo(() => {
 		if (answeredQuestions.length) {
@@ -36,17 +36,9 @@ export default function({ question, mode }: QuizQuestionProps) {
 
 	const WritingModeQuestion = useCallback(() => <View className="justify-around">
 		<Text
-			className={`text-center font-bold ${currentQuestionStatus === 'answered' ? 'text-xl' : 'text-2xl'}  text-gray-900`}>
+			className={`text-center font-bold text-2xl text-gray-900`}>
 			{getQuestionLabel(question!)}
 		</Text>
-		{
-			currentQuestionStatus === 'answered' &&
-			<Text
-				className={`text-center font-bold text-2xl ${lastAnsweredCorrect ? 'text-green-500' : 'text-red-500'} mt-4`}>
-				{getAnswerLabel(currentQuestion!.question)}
-			</Text>
-		}
-
 	</View>, [currentQuestionStatus, lastAnsweredCorrect, currentQuestion]);
 
 

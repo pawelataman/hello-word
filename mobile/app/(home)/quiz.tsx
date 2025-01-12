@@ -12,9 +12,11 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { bottomSheetBackdrop } from '@/components/ui/BottomSheetBackDrop';
 import SettingsIcon from '@/components/ui/svg/SettingsIcon';
 import QuizSettings from '@/components/quiz/QuizSettings';
+import { selectNumOfQuestions, useQuizStore } from '@/core/state/quiz.state';
 
 export default function() {
 	const router = useRouter();
+	const { answeredQuestions } = useQuizStore();
 	const { language, mode } = useLocalSearchParams<{
 		language: string;
 		mode: QuizMode;
@@ -24,8 +26,6 @@ export default function() {
 		[language],
 	);
 	const bottomSheetRef = useRef<BottomSheet>(null);
-
-
 	const ErrorComponent = useCallback(
 		() => (
 			<View>
@@ -44,6 +44,8 @@ export default function() {
 			{ text: 'Zakończ', onPress: () => router.back() },
 		]);
 	}, [router]);
+	const { questionIndex } = useQuizStore();
+	const numOfQuestions = useQuizStore(selectNumOfQuestions);
 
 	return (
 		<View className="bg-white">
@@ -51,9 +53,9 @@ export default function() {
 				<Stack.Screen
 					options={{
 						headerTitleAlign: 'center',
-						title: '',
 						headerShadowVisible: false,
 						headerBackTitle: '',
+						title: `${questionIndex + 1} / ${numOfQuestions}`,
 						headerTintColor: 'black',
 						headerLeft: (props) =>
 							<TouchableOpacity onPressOut={beforeNavigateBack} className={'pt-2'}>
