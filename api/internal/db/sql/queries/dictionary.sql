@@ -12,5 +12,7 @@ ORDER BY CASE
              END
 LIMIT sqlc.arg(page_size) OFFSET sqlc.arg(page_offset);
 
-
+-- name: GetTotalRows :one
+SELECT COUNT(*) as total_rows
+from words;
 

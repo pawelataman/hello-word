@@ -2,9 +2,11 @@ package services
 
 import (
 	"context"
+	"fmt"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/db"
 	"log"
+	"math"
 )
 
 var (
@@ -21,7 +23,7 @@ func NewDictionaryServiceImpl() *DictionaryServiceImpl {
 	}
 }
 
-func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.GetAllWordsParams) ([]models.DictionaryWord, error) {
+func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.GetAllWordsParams) (models.GetAllWordsResponse, error) {
 
 	pagination := db.GetAllWordsParams{
 		PageSize:       int32(params.PageSize),
@@ -34,7 +36,7 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 
 	if err != nil {
 		log.Println("could not retrieve all words", err)
-		return nil, err
+		return models.GetAllWordsResponse{}, err
 	}
 
 	dictionaryWords := make([]models.DictionaryWord, len(rows))
@@ -50,6 +52,27 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 			},
 		}
 	}
-	return dictionaryWords, nil
+
+	totalWords, err := ds.queries.GetTotalRows(ctx)
+
+	if err != nil {
+		return models.GetAllWordsResponse{}, err
+	}
+
+	totalPages := math.Ceil(float64(totalWords) / float64(params.PageSize))
+
+	fmt.Println("totalWords", totalWords)
+	fmt.Println("pageSize", params.PageSize)
+	fmt.Println("total pages", totalPages)
+
+	response := models.GetAllWordsResponse{
+		Records:      dictionaryWords,
+		Page:         params.Page,
+		PageSize:     len(dictionaryWords),
+		TotalRecords: int(totalWords),
+		TotalPages:   int(totalPages),
+	}
+
+	return response, nil
 
 }

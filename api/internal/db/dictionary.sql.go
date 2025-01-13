@@ -68,3 +68,15 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 	}
 	return items, nil
 }
+
+const getTotalRows = `-- name: GetTotalRows :one
+SELECT COUNT(*) as total_rows
+from words
+`
+
+func (q *Queries) GetTotalRows(ctx context.Context) (int64, error) {
+	row := q.db.QueryRow(ctx, getTotalRows)
+	var total_rows int64
+	err := row.Scan(&total_rows)
+	return total_rows, err
+}
