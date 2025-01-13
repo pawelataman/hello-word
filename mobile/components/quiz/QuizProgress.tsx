@@ -58,7 +58,7 @@ export default function({ giveUpAnswer }: QuizProgresProps) {
 				})}
 			</View>
 			<View className="flex-row justify-between">
-				{giveUpAnswer}
+				<View>{giveUpAnswer}</View>
 				<View className="py-2 px-2 rounded-xl  bg-white border-2 border-gray-100">
 					<Text className="text-green-500 text-md font-semibold">Punkty {correct}</Text>
 				</View>

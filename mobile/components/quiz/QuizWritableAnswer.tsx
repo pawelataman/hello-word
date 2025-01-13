@@ -31,7 +31,7 @@ export default function({ answer, submitAnswer }: QuizWritableAnswerProps) {
 	const currentQuestion = useMemo(() => answeredQuestions[answeredQuestions.length - 1], [answeredQuestions]);
 	const isCorrect = useMemo(() => isAnswered && currentQuestion.isCorrect, [isAnswered && currentQuestion]);
 
-	return <View className="gap-12 items-center">
+	return <View className="gap-6 items-center">
 		{!isAnswered && <View className="gap-x-4 flex-row flex-wrap justify-center">
 			{
 				segments.map((segment, index) => <View className="flex-row" key={index}>
