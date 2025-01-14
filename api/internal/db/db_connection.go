@@ -3,39 +3,33 @@ package db
 import (
 	"context"
 	"fmt"
-	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"log"
 	"os"
 )
 
 var (
-	Connection *pgx.Conn
+	Pool *pgxpool.Pool
 )
 
 func InitDbConnection(ctx context.Context) error {
 
-	connectionConfig, err := pgx.ParseConfig(os.Getenv("DB_URL"))
+	connectionConfig, err := pgxpool.ParseConfig(os.Getenv("DB_URL"))
 
-	//connectionConfig.Tracer = &tracelog.TraceLog{
-	//	Logger:   pgx_logrus.NewLogger(logrus.StandardLogger()),
-	//	LogLevel: tracelog.LogLevelInfo}
+	connectionConfig.MaxConns = 4
+	connectionConfig.MinConns = 4
 
-	conn, err := pgx.ConnectConfig(ctx, connectionConfig)
+	pool, err := pgxpool.NewWithConfig(ctx, connectionConfig)
 
 	if err != nil {
 		log.Fatal(fmt.Fprintf(os.Stderr, "unable to connect to database: %v\n", err))
 		return err
 	}
 
-	Connection = conn
-
+	Pool = pool
 	return nil
 }
 
-func DisposeConnection(ctx context.Context) error {
-	if err := Connection.Close(ctx); err != nil {
-		log.Fatal("could not close database connection")
-		return err
-	}
-	return nil
+func DisposeConnection() {
+	Pool.Close()
 }

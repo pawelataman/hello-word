@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
@@ -28,8 +27,6 @@ func handleGetDictionaryWords(ctx *fiber.Ctx) error {
 	if validationErrors, ok := validation.ValidateStruct(paginationParams); !ok {
 		return api_errors.InvalidReqDataErr(validationErrors)
 	}
-
-	fmt.Println(paginationParams)
 
 	words, err := services.DictionaryService.GetAllWords(ctx.Context(), paginationParams)
 

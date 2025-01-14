@@ -60,9 +60,6 @@ func initClerk() {
 }
 
 func dispose(ctx context.Context) {
-
-	//dispose db connection
-	if err := db.DisposeConnection(ctx); err != nil {
-		log.Println("could not dispose db connection", err)
-	}
+	//dispose db pool
+	db.DisposeConnection()
 }

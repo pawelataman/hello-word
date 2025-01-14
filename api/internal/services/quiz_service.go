@@ -19,7 +19,7 @@ type QuizServiceImpl struct {
 func NewQuizServiceImpl() *QuizServiceImpl {
 
 	return &QuizServiceImpl{
-		queries: db.New(db.Connection),
+		queries: db.New(db.Pool),
 	}
 }
 

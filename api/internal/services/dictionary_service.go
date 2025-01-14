@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/db"
 	"log"
@@ -19,7 +18,7 @@ type DictionaryServiceImpl struct {
 
 func NewDictionaryServiceImpl() *DictionaryServiceImpl {
 	return &DictionaryServiceImpl{
-		queries: db.New(db.Connection),
+		queries: db.New(db.Pool),
 	}
 }
 
@@ -38,7 +37,6 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 		log.Println("could not retrieve all words", err)
 		return models.GetAllWordsResponse{}, err
 	}
-
 	dictionaryWords := make([]models.DictionaryWord, len(rows))
 
 	for index, row := range rows {
@@ -60,10 +58,6 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 	}
 
 	totalPages := math.Ceil(float64(totalWords) / float64(params.PageSize))
-
-	fmt.Println("totalWords", totalWords)
-	fmt.Println("pageSize", params.PageSize)
-	fmt.Println("total pages", totalPages)
 
 	response := models.GetAllWordsResponse{
 		Records:      dictionaryWords,
