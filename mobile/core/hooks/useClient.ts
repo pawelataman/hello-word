@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { useAuth } from '@clerk/clerk-expo';
 import { HttpClient } from '@/core/api/http-client';
+import { GetDictionaryWordsParams, GetDictionaryWordsResponse } from '@/core/api/models/dictionary';
 
 export const useClient = (): HttpClient => {
 	const { getToken } = useAuth();
@@ -53,6 +54,11 @@ export const useClient = (): HttpClient => {
 		getQuiz(numOfQuestions: number): Promise<any> {
 			return request({
 				url: `/quiz?numOfQuestions=${numOfQuestions}`, method: 'GET',
+			});
+		},
+		getDictionaryWords(params: GetDictionaryWordsParams): Promise<GetDictionaryWordsResponse> {
+			return request({
+				url: `/dictionary/words?page=${params.page}&pageSize=${params.pageSize}&ascending=${params.ascending}&language=${params.language}`,
 			});
 		},
 
