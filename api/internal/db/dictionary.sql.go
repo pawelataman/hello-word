@@ -10,21 +10,24 @@ import (
 )
 
 const getAllWords = `-- name: GetAllWords :many
-SELECT words.id, words.pl, words.en, words_categories.id, words_categories."categoryName"
+SELECT words.id, words.pl, words.en, words_categories.id, words_categories."categoryName", COUNT(*) over () as total_rows
 FROM words
          JOIN words_categories ON words."categoryId" = words_categories.id
+WHERE words.en LIKE '%' || $1::text || '%'
+   OR words.pl LIKE '%' || $1::text || '%'
 ORDER BY CASE
-             WHEN $1 = 'pl' AND $2::bool = true THEN pl
-             WHEN $1 = 'en' AND $2::bool = true THEN en
+             WHEN $2 = 'pl' AND $3::bool = true THEN pl
+             WHEN $2 = 'en' AND $3::bool = true THEN en
              END DESC,
          CASE
-             WHEN $1 = 'pl' AND $2::bool = false THEN pl
-             WHEN $1 = 'en' AND $2::bool = false THEN en
+             WHEN $2 = 'pl' AND $3::bool = false THEN pl
+             WHEN $2 = 'en' AND $3::bool = false THEN en
              END
-LIMIT $4 OFFSET $3
+LIMIT $5 OFFSET $4
 `
 
 type GetAllWordsParams struct {
+	Search         string
 	SortColumn     interface{}
 	SortDescending bool
 	PageOffset     int32
@@ -36,10 +39,12 @@ type GetAllWordsRow struct {
 	Pl            string
 	En            string
 	WordsCategory WordsCategory
+	TotalRows     int64
 }
 
 func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]GetAllWordsRow, error) {
 	rows, err := q.db.Query(ctx, getAllWords,
+		arg.Search,
 		arg.SortColumn,
 		arg.SortDescending,
 		arg.PageOffset,
@@ -58,6 +63,7 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 			&i.En,
 			&i.WordsCategory.ID,
 			&i.WordsCategory.CategoryName,
+			&i.TotalRows,
 		); err != nil {
 			return nil, err
 		}
@@ -67,16 +73,4 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 		return nil, err
 	}
 	return items, nil
-}
-
-const getTotalRows = `-- name: GetTotalRows :one
-SELECT COUNT(*) as total_rows
-from words
-`
-
-func (q *Queries) GetTotalRows(ctx context.Context) (int64, error) {
-	row := q.db.QueryRow(ctx, getTotalRows)
-	var total_rows int64
-	err := row.Scan(&total_rows)
-	return total_rows, err
 }

@@ -9,6 +9,7 @@ type GetAllWordsParams struct {
 	PageSize  int         `json:"pageSize" validate:"min=1,number"`
 	Ascending bool        `json:"ascending" validate:"boolean"`
 	Language  consts.Lang `json:"language" validate:"required"`
+	Search    string      `json:"search"`
 }
 
 type GetAllWordsResponse struct {

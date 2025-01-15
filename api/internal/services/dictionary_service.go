@@ -29,6 +29,7 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 		PageOffset:     int32((params.Page - 1) * params.PageSize),
 		SortColumn:     string(params.Language),
 		SortDescending: !params.Ascending,
+		Search:         params.Search,
 	}
 
 	rows, err := ds.queries.GetAllWords(ctx, pagination)
@@ -39,7 +40,13 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 	}
 	dictionaryWords := make([]models.DictionaryWord, len(rows))
 
+	totalRows := 0
 	for index, row := range rows {
+
+		if index == 0 {
+			totalRows = int(row.TotalRows)
+		}
+
 		dictionaryWords[index] = models.DictionaryWord{
 			ID: row.ID,
 			En: row.En,
@@ -51,19 +58,13 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 		}
 	}
 
-	totalWords, err := ds.queries.GetTotalRows(ctx)
-
-	if err != nil {
-		return models.GetAllWordsResponse{}, err
-	}
-
-	totalPages := math.Ceil(float64(totalWords) / float64(params.PageSize))
+	totalPages := math.Ceil(float64(totalRows) / float64(params.PageSize))
 
 	response := models.GetAllWordsResponse{
 		Records:      dictionaryWords,
 		Page:         params.Page,
 		PageSize:     len(dictionaryWords),
-		TotalRecords: int(totalWords),
+		TotalRecords: totalRows,
 		TotalPages:   int(totalPages),
 	}
 
