@@ -10,7 +10,12 @@ import (
 )
 
 const getAllWords = `-- name: GetAllWords :many
-SELECT words.id, words.pl, words.en, words_categories.id, words_categories."categoryName", COUNT(*) over () as total_rows
+SELECT words.id,
+       words.pl,
+       words.en,
+       words.user_defined::bool as user_defined,
+       words_categories.id, words_categories."categoryName",
+       COUNT(*) over ()         as total_rows
 FROM words
          JOIN words_categories ON words."categoryId" = words_categories.id
 WHERE words.en LIKE '%' || $1::text || '%'
@@ -38,6 +43,7 @@ type GetAllWordsRow struct {
 	ID            int32
 	Pl            string
 	En            string
+	UserDefined   bool
 	WordsCategory WordsCategory
 	TotalRows     int64
 }
@@ -61,6 +67,7 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 			&i.ID,
 			&i.Pl,
 			&i.En,
+			&i.UserDefined,
 			&i.WordsCategory.ID,
 			&i.WordsCategory.CategoryName,
 			&i.TotalRows,

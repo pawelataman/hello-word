@@ -48,9 +48,10 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 		}
 
 		dictionaryWords[index] = models.DictionaryWord{
-			ID: row.ID,
-			En: row.En,
-			Pl: row.Pl,
+			ID:          row.ID,
+			En:          row.En,
+			Pl:          row.Pl,
+			UserDefined: row.UserDefined,
 			Category: models.DictionaryCategory{
 				ID:           row.WordsCategory.ID,
 				CategoryName: row.WordsCategory.CategoryName,

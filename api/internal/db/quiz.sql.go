@@ -10,7 +10,7 @@ import (
 )
 
 const getQuizQuestions = `-- name: GetQuizQuestions :many
-SELECT id, "categoryId", en, pl
+SELECT id, "categoryId", en, pl, user_defined
 FROM words
 ORDER BY RANDOM()
 LIMIT $1
@@ -30,6 +30,7 @@ func (q *Queries) GetQuizQuestions(ctx context.Context, limit int32) ([]Word, er
 			&i.CategoryId,
 			&i.En,
 			&i.Pl,
+			&i.UserDefined,
 		); err != nil {
 			return nil, err
 		}

@@ -4,11 +4,16 @@
 
 package db
 
+import (
+	"github.com/jackc/pgx/v5/pgtype"
+)
+
 type Word struct {
-	ID         int32
-	CategoryId int32
-	En         string
-	Pl         string
+	ID          int32
+	CategoryId  int32
+	En          string
+	Pl          string
+	UserDefined pgtype.Bool
 }
 
 type WordsCategory struct {

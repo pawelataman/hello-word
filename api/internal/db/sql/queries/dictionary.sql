@@ -1,5 +1,10 @@
 -- name: GetAllWords :many
-SELECT words.id, words.pl, words.en, sqlc.embed(words_categories), COUNT(*) over () as total_rows
+SELECT words.id,
+       words.pl,
+       words.en,
+       words.user_defined::bool as user_defined,
+       sqlc.embed(words_categories),
+       COUNT(*) over ()         as total_rows
 FROM words
          JOIN words_categories ON words."categoryId" = words_categories.id
 WHERE words.en LIKE '%' || @search::text || '%'
