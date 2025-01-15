@@ -9,6 +9,32 @@ import (
 	"context"
 )
 
+const getAllCategories = `-- name: GetAllCategories :many
+
+SELECT words_categories.id, words_categories."categoryName"
+FROM words_categories
+`
+
+func (q *Queries) GetAllCategories(ctx context.Context) ([]WordsCategory, error) {
+	rows, err := q.db.Query(ctx, getAllCategories)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []WordsCategory
+	for rows.Next() {
+		var i WordsCategory
+		if err := rows.Scan(&i.ID, &i.CategoryName); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getAllWords = `-- name: GetAllWords :many
 SELECT words.id,
        words.pl,

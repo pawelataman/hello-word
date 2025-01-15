@@ -12,6 +12,8 @@ import (
 func RegisterDictionaryHandler(router fiber.Router) {
 	app := router.Group("/dictionary")
 	app.Get("/words", handleGetDictionaryWords)
+	app.Get("/categories", handleGetDictionaryCategories)
+	//app.Post("/words", handleAddWord)
 }
 
 func handleGetDictionaryWords(ctx *fiber.Ctx) error {
@@ -36,4 +38,14 @@ func handleGetDictionaryWords(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.JSON(words)
+}
+
+func handleGetDictionaryCategories(ctx *fiber.Ctx) error {
+	categories, err := services.DictionaryService.GetAllCategories(ctx.Context())
+
+	if err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	return ctx.JSON(categories)
 }

@@ -72,3 +72,21 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 	return response, nil
 
 }
+
+func (ds *DictionaryServiceImpl) GetAllCategories(ctx context.Context) (models.GetDictionaryCategoriesResponse, error) {
+
+	rows, err := ds.queries.GetAllCategories(ctx)
+	if err != nil {
+		return models.GetDictionaryCategoriesResponse{}, err
+	}
+
+	dictionaryCategories := make([]models.DictionaryCategory, len(rows))
+
+	for index, row := range rows {
+		dictionaryCategories[index] = models.DictionaryCategory{ID: row.ID, CategoryName: row.CategoryName}
+	}
+
+	return models.GetDictionaryCategoriesResponse{
+		Categories: dictionaryCategories,
+	}, nil
+}

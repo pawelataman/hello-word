@@ -19,3 +19,8 @@ ORDER BY CASE
              END
 LIMIT sqlc.arg(page_size) OFFSET sqlc.arg(page_offset);
 
+
+-- name: GetAllCategories :many
+
+SELECT words_categories.id, words_categories."categoryName"
+FROM words_categories;
