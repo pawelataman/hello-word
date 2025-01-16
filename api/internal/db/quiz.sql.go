@@ -41,34 +41,3 @@ func (q *Queries) GetQuizQuestions(ctx context.Context, limit int32) ([]Word, er
 	}
 	return items, nil
 }
-
-const putWord = `-- name: PutWord :exec
-INSERT INTO words ("categoryId", "en", "pl")
-VALUES ($1, $2, $3)
-`
-
-type PutWordParams struct {
-	CategoryId int32
-	En         string
-	Pl         string
-}
-
-func (q *Queries) PutWord(ctx context.Context, arg PutWordParams) error {
-	_, err := q.db.Exec(ctx, putWord, arg.CategoryId, arg.En, arg.Pl)
-	return err
-}
-
-const putWordCategory = `-- name: PutWordCategory :exec
-INSERT INTO words_categories ("id", "categoryName")
-VALUES ($1, $2)
-`
-
-type PutWordCategoryParams struct {
-	ID           int32
-	CategoryName string
-}
-
-func (q *Queries) PutWordCategory(ctx context.Context, arg PutWordCategoryParams) error {
-	_, err := q.db.Exec(ctx, putWordCategory, arg.ID, arg.CategoryName)
-	return err
-}

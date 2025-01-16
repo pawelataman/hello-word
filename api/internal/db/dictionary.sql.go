@@ -9,8 +9,51 @@ import (
 	"context"
 )
 
-const getAllCategories = `-- name: GetAllCategories :many
+const addCategory = `-- name: AddCategory :one
+INSERT INTO words_categories ("categoryName")
+VALUES ($1)
+RETURNING id, "categoryName"
+`
 
+func (q *Queries) AddCategory(ctx context.Context, categoryName string) (WordsCategory, error) {
+	row := q.db.QueryRow(ctx, addCategory, categoryName)
+	var i WordsCategory
+	err := row.Scan(&i.ID, &i.CategoryName)
+	return i, err
+}
+
+const addCategoryWithId = `-- name: AddCategoryWithId :exec
+INSERT INTO words_categories ("id", "categoryName")
+VALUES ($1, $2)
+`
+
+type AddCategoryWithIdParams struct {
+	ID           int32
+	CategoryName string
+}
+
+func (q *Queries) AddCategoryWithId(ctx context.Context, arg AddCategoryWithIdParams) error {
+	_, err := q.db.Exec(ctx, addCategoryWithId, arg.ID, arg.CategoryName)
+	return err
+}
+
+const addWord = `-- name: AddWord :exec
+INSERT INTO words ("categoryId", "en", "pl")
+VALUES ($1, $2, $3)
+`
+
+type AddWordParams struct {
+	CategoryID int32
+	En         string
+	Pl         string
+}
+
+func (q *Queries) AddWord(ctx context.Context, arg AddWordParams) error {
+	_, err := q.db.Exec(ctx, addWord, arg.CategoryID, arg.En, arg.Pl)
+	return err
+}
+
+const getAllCategories = `-- name: GetAllCategories :many
 SELECT words_categories.id, words_categories."categoryName"
 FROM words_categories
 `
@@ -106,4 +149,17 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 		return nil, err
 	}
 	return items, nil
+}
+
+const getCategoryByName = `-- name: GetCategoryByName :one
+SELECT words_categories.id, words_categories."categoryName"
+FROM words_categories
+WHERE words_categories."categoryName" = $1
+`
+
+func (q *Queries) GetCategoryByName(ctx context.Context, categoryName string) (WordsCategory, error) {
+	row := q.db.QueryRow(ctx, getCategoryByName, categoryName)
+	var i WordsCategory
+	err := row.Scan(&i.ID, &i.CategoryName)
+	return i, err
 }

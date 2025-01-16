@@ -37,12 +37,12 @@ func seedWordsCategories(queries *db.Queries, ctx context.Context) {
 
 	for i := 0; i < len(wordsCategories); i++ {
 
-		putWordCategoryParam := db.PutWordCategoryParams{
+		putWordCategoryParam := db.AddCategoryWithIdParams{
 			ID:           wordsCategories[i].ID,
 			CategoryName: wordsCategories[i].CategoryName,
 		}
 
-		if err := queries.PutWordCategory(ctx, putWordCategoryParam); err != nil {
+		if err := queries.AddCategoryWithId(ctx, putWordCategoryParam); err != nil {
 			fmt.Println("Could not insert record,", err)
 		}
 
@@ -60,13 +60,14 @@ func seedWords(queries *db.Queries, ctx context.Context) {
 
 	for i := 0; i < len(words); i++ {
 
-		putWordParam := db.PutWordParams{
-			CategoryId: words[i].CategoryId,
+		putWordParam := db.AddWordParams{
+
+			CategoryID: words[i].CategoryId,
 			En:         words[i].En,
 			Pl:         words[i].Pl,
 		}
 
-		if err := queries.PutWord(ctx, putWordParam); err != nil {
+		if err := queries.AddWord(ctx, putWordParam); err != nil {
 			fmt.Println("Could not insert record,", err)
 		}
 	}

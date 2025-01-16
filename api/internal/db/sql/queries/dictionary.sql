@@ -21,6 +21,23 @@ LIMIT sqlc.arg(page_size) OFFSET sqlc.arg(page_offset);
 
 
 -- name: GetAllCategories :many
-
 SELECT words_categories.id, words_categories."categoryName"
 FROM words_categories;
+
+-- name: AddCategory :one
+INSERT INTO words_categories ("categoryName")
+VALUES (@category_name)
+RETURNING *;
+
+-- name: AddCategoryWithId :exec
+INSERT INTO words_categories ("id", "categoryName")
+VALUES (@id, @category_name);
+
+-- name: AddWord :exec
+INSERT INTO words ("categoryId", "en", "pl")
+VALUES (@category_id, @en, @pl);
+
+-- name: GetCategoryByName :one
+SELECT words_categories.id, words_categories."categoryName"
+FROM words_categories
+WHERE words_categories."categoryName" = @category_name;
