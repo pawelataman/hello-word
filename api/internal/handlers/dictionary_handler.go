@@ -1,20 +1,24 @@
 package handlers
 
 import (
+	"log/slog"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/services"
 	"github.com/pawelataman/hello-word/internal/validation"
-	"log/slog"
 )
 
 func RegisterDictionaryHandler(router fiber.Router) {
 	app := router.Group("/dictionary")
+
 	app.Get("/words", handleGetDictionaryWords)
 	app.Post("/words", handleCreateDictionaryWords)
+
 	app.Get("/categories", handleGetDictionaryCategories)
 	app.Post("/categories", handleCreateDictionaryCategory)
+
 	//app.Post("/words", handleAddWord)
 }
 
@@ -77,4 +81,5 @@ func handleCreateDictionaryCategory(ctx *fiber.Ctx) error {
 
 func handleCreateDictionaryWords(ctx *fiber.Ctx) error {
 
+	return nil
 }
