@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/db"
 	"log"
@@ -76,6 +77,7 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 func (ds *DictionaryServiceImpl) GetAllCategories(ctx context.Context) (models.GetDictionaryCategoriesResponse, error) {
 
 	rows, err := ds.queries.GetAllCategories(ctx)
+
 	if err != nil {
 		return models.GetDictionaryCategoriesResponse{}, err
 	}
@@ -89,4 +91,24 @@ func (ds *DictionaryServiceImpl) GetAllCategories(ctx context.Context) (models.G
 	return models.GetDictionaryCategoriesResponse{
 		Categories: dictionaryCategories,
 	}, nil
+}
+
+func (ds *DictionaryServiceImpl) AddCategory(ctx context.Context, categoryName string) (models.DictionaryCategory, error) {
+	_, err := ds.queries.GetCategoryByName(ctx, categoryName)
+
+	if err == nil {
+		return models.DictionaryCategory{}, api_errors.EntityExistsErr("Category already exists")
+	}
+
+	newCategory, err := ds.queries.AddCategory(ctx, categoryName)
+
+	if err != nil {
+		return models.DictionaryCategory{}, err
+	}
+
+	return models.DictionaryCategory{
+		ID:           newCategory.ID,
+		CategoryName: newCategory.CategoryName,
+	}, nil
+
 }

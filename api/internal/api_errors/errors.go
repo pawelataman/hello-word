@@ -24,3 +24,10 @@ func InvalidReqDataErr(errors map[string]string) ApiError {
 		StatusCode: fiber.StatusUnprocessableEntity,
 	}
 }
+
+func EntityExistsErr(message string) ApiError {
+	return ApiError{
+		StatusCode: fiber.StatusConflict,
+		Message:    message,
+	}
+}
