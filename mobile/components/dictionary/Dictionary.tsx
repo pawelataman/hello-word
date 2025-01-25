@@ -1,4 +1,4 @@
-import { FlatList, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { HttpClientContext } from '@/core/context/client-context';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -57,7 +57,10 @@ export default function() {
 	return (
 		<View className={'px-2'}>
 			<FlatList data={dataFlattened}
-					  renderItem={({ item }) => <DictionaryItem key={item.id} word={item} />}
+					  renderItem={({ item }) => <DictionaryItem key={item.id}>
+						  <Text className={'text-lg font-bold'}>{item['pl']}</Text>
+						  <Text className={'text-lg text-gray-500'}>{item['en']}</Text>
+					  </DictionaryItem>}
 					  keyExtractor={(_, index) => index.toString()}
 					  showsVerticalScrollIndicator={false}
 					  onEndReached={onReachEnd}
