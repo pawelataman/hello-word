@@ -15,6 +15,10 @@ export interface GetDictionaryWordsResponse {
 	totalRecords: number
 }
 
+export interface GetDictionaryCategoriesResponse {
+	categories: DictionaryCategory[];
+}
+
 export interface DictionaryWord {
 	id: number,
 	[LANG_CODE.EN]: string;
@@ -23,4 +27,9 @@ export interface DictionaryWord {
 		id: number,
 		categoryName: string
 	}
+}
+
+export interface DictionaryCategory {
+	id: number,
+	categoryName: string
 }
