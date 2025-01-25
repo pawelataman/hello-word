@@ -1,13 +1,14 @@
-import { SplashScreen, Stack } from 'expo-router';
-import { useFonts } from 'expo-font';
-import { useEffect } from 'react';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { authTokenCache } from '@/core/auth/token-cache';
+import AppLoader from '@/core/components/AppLoader';
+import useAuthZoneGuard from '@/core/hooks/useAuthZoneGuard';
 import '@/global.css';
 import { ClerkLoaded, ClerkProvider } from '@clerk/clerk-expo';
-import { authTokenCache } from '@/core/auth/token-cache';
-import useAuthZoneGuard from '@/core/hooks/useAuthZoneGuard';
-import AppLoader from '@/core/components/AppLoader';
 import { PortalProvider } from '@gorhom/portal';
+import { useFonts } from 'expo-font';
+import { SplashScreen, Stack } from 'expo-router';
+import React, { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 if (__DEV__) {
 	require('../ReactotronConfig');
@@ -16,18 +17,19 @@ if (__DEV__) {
 function MainLayout() {
 	useAuthZoneGuard();
 
-
 	return (
-		<GestureHandlerRootView style={{ flex: 1 }}>
-			<PortalProvider>
-				<AppLoader>
-					<Stack>
-						<Stack.Screen name="(auth)" options={{ headerShown: false }} />
-						<Stack.Screen name="(home)" options={{ headerShown: false }} />
-					</Stack>
-				</AppLoader>
-			</PortalProvider>
-		</GestureHandlerRootView>
+		<RootSiblingParent>
+			<GestureHandlerRootView style={{ flex: 1 }}>
+				<PortalProvider>
+					<AppLoader>
+						<Stack>
+							<Stack.Screen name="(auth)" options={{ headerShown: false }} />
+							<Stack.Screen name="(home)" options={{ headerShown: false }} />
+						</Stack>
+					</AppLoader>
+				</PortalProvider>
+			</GestureHandlerRootView>
+		</RootSiblingParent>
 	);
 }
 
