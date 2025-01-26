@@ -1,17 +1,13 @@
 import Categories from '@/components/dictionary/Categories';
 import Dictionary from '@/components/dictionary/Dictionary';
-import QuizLoading from '@/components/quiz/QuizLoading';
 import { Stack } from 'expo-router';
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import { useWindowDimensions, View } from 'react-native';
 import { SceneMap, TabBar, TabBarIndicator, TabView } from 'react-native-tab-view';
 
-const DictionaryRoute = () => <Suspense fallback={<QuizLoading />}>
-	<Dictionary />
-</Suspense>;
 
 const renderScene = SceneMap({
-	dictionary: DictionaryRoute,
+	dictionary: Dictionary,
 	categories: Categories,
 });
 

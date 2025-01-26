@@ -63,7 +63,7 @@ export const useClient = (): HttpClient => {
 		},
 		getDictionaryWords(params: GetDictionaryWordsParams): Promise<GetDictionaryWordsResponse> {
 			return request({
-				url: `/dictionary/words?page=${params.page}&pageSize=${params.pageSize}&ascending=${params.ascending}&language=${params.language}`,
+				url: `/dictionary/words?page=${params.page}&pageSize=${params.pageSize}&ascending=${params.ascending}&language=${params.language}&search=${params.search}`,
 			});
 		},
 		getDictionaryCategories(): Promise<GetDictionaryCategoriesResponse> {

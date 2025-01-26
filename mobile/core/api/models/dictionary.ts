@@ -5,6 +5,7 @@ export interface GetDictionaryWordsParams {
 	page: number;
 	ascending: boolean;
 	language: LANG_CODE.PL | LANG_CODE.EN;
+	search: string;
 }
 
 export interface GetDictionaryWordsResponse {

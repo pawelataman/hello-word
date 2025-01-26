@@ -16,7 +16,6 @@ export default function({ id }: CategoryDetailsProps) {
 		queryFn: () => getDictionaryCategoryDetails(id),
 	});
 
-
 	return (
 		<View className={'px-2 h-full'}>
 			<View className={'my-4 bg-green-500 rounded-md p-4 gap-2'}>

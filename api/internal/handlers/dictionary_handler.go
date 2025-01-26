@@ -2,14 +2,13 @@ package handlers
 
 import (
 	"fmt"
-	"log/slog"
-	"strconv"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/services"
 	"github.com/pawelataman/hello-word/internal/validation"
+	"log/slog"
+	"strconv"
 )
 
 func RegisterDictionaryHandler(router fiber.Router) {
