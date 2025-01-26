@@ -39,6 +39,8 @@ func handleGetDictionaryWords(ctx *fiber.Ctx) error {
 		return api_errors.InvalidReqDataErr(validationErrors)
 	}
 
+	fmt.Println("ascending", paginationParams.Ascending)
+
 	words, err := services.DictionaryService.GetAllWords(ctx.Context(), paginationParams)
 
 	if err != nil {

@@ -10,7 +10,7 @@ const PAGE_SIZE = 100;
 export default function() {
 
 	const [ascending, setAscending] = useState(true);
-	const [language, setLanguage] = useState(LANG_CODE.EN);
+	const [language, setLanguage] = useState(LANG_CODE.PL);
 
 	const { getDictionaryWords } = useContext(HttpClientContext)!;
 	const {
