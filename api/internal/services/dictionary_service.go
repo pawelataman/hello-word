@@ -2,6 +2,8 @@ package services
 
 import (
 	"context"
+	"fmt"
+	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/db"
@@ -53,7 +55,7 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 			En:          row.En,
 			Pl:          row.Pl,
 			UserDefined: row.UserDefined,
-			Category: models.DictionaryCategory{
+			Category: &models.DictionaryCategory{
 				ID:           row.WordsCategory.ID,
 				CategoryName: row.WordsCategory.CategoryName,
 			},
@@ -110,5 +112,42 @@ func (ds *DictionaryServiceImpl) AddCategory(ctx context.Context, categoryName s
 		ID:           newCategory.ID,
 		CategoryName: newCategory.CategoryName,
 	}, nil
+
+}
+
+func (ds *DictionaryServiceImpl) GetCategoryById(ctx context.Context, id int) (models.GetCategoryByIdResponse, error) {
+	category, err := ds.queries.GetCategoryById(ctx, int32(id))
+
+	if err != nil {
+		return models.GetCategoryByIdResponse{}, api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf("category not found"))
+	}
+
+	words, err := ds.queries.GetWordsByCategory(ctx, category.ID)
+
+	var wordsResult []models.DictionaryWord
+
+	if err != nil {
+		wordsResult = make([]models.DictionaryWord, 0)
+	} else {
+		wordsResult = make([]models.DictionaryWord, len(words))
+		for index, word := range words {
+			wordsResult[index] = models.DictionaryWord{
+				ID:          word.ID,
+				Pl:          word.Pl,
+				En:          word.En,
+				UserDefined: word.UserDefined.Bool,
+			}
+		}
+	}
+
+	response := models.GetCategoryByIdResponse{
+		Words: wordsResult,
+		DictionaryCategory: models.DictionaryCategory{
+			ID:           category.ID,
+			CategoryName: category.CategoryName,
+		},
+	}
+
+	return response, nil
 
 }

@@ -19,6 +19,10 @@ ORDER BY CASE
              END
 LIMIT sqlc.arg(page_size) OFFSET sqlc.arg(page_offset);
 
+-- name: GetWordsByCategory :many
+SELECT *
+FROM words
+WHERE words."categoryId" = @category_id;
 
 -- name: GetAllCategories :many
 SELECT words_categories.id, words_categories."categoryName"
@@ -41,3 +45,9 @@ VALUES (@category_id, @en, @pl);
 SELECT words_categories.id, words_categories."categoryName"
 FROM words_categories
 WHERE words_categories."categoryName" = @category_name;
+
+-- name: GetCategoryById :one
+SELECT words_categories.id, words_categories."categoryName"
+from words_categories
+where words_categories.id = @id;
+

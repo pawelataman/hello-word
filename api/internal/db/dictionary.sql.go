@@ -151,6 +151,19 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 	return items, nil
 }
 
+const getCategoryById = `-- name: GetCategoryById :one
+SELECT words_categories.id, words_categories."categoryName"
+from words_categories
+where words_categories.id = $1
+`
+
+func (q *Queries) GetCategoryById(ctx context.Context, id int32) (WordsCategory, error) {
+	row := q.db.QueryRow(ctx, getCategoryById, id)
+	var i WordsCategory
+	err := row.Scan(&i.ID, &i.CategoryName)
+	return i, err
+}
+
 const getCategoryByName = `-- name: GetCategoryByName :one
 SELECT words_categories.id, words_categories."categoryName"
 FROM words_categories
@@ -162,4 +175,36 @@ func (q *Queries) GetCategoryByName(ctx context.Context, categoryName string) (W
 	var i WordsCategory
 	err := row.Scan(&i.ID, &i.CategoryName)
 	return i, err
+}
+
+const getWordsByCategory = `-- name: GetWordsByCategory :many
+SELECT id, "categoryId", en, pl, user_defined
+FROM words
+WHERE words."categoryId" = $1
+`
+
+func (q *Queries) GetWordsByCategory(ctx context.Context, categoryID int32) ([]Word, error) {
+	rows, err := q.db.Query(ctx, getWordsByCategory, categoryID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Word
+	for rows.Next() {
+		var i Word
+		if err := rows.Scan(
+			&i.ID,
+			&i.CategoryId,
+			&i.En,
+			&i.Pl,
+			&i.UserDefined,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }

@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"fmt"
 	"log/slog"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/api_errors"
@@ -17,6 +19,7 @@ func RegisterDictionaryHandler(router fiber.Router) {
 	app.Post("/words", handleCreateDictionaryWords)
 
 	app.Get("/categories", handleGetDictionaryCategories)
+	app.Get("/categories/:id", handleGetDictionaryCategoryById)
 	app.Post("/categories", handleCreateDictionaryCategory)
 
 	//app.Post("/words", handleAddWord)
@@ -82,4 +85,22 @@ func handleCreateDictionaryCategory(ctx *fiber.Ctx) error {
 func handleCreateDictionaryWords(ctx *fiber.Ctx) error {
 
 	return nil
+}
+func handleGetDictionaryCategoryById(ctx *fiber.Ctx) error {
+	idStr := ctx.Params("id")
+
+	id, err := strconv.Atoi(idStr)
+
+	if err != nil {
+		return api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf("invalid id parameter"))
+	}
+
+	category, err := services.DictionaryService.GetCategoryById(ctx.Context(), id)
+
+	if err != nil {
+		slog.Error(err.Error())
+		return err
+	}
+
+	return ctx.JSON(category)
 }
