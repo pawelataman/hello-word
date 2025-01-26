@@ -74,7 +74,7 @@ export default function() {
 			<FlatList data={dataFlattened}
 					  renderItem={({ item, index }) => <View key={item.id}>
 						  <DictionaryItem>
-							  <Text className={'text-lg font-bold '}>{item['pl']}</Text>
+							  <Text className={'text-xl font-bold'}>{item['pl']}</Text>
 							  <Text className={'text-lg text-gray-500'}>{item['en']}</Text>
 						  </DictionaryItem>
 					  </View>

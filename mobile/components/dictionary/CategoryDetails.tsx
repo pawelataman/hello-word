@@ -28,8 +28,10 @@ export default function({ id }: CategoryDetailsProps) {
 						  renderItem={({ item }) => <DictionaryItem key={item.id}
 																	icon={<Person width={16} height={16}
 																				  color="#22c55e" />}>
+
 							  <Text className={'text-lg font-bold'}>{item['pl']}</Text>
 							  <Text className={'text-lg text-gray-500'}>{item['en']}</Text>
+						
 						  </DictionaryItem>}
 						  onEndReachedThreshold={.2}></FlatList>
 			</View>
