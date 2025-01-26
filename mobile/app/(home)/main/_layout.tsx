@@ -15,7 +15,6 @@ export default function() {
 				tabBarStyle: {
 					height: Platform.select({ android: 64, ios: 48 }),
 					paddingTop: 12,
-					
 				},
 				headerStatusBarHeight: 0,
 				headerShown: true,
@@ -45,6 +44,7 @@ export default function() {
 				></Tabs.Screen>
 
 				<Tabs.Screen name="dictionary" options={{
+					popToTopOnBlur: true,
 					tabBarIcon: ({ color }) => (<>
 						<Book width={32} height={32} color={color} />
 					</>),

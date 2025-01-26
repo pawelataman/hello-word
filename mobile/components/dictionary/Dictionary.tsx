@@ -47,7 +47,6 @@ export default function() {
 
 
 	const onReachEnd = useCallback(() => {
-		console.log('reached end');
 		if (!isLoading && hasNextPage) {
 			return fetchNextPage();
 		}
@@ -57,10 +56,13 @@ export default function() {
 	return (
 		<View className={'px-2'}>
 			<FlatList data={dataFlattened}
-					  renderItem={({ item }) => <DictionaryItem key={item.id}>
-						  <Text className={'text-lg font-bold'}>{item['pl']}</Text>
-						  <Text className={'text-lg text-gray-500'}>{item['en']}</Text>
-					  </DictionaryItem>}
+					  renderItem={({ item, index }) => <View key={item.id} className={`${index === 0 && 'mt-4'}`}>
+						  <DictionaryItem>
+							  <Text className={'text-lg font-bold'}>{item['pl']}</Text>
+							  <Text className={'text-lg text-gray-500'}>{item['en']}</Text>
+						  </DictionaryItem>
+					  </View>
+					  }
 					  keyExtractor={(_, index) => index.toString()}
 					  showsVerticalScrollIndicator={false}
 					  onEndReached={onReachEnd}

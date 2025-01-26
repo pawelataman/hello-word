@@ -26,7 +26,7 @@ export default function() {
 	const [index, setIndex] = useState(0);
 
 	return (
-		<View className="flex-1 relative bg-gray-100">
+		<View className="flex-1 relative bg-gray-200">
 			<Stack.Screen options={{ title: 'Słownik' }} />
 
 			<TabView

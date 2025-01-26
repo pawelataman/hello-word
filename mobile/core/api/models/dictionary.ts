@@ -26,10 +26,18 @@ export interface DictionaryWord {
 	category: {
 		id: number,
 		categoryName: string
-	}
+	},
+	userDefined: boolean
 }
 
 export interface DictionaryCategory {
 	id: number,
 	categoryName: string
+	words: Omit<DictionaryWord, 'category'>[]
+}
+
+export interface GetCategoryDetailsResponse {
+	id: number,
+	categoryName: string
+	words: DictionaryWord[]
 }

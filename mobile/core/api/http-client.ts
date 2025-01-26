@@ -1,5 +1,6 @@
 import { QuizResponse } from '@/core/api/models/quiz';
 import {
+	GetCategoryDetailsResponse,
 	GetDictionaryCategoriesResponse,
 	GetDictionaryWordsParams,
 	GetDictionaryWordsResponse,
@@ -11,4 +12,6 @@ export interface HttpClient {
 	getDictionaryWords(params: GetDictionaryWordsParams): Promise<GetDictionaryWordsResponse>;
 
 	getDictionaryCategories(): Promise<GetDictionaryCategoriesResponse>;
+
+	getDictionaryCategoryDetails(id: number): Promise<GetCategoryDetailsResponse>;
 }

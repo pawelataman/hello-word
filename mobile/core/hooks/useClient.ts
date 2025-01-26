@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequ
 import { useAuth } from '@clerk/clerk-expo';
 import { HttpClient } from '@/core/api/http-client';
 import {
+	GetCategoryDetailsResponse,
 	GetDictionaryCategoriesResponse,
 	GetDictionaryWordsParams,
 	GetDictionaryWordsResponse,
@@ -68,6 +69,11 @@ export const useClient = (): HttpClient => {
 		getDictionaryCategories(): Promise<GetDictionaryCategoriesResponse> {
 			return request({
 				url: '/dictionary/categories',
+			});
+		},
+		getDictionaryCategoryDetails(id: number): Promise<GetCategoryDetailsResponse> {
+			return request({
+				url: `/dictionary/categories/${id}`,
 			});
 		},
 	};
