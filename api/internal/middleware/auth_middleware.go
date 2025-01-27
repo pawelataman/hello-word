@@ -4,6 +4,7 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2"
 	"github.com/clerk/clerk-sdk-go/v2/user"
 	"github.com/gofiber/fiber/v2"
+	"github.com/pawelataman/hello-word/internal/data/models"
 )
 
 func AuthMiddleware(ctx *fiber.Ctx) error {
@@ -24,5 +25,10 @@ func AuthMiddleware(ctx *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusUnauthorized, "user banned")
 	}
 
+	userSubject := &models.UserSubject{
+		ID:           usr.ID,
+		EmailAddress: usr.EmailAddresses[0].EmailAddress,
+	}
+	ctx.Locals("userSubject", userSubject)
 	return ctx.Next()
 }
