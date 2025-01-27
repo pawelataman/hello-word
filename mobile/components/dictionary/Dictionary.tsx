@@ -8,7 +8,6 @@ import DictionaryItem from '@/components/dictionary/DictionaryItem';
 import Search from '@/components/ui/inputs/Search';
 import { debounce } from '@/utils/timing';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AppButton from '@/components/ui/AppButton';
 
 const PAGE_SIZE = 20;
 export default function() {
@@ -60,7 +59,7 @@ export default function() {
 
 	return (
 		<View className={'p-2 gap-y-4'}>
-			<View className={'flex-row gap-2'}>
+			<View className={'flex-row gap-2 mt-4'}>
 				<Search onChangeText={debounce(setSearch, 500)}
 						placeholder={'Wyszukaj'}></Search>
 				<TouchableOpacity onPress={() => setAscending(!ascending)}>
@@ -69,10 +68,6 @@ export default function() {
 						size={20}
 						color="#6b7280" className={'self-start bg-white rounded-xl p-2'} />
 				</TouchableOpacity>
-			</View>
-			<View>
-				<AppButton onPress={() => {
-				}} label={'Dodaj słówko +'} variant={'primary'} />
 			</View>
 			{isLoading && <ActivityIndicator size="small" color={'#22c55e'} />}
 			<FlatList data={dataFlattened}
