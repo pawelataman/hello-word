@@ -191,7 +191,7 @@ func (q *Queries) GetCategoryById(ctx context.Context, id int32) (WordsCategory,
 const getCategoryByName = `-- name: GetCategoryByName :one
 SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
 FROM words_categories
-WHERE words_categories."categoryName" = $1
+WHERE LOWER(words_categories."categoryName") = LOWER($1)
 `
 
 func (q *Queries) GetCategoryByName(ctx context.Context, categoryName string) (WordsCategory, error) {

@@ -44,7 +44,7 @@ VALUES (@category_id, @en, @pl, @user_id::text);
 -- name: GetCategoryByName :one
 SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
 FROM words_categories
-WHERE words_categories."categoryName" = @category_name;
+WHERE LOWER(words_categories."categoryName") = LOWER(@category_name);
 
 -- name: GetCategoryById :one
 SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
