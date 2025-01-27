@@ -37,11 +37,7 @@ func main() {
 	app.Use(logger.New())
 	app.Use(middleware.HandleErrorMiddleware)
 	app.Use(adaptor.HTTPMiddleware(http.WithHeaderAuthorization()))
-
-	if os.Getenv("SECURE_API") == "true" {
-		app.Use(middleware.AuthMiddleware)
-		log.Println("securing API with Clerk")
-	}
+	app.Use(middleware.AuthMiddleware)
 
 	handlers.RegisterDictionaryHandler(app)
 	handlers.RegisterQuizHandlers(app)
