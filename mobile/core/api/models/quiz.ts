@@ -13,7 +13,6 @@ export interface QuizQuestion {
 
 export interface Word {
 	id: number;
-	categoryId: number;
 	[LANG_CODE.EN]: string;
 	[LANG_CODE.PL]: string;
 }
