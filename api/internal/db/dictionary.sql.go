@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const addCategory = `-- name: AddCategory :one
@@ -105,9 +107,9 @@ const getAllWords = `-- name: GetAllWords :many
 SELECT words.id,
        words.pl,
        words.en,
-       words.user_defined::bool as user_defined,
-       words_categories.id, words_categories."categoryName", words_categories.user_id,
-       COUNT(*) over ()         as total_rows
+       words."user_id",
+       words."categoryId",
+       COUNT(*) over () as total_rows
 FROM words
          JOIN words_categories ON words."categoryId" = words_categories.id
 WHERE words.en LIKE '%' || $1::text || '%'
@@ -132,12 +134,12 @@ type GetAllWordsParams struct {
 }
 
 type GetAllWordsRow struct {
-	ID            int32
-	Pl            string
-	En            string
-	UserDefined   bool
-	WordsCategory WordsCategory
-	TotalRows     int64
+	ID         int32
+	Pl         string
+	En         string
+	UserID     pgtype.Text
+	CategoryId int32
+	TotalRows  int64
 }
 
 func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]GetAllWordsRow, error) {
@@ -159,10 +161,8 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 			&i.ID,
 			&i.Pl,
 			&i.En,
-			&i.UserDefined,
-			&i.WordsCategory.ID,
-			&i.WordsCategory.CategoryName,
-			&i.WordsCategory.UserID,
+			&i.UserID,
+			&i.CategoryId,
 			&i.TotalRows,
 		); err != nil {
 			return nil, err
@@ -202,7 +202,7 @@ func (q *Queries) GetCategoryByName(ctx context.Context, categoryName string) (W
 }
 
 const getWordsByCategory = `-- name: GetWordsByCategory :many
-SELECT id, "categoryId", en, pl, user_defined, user_id
+SELECT id, "categoryId", en, pl, user_id
 FROM words
 WHERE words."categoryId" = $1
 `
@@ -221,7 +221,6 @@ func (q *Queries) GetWordsByCategory(ctx context.Context, categoryID int32) ([]W
 			&i.CategoryId,
 			&i.En,
 			&i.Pl,
-			&i.UserDefined,
 			&i.UserID,
 		); err != nil {
 			return nil, err

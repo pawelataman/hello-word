@@ -51,14 +51,11 @@ func (ds *DictionaryServiceImpl) GetAllWords(ctx context.Context, params models.
 		}
 
 		dictionaryWords[index] = models.DictionaryWord{
-			ID:          row.ID,
-			En:          row.En,
-			Pl:          row.Pl,
-			UserDefined: row.UserDefined,
-			Category: &models.DictionaryCategory{
-				ID:           row.WordsCategory.ID,
-				CategoryName: row.WordsCategory.CategoryName,
-			},
+			ID:         row.ID,
+			En:         row.En,
+			Pl:         row.Pl,
+			CategoryId: row.CategoryId,
+			UserId:     row.UserID.String,
 		}
 	}
 
@@ -87,7 +84,7 @@ func (ds *DictionaryServiceImpl) GetAllCategories(ctx context.Context) (models.G
 	dictionaryCategories := make([]models.DictionaryCategory, len(rows))
 
 	for index, row := range rows {
-		dictionaryCategories[index] = models.DictionaryCategory{ID: row.ID, CategoryName: row.CategoryName}
+		dictionaryCategories[index] = models.DictionaryCategory{ID: row.ID, CategoryName: row.CategoryName, UserID: row.UserID.String}
 	}
 
 	return models.GetDictionaryCategoriesResponse{
@@ -99,7 +96,7 @@ func (ds *DictionaryServiceImpl) AddCategory(ctx context.Context, categoryName s
 	_, err := ds.queries.GetCategoryByName(ctx, categoryName)
 
 	if err == nil {
-		return models.DictionaryCategory{}, api_errors.EntityExistsErr("Category already exists")
+		return models.DictionaryCategory{}, api_errors.EntityExistsErr("category already exists")
 	}
 
 	addCategoryParams := db.AddCategoryParams{
@@ -115,8 +112,32 @@ func (ds *DictionaryServiceImpl) AddCategory(ctx context.Context, categoryName s
 	return models.DictionaryCategory{
 		ID:           newCategory.ID,
 		CategoryName: newCategory.CategoryName,
+		UserID:       newCategory.UserID.String,
 	}, nil
+}
 
+func (ds *DictionaryServiceImpl) AddWords(ctx context.Context, words []models.CreateWord, categoryId int, userId string) error {
+	_, err := ds.queries.GetCategoryById(ctx, int32(categoryId))
+
+	if err != nil {
+		return api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf("category not found"))
+	}
+
+	for _, word := range words {
+		addWordParams := db.AddWordParams{
+			Pl:         word.Pl,
+			En:         word.En,
+			CategoryID: int32(categoryId),
+			UserID:     userId,
+		}
+		err = ds.queries.AddWord(ctx, addWordParams)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (ds *DictionaryServiceImpl) GetCategoryById(ctx context.Context, id int) (models.GetCategoryByIdResponse, error) {
@@ -136,10 +157,11 @@ func (ds *DictionaryServiceImpl) GetCategoryById(ctx context.Context, id int) (m
 		wordsResult = make([]models.DictionaryWord, len(words))
 		for index, word := range words {
 			wordsResult[index] = models.DictionaryWord{
-				ID:          word.ID,
-				Pl:          word.Pl,
-				En:          word.En,
-				UserDefined: word.UserDefined.Bool,
+				ID:         word.ID,
+				Pl:         word.Pl,
+				En:         word.En,
+				CategoryId: word.CategoryId,
+				UserId:     word.UserID.String,
 			}
 		}
 	}
@@ -163,7 +185,7 @@ func (ds *DictionaryServiceImpl) DeleteCategory(ctx context.Context, id int, use
 		return api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf("category not found"))
 	}
 
-	if category.UserID.String != userId {
+	if len(category.UserID.String) == 0 || category.UserID.String != userId {
 		return api_errors.NewApiErr(fiber.StatusForbidden, fmt.Errorf("you are not allowed to delete this category"))
 	}
 

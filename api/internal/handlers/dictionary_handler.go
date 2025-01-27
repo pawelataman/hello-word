@@ -87,6 +87,27 @@ func handleCreateDictionaryCategory(ctx *fiber.Ctx) error {
 }
 
 func handleCreateDictionaryWords(ctx *fiber.Ctx) error {
+	var createWordsReqBody models.CreateWordsRequestBody
+
+	err := ctx.BodyParser(&createWordsReqBody)
+
+	if err != nil {
+		slog.Error(err.Error())
+		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+	}
+
+	if validationErrors, ok := validation.ValidateStruct(createWordsReqBody); !ok {
+		return api_errors.InvalidReqDataErr(validationErrors)
+	}
+
+	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
+
+	err = services.DictionaryService.AddWords(ctx.Context(), createWordsReqBody.Words, createWordsReqBody.CategoryId, userSubject.ID)
+
+	if err != nil {
+		slog.Error(err.Error())
+		return err
+	}
 
 	return nil
 }

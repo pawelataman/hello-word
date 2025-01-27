@@ -9,12 +9,11 @@ import (
 )
 
 type Word struct {
-	ID          int32
-	CategoryId  int32
-	En          string
-	Pl          string
-	UserDefined pgtype.Bool
-	UserID      pgtype.Text
+	ID         int32
+	CategoryId int32
+	En         string
+	Pl         string
+	UserID     pgtype.Text
 }
 
 type WordsCategory struct {

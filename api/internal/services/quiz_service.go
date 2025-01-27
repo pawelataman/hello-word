@@ -41,10 +41,9 @@ func (qs *QuizServiceImpl) CreateQuiz(ctx *fiber.Ctx, questionsQty int) (models.
 			index := i*answersPerQuestion + j
 
 			quizWord := models.QuizWord{
-				Id:         int(words[index].ID),
-				Pl:         words[index].Pl,
-				En:         words[index].En,
-				CategoryId: int(words[index].CategoryId),
+				Id: int(words[index].ID),
+				Pl: words[index].Pl,
+				En: words[index].En,
 			}
 
 			answers[j] = quizWord
