@@ -5,9 +5,19 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2/user"
 	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/data/models"
+	"os"
 )
 
 func AuthMiddleware(ctx *fiber.Ctx) error {
+
+	if os.Getenv("SECURE_API") != "true" {
+		userSubject := &models.UserSubject{
+			ID:           "test_user_2qcjJGCcz1K2ToEkxlWVwasHoOM",
+			EmailAddress: "test.tytanus97@gmai.com",
+		}
+		ctx.Locals("userSubject", userSubject)
+		return ctx.Next()
+	}
 
 	claims, ok := clerk.SessionClaimsFromContext(ctx.Context())
 
