@@ -10,28 +10,28 @@ import (
 )
 
 const getQuizQuestions = `-- name: GetQuizQuestions :many
-SELECT id, "categoryId", en, pl, user_defined
+SELECT words.id, words.en, words.pl
 FROM words
 ORDER BY RANDOM()
 LIMIT $1
 `
 
-func (q *Queries) GetQuizQuestions(ctx context.Context, limit int32) ([]Word, error) {
+type GetQuizQuestionsRow struct {
+	ID int32
+	En string
+	Pl string
+}
+
+func (q *Queries) GetQuizQuestions(ctx context.Context, limit int32) ([]GetQuizQuestionsRow, error) {
 	rows, err := q.db.Query(ctx, getQuizQuestions, limit)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Word
+	var items []GetQuizQuestionsRow
 	for rows.Next() {
-		var i Word
-		if err := rows.Scan(
-			&i.ID,
-			&i.CategoryId,
-			&i.En,
-			&i.Pl,
-			&i.UserDefined,
-		); err != nil {
+		var i GetQuizQuestionsRow
+		if err := rows.Scan(&i.ID, &i.En, &i.Pl); err != nil {
 			return nil, err
 		}
 		items = append(items, i)

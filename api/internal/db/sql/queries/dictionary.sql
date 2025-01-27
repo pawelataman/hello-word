@@ -25,29 +25,34 @@ FROM words
 WHERE words."categoryId" = @category_id;
 
 -- name: GetAllCategories :many
-SELECT words_categories.id, words_categories."categoryName"
+SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
 FROM words_categories;
 
 -- name: AddCategory :one
-INSERT INTO words_categories ("categoryName")
-VALUES (@category_name)
+INSERT INTO words_categories ("categoryName", "user_id")
+VALUES (@category_name, @user_id::text)
 RETURNING *;
 
 -- name: AddCategoryWithId :exec
-INSERT INTO words_categories ("id", "categoryName")
-VALUES (@id, @category_name);
+INSERT INTO words_categories ("id", "categoryName", "user_id")
+VALUES (@id, @category_name, @user_id::text);
 
 -- name: AddWord :exec
-INSERT INTO words ("categoryId", "en", "pl")
-VALUES (@category_id, @en, @pl);
+INSERT INTO words ("categoryId", "en", "pl", "user_id")
+VALUES (@category_id, @en, @pl, @user_id::text);
 
 -- name: GetCategoryByName :one
-SELECT words_categories.id, words_categories."categoryName"
+SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
 FROM words_categories
 WHERE words_categories."categoryName" = @category_name;
 
 -- name: GetCategoryById :one
-SELECT words_categories.id, words_categories."categoryName"
-from words_categories
-where words_categories.id = @id;
+SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
+FROM words_categories
+WHERE words_categories.id = @id;
 
+
+-- name: DeleteCategory :exec
+DELETE
+FROM words_categories
+WHERE words_categories.id = @id;

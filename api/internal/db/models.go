@@ -14,9 +14,11 @@ type Word struct {
 	En          string
 	Pl          string
 	UserDefined pgtype.Bool
+	UserID      pgtype.Text
 }
 
 type WordsCategory struct {
 	ID           int32
 	CategoryName string
+	UserID       pgtype.Text
 }

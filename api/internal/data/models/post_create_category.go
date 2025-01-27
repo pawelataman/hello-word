@@ -4,8 +4,6 @@ import "time"
 
 type CreateCategoryRequestBody struct {
 	CategoryName string `json:"categoryName" validate:"required,min=1,max=64"`
-	UserID       int    `json:"-"`
-	IsCustom     bool   `json:"-"`
 }
 
 type CategoryResponse struct {

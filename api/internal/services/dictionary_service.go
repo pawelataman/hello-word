@@ -95,14 +95,18 @@ func (ds *DictionaryServiceImpl) GetAllCategories(ctx context.Context) (models.G
 	}, nil
 }
 
-func (ds *DictionaryServiceImpl) AddCategory(ctx context.Context, categoryName string) (models.DictionaryCategory, error) {
+func (ds *DictionaryServiceImpl) AddCategory(ctx context.Context, categoryName string, userId string) (models.DictionaryCategory, error) {
 	_, err := ds.queries.GetCategoryByName(ctx, categoryName)
 
 	if err == nil {
 		return models.DictionaryCategory{}, api_errors.EntityExistsErr("Category already exists")
 	}
 
-	newCategory, err := ds.queries.AddCategory(ctx, categoryName)
+	addCategoryParams := db.AddCategoryParams{
+		CategoryName: categoryName,
+		UserID:       userId,
+	}
+	newCategory, err := ds.queries.AddCategory(ctx, addCategoryParams)
 
 	if err != nil {
 		return models.DictionaryCategory{}, err
@@ -150,4 +154,24 @@ func (ds *DictionaryServiceImpl) GetCategoryById(ctx context.Context, id int) (m
 
 	return response, nil
 
+}
+
+func (ds *DictionaryServiceImpl) DeleteCategory(ctx context.Context, id int, userId string) error {
+	category, err := ds.queries.GetCategoryById(ctx, int32(id))
+
+	if err != nil {
+		return api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf("category not found"))
+	}
+
+	if category.UserID.String != userId {
+		return api_errors.NewApiErr(fiber.StatusForbidden, fmt.Errorf("you are not allowed to delete this category"))
+	}
+
+	err = ds.queries.DeleteCategory(ctx, int32(id))
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

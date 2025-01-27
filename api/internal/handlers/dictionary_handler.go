@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/api_errors"
+	"github.com/pawelataman/hello-word/internal/data/consts"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/services"
 	"github.com/pawelataman/hello-word/internal/validation"
@@ -18,8 +19,10 @@ func RegisterDictionaryHandler(router fiber.Router) {
 	app.Post("/words", handleCreateDictionaryWords)
 
 	app.Get("/categories", handleGetDictionaryCategories)
-	app.Get("/categories/:id", handleGetDictionaryCategoryById)
+
 	app.Post("/categories", handleCreateDictionaryCategory)
+	app.Get("/categories/:id", handleGetDictionaryCategoryById)
+	app.Delete("/categories/:id", handleDeleteDictionaryCategory)
 
 	//app.Post("/words", handleAddWord)
 }
@@ -37,8 +40,6 @@ func handleGetDictionaryWords(ctx *fiber.Ctx) error {
 	if validationErrors, ok := validation.ValidateStruct(paginationParams); !ok {
 		return api_errors.InvalidReqDataErr(validationErrors)
 	}
-
-	fmt.Println("ascending", paginationParams.Ascending)
 
 	words, err := services.DictionaryService.GetAllWords(ctx.Context(), paginationParams)
 
@@ -74,7 +75,9 @@ func handleCreateDictionaryCategory(ctx *fiber.Ctx) error {
 		return api_errors.InvalidReqDataErr(validationErrors)
 	}
 
-	createdCategory, err := services.DictionaryService.AddCategory(ctx.Context(), body.CategoryName)
+	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
+
+	createdCategory, err := services.DictionaryService.AddCategory(ctx.Context(), body.CategoryName, userSubject.ID)
 
 	if err != nil {
 		return err
@@ -104,4 +107,25 @@ func handleGetDictionaryCategoryById(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.JSON(category)
+}
+
+func handleDeleteDictionaryCategory(ctx *fiber.Ctx) error {
+	idStr := ctx.Params("id")
+
+	id, err := strconv.Atoi(idStr)
+
+	if err != nil {
+		return api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf("invalid id parameter"))
+	}
+
+	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
+
+	err = services.DictionaryService.DeleteCategory(ctx.Context(), id, userSubject.ID)
+
+	if err != nil {
+		slog.Error(err.Error())
+		return err
+	}
+
+	return ctx.SendStatus(fiber.StatusNoContent)
 }
