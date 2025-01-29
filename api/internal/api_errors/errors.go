@@ -3,8 +3,8 @@ package api_errors
 import "github.com/gofiber/fiber/v2"
 
 type ApiError struct {
-	StatusCode int `json:"statusCode"`
-	Message    any `json:"message"`
+	Code    int `json:"code"`
+	Message any `json:"message"`
 }
 
 func (e ApiError) Error() string {
@@ -13,21 +13,21 @@ func (e ApiError) Error() string {
 
 func NewApiErr(statusCode int, err error) ApiError {
 	return ApiError{
-		StatusCode: statusCode,
-		Message:    err.Error(),
+		Code:    statusCode,
+		Message: err.Error(),
 	}
 }
 
 func InvalidReqDataErr(errors map[string]string) ApiError {
 	return ApiError{
-		Message:    errors,
-		StatusCode: fiber.StatusUnprocessableEntity,
+		Message: errors,
+		Code:    fiber.StatusUnprocessableEntity,
 	}
 }
 
 func EntityExistsErr(message string) ApiError {
 	return ApiError{
-		StatusCode: fiber.StatusConflict,
-		Message:    message,
+		Code:    fiber.StatusConflict,
+		Message: message,
 	}
 }

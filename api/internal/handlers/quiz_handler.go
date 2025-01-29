@@ -25,8 +25,8 @@ func handleCreateQuiz(c *fiber.Ctx) error {
 		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
 	}
 
-	if validationErrs, ok := validation.ValidateStruct(getQuizQueryParams); !ok {
-		return api_errors.InvalidReqDataErr(validationErrs)
+	if validationErrors, ok := validation.ValidateStruct(getQuizQueryParams); !ok {
+		return api_errors.InvalidReqDataErr(validationErrors)
 	}
 
 	quiz, err := services.QuizService.CreateQuiz(c, getQuizQueryParams.NumOfQuestions)

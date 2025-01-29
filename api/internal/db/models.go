@@ -8,16 +8,25 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-type Word struct {
-	ID         int32
-	CategoryId int32
-	En         string
-	Pl         string
-	UserID     pgtype.Text
+type Flashcard struct {
+	ID        int32
+	Name      string
+	Author    string
+	CreatedAt pgtype.Timestamp
+	UpdatedAt pgtype.Timestamp
 }
 
-type WordsCategory struct {
-	ID           int32
-	CategoryName string
-	UserID       pgtype.Text
+type Word struct {
+	ID        int32
+	En        string
+	Pl        string
+	Author    string
+	CreatedAt pgtype.Timestamp
+	UpdatedAt pgtype.Timestamp
+}
+
+type WordsFlashcard struct {
+	WordID      int32
+	FlashcardID int32
+	CreatedAt   pgtype.Timestamptz
 }

@@ -41,6 +41,7 @@ func main() {
 
 	handlers.RegisterDictionaryHandler(app)
 	handlers.RegisterQuizHandlers(app)
+	handlers.RegisterFlashcardsHandler(app)
 
 	log.Println("Server is listening on port :3000")
 	log.Fatal(app.Listen(":3000"))
@@ -48,7 +49,8 @@ func main() {
 
 func initServices() {
 	services.QuizService = services.NewQuizServiceImpl()
-	services.DictionaryService = services.NewDictionaryServiceImpl()
+	services.WordsService = services.NewWordsService()
+	services.FlashcardService = services.NewFlashcardService()
 }
 
 func initClerk() {
@@ -56,6 +58,5 @@ func initClerk() {
 }
 
 func dispose(ctx context.Context) {
-	//dispose db pool
 	db.DisposeConnection()
 }
