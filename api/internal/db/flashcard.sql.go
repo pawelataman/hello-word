@@ -9,6 +9,40 @@ import (
 	"context"
 )
 
+const assignFlashcardsWords = `-- name: AssignFlashcardsWords :exec
+INSERT INTO words_flashcards (word_id, flashcard_id)
+VALUES ($1, $2)
+`
+
+type AssignFlashcardsWordsParams struct {
+	WordID      int32
+	FlashcardID int32
+}
+
+func (q *Queries) AssignFlashcardsWords(ctx context.Context, arg AssignFlashcardsWordsParams) error {
+	_, err := q.db.Exec(ctx, assignFlashcardsWords, arg.WordID, arg.FlashcardID)
+	return err
+}
+
+const checkWordExistsInFlashcard = `-- name: CheckWordExistsInFlashcard :one
+SELECT word_id, flashcard_id, created_at
+FROM words_flashcards
+WHERE word_id = $1
+  AND flashcard_id = $2
+`
+
+type CheckWordExistsInFlashcardParams struct {
+	WordID      int32
+	FlashcardID int32
+}
+
+func (q *Queries) CheckWordExistsInFlashcard(ctx context.Context, arg CheckWordExistsInFlashcardParams) (WordsFlashcard, error) {
+	row := q.db.QueryRow(ctx, checkWordExistsInFlashcard, arg.WordID, arg.FlashcardID)
+	var i WordsFlashcard
+	err := row.Scan(&i.WordID, &i.FlashcardID, &i.CreatedAt)
+	return i, err
+}
+
 const createFlashcard = `-- name: CreateFlashcard :one
 INSERT INTO flashcards("name", "author")
 VALUES ($1, $2)

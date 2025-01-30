@@ -32,3 +32,13 @@ RETURNING *;
 DELETE
 FROM flashcards
 WHERE flashcards.id = @id::integer;
+
+-- name: AssignFlashcardsWords :exec
+INSERT INTO words_flashcards (word_id, flashcard_id)
+VALUES ($1, $2);
+
+-- name: CheckWordExistsInFlashcard :one
+SELECT *
+FROM words_flashcards
+WHERE word_id = @word_id
+  AND flashcard_id = @flashcard_id;

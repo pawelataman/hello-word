@@ -12,12 +12,12 @@ type Word struct {
 }
 
 type CreateWord struct {
-	Pl string `json:"pl" validate:"required,min=1,max=255"`
-	En string `json:"en" validate:"required,min=1,max=255"`
+	Pl string `json:"pl" validate:"required,min=1,max=255" mod:"trim"`
+	En string `json:"en" validate:"required,min=1,max=255" mod:"trim"`
 }
 
 type CreateWordsRequest struct {
-	Words []CreateWord `json:"words" validate:"required"`
+	Words []CreateWord `json:"words" validate:"required,dive" mod:"dive"`
 }
 
 type GetAllWordsParams struct {

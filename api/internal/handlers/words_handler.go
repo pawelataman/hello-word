@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/go-playground/mold/v4/modifiers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/consts"
@@ -8,6 +9,10 @@ import (
 	"github.com/pawelataman/hello-word/internal/services"
 	"github.com/pawelataman/hello-word/internal/validation"
 	"log/slog"
+)
+
+var (
+	conform = modifiers.New()
 )
 
 func RegisterDictionaryHandler(router fiber.Router) {
@@ -42,6 +47,10 @@ func handleCreateDictionaryWords(ctx *fiber.Ctx) error {
 	if err != nil {
 		slog.Error(err.Error())
 		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+	}
+	err = conform.Struct(ctx.Context(), &createWordsReqBody)
+	if err != nil {
+		slog.Error(err.Error())
 	}
 	if validationErrors, ok := validation.ValidateStruct(createWordsReqBody); !ok {
 		return api_errors.InvalidReqDataErr(validationErrors)

@@ -7,6 +7,7 @@ import (
 	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/db"
+	"log/slog"
 )
 
 var (
@@ -106,4 +107,34 @@ func (ds *FlashcardServiceImpl) DeleteFlashcard(ctx context.Context, id int, aut
 		return err
 	}
 	return nil
+}
+
+func (ds *FlashcardServiceImpl) AssignFlashcardWords(ctx context.Context, wordsIds []int, flashcardId int) error {
+
+	tx, err := db.Pool.Begin(ctx)
+	if err != nil {
+		slog.Error(err.Error())
+		return err
+	}
+
+	defer func() {
+		_ = tx.Rollback(ctx)
+	}()
+	for _, wordId := range wordsIds {
+
+		_, err := ds.queries.WithTx(tx).CheckWordExistsInFlashcard(ctx,
+			db.CheckWordExistsInFlashcardParams{WordID: int32(wordId), FlashcardID: int32(flashcardId)})
+
+		if err == nil {
+			return api_errors.NewApiErr(fiber.StatusConflict, fmt.Errorf(api_errors.WordAlreadyAssignedToFlashcard))
+		}
+
+		params := db.AssignFlashcardsWordsParams{FlashcardID: int32(flashcardId), WordID: int32(wordId)}
+		err = ds.queries.WithTx(tx).AssignFlashcardsWords(ctx, params)
+		if err != nil {
+			slog.Error(err.Error())
+			return err
+		}
+	}
+	return tx.Commit(ctx)
 }

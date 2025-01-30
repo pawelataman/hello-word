@@ -18,6 +18,26 @@ func RegisterFlashcardsHandler(router fiber.Router) {
 	app.Post("/", handleCreateFlashcard)
 	app.Get("/:id", handleGetFlashcardById)
 	app.Delete("/:id", handleDeleteFlashcard)
+	app.Put("/:id/words", handleAssignFlashcardWords)
+}
+
+func handleAssignFlashcardWords(ctx *fiber.Ctx) error {
+	flashcardId, err := ctx.ParamsInt("id", 0)
+	if err != nil {
+		slog.Error(err.Error())
+		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+	}
+
+	var body models.AssignFlashcardWordsRequest
+	if err = ctx.BodyParser(&body); err != nil {
+		slog.Error(err.Error())
+		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+	}
+	if err = services.FlashcardService.AssignFlashcardWords(ctx.Context(), body.WordsIds, flashcardId); err != nil {
+		slog.Error(err.Error())
+		return err
+	}
+	return nil
 }
 
 func handleGetFlashcards(ctx *fiber.Ctx) error {
@@ -33,6 +53,10 @@ func handleCreateFlashcard(ctx *fiber.Ctx) error {
 	if err != nil {
 		slog.Error(err.Error())
 		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+	}
+	if err = conform.Struct(ctx.Context(), &body); err != nil {
+		slog.Error(err.Error())
+		return err
 	}
 	if validationErrors, ok := validation.ValidateStruct(body); !ok {
 		return api_errors.InvalidReqDataErr(validationErrors)

@@ -11,107 +11,31 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const addCategory = `-- name: AddCategory :one
-INSERT INTO words_categories ("categoryName", "user_id")
-VALUES ($1, $2::text)
-RETURNING id, "categoryName", user_id
-`
-
-type AddCategoryParams struct {
-	CategoryName string
-	UserID       string
-}
-
-func (q *Queries) AddCategory(ctx context.Context, arg AddCategoryParams) (WordsCategory, error) {
-	row := q.db.QueryRow(ctx, addCategory, arg.CategoryName, arg.UserID)
-	var i WordsCategory
-	err := row.Scan(&i.ID, &i.CategoryName, &i.UserID)
-	return i, err
-}
-
-const addCategoryWithId = `-- name: AddCategoryWithId :exec
-INSERT INTO words_categories ("id", "categoryName", "user_id")
+const addWord = `-- name: AddWord :exec
+INSERT INTO words("en", "pl", "author")
 VALUES ($1, $2, $3::text)
 `
 
-type AddCategoryWithIdParams struct {
-	ID           int32
-	CategoryName string
-	UserID       string
-}
-
-func (q *Queries) AddCategoryWithId(ctx context.Context, arg AddCategoryWithIdParams) error {
-	_, err := q.db.Exec(ctx, addCategoryWithId, arg.ID, arg.CategoryName, arg.UserID)
-	return err
-}
-
-const addWord = `-- name: AddWord :exec
-INSERT INTO words ("categoryId", "en", "pl", "user_id")
-VALUES ($1, $2, $3, $4::text)
-`
-
 type AddWordParams struct {
-	CategoryID int32
-	En         string
-	Pl         string
-	UserID     string
+	En     string
+	Pl     string
+	Author string
 }
 
 func (q *Queries) AddWord(ctx context.Context, arg AddWordParams) error {
-	_, err := q.db.Exec(ctx, addWord,
-		arg.CategoryID,
-		arg.En,
-		arg.Pl,
-		arg.UserID,
-	)
+	_, err := q.db.Exec(ctx, addWord, arg.En, arg.Pl, arg.Author)
 	return err
-}
-
-const deleteCategory = `-- name: DeleteCategory :exec
-DELETE
-FROM words_categories
-WHERE words_categories.id = $1
-`
-
-func (q *Queries) DeleteCategory(ctx context.Context, id int32) error {
-	_, err := q.db.Exec(ctx, deleteCategory, id)
-	return err
-}
-
-const getAllCategories = `-- name: GetAllCategories :many
-SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
-FROM words_categories
-`
-
-func (q *Queries) GetAllCategories(ctx context.Context) ([]WordsCategory, error) {
-	rows, err := q.db.Query(ctx, getAllCategories)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []WordsCategory
-	for rows.Next() {
-		var i WordsCategory
-		if err := rows.Scan(&i.ID, &i.CategoryName, &i.UserID); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
 }
 
 const getAllWords = `-- name: GetAllWords :many
 SELECT words.id,
        words.pl,
        words.en,
-       words."user_id",
-       words."categoryId",
+       words.author,
+       words.created_at,
+       words.updated_at,
        COUNT(*) over () as total_rows
 FROM words
-         JOIN words_categories ON words."categoryId" = words_categories.id
 WHERE words.en LIKE '%' || $1::text || '%'
    OR words.pl LIKE '%' || $1::text || '%'
 ORDER BY CASE
@@ -134,12 +58,13 @@ type GetAllWordsParams struct {
 }
 
 type GetAllWordsRow struct {
-	ID         int32
-	Pl         string
-	En         string
-	UserID     pgtype.Text
-	CategoryId int32
-	TotalRows  int64
+	ID        int32
+	Pl        string
+	En        string
+	Author    string
+	CreatedAt pgtype.Timestamp
+	UpdatedAt pgtype.Timestamp
+	TotalRows int64
 }
 
 func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]GetAllWordsRow, error) {
@@ -161,8 +86,9 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 			&i.ID,
 			&i.Pl,
 			&i.En,
-			&i.UserID,
-			&i.CategoryId,
+			&i.Author,
+			&i.CreatedAt,
+			&i.UpdatedAt,
 			&i.TotalRows,
 		); err != nil {
 			return nil, err
@@ -175,53 +101,38 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 	return items, nil
 }
 
-const getCategoryById = `-- name: GetCategoryById :one
-SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
-FROM words_categories
-WHERE words_categories.id = $1
-`
-
-func (q *Queries) GetCategoryById(ctx context.Context, id int32) (WordsCategory, error) {
-	row := q.db.QueryRow(ctx, getCategoryById, id)
-	var i WordsCategory
-	err := row.Scan(&i.ID, &i.CategoryName, &i.UserID)
-	return i, err
-}
-
-const getCategoryByName = `-- name: GetCategoryByName :one
-SELECT words_categories.id, words_categories."categoryName", words_categories."user_id"
-FROM words_categories
-WHERE LOWER(words_categories."categoryName") = LOWER($1)
-`
-
-func (q *Queries) GetCategoryByName(ctx context.Context, categoryName string) (WordsCategory, error) {
-	row := q.db.QueryRow(ctx, getCategoryByName, categoryName)
-	var i WordsCategory
-	err := row.Scan(&i.ID, &i.CategoryName, &i.UserID)
-	return i, err
-}
-
-const getWordsByCategory = `-- name: GetWordsByCategory :many
-SELECT id, "categoryId", en, pl, user_id
+const getWordsByFlashcardId = `-- name: GetWordsByFlashcardId :many
+SELECT words.id, words.pl, words.en, words.author, words.created_at, words.updated_at
 FROM words
-WHERE words."categoryId" = $1
+         INNER JOIN words_flashcards ON words.id = words_flashcards.word_id
+WHERE words_flashcards.flashcard_id = $1::integer
 `
 
-func (q *Queries) GetWordsByCategory(ctx context.Context, categoryID int32) ([]Word, error) {
-	rows, err := q.db.Query(ctx, getWordsByCategory, categoryID)
+type GetWordsByFlashcardIdRow struct {
+	ID        int32
+	Pl        string
+	En        string
+	Author    string
+	CreatedAt pgtype.Timestamp
+	UpdatedAt pgtype.Timestamp
+}
+
+func (q *Queries) GetWordsByFlashcardId(ctx context.Context, flashcardID int32) ([]GetWordsByFlashcardIdRow, error) {
+	rows, err := q.db.Query(ctx, getWordsByFlashcardId, flashcardID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Word
+	var items []GetWordsByFlashcardIdRow
 	for rows.Next() {
-		var i Word
+		var i GetWordsByFlashcardIdRow
 		if err := rows.Scan(
 			&i.ID,
-			&i.CategoryId,
-			&i.En,
 			&i.Pl,
-			&i.UserID,
+			&i.En,
+			&i.Author,
+			&i.CreatedAt,
+			&i.UpdatedAt,
 		); err != nil {
 			return nil, err
 		}
