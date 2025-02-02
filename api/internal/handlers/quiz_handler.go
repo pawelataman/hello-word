@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"log/slog"
 
 	"github.com/gofiber/fiber/v2"
@@ -30,8 +29,7 @@ func handleCreateQuiz(c *fiber.Ctx) error {
 	}
 	quiz, err := services.QuizService.CreateQuiz(c, getQuizQueryParams.NumOfQuestions)
 	if err != nil {
-		fmt.Println(err)
-		return c.SendStatus(fiber.StatusInternalServerError)
+		return err
 	}
 	return c.JSON(quiz)
 }

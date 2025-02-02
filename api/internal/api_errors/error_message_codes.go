@@ -8,4 +8,5 @@ const (
 	InvalidBody                    = "invalid_body"
 	DeleteNotAllowed               = "delete_not_allowed"
 	WordAlreadyAssignedToFlashcard = "word_already_assigned_to_flashcard"
+	InsufficientWordQty            = "insufficient_word_qty"
 )

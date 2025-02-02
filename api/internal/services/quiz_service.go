@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
+	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/repository"
 )
@@ -24,18 +25,17 @@ func NewQuizServiceImpl(quizRepository repository.IQuizRepository) *QuizServiceI
 
 func (qs *QuizServiceImpl) CreateQuiz(ctx *fiber.Ctx, questionsQty int) (models.Quiz, error) {
 
-	defer func() {
-		if err := recover(); err != nil {
-			panic(fmt.Errorf("could not create quiz: %w", err))
-		}
-	}()
-
 	const answersPerQuestion = 4
 	words, err := qs.repository.GetQuizQuestions(ctx.Context(), int32(questionsQty))
 	if err != nil {
 		fmt.Println(err)
 		return models.Quiz{}, err
 	}
+
+	if len(words) < questionsQty {
+		return models.Quiz{}, api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf(api_errors.InsufficientWordQty))
+	}
+
 	questions := make([]models.QuizQuestion, questionsQty)
 	for i := 0; i < questionsQty; i++ {
 		answers := make([]models.QuizWord, 4)
