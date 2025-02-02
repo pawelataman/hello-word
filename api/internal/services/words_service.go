@@ -2,8 +2,13 @@ package services
 
 import (
 	"context"
+	"fmt"
+	"github.com/gofiber/fiber/v2"
+	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
-	"github.com/pawelataman/hello-word/internal/db"
+	"github.com/pawelataman/hello-word/internal/db/generated"
+	"github.com/pawelataman/hello-word/internal/repository"
+	"github.com/valyala/fasthttp"
 	"log"
 	"math"
 )
@@ -13,18 +18,25 @@ var (
 )
 
 type WordsServiceImpl struct {
-	queries *db.Queries
+	repository    repository.IWordsRepository
+	flashcardRepo repository.IFlashcardsRepository
 }
 
-func NewWordsService() *WordsServiceImpl {
+type WordServiceParams struct {
+	Repository    repository.IWordsRepository
+	FlashcardRepo repository.IFlashcardsRepository
+}
+
+func NewWordsService(params *WordServiceParams) *WordsServiceImpl {
 	return &WordsServiceImpl{
-		queries: db.New(db.Pool),
+		repository:    params.Repository,
+		flashcardRepo: params.FlashcardRepo,
 	}
 }
 
 func (ds *WordsServiceImpl) GetAllWords(ctx context.Context, params models.GetAllWordsParams) (models.GetAllWordsResponse, error) {
 
-	pagination := db.GetAllWordsParams{
+	pagination := generated.GetAllWordsParams{
 		PageSize:       int32(params.PageSize),
 		PageOffset:     int32((params.Page - 1) * params.PageSize),
 		SortColumn:     params.Language,
@@ -32,7 +44,7 @@ func (ds *WordsServiceImpl) GetAllWords(ctx context.Context, params models.GetAl
 		Search:         params.Search,
 	}
 
-	rows, err := ds.queries.GetAllWords(ctx, pagination)
+	rows, err := ds.repository.GetAllWords(ctx, pagination)
 
 	if err != nil {
 		log.Println("could not retrieve all words", err)
@@ -74,17 +86,31 @@ func (ds *WordsServiceImpl) GetAllWords(ctx context.Context, params models.GetAl
 func (ds *WordsServiceImpl) AddWords(ctx context.Context, words []models.CreateWord, author string) error {
 
 	for _, word := range words {
-		addWordParams := db.AddWordParams{
+		addWordParams := generated.AddWordParams{
 			Pl:     word.Pl,
 			En:     word.En,
 			Author: author,
 		}
-		err := ds.queries.AddWord(ctx, addWordParams)
-
+		err := ds.repository.AddWord(ctx, addWordParams)
 		if err != nil {
 			return err
 		}
 	}
 
 	return nil
+}
+
+func (ds *WordsServiceImpl) DeleteWord(ctx *fasthttp.RequestCtx, id int, user string) error {
+	word, err := ds.repository.GetWordById(ctx, int32(id))
+	if err != nil {
+		return api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf(api_errors.WordNotFound))
+	}
+	if word.Author != user {
+		return api_errors.NewApiErr(fiber.StatusForbidden, fmt.Errorf(api_errors.DeleteNotAllowed))
+	}
+
+	if err = ds.flashcardRepo.DeleteWordsFlashcardByWordId(ctx, int32(id)); err != nil {
+		return err
+	}
+	return ds.repository.DeleteWord(ctx, int32(id))
 }

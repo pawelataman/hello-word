@@ -4,28 +4,37 @@ import (
 	"context"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/jackc/pgx/v5"
 	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/db"
-	"log/slog"
+	"github.com/pawelataman/hello-word/internal/db/generated"
+	"github.com/pawelataman/hello-word/internal/repository"
 )
 
 var (
 	FlashcardService *FlashcardServiceImpl
 )
 
-func NewFlashcardService() *FlashcardServiceImpl {
+type FlashcardServiceParams struct {
+	Repository    repository.IFlashcardsRepository
+	Transactioner db.ITransactionManager
+}
+
+func NewFlashcardService(params *FlashcardServiceParams) *FlashcardServiceImpl {
 	return &FlashcardServiceImpl{
-		queries: db.New(db.Pool),
+		repository:    params.Repository,
+		transactioner: params.Transactioner,
 	}
 }
 
 type FlashcardServiceImpl struct {
-	queries *db.Queries
+	repository    repository.IFlashcardsRepository
+	transactioner db.ITransactionManager
 }
 
 func (ds *FlashcardServiceImpl) GetFlashcards(ctx context.Context) ([]models.Flashcard, error) {
-	rows, err := ds.queries.GetFlashcards(ctx)
+	rows, err := ds.repository.GetFlashcards(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -37,15 +46,15 @@ func (ds *FlashcardServiceImpl) GetFlashcards(ctx context.Context) ([]models.Fla
 }
 
 func (ds *FlashcardServiceImpl) AddFlashcard(ctx context.Context, name string, author string) (models.Flashcard, error) {
-	_, err := ds.queries.GetFlashcardByName(ctx, name)
+	_, err := ds.repository.GetFlashcardByName(ctx, name)
 	if err == nil {
-		return models.Flashcard{}, api_errors.EntityExistsErr(api_errors.CategoryAlreadyExists)
+		return models.Flashcard{}, api_errors.EntityExistsErr(api_errors.FlashcardAlreadyExists)
 	}
-	createFlashcardParams := db.CreateFlashcardParams{
+	createFlashcardParams := generated.CreateFlashcardParams{
 		Name:   name,
 		Author: author,
 	}
-	createdFlashcard, err := ds.queries.CreateFlashcard(ctx, createFlashcardParams)
+	createdFlashcard, err := ds.repository.CreateFlashcard(ctx, createFlashcardParams)
 	if err != nil {
 		return models.Flashcard{}, err
 	}
@@ -59,11 +68,11 @@ func (ds *FlashcardServiceImpl) AddFlashcard(ctx context.Context, name string, a
 }
 
 func (ds *FlashcardServiceImpl) GetFlashcardById(ctx context.Context, id int) (models.GetFlashcardByIdResponse, error) {
-	flashcard, err := ds.queries.GetFlashcardById(ctx, int32(id))
+	flashcard, err := ds.repository.GetFlashcardById(ctx, int32(id))
 	if err != nil {
-		return models.GetFlashcardByIdResponse{}, api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf(api_errors.CategoryNotFound))
+		return models.GetFlashcardByIdResponse{}, api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf(api_errors.FlashcardNotFound))
 	}
-	words, err := ds.queries.GetWordsByFlashcardId(ctx, flashcard.ID)
+	words, err := ds.repository.GetWordsByFlashcardId(ctx, flashcard.ID)
 	var wordsResult []models.Word
 	if err != nil {
 		wordsResult = make([]models.Word, 0)
@@ -95,46 +104,35 @@ func (ds *FlashcardServiceImpl) GetFlashcardById(ctx context.Context, id int) (m
 }
 
 func (ds *FlashcardServiceImpl) DeleteFlashcard(ctx context.Context, id int, author string) error {
-	flashcard, err := ds.queries.GetFlashcardById(ctx, int32(id))
+	flashcard, err := ds.repository.GetFlashcardById(ctx, int32(id))
 	if err != nil {
-		return api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf(api_errors.CategoryNotFound))
+		return api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf(api_errors.FlashcardNotFound))
 	}
-	if len(flashcard.Author) == 0 || flashcard.Author != author {
+	if flashcard.Author != author {
 		return api_errors.NewApiErr(fiber.StatusForbidden, fmt.Errorf(api_errors.DeleteNotAllowed))
 	}
-	err = ds.queries.DeleteFlashcardById(ctx, int32(id))
-	if err != nil {
+	if err = ds.repository.DeleteWordsFlashcardByFlashcardId(ctx, int32(id)); err != nil {
 		return err
 	}
-	return nil
+	return ds.repository.DeleteFlashcardById(ctx, int32(id))
+
 }
 
 func (ds *FlashcardServiceImpl) AssignFlashcardWords(ctx context.Context, wordsIds []int, flashcardId int) error {
-
-	tx, err := db.Pool.Begin(ctx)
-	if err != nil {
-		slog.Error(err.Error())
-		return err
-	}
-
-	defer func() {
-		_ = tx.Rollback(ctx)
-	}()
-	for _, wordId := range wordsIds {
-
-		_, err := ds.queries.WithTx(tx).CheckWordExistsInFlashcard(ctx,
-			db.CheckWordExistsInFlashcardParams{WordID: int32(wordId), FlashcardID: int32(flashcardId)})
-
-		if err == nil {
-			return api_errors.NewApiErr(fiber.StatusConflict, fmt.Errorf(api_errors.WordAlreadyAssignedToFlashcard))
+	tx := ds.transactioner.CreateTransaction(ctx)
+	return tx.Execute(ctx, func(tx pgx.Tx) error {
+		for _, wordId := range wordsIds {
+			_, err := ds.repository.Transactional(tx).CheckWordExistsInFlashcard(ctx,
+				generated.CheckWordExistsInFlashcardParams{WordID: int32(wordId), FlashcardID: int32(flashcardId)})
+			if err == nil {
+				return api_errors.NewApiErr(fiber.StatusConflict, fmt.Errorf(api_errors.WordAlreadyAssignedToFlashcard))
+			}
+			params := generated.AssignFlashcardsWordsParams{FlashcardID: int32(flashcardId), WordID: int32(wordId)}
+			err = ds.repository.Transactional(tx).AssignFlashcardsWords(ctx, params)
+			if err != nil {
+				return fmt.Errorf("error in assignFlashcardsWords: %w", err)
+			}
 		}
-
-		params := db.AssignFlashcardsWordsParams{FlashcardID: int32(flashcardId), WordID: int32(wordId)}
-		err = ds.queries.WithTx(tx).AssignFlashcardsWords(ctx, params)
-		if err != nil {
-			slog.Error(err.Error())
-			return err
-		}
-	}
-	return tx.Commit(ctx)
+		return nil
+	})
 }

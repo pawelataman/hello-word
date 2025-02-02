@@ -4,17 +4,17 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/pawelataman/hello-word/internal/db"
+	"github.com/pawelataman/hello-word/internal/db/generated"
 	"io"
 	"log"
 	"os"
 )
 
 type Seeder struct {
-	queries *db.Queries
+	queries *generated.Queries
 }
 
-func New(queries *db.Queries) *Seeder {
+func New(queries *generated.Queries) *Seeder {
 	return &Seeder{
 		queries: queries,
 	}
@@ -24,7 +24,7 @@ func (s *Seeder) Seed(ctx context.Context) {
 	seedWords(s.queries, ctx)
 }
 
-func seedWords(queries *db.Queries, ctx context.Context) {
+func seedWords(queries *generated.Queries, ctx context.Context) {
 	var words []Word
 	byteData := readData("./internal/scripts/seed/data/words.json")
 	if err := json.Unmarshal(byteData, &words); err != nil {
@@ -32,7 +32,7 @@ func seedWords(queries *db.Queries, ctx context.Context) {
 		log.Fatal("could not unmarshal word from json")
 	}
 	for i := 0; i < len(words); i++ {
-		putWordParam := db.AddWordParams{
+		putWordParam := generated.AddWordParams{
 			En:     words[i].En,
 			Pl:     words[i].Pl,
 			Author: "default",

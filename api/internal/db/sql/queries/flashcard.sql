@@ -42,3 +42,19 @@ SELECT *
 FROM words_flashcards
 WHERE word_id = @word_id
   AND flashcard_id = @flashcard_id;
+
+-- name: DeleteWordsFlashcardByFlashcardId :exec
+DELETE
+FROM words_flashcards
+WHERE words_flashcards.flashcard_id = @flashcard_id;
+
+-- name: DeleteWordsFlashcardByWordId :exec
+DELETE
+FROM words_flashcards
+WHERE words_flashcards.word_id = @word_id;
+
+-- name: GetWordsByFlashcardId :many
+SELECT words.id, words.pl, words.en, words.author, words.created_at, words.updated_at
+FROM words
+         INNER JOIN words_flashcards ON words.id = words_flashcards.word_id
+WHERE words_flashcards.flashcard_id = @flashcard_id::integer;

@@ -23,8 +23,14 @@ LIMIT sqlc.arg(page_size) OFFSET sqlc.arg(page_offset);
 INSERT INTO words("en", "pl", "author")
 VALUES (@en, @pl, @author::text);
 
--- name: GetWordsByFlashcardId :many
+-- name: GetWordById :one
 SELECT words.id, words.pl, words.en, words.author, words.created_at, words.updated_at
 FROM words
-         INNER JOIN words_flashcards ON words.id = words_flashcards.word_id
-WHERE words_flashcards.flashcard_id = @flashcard_id::integer;
+where words.id = @word_id;
+
+-- name: DeleteWord :exec
+DELETE
+FROM words
+WHERE words.id = @word_id;
+
+

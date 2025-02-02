@@ -7,9 +7,12 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
+	"github.com/pawelataman/hello-word/internal/config"
 	"github.com/pawelataman/hello-word/internal/db"
+	"github.com/pawelataman/hello-word/internal/db/generated"
 	"github.com/pawelataman/hello-word/internal/handlers"
 	"github.com/pawelataman/hello-word/internal/middleware"
+	"github.com/pawelataman/hello-word/internal/repository"
 	"github.com/pawelataman/hello-word/internal/server"
 	"github.com/pawelataman/hello-word/internal/services"
 	"github.com/pawelataman/hello-word/internal/validation"
@@ -19,44 +22,61 @@ import (
 
 func main() {
 	_ = godotenv.Load()
-
 	ctx := context.Background()
 
-	if err := db.InitDbConnection(ctx); err != nil {
+	appConfig := config.NewAppConfig(config.WithDSN(os.Getenv("DB_URL")), config.WithMaxConnections(4))
+
+	pool, err := db.CreateDbConnection(ctx, appConfig)
+	queries := generated.New(pool)
+	transactionManager := db.NewTransactionManager(pool)
+
+	if err != nil {
 		log.Fatal("could not init db connection", err)
+		return
 	}
 
-	defer dispose(ctx)
+	app, err := Setup(transactionManager, queries)
 
-	initServices()
-	validation.InitTranslator()
-	initClerk()
-
-	app := server.New()
-
-	app.Use(logger.New())
-	app.Use(middleware.HandleErrorMiddleware)
-	app.Use(adaptor.HTTPMiddleware(http.WithHeaderAuthorization()))
-	app.Use(middleware.AuthMiddleware)
-
-	handlers.RegisterDictionaryHandler(app)
-	handlers.RegisterQuizHandlers(app)
-	handlers.RegisterFlashcardsHandler(app)
+	if err != nil {
+		log.Fatal(err.Error())
+		return
+	}
+	defer func() {
+		db.DisposeConnection(pool)
+	}()
 
 	log.Println("Server is listening on port :3000")
 	log.Fatal(app.Listen(":3000"))
 }
 
-func initServices() {
-	services.QuizService = services.NewQuizServiceImpl()
-	services.WordsService = services.NewWordsService()
-	services.FlashcardService = services.NewFlashcardService()
-}
+func Setup(tm db.ITransactionManager, queries *generated.Queries) (*server.Server, error) {
 
-func initClerk() {
+	validation.InitTranslator()
 	clerk.SetKey(os.Getenv("CLERK_SECRET_KEY"))
-}
 
-func dispose(ctx context.Context) {
-	db.DisposeConnection()
+	app := server.New()
+	app.Use(logger.New())
+	app.Use(middleware.HandleErrorMiddleware)
+	app.Use(adaptor.HTTPMiddleware(http.WithHeaderAuthorization()))
+	app.Use(middleware.AuthMiddleware)
+
+	quizRepository := repository.NewQuizRepository(queries)
+	flashcardsRepository := repository.NewFlashcardsRepository(queries)
+	wordsRepository := repository.NewWordsRepository(queries)
+
+	services.QuizService = services.NewQuizServiceImpl(quizRepository)
+	services.WordsService = services.NewWordsService(&services.WordServiceParams{
+		Repository:    wordsRepository,
+		FlashcardRepo: flashcardsRepository,
+	})
+	services.FlashcardService = services.NewFlashcardService(&services.FlashcardServiceParams{
+		Transactioner: tm,
+		Repository:    flashcardsRepository,
+	})
+
+	handlers.RegisterDictionaryHandler(app)
+	handlers.RegisterQuizHandlers(app)
+	handlers.RegisterFlashcardsHandler(app)
+
+	return app, nil
 }

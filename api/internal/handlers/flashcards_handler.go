@@ -22,19 +22,16 @@ func RegisterFlashcardsHandler(router fiber.Router) {
 }
 
 func handleAssignFlashcardWords(ctx *fiber.Ctx) error {
-	flashcardId, err := ctx.ParamsInt("id", 0)
+	flashcardId, err := ctx.ParamsInt("id")
 	if err != nil {
-		slog.Error(err.Error())
-		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+		return api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf(api_errors.InvalidId))
 	}
 
 	var body models.AssignFlashcardWordsRequest
 	if err = ctx.BodyParser(&body); err != nil {
-		slog.Error(err.Error())
-		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+		return api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf(api_errors.InvalidBody))
 	}
 	if err = services.FlashcardService.AssignFlashcardWords(ctx.Context(), body.WordsIds, flashcardId); err != nil {
-		slog.Error(err.Error())
 		return err
 	}
 	return nil

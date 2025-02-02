@@ -1,6 +1,9 @@
 package handlers
 
 import (
+	"fmt"
+	"log/slog"
+
 	"github.com/go-playground/mold/v4/modifiers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/pawelataman/hello-word/internal/api_errors"
@@ -8,7 +11,6 @@ import (
 	"github.com/pawelataman/hello-word/internal/data/models"
 	"github.com/pawelataman/hello-word/internal/services"
 	"github.com/pawelataman/hello-word/internal/validation"
-	"log/slog"
 )
 
 var (
@@ -19,7 +21,18 @@ func RegisterDictionaryHandler(router fiber.Router) {
 	app := router.Group("/dictionary")
 	app.Get("/words", handleGetDictionaryWords)
 	app.Post("/words", handleCreateDictionaryWords)
+	app.Delete("/words/:id", handleDeleteDictionaryWord)
+}
 
+func handleDeleteDictionaryWord(ctx *fiber.Ctx) error {
+	wordId, err := ctx.ParamsInt("id")
+
+	if err != nil {
+		slog.Error(err.Error())
+		return api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf(api_errors.InvalidId))
+	}
+	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
+	return services.WordsService.DeleteWord(ctx.Context(), wordId, userSubject.EmailAddress)
 }
 
 func handleGetDictionaryWords(ctx *fiber.Ctx) error {
