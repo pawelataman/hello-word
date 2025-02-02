@@ -23,6 +23,13 @@ func NewQuizServiceImpl(quizRepository repository.IQuizRepository) *QuizServiceI
 }
 
 func (qs *QuizServiceImpl) CreateQuiz(ctx *fiber.Ctx, questionsQty int) (models.Quiz, error) {
+
+	defer func() {
+		if err := recover(); err != nil {
+			panic(fmt.Errorf("could not create quiz: %w", err))
+		}
+	}()
+
 	const answersPerQuestion = 4
 	words, err := qs.repository.GetQuizQuestions(ctx.Context(), int32(questionsQty))
 	if err != nil {

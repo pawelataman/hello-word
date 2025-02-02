@@ -7,6 +7,17 @@ import (
 )
 
 func HandleErrorMiddleware(c *fiber.Ctx) error {
+
+	defer func() {
+		if err := recover(); err != nil {
+			if er, ok := err.(error); ok {
+				slog.Error(er.Error())
+			}
+			_ = c.SendStatus(fiber.StatusInternalServerError)
+		}
+
+	}()
+
 	if err := c.Next(); err != nil {
 		if e, ok := err.(api_errors.ApiError); ok {
 			return c.Status(e.Code).JSON(e)

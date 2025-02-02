@@ -1,4 +1,4 @@
-package main
+package seed
 
 import (
 	"context"
@@ -7,12 +7,11 @@ import (
 	"github.com/pawelataman/hello-word/internal/config"
 	"github.com/pawelataman/hello-word/internal/db"
 	"github.com/pawelataman/hello-word/internal/db/generated"
-	"github.com/pawelataman/hello-word/internal/scripts/seed"
 	"log"
 	"os"
 )
 
-func main() {
+func Seed() {
 	ctx := context.Background()
 	err := godotenv.Load()
 	if err != nil {
@@ -29,7 +28,7 @@ func main() {
 	defer pool.Close()
 
 	queries := generated.New(pool)
-	seeder := seed.New(queries)
+	seeder := New(queries)
 
 	seeder.Seed(ctx)
 }
