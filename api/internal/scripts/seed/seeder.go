@@ -37,7 +37,7 @@ func seedWords(queries *generated.Queries, ctx context.Context) {
 			Pl:     words[i].Pl,
 			Author: "default",
 		}
-		if err := queries.AddWord(ctx, putWordParam); err != nil {
+		if _, err := queries.AddWord(ctx, putWordParam); err != nil {
 			fmt.Println("Could not insert record,", err)
 		}
 	}
