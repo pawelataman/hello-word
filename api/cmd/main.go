@@ -68,6 +68,7 @@ func Setup(tm db.ITransactionManager, queries *generated.Queries) (*server.Serve
 	services.WordsService = services.NewWordsService(&services.WordServiceParams{
 		Repository:    wordsRepository,
 		FlashcardRepo: flashcardsRepository,
+		Transactioner: tm,
 	})
 	services.FlashcardService = services.NewFlashcardService(&services.FlashcardServiceParams{
 		Transactioner: tm,

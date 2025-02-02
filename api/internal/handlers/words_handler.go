@@ -69,10 +69,10 @@ func handleCreateDictionaryWords(ctx *fiber.Ctx) error {
 		return api_errors.InvalidReqDataErr(validationErrors)
 	}
 	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
-	err = services.WordsService.AddWords(ctx.Context(), createWordsReqBody.Words, userSubject.EmailAddress)
+	createdWords, err := services.WordsService.AddWords(ctx.Context(), createWordsReqBody.Words, userSubject.EmailAddress)
 	if err != nil {
 		slog.Error(err.Error())
 		return err
 	}
-	return nil
+	return ctx.Status(fiber.StatusCreated).JSON(createdWords)
 }

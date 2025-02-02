@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/jackc/pgx/v5"
 	"github.com/pawelataman/hello-word/internal/api_errors"
 	"github.com/pawelataman/hello-word/internal/data/models"
+	"github.com/pawelataman/hello-word/internal/db"
 	"github.com/pawelataman/hello-word/internal/db/generated"
 	"github.com/pawelataman/hello-word/internal/repository"
 	"github.com/valyala/fasthttp"
@@ -20,17 +22,20 @@ var (
 type WordsServiceImpl struct {
 	repository    repository.IWordsRepository
 	flashcardRepo repository.IFlashcardsRepository
+	transactioner db.ITransactionManager
 }
 
 type WordServiceParams struct {
 	Repository    repository.IWordsRepository
 	FlashcardRepo repository.IFlashcardsRepository
+	Transactioner db.ITransactionManager
 }
 
 func NewWordsService(params *WordServiceParams) *WordsServiceImpl {
 	return &WordsServiceImpl{
 		repository:    params.Repository,
 		flashcardRepo: params.FlashcardRepo,
+		transactioner: params.Transactioner,
 	}
 }
 
@@ -83,21 +88,35 @@ func (ds *WordsServiceImpl) GetAllWords(ctx context.Context, params models.GetAl
 
 }
 
-func (ds *WordsServiceImpl) AddWords(ctx context.Context, words []models.CreateWord, author string) error {
+func (ds *WordsServiceImpl) AddWords(ctx context.Context, words []models.CreateWord, author string) ([]models.Word, error) {
 
-	for _, word := range words {
-		addWordParams := generated.AddWordParams{
-			Pl:     word.Pl,
-			En:     word.En,
-			Author: author,
+	createdWords := make([]models.Word, len(words))
+
+	if err := ds.transactioner.CreateTransaction(ctx).Execute(ctx, func(tx pgx.Tx) error {
+		for index, word := range words {
+			addWordParams := generated.AddWordParams{
+				Pl:     word.Pl,
+				En:     word.En,
+				Author: author,
+			}
+			createdWord, err := ds.repository.AddWord(ctx, addWordParams)
+			if err != nil {
+				return err
+			}
+			createdWords[index] = models.Word{
+				ID:        createdWord.ID,
+				En:        createdWord.En,
+				Pl:        createdWord.Pl,
+				Author:    createdWord.Author,
+				CreatedAt: createdWord.CreatedAt.Time,
+				UpdatedAt: createdWord.UpdatedAt.Time,
+			}
 		}
-		err := ds.repository.AddWord(ctx, addWordParams)
-		if err != nil {
-			return err
-		}
+		return nil
+	}); err != nil {
+		return nil, err
 	}
-
-	return nil
+	return createdWords, nil
 }
 
 func (ds *WordsServiceImpl) DeleteWord(ctx *fasthttp.RequestCtx, id int, user string) error {

@@ -9,7 +9,7 @@ import (
 )
 
 type Querier interface {
-	AddWord(ctx context.Context, arg AddWordParams) error
+	AddWord(ctx context.Context, arg AddWordParams) (Word, error)
 	AssignFlashcardsWords(ctx context.Context, arg AssignFlashcardsWordsParams) error
 	CheckWordExistsInFlashcard(ctx context.Context, arg CheckWordExistsInFlashcardParams) (WordsFlashcard, error)
 	CreateFlashcard(ctx context.Context, arg CreateFlashcardParams) (Flashcard, error)

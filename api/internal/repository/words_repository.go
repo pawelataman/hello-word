@@ -8,7 +8,7 @@ import (
 
 type IWordsRepository interface {
 	GetAllWords(ctx context.Context, arg generated.GetAllWordsParams) ([]generated.GetAllWordsRow, error)
-	AddWord(ctx context.Context, arg generated.AddWordParams) error
+	AddWord(ctx context.Context, arg generated.AddWordParams) (generated.Word, error)
 	GetWordById(ctx context.Context, wordID int32) (generated.GetWordByIdRow, error)
 	DeleteWord(ctx context.Context, wordID int32) error
 

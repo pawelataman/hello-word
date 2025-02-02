@@ -40,7 +40,7 @@ VALUES ($1, $2);
 -- name: CheckWordExistsInFlashcard :one
 SELECT *
 FROM words_flashcards
-WHERE word_id = @word_id
+WHERE word_id = ANY (@words_ids::int[])
   AND flashcard_id = @flashcard_id;
 
 -- name: DeleteWordsFlashcardByFlashcardId :exec

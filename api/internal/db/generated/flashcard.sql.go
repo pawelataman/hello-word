@@ -29,17 +29,17 @@ func (q *Queries) AssignFlashcardsWords(ctx context.Context, arg AssignFlashcard
 const checkWordExistsInFlashcard = `-- name: CheckWordExistsInFlashcard :one
 SELECT word_id, flashcard_id, created_at
 FROM words_flashcards
-WHERE word_id = $1
+WHERE word_id = ANY ($1::int[])
   AND flashcard_id = $2
 `
 
 type CheckWordExistsInFlashcardParams struct {
-	WordID      int32
+	WordsIds    []int32
 	FlashcardID int32
 }
 
 func (q *Queries) CheckWordExistsInFlashcard(ctx context.Context, arg CheckWordExistsInFlashcardParams) (WordsFlashcard, error) {
-	row := q.db.QueryRow(ctx, checkWordExistsInFlashcard, arg.WordID, arg.FlashcardID)
+	row := q.db.QueryRow(ctx, checkWordExistsInFlashcard, arg.WordsIds, arg.FlashcardID)
 	var i WordsFlashcard
 	err := row.Scan(&i.WordID, &i.FlashcardID, &i.CreatedAt)
 	return i, err

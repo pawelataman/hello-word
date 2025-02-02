@@ -11,9 +11,10 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const addWord = `-- name: AddWord :exec
+const addWord = `-- name: AddWord :one
 INSERT INTO words("en", "pl", "author")
 VALUES ($1, $2, $3::text)
+RETURNING id, en, pl, author, created_at, updated_at
 `
 
 type AddWordParams struct {
@@ -22,9 +23,18 @@ type AddWordParams struct {
 	Author string
 }
 
-func (q *Queries) AddWord(ctx context.Context, arg AddWordParams) error {
-	_, err := q.db.Exec(ctx, addWord, arg.En, arg.Pl, arg.Author)
-	return err
+func (q *Queries) AddWord(ctx context.Context, arg AddWordParams) (Word, error) {
+	row := q.db.QueryRow(ctx, addWord, arg.En, arg.Pl, arg.Author)
+	var i Word
+	err := row.Scan(
+		&i.ID,
+		&i.En,
+		&i.Pl,
+		&i.Author,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
 }
 
 const deleteWord = `-- name: DeleteWord :exec

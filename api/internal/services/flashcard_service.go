@@ -119,15 +119,20 @@ func (ds *FlashcardServiceImpl) DeleteFlashcard(ctx context.Context, id int, aut
 }
 
 func (ds *FlashcardServiceImpl) AssignFlashcardWords(ctx context.Context, wordsIds []int, flashcardId int) error {
-	tx := ds.transactioner.CreateTransaction(ctx)
-	return tx.Execute(ctx, func(tx pgx.Tx) error {
-		for _, wordId := range wordsIds {
-			_, err := ds.repository.Transactional(tx).CheckWordExistsInFlashcard(ctx,
-				generated.CheckWordExistsInFlashcardParams{WordID: int32(wordId), FlashcardID: int32(flashcardId)})
-			if err == nil {
-				return api_errors.NewApiErr(fiber.StatusConflict, fmt.Errorf(api_errors.WordAlreadyAssignedToFlashcard))
-			}
-			params := generated.AssignFlashcardsWordsParams{FlashcardID: int32(flashcardId), WordID: int32(wordId)}
+	ids := make([]int32, len(wordsIds))
+
+	for index, id := range wordsIds {
+		ids[index] = int32(id)
+	}
+	_, err := ds.repository.CheckWordExistsInFlashcard(ctx,
+		generated.CheckWordExistsInFlashcardParams{WordsIds: ids, FlashcardID: int32(flashcardId)})
+	if err == nil {
+		return api_errors.NewApiErr(fiber.StatusConflict, fmt.Errorf(api_errors.WordAlreadyAssignedToFlashcard))
+	}
+
+	return ds.transactioner.CreateTransaction(ctx).Execute(ctx, func(tx pgx.Tx) error {
+		for _, wordId := range ids {
+			params := generated.AssignFlashcardsWordsParams{FlashcardID: int32(flashcardId), WordID: wordId}
 			err = ds.repository.Transactional(tx).AssignFlashcardsWords(ctx, params)
 			if err != nil {
 				return fmt.Errorf("error in assignFlashcardsWords: %w", err)

@@ -19,9 +19,10 @@ ORDER BY CASE
              END
 LIMIT sqlc.arg(page_size) OFFSET sqlc.arg(page_offset);
 
--- name: AddWord :exec
+-- name: AddWord :one
 INSERT INTO words("en", "pl", "author")
-VALUES (@en, @pl, @author::text);
+VALUES (@en, @pl, @author::text)
+RETURNING *;
 
 -- name: GetWordById :one
 SELECT words.id, words.pl, words.en, words.author, words.created_at, words.updated_at
