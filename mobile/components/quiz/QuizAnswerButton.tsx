@@ -1,9 +1,9 @@
-import { GestureResponderEvent, Pressable, Text } from 'react-native';
-import { useMemo } from 'react';
+import { Word } from '@/core/api/models/quiz';
+import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
 import { HighlightMode } from '@/core/models/models';
 import { useQuizStore } from '@/core/state/quiz.state';
-import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
-import { Word } from '@/core/api/models/quiz';
+import { useMemo } from 'react';
+import { GestureResponderEvent, Pressable, Text } from 'react-native';
 
 interface AnswerButtonProps {
 	onPress: (ev: GestureResponderEvent) => void;
@@ -11,7 +11,7 @@ interface AnswerButtonProps {
 	index: number;
 }
 
-export default function({ onPress, answer, index }: AnswerButtonProps) {
+export default function ({ onPress, answer, index }: AnswerButtonProps) {
 	const { getAnswerLabel } = useQuizTranslation();
 	const { questionIndex, answeredQuestions, currentQuestionStatus, answeringEnabled } = useQuizStore();
 
@@ -26,7 +26,6 @@ export default function({ onPress, answer, index }: AnswerButtonProps) {
 		if ((answeredQuestion.userAnswer as Word).id === answer.id && answer.id !== answeredQuestion.question.id) {
 			return 'incorrect';
 		}
-
 
 		return 'idle';
 
@@ -46,7 +45,6 @@ export default function({ onPress, answer, index }: AnswerButtonProps) {
 			return `bg-red-500 border-2 border-red-500`;
 		}
 
-		const defaultStyle = 'bg-gray-50 border-2 border-gray-200';
 		if (disabled) {
 			return defaultStyle.concat(' opacity-40');
 		}

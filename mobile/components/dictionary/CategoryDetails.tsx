@@ -1,8 +1,9 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { useClient } from '@/core/hooks/useClient';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import DictionaryItem from '@/components/dictionary/DictionaryItem';
 import Person from '@/assets/images/icons/person.svg';
+import { useContext } from 'react';
+import { HttpClientContext } from '@/core/context/client-context';
 
 interface CategoryDetailsProps {
 	id: number;
@@ -10,7 +11,7 @@ interface CategoryDetailsProps {
 
 export default function({ id }: CategoryDetailsProps) {
 
-	const { getDictionaryCategoryDetails } = useClient();
+	const { getDictionaryCategoryDetails } = useContext(HttpClientContext)!;
 	const { data } = useSuspenseQuery({
 		queryKey: ['category-details', id],
 		queryFn: () => getDictionaryCategoryDetails(id),
@@ -31,7 +32,7 @@ export default function({ id }: CategoryDetailsProps) {
 
 							  <Text className={'text-lg font-bold'}>{item['pl']}</Text>
 							  <Text className={'text-lg text-gray-500'}>{item['en']}</Text>
-						
+
 						  </DictionaryItem>}
 						  onEndReachedThreshold={.2}></FlatList>
 			</View>

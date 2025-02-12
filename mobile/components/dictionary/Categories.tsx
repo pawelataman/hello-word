@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { useClient } from '@/core/hooks/useClient';
 import DictionaryItem from '@/components/dictionary/DictionaryItem';
 import { useRouter } from 'expo-router';
 import AppButton from '@/components/ui/AppButton';
 import AddCategory from '@/components/dictionary/AddCategory';
+import { HttpClientContext } from '@/core/context/client-context';
 
 export default function Categories() {
 	const router = useRouter();
-	const { getDictionaryCategories } = useClient();
+	const { getDictionaryCategories } = useContext(HttpClientContext)!;
 	const { data } = useQuery({
 		queryKey: ['categories'],
 		queryFn: () => getDictionaryCategories(),
