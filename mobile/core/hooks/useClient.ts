@@ -15,7 +15,8 @@ import {
   GetDictionaryWordsParams,
   GetDictionaryWordsResponse,
 } from "@/core/api/models/dictionary";
-import { HttpClient, HttpError } from "@/core/api/http-client";
+import { HttpClient } from "@/core/api/http-client";
+import { ApiError } from "@/core/models/error";
 
 export const useClient = (): HttpClient => {
   const { getToken } = useAuth();
@@ -47,20 +48,17 @@ export const useClient = (): HttpClient => {
   const request = async (options: AxiosRequestConfig) => {
     const onSuccess = (response: AxiosResponse) => {
       const { data } = response;
-      console.log("on success", data);
       return data;
     };
 
-    const onError = function (
-      error: AxiosError<HttpError>,
-    ): Promise<HttpError> {
-      console.log("error", error.code);
+    const onError = function (error: AxiosError<ApiError>): Promise<ApiError> {
       if (error.response) {
         return Promise.reject({
           message: error.response.data.message,
-          statusCode: error.response.data.statusCode,
+          statusCode: error.response.status,
         });
       }
+
       return Promise.reject({
         message: error.message,
         statusCode: error.code,

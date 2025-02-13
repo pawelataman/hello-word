@@ -15,3 +15,9 @@ export interface QuizConfig {
   availableModes: QuizMode[];
   playbackQuestion: boolean;
 }
+
+export interface CreateWord {
+  en: string;
+  pl: string;
+  id: string;
+}

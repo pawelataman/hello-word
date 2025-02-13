@@ -27,8 +27,3 @@ export interface HttpClient {
 
   postCreateWord(data: CreateWordsRequest): Promise<DictionaryWord[]>;
 }
-
-export type HttpError = {
-  message: string | { [key: string]: string };
-  statusCode: number;
-};

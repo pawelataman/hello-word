@@ -26,13 +26,13 @@ func NewQuizServiceImpl(quizRepository repository.IQuizRepository) *QuizServiceI
 func (qs *QuizServiceImpl) CreateQuiz(ctx *fiber.Ctx, questionsQty int) (models.Quiz, error) {
 
 	const answersPerQuestion = 4
-	words, err := qs.repository.GetQuizQuestions(ctx.Context(), int32(questionsQty))
+	words, err := qs.repository.GetQuizQuestions(ctx.Context(), int32(questionsQty*answersPerQuestion))
 	if err != nil {
 		fmt.Println(err)
 		return models.Quiz{}, err
 	}
 
-	if len(words) < questionsQty {
+	if len(words) < questionsQty*answersPerQuestion {
 		return models.Quiz{}, api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf(api_errors.InsufficientWordQty))
 	}
 
