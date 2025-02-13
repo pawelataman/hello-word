@@ -1,7 +1,12 @@
 import Dictionary from "@/components/dictionary/Dictionary";
 import { Stack, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
-import { TouchableOpacity, useWindowDimensions, View } from "react-native";
+import {
+  SafeAreaView,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import {
   SceneMap,
   TabBar,
@@ -39,34 +44,36 @@ export default function () {
   );
 
   return (
-    <View className="flex-1 relative bg-gray-200">
-      <Stack.Screen
-        options={{
-          title: "Słownik",
-          headerRight: headerRightButton,
-        }}
-      />
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        renderTabBar={(props) => (
-          <TabBar
-            {...props}
-            style={{ backgroundColor: "#f3f4f6" }}
-            activeColor={"#22c55e"}
-            indicatorStyle={{ backgroundColor: "#22c55e" }}
-            inactiveColor={"black"}
-            renderIndicator={(tabBarIndicatorProps) => (
-              <TabBarIndicator
-                {...tabBarIndicatorProps}
-                style={[tabBarIndicatorProps.style, { height: 3 }]}
-              />
-            )}
-          />
-        )}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-      />
-    </View>
+    <SafeAreaView className={"flex-1"}>
+      <View className="flex-1  relative ">
+        <Stack.Screen
+          options={{
+            title: "Słownik",
+            headerRight: headerRightButton,
+          }}
+        />
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          renderTabBar={(props) => (
+            <TabBar
+              {...props}
+              style={{ backgroundColor: "#f3f4f6" }}
+              activeColor={"#22c55e"}
+              indicatorStyle={{ backgroundColor: "#22c55e" }}
+              inactiveColor={"black"}
+              renderIndicator={(tabBarIndicatorProps) => (
+                <TabBarIndicator
+                  {...tabBarIndicatorProps}
+                  style={[tabBarIndicatorProps.style, { height: 3 }]}
+                />
+              )}
+            />
+          )}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+        />
+      </View>
+    </SafeAreaView>
   );
 }

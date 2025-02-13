@@ -16,16 +16,19 @@ import { LANG_CODE } from "@/core/constants/common";
 import DictionaryItem from "@/components/dictionary/DictionaryItem";
 import Search from "@/components/ui/inputs/Search";
 import { debounce } from "@/utils/timing";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import AppButton from "@/components/ui/AppButton";
 import { useRouter } from "expo-router";
 import { useRefetchOnFocus } from "@/core/hooks/useRefetchOnFocus";
+import { COLORS } from "@/core/constants/tailwind-colors";
+import { useUser } from "@clerk/clerk-expo";
 
 const PAGE_SIZE = 20;
 export default function () {
   const router = useRouter();
   const [ascending, setAscending] = useState(true);
   const [search, setSearch] = useState<string>("");
+  const { user } = useUser();
 
   const { getDictionaryWords } = useContext(HttpClientContext)!;
   const { data, fetchNextPage, isLoading, isRefetching, hasNextPage, refetch } =
@@ -58,6 +61,10 @@ export default function () {
 
   useRefetchOnFocus(refetch);
 
+  const currentUserEmail = useMemo(() => {
+    return user?.emailAddresses?.[0]?.emailAddress;
+  }, [user]);
+
   const dataFlattened = useMemo(() => {
     return data?.pages.flatMap((page) => page.records);
   }, [data]);
@@ -74,7 +81,7 @@ export default function () {
 
   return (
     <>
-      <View className={"p-2 gap-y-4"}>
+      <View className={"px-2 flex-1 gap-y-4"}>
         <View className={"flex-row gap-2 mt-4"}>
           <Search
             onChangeText={debounce(setSearch, 500)}
@@ -98,7 +105,17 @@ export default function () {
             data={dataFlattened}
             renderItem={({ item, index }) => (
               <View key={item.id}>
-                <DictionaryItem>
+                <DictionaryItem
+                  icon={
+                    item.author === currentUserEmail && (
+                      <AntDesign
+                        name={"user"}
+                        color={COLORS.gray["500"]}
+                        size={16}
+                      />
+                    )
+                  }
+                >
                   <Text className={"text-xl font-bold"}>{item["pl"]}</Text>
                   <Text className={"text-lg text-gray-500"}>{item["en"]}</Text>
                 </DictionaryItem>
