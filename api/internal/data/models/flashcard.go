@@ -8,6 +8,7 @@ type Flashcard struct {
 	Author    string    `json:"author"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
+	Color     string    `json:"color"`
 }
 
 type CreateFlashcardRequest struct {

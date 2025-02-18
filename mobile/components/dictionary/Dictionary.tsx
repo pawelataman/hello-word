@@ -81,11 +81,11 @@ export default function () {
 
   return (
     <>
-      <View className={"px-2 flex-1 gap-y-4"}>
+      <View className={"px-2 flex-1 gap-y-2"}>
         <View className={"flex-row gap-2 mt-4"}>
           <Search
             onChangeText={debounce(setSearch, 500)}
-            placeholder={"Wyszukaj"}
+            placeholder={"Wyszukaj słówka"}
           ></Search>
           <TouchableOpacity onPress={() => setAscending(!ascending)}>
             <MaterialCommunityIcons
@@ -101,32 +101,44 @@ export default function () {
           </TouchableOpacity>
         </View>
         {dataFlattened?.length ? (
-          <FlatList
-            data={dataFlattened}
-            renderItem={({ item, index }) => (
-              <View key={item.id}>
-                <DictionaryItem
-                  icon={
-                    item.author === currentUserEmail && (
-                      <AntDesign
-                        name={"user"}
-                        color={COLORS.gray["500"]}
-                        size={16}
-                      />
-                    )
-                  }
-                >
-                  <Text className={"text-xl font-bold"}>{item["pl"]}</Text>
-                  <Text className={"text-lg text-gray-500"}>{item["en"]}</Text>
-                </DictionaryItem>
-              </View>
-            )}
-            keyExtractor={(_, index) => index.toString()}
-            showsVerticalScrollIndicator={false}
-            onEndReached={onReachEnd}
-            onEndReachedThreshold={0.2}
-          />
+          <>
+            <FlatList
+              data={dataFlattened}
+              renderItem={({ item, index }) => (
+                <View key={item.id}>
+                  <DictionaryItem
+                    icon={
+                      item.author === currentUserEmail && (
+                        <AntDesign
+                          name={"user"}
+                          color={COLORS.gray["500"]}
+                          size={16}
+                        />
+                      )
+                    }
+                  >
+                    <Text className={"text-xl font-bold"}>{item["pl"]}</Text>
+                    <Text className={"text-lg text-gray-500"}>
+                      {item["en"]}
+                    </Text>
+                  </DictionaryItem>
+                </View>
+              )}
+              keyExtractor={(_, index) => index.toString()}
+              showsVerticalScrollIndicator={false}
+              onEndReached={onReachEnd}
+              onEndReachedThreshold={0.2}
+            />
+            <View className={"my-2"}>
+              <AppButton
+                variant={"primary"}
+                label={"Dodaj słówka +"}
+                onPress={navigateAddWords}
+              />
+            </View>
+          </>
         ) : null}
+
         {!isLoading && !dataFlattened?.length && (
           <View className={"items-center justify-center h-4/5"}>
             <Text className={"text-gray-500 font-semibold mb-4"}>
@@ -134,7 +146,7 @@ export default function () {
             </Text>
             <AppButton
               variant={"primary"}
-              label={"Dodaj nowe słówka +"}
+              label={"Dodaj słówka +"}
               onPress={navigateAddWords}
             />
           </View>

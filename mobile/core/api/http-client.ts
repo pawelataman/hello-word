@@ -9,6 +9,7 @@ import {
   GetDictionaryWordsParams,
   GetDictionaryWordsResponse,
 } from "@/core/api/models/dictionary";
+import { FlashcardBrief } from "@/core/api/models/flashcard";
 
 export interface HttpClient {
   getQuiz(numOfQuestions: number): Promise<QuizResponse>;
@@ -26,4 +27,6 @@ export interface HttpClient {
   ): Promise<CreateCategoryResponse>;
 
   postCreateWord(data: CreateWordsRequest): Promise<DictionaryWord[]>;
+
+  getFlashcards(): Promise<FlashcardBrief[]>;
 }

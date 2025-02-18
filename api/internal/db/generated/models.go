@@ -14,6 +14,7 @@ type Flashcard struct {
 	Author    string
 	CreatedAt pgtype.Timestamp
 	UpdatedAt pgtype.Timestamp
+	Color     string
 }
 
 type Word struct {

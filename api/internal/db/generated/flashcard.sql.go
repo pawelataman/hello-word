@@ -48,7 +48,7 @@ func (q *Queries) CheckWordExistsInFlashcard(ctx context.Context, arg CheckWordE
 const createFlashcard = `-- name: CreateFlashcard :one
 INSERT INTO flashcards("name", "author")
 VALUES ($1, $2)
-RETURNING id, name, author, created_at, updated_at
+RETURNING id, name, author, created_at, updated_at, color
 `
 
 type CreateFlashcardParams struct {
@@ -65,6 +65,7 @@ func (q *Queries) CreateFlashcard(ctx context.Context, arg CreateFlashcardParams
 		&i.Author,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Color,
 	)
 	return i, err
 }
@@ -103,7 +104,7 @@ func (q *Queries) DeleteWordsFlashcardByWordId(ctx context.Context, wordID int32
 }
 
 const getFlashcardById = `-- name: GetFlashcardById :one
-SELECT id, name, author, created_at, updated_at
+SELECT id, name, author, created_at, updated_at, color
 FROM flashcards
 WHERE flashcards.id = $1::integer
 `
@@ -117,12 +118,13 @@ func (q *Queries) GetFlashcardById(ctx context.Context, id int32) (Flashcard, er
 		&i.Author,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Color,
 	)
 	return i, err
 }
 
 const getFlashcardByName = `-- name: GetFlashcardByName :one
-SELECT id, name, author, created_at, updated_at
+SELECT id, name, author, created_at, updated_at, color
 FROM flashcards
 WHERE flashcards.name = $1
 `
@@ -136,12 +138,13 @@ func (q *Queries) GetFlashcardByName(ctx context.Context, name string) (Flashcar
 		&i.Author,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Color,
 	)
 	return i, err
 }
 
 const getFlashcards = `-- name: GetFlashcards :many
-SELECT id, name, author, created_at, updated_at
+SELECT id, name, author, created_at, updated_at, color
 FROM flashcards
 `
 
@@ -160,6 +163,7 @@ func (q *Queries) GetFlashcards(ctx context.Context) ([]Flashcard, error) {
 			&i.Author,
 			&i.CreatedAt,
 			&i.UpdatedAt,
+			&i.Color,
 		); err != nil {
 			return nil, err
 		}
@@ -172,7 +176,7 @@ func (q *Queries) GetFlashcards(ctx context.Context) ([]Flashcard, error) {
 }
 
 const getFlashcardsByAuthor = `-- name: GetFlashcardsByAuthor :many
-SELECT id, name, author, created_at, updated_at
+SELECT id, name, author, created_at, updated_at, color
 FROM flashcards
 where flashcards.author = $1
 `
@@ -192,6 +196,7 @@ func (q *Queries) GetFlashcardsByAuthor(ctx context.Context, author string) ([]F
 			&i.Author,
 			&i.CreatedAt,
 			&i.UpdatedAt,
+			&i.Color,
 		); err != nil {
 			return nil, err
 		}
@@ -250,7 +255,7 @@ const updateFlashcardName = `-- name: UpdateFlashcardName :one
 UPDATE flashcards
 SET "name" = $1
 WHERE flashcards.id = $2
-RETURNING id, name, author, created_at, updated_at
+RETURNING id, name, author, created_at, updated_at, color
 `
 
 type UpdateFlashcardNameParams struct {
@@ -267,6 +272,7 @@ func (q *Queries) UpdateFlashcardName(ctx context.Context, arg UpdateFlashcardNa
 		&i.Author,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Color,
 	)
 	return i, err
 }

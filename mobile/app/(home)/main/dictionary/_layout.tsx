@@ -4,7 +4,10 @@ export default function () {
   return (
     <Stack>
       <Stack.Screen name="index" />
-      <Stack.Screen name="flashcards" options={{ title: "" }} />
+      <Stack.Screen
+        name="new-flashcard"
+        options={{ title: "Dodaj fiszke", presentation: "modal" }}
+      />
       <Stack.Screen
         name="new-words"
         options={{

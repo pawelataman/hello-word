@@ -1,24 +1,18 @@
 import Dictionary from "@/components/dictionary/Dictionary";
-import { Stack, useRouter } from "expo-router";
-import { useCallback, useState } from "react";
-import {
-  SafeAreaView,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Stack } from "expo-router";
+import { useState } from "react";
+import { SafeAreaView, useWindowDimensions, View } from "react-native";
 import {
   SceneMap,
   TabBar,
   TabBarIndicator,
   TabView,
 } from "react-native-tab-view";
-import { NativeStackHeaderRightProps } from "@react-navigation/native-stack";
-import { Entypo } from "@expo/vector-icons";
+import Flashcards from "@/components/dictionary/Flashcards";
 
 const renderScene = SceneMap({
   dictionary: Dictionary,
-  flashcards: () => <View></View>,
+  flashcards: Flashcards,
 });
 
 const routes = [
@@ -28,20 +22,7 @@ const routes = [
 
 export default function () {
   const layout = useWindowDimensions();
-  const router = useRouter();
   const [index, setIndex] = useState(0);
-
-  const headerRightButton = useCallback(
-    (props: NativeStackHeaderRightProps) => (
-      <TouchableOpacity
-        className={" justify-center items-center text-center"}
-        onPress={() => router.navigate("/(home)/main/dictionary/new-words")}
-      >
-        <Entypo className={"mr-4"} size={24} name={"add-to-list"}></Entypo>
-      </TouchableOpacity>
-    ),
-    [],
-  );
 
   return (
     <SafeAreaView className={"flex-1"}>
@@ -49,7 +30,6 @@ export default function () {
         <Stack.Screen
           options={{
             title: "Słownik",
-            headerRight: headerRightButton,
           }}
         />
         <TabView

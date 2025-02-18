@@ -40,7 +40,7 @@ func (ds *FlashcardServiceImpl) GetFlashcards(ctx context.Context) ([]models.Fla
 	}
 	flashcards := make([]models.Flashcard, len(rows))
 	for index, row := range rows {
-		flashcards[index] = models.Flashcard{ID: row.ID, Name: row.Name, Author: row.Author, CreatedAt: row.CreatedAt.Time, UpdatedAt: row.UpdatedAt.Time}
+		flashcards[index] = models.Flashcard{ID: row.ID, Name: row.Name, Author: row.Author, CreatedAt: row.CreatedAt.Time, UpdatedAt: row.UpdatedAt.Time, Color: row.Color}
 	}
 	return flashcards, nil
 }
