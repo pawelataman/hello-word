@@ -7,13 +7,15 @@ import {
 } from "react-native";
 import { useController, useForm } from "react-hook-form";
 import RegularInput from "@/components/ui/inputs/RegularInput";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FlashcardColorPicker from "@/components/dictionary/FlashcardColorPicker";
 import FlashcardWords from "@/components/dictionary/FlashcardWords";
 import { DictionaryWord } from "@/core/api/models/dictionary";
 import AppButton from "@/components/ui/AppButton";
+import { useGlobalSearchParams } from "expo-router";
 
 export default function () {
+  const { selectedWords } = useGlobalSearchParams();
   const { control } = useForm();
   const { field: flashcardName } = useController({
     name: "flashcardName",
@@ -41,6 +43,11 @@ export default function () {
     setShowModal(false);
   };
 
+  // try create separate context/state for new flashcard
+
+  useEffect(() => {
+    console.log("seelected words", selectedWords);
+  }, [selectedWords]);
   return (
     <SafeAreaView className={"gap-4"}>
       <View className={"gap-4 p-4"}>
@@ -67,7 +74,7 @@ export default function () {
         <FlashcardWords words={flashcardWords} />
       </View>
       <AppButton
-        label={"Dodaj fiszke"}
+        label={"Zapisz fiszke"}
         variant={"primary"}
         className={"mx-4"}
         onPress={() => {}}

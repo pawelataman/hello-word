@@ -35,14 +35,14 @@ export default function () {
       {data && data.length ? (
         <>
           <FlatList
-            className={"  py-2"}
+            className={"py-2"}
             data={data}
             numColumns={3}
             renderItem={({ item }) => <FlashcardItem flashcard={item} />}
             keyExtractor={(flashcard, index) => flashcard.id.toString()}
             showsVerticalScrollIndicator={false}
           />
-          <View className={""}>
+          <View>
             <AppButton
               variant={"primary"}
               label={"Dodaj fiszkę +"}
@@ -53,11 +53,11 @@ export default function () {
       ) : (
         <View className={"items-center justify-center h-4/5"}>
           <Text className={"text-gray-500 font-semibold mb-4"}>
-            Nie znaleziono żadnych słówek
+            Nie znaleziono żadnych fiszek
           </Text>
           <AppButton
             variant={"primary"}
-            label={"Dodaj nowe słówka +"}
+            label={"Dodaj nowe fiszki +"}
             onPress={navigateAddFlashcards}
           />
         </View>

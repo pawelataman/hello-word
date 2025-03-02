@@ -9,6 +9,7 @@ import React, { useCallback, useContext, useMemo, useState } from "react";
 import { HttpClientContext } from "@/core/context/client-context";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import {
+  DictionaryWord,
   GetDictionaryWordsParams,
   GetDictionaryWordsResponse,
 } from "@/core/api/models/dictionary";
@@ -24,12 +25,23 @@ import { COLORS } from "@/core/constants/tailwind-colors";
 import { useUser } from "@clerk/clerk-expo";
 
 const PAGE_SIZE = 20;
-export default function () {
+interface DictionaryProps {
+  onSelectWord?: (word: DictionaryWord) => void;
+  selectedWords?: { [key: number]: DictionaryWord | null };
+  action?: {
+    label: string;
+    execute: () => void;
+  };
+}
+export default function ({
+  action,
+  onSelectWord,
+  selectedWords,
+}: DictionaryProps) {
   const router = useRouter();
   const [ascending, setAscending] = useState(true);
   const [search, setSearch] = useState<string>("");
   const { user } = useUser();
-
   const { getDictionaryWords } = useContext(HttpClientContext)!;
   const { data, fetchNextPage, isLoading, isRefetching, hasNextPage, refetch } =
     useInfiniteQuery<GetDictionaryWordsResponse>({
@@ -58,6 +70,12 @@ export default function () {
         return getDictionaryWords(params);
       },
     });
+
+  /*  const defaultProps: DictionaryProps = props{
+    onSelectWord: (word: DictionaryWord) => {},
+        action: { label: "Dodaj słówka +", onPress: () => {} },
+    selectedWords: new Map(),
+  };*/
 
   useRefetchOnFocus(refetch);
 
@@ -105,7 +123,10 @@ export default function () {
             <FlatList
               data={dataFlattened}
               renderItem={({ item, index }) => (
-                <View key={item.id}>
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() => onSelectWord?.(item)}
+                >
                   <DictionaryItem
                     icon={
                       item.author === currentUserEmail && (
@@ -116,13 +137,14 @@ export default function () {
                         />
                       )
                     }
+                    isSelected={Boolean(selectedWords?.[item.id])}
                   >
                     <Text className={"text-xl font-bold"}>{item["pl"]}</Text>
                     <Text className={"text-lg text-gray-500"}>
                       {item["en"]}
                     </Text>
                   </DictionaryItem>
-                </View>
+                </TouchableOpacity>
               )}
               keyExtractor={(_, index) => index.toString()}
               showsVerticalScrollIndicator={false}
@@ -132,8 +154,8 @@ export default function () {
             <View className={"my-2"}>
               <AppButton
                 variant={"primary"}
-                label={"Dodaj słówka +"}
-                onPress={navigateAddWords}
+                label={action?.label || "Dodaj słówka +"}
+                onPress={action?.execute || navigateAddWords}
               />
             </View>
           </>
@@ -146,8 +168,8 @@ export default function () {
             </Text>
             <AppButton
               variant={"primary"}
-              label={"Dodaj słówka +"}
-              onPress={navigateAddWords}
+              label={action?.label || "Dodaj słówka +"}
+              onPress={action?.execute || navigateAddWords}
             />
           </View>
         )}

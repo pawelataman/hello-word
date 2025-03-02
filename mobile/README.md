@@ -1,50 +1,143 @@
-# Welcome to your Expo app 👋
+# Słówka Madzi (Madzia's Words)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A comprehensive language learning application designed to help users master English and Polish vocabulary through interactive features like flashcards, quizzes, and daily word exercises.
 
-## Get started
+## 🌟 Features
 
-1. Install dependencies
+### 📚 Dictionary & Flashcards
+- **Comprehensive Dictionary**: Browse through an extensive collection of English-Polish word pairs
+- **Custom Flashcards**: Create and organize personalized flashcard collections
+- **Color Coding**: Customize flashcard colors for better organization
+- **Word Management**: Add, edit, and organize words in your personal dictionary
 
-   ```bash
-   npm install
-   ```
+### 🎯 Quiz System
+- **Multiple Quiz Modes**: Various learning modes to test and improve your vocabulary
+- **Bi-directional Learning**: Practice translations from English to Polish and vice versa
+- **Interactive Interface**: User-friendly quiz interface with immediate feedback
+- **Progress Tracking**: Monitor your learning progress over time
 
-2. Start the app
+### 📅 Daily Learning
+- **Word of the Day**: New word pairs presented daily
+- **Audio Pronunciation**: Listen to correct pronunciations in both languages
+- **Grammar Information**: Part of speech indicators for better understanding
+- **Visual Learning**: Clear visual representation with country flags for language indication
 
-   ```bash
-    npx expo start
-   ```
+## 🛠 Technical Stack
 
-In the output, you'll find options to open the app in a
+### Frontend (Mobile)
+- **Framework**: React Native with Expo
+- **Styling**: TailwindCSS (via NativeWind)
+- **State Management**: 
+  - Zustand for application state
+  - React Query for server state
+- **Navigation**: Expo Router
+- **Forms**: React Hook Form
+- **Authentication**: Clerk
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Backend
+- **Language**: Go (Golang)
+- **Database**: PostgreSQL
+- **Web Framework**: Fiber
+- **Migration Tool**: Goose
+- **Authentication**: Clerk SDK
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📱 Screenshots
+[Add screenshots here]
 
-## Get a fresh project
+## 🚀 Getting Started
 
-When you're ready, run:
+### Prerequisites
+- Node.js (v14 or higher)
+- Go (v1.16 or higher)
+- PostgreSQL
+- Expo CLI
 
+### Installation
+
+1. **Clone the repository**
 ```bash
-npm run reset-project
+git clone [repository-url]
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. **Frontend Setup**
+```bash
+cd mobile
+npm install
+```
 
-## Learn more
+3. **Backend Setup**
+```bash
+cd api
+go mod download
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+4. **Environment Setup**
+Create `.env` files in both `mobile` and `api` directories:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```env
+# mobile/.env
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
 
-## Join the community
+# api/.env
+DB_URL=postgresql://admin:password@localhost:5432/hello-word
+```
 
-Join our community of developers creating universal apps.
+5. **Database Setup**
+```bash
+cd api
+make upgrade
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Running the Application
+
+1. **Start the Backend**
+```bash
+cd api
+make run
+```
+
+2. **Start the Frontend**
+```bash
+cd mobile
+npm start
+```
+
+## 🔧 Development
+
+### Available Scripts
+
+#### Frontend
+- `npm start` - Start the Expo development server
+- `npm run ios` - Start the iOS simulator
+- `npm run android` - Start the Android emulator
+- `npm run web` - Start the web version
+- `npm test` - Run tests
+- `npm run lint` - Run linter
+
+#### Backend
+- `make run` - Run the server
+- `make build` - Build the application
+- `make migration` - Create a new database migration
+- `make upgrade` - Run database migrations
+- `make docker-dev` - Run development environment in Docker
+
+## 🤝 Contributing
+[Add contribution guidelines here]
+
+## 📄 License
+[Add license information here]
+
+## 👥 Authors
+[Add authors information here]
+
+## 🙏 Acknowledgments
+- Clerk for authentication
+- Expo team for the amazing mobile development framework
+- All contributors and supporters of the project
+
+## 📞 Contact
+[Add contact information here]
+
+---
+
+Made with ❤️ for language learners

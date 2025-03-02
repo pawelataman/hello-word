@@ -6,7 +6,7 @@ export default function () {
       <Stack.Screen name="index" />
       <Stack.Screen
         name="new-flashcard"
-        options={{ title: "Dodaj fiszke", presentation: "modal" }}
+        options={{ headerShown: false, presentation: "modal" }}
       />
       <Stack.Screen
         name="new-words"
