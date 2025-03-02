@@ -71,12 +71,6 @@ export default function ({
       },
     });
 
-  /*  const defaultProps: DictionaryProps = props{
-    onSelectWord: (word: DictionaryWord) => {},
-        action: { label: "Dodaj słówka +", onPress: () => {} },
-    selectedWords: new Map(),
-  };*/
-
   useRefetchOnFocus(refetch);
 
   const currentUserEmail = useMemo(() => {

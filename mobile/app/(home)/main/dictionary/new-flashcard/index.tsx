@@ -7,16 +7,18 @@ import {
 } from "react-native";
 import { useController, useForm } from "react-hook-form";
 import RegularInput from "@/components/ui/inputs/RegularInput";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import FlashcardColorPicker from "@/components/dictionary/FlashcardColorPicker";
 import FlashcardWords from "@/components/dictionary/FlashcardWords";
-import { DictionaryWord } from "@/core/api/models/dictionary";
 import AppButton from "@/components/ui/AppButton";
-import { useGlobalSearchParams } from "expo-router";
+import { NewFlashcardWordsContext } from "@/core/context/new-flashcard-words-context";
 
+interface FlashcardForm {
+  flashcardName: string;
+  flashcardColor: string;
+}
 export default function () {
-  const { selectedWords } = useGlobalSearchParams();
-  const { control } = useForm();
+  const { control, formState, handleSubmit } = useForm<FlashcardForm>();
   const { field: flashcardName } = useController({
     name: "flashcardName",
     control,
@@ -34,7 +36,7 @@ export default function () {
     },
     defaultValue: "#22c55e",
   });
-  const [flashcardWords, setFlashcardWord] = useState<DictionaryWord[]>([]);
+  const { selectedWordsArr } = useContext(NewFlashcardWordsContext)!;
   const [showModal, setShowModal] = useState(false);
   const onSelectColor = (newColor?: string) => {
     if (newColor) {
@@ -43,13 +45,21 @@ export default function () {
     setShowModal(false);
   };
 
-  // try create separate context/state for new flashcard
+  const isValid = useMemo(() => {
+    const wordsNotEmpty = selectedWordsArr.length > 0;
+    console.log("validate");
+    return wordsNotEmpty && formState.isValid;
+  }, [selectedWordsArr, formState]);
 
-  useEffect(() => {
-    console.log("seelected words", selectedWords);
-  }, [selectedWords]);
+  const onSubmitFlashcard = useCallback(
+    (data: FlashcardForm) => {
+      console.log(selectedWordsArr);
+    },
+    [selectedWordsArr],
+  );
+
   return (
-    <SafeAreaView className={"gap-4"}>
+    <SafeAreaView className={"h-full"}>
       <View className={"gap-4 p-4"}>
         <RegularInput
           value={flashcardName.value}
@@ -67,17 +77,15 @@ export default function () {
           />
         </View>
       </View>
-      <View className={"bg-white p-4 m-4 rounded-3xl gap-8"}>
-        <Text className={"text-center font-semibold text-xl"}>
-          Słówka ({flashcardWords.length})
-        </Text>
-        <FlashcardWords words={flashcardWords} />
+      <View className={"bg-gray-100 p-4 rounded-3xl gap-4 flex-1"}>
+        <FlashcardWords words={selectedWordsArr} />
       </View>
       <AppButton
         label={"Zapisz fiszke"}
         variant={"primary"}
         className={"mx-4"}
-        onPress={() => {}}
+        disabled={!isValid}
+        onPress={handleSubmit(onSubmitFlashcard)}
       ></AppButton>
 
       <Modal
