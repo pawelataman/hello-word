@@ -59,7 +59,7 @@ func handleCreateFlashcard(ctx *fiber.Ctx) error {
 		return api_errors.InvalidReqDataErr(validationErrors)
 	}
 	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
-	createdFlashcard, err := services.FlashcardService.AddFlashcard(ctx.Context(), body.FlashcardName, userSubject.EmailAddress)
+	createdFlashcard, err := services.FlashcardService.AddFlashcard(ctx.Context(), body.FlashcardName, body.FlashcardColor, body.WordsIds, userSubject.EmailAddress)
 	if err != nil {
 		return err
 	}

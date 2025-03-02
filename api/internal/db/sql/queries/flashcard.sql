@@ -18,8 +18,8 @@ FROM flashcards
 WHERE flashcards.name = @name;
 
 -- name: CreateFlashcard :one
-INSERT INTO flashcards("name", "author")
-VALUES (@name, @author)
+INSERT INTO flashcards("name", "author","color")
+VALUES (@name, @author, @color)
 RETURNING *;
 
 -- name: UpdateFlashcardName :one

@@ -45,7 +45,7 @@ func (ds *FlashcardServiceImpl) GetFlashcards(ctx context.Context) ([]models.Fla
 	return flashcards, nil
 }
 
-func (ds *FlashcardServiceImpl) AddFlashcard(ctx context.Context, name string, author string) (models.Flashcard, error) {
+func (ds *FlashcardServiceImpl) AddFlashcard(ctx context.Context, name string, color string, wordsIds []int, author string) (models.Flashcard, error) {
 	_, err := ds.repository.GetFlashcardByName(ctx, name)
 	if err == nil {
 		return models.Flashcard{}, api_errors.EntityExistsErr(api_errors.FlashcardAlreadyExists)
@@ -58,12 +58,19 @@ func (ds *FlashcardServiceImpl) AddFlashcard(ctx context.Context, name string, a
 	if err != nil {
 		return models.Flashcard{}, err
 	}
+
+	for _, wordId := range wordsIds {
+		params := generated.AssignFlashcardsWordsParams{FlashcardID: createdFlashcard.ID, WordID: int32(wordId)}
+		_ = ds.repository.AssignFlashcardsWords(ctx, params)
+	}
+
 	return models.Flashcard{
 		ID:        createdFlashcard.ID,
 		Name:      createdFlashcard.Name,
 		Author:    createdFlashcard.Author,
 		CreatedAt: createdFlashcard.CreatedAt.Time,
 		UpdatedAt: createdFlashcard.UpdatedAt.Time,
+		Color:     createdFlashcard.Color,
 	}, nil
 }
 

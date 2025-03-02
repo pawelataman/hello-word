@@ -12,7 +12,9 @@ type Flashcard struct {
 }
 
 type CreateFlashcardRequest struct {
-	FlashcardName string `json:"flashcardName" validate:"required,min=1,max=64" mod:"trim"`
+	FlashcardName  string `json:"flashcardName" validate:"required,min=1,max=64" mod:"trim"`
+	FlashcardColor string `json:"flashcardColor" validate:"required,min=7,max=9"`
+	WordsIds       []int  `json:"wordsIds"`
 }
 
 type GetFlashcardByIdResponse struct {
