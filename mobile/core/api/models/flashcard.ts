@@ -7,6 +7,7 @@ export interface FlashcardBrief {
   createdAt: Date;
   updatedAt: Date;
   color: string;
+  wordQty: number;
 }
 
 export interface FlashcardDetails extends FlashcardBrief {
@@ -14,5 +15,8 @@ export interface FlashcardDetails extends FlashcardBrief {
 }
 
 export interface CreateFlashcardRequest {
-  name: string;
+  flashcardName: string;
+  flashcardColor: string;
+  wordsIds: number[];
 }
+export interface CreateFlashcardResponse extends FlashcardBrief {}

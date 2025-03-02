@@ -9,6 +9,7 @@ type Flashcard struct {
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	Color     string    `json:"color"`
+	WordQty   int       `json:"wordQty"`
 }
 
 type CreateFlashcardRequest struct {

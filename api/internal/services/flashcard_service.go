@@ -40,7 +40,15 @@ func (ds *FlashcardServiceImpl) GetFlashcards(ctx context.Context) ([]models.Fla
 	}
 	flashcards := make([]models.Flashcard, len(rows))
 	for index, row := range rows {
-		flashcards[index] = models.Flashcard{ID: row.ID, Name: row.Name, Author: row.Author, CreatedAt: row.CreatedAt.Time, UpdatedAt: row.UpdatedAt.Time, Color: row.Color}
+
+		words, err := ds.repository.GetWordsByFlashcardId(ctx, row.ID)
+		wordQty := 0
+
+		if err == nil {
+			wordQty = len(words)
+		}
+
+		flashcards[index] = models.Flashcard{ID: row.ID, WordQty: wordQty, Name: row.Name, Author: row.Author, CreatedAt: row.CreatedAt.Time, UpdatedAt: row.UpdatedAt.Time, Color: row.Color}
 	}
 	return flashcards, nil
 }
@@ -53,6 +61,7 @@ func (ds *FlashcardServiceImpl) AddFlashcard(ctx context.Context, name string, c
 	createFlashcardParams := generated.CreateFlashcardParams{
 		Name:   name,
 		Author: author,
+		Color:  color,
 	}
 	createdFlashcard, err := ds.repository.CreateFlashcard(ctx, createFlashcardParams)
 	if err != nil {
@@ -64,6 +73,13 @@ func (ds *FlashcardServiceImpl) AddFlashcard(ctx context.Context, name string, c
 		_ = ds.repository.AssignFlashcardsWords(ctx, params)
 	}
 
+	words, err := ds.repository.GetWordsByFlashcardId(ctx, createdFlashcard.ID)
+	wordQty := 0
+
+	if err == nil {
+		wordQty = len(words)
+	}
+
 	return models.Flashcard{
 		ID:        createdFlashcard.ID,
 		Name:      createdFlashcard.Name,
@@ -71,6 +87,7 @@ func (ds *FlashcardServiceImpl) AddFlashcard(ctx context.Context, name string, c
 		CreatedAt: createdFlashcard.CreatedAt.Time,
 		UpdatedAt: createdFlashcard.UpdatedAt.Time,
 		Color:     createdFlashcard.Color,
+		WordQty:   wordQty,
 	}, nil
 }
 

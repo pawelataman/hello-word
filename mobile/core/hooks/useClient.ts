@@ -17,7 +17,11 @@ import {
 } from "@/core/api/models/dictionary";
 import { HttpClient } from "@/core/api/http-client";
 import { ApiError } from "@/core/models/error";
-import { FlashcardBrief } from "@/core/api/models/flashcard";
+import {
+  CreateFlashcardRequest,
+  CreateFlashcardResponse,
+  FlashcardBrief,
+} from "@/core/api/models/flashcard";
 
 export const useClient = (): HttpClient => {
   const { getToken } = useAuth();
@@ -117,6 +121,12 @@ export const useClient = (): HttpClient => {
       return request({
         url: "/flashcards",
       });
+    },
+
+    createFlashcard(
+      data: CreateFlashcardRequest,
+    ): Promise<CreateFlashcardResponse> {
+      return request({ url: "/flashcards", method: "POST", data });
     },
   };
 };

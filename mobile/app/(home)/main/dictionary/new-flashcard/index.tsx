@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Modal,
   SafeAreaView,
   Text,
@@ -12,6 +13,12 @@ import FlashcardColorPicker from "@/components/dictionary/FlashcardColorPicker";
 import FlashcardWords from "@/components/dictionary/FlashcardWords";
 import AppButton from "@/components/ui/AppButton";
 import { NewFlashcardWordsContext } from "@/core/context/new-flashcard-words-context";
+import { HttpClientContext } from "@/core/context/client-context";
+import { useMutation } from "@tanstack/react-query";
+import {
+  CreateFlashcardRequest,
+  CreateFlashcardResponse,
+} from "@/core/api/models/flashcard";
 
 interface FlashcardForm {
   flashcardName: string;
@@ -45,19 +52,27 @@ export default function () {
     setShowModal(false);
   };
 
-  const isValid = useMemo(() => {
-    const wordsNotEmpty = selectedWordsArr.length > 0;
-    console.log("validate");
-    return wordsNotEmpty && formState.isValid;
-  }, [selectedWordsArr, formState]);
+  const isValid = useMemo(() => formState.isValid, [formState]);
 
   const onSubmitFlashcard = useCallback(
     (data: FlashcardForm) => {
-      console.log(selectedWordsArr);
+      const request: CreateFlashcardRequest = {
+        flashcardColor: data.flashcardColor,
+        flashcardName: data.flashcardName,
+        wordsIds: selectedWordsArr.map((selectedWord) => selectedWord.id),
+      };
+      mutate(request);
     },
     [selectedWordsArr],
   );
 
+  const { createFlashcard } = useContext(HttpClientContext)!;
+  const { mutate, isPending } = useMutation({
+    mutationFn: createFlashcard,
+    onSuccess: (data: CreateFlashcardResponse) => {
+      console.log(data);
+    },
+  });
   return (
     <SafeAreaView className={"h-full"}>
       <View className={"gap-4 p-4"}>
@@ -98,6 +113,11 @@ export default function () {
           onSelectColor={onSelectColor}
         />
       </Modal>
+      {isPending ? (
+        <View className=" bg-gray-100/50 absolute top-0 bottom-0 left-0 right-0  h-full w-full items-center justify-center gap-4">
+          <ActivityIndicator size="small" color={"#22c55e"} />
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 }
