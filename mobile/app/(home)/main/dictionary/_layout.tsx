@@ -8,7 +8,7 @@ export default function () {
         name="flashcard"
         options={{ headerShown: false, presentation: "modal" }}
       />
-      s
+
       <Stack.Screen
         name="new-words"
         options={{

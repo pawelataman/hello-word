@@ -4,8 +4,8 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import DictionaryItem from "@/components/dictionary/DictionaryItem";
 import AppButton from "@/components/ui/AppButton";
 import { useRouter } from "expo-router";
-import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "@/core/constants/tailwind-colors";
+import { PencilSimple } from "phosphor-react-native";
 
 interface FlashcardWordsProps {
   words: DictionaryWord[];
@@ -28,15 +28,15 @@ export default function ({ words }: FlashcardWordsProps) {
             <TouchableOpacity
               onPress={navigateAddFlashcardWords}
               className={
-                "bg-white px-4 py-2 rounded-full flex-row gap-2 items-center"
+                "bg-green-500 px-4 py-2 rounded-xl flex-row gap-2 items-center"
               }
             >
-              <Text>Edytuj</Text>
-              <AntDesign
-                name={"edit"}
-                color={COLORS.green["500"]}
-                size={18}
-              ></AntDesign>
+              <Text className={"font-bold text-white"}>Edytuj słowa</Text>
+              <PencilSimple
+                weight={"bold"}
+                color={COLORS.white}
+                size={20}
+              ></PencilSimple>
             </TouchableOpacity>
           </View>
 

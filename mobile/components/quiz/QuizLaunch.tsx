@@ -1,33 +1,12 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { Language, QuizConfig, QuizMode } from "@/core/models/models";
-import { ReactNode, useMemo } from "react";
-import { QUIZ_CONFIG } from "@/core/constants/quiz";
-import Hear from "@/assets/images/icons/hear.svg";
-import ReadBook from "@/assets/images/icons/read-book.svg";
-import Pen from "@/assets/images/icons/pen.svg";
-import { COLORS } from "@/core/constants/tailwind-colors";
-
-const ICON_FOR_MODE: { [p in QuizMode]: { label: string; icon: ReactNode } } = {
-  hearing: {
-    icon: <Hear color={COLORS.white} width={48} height={48} />,
-    label: "Słuchanie",
-  },
-  reading: {
-    icon: <ReadBook color={COLORS.white} width={48} height={48} />,
-    label: "Czytanie",
-  },
-  writing: {
-    icon: <Pen color={COLORS.white} width={48} height={48} />,
-    label: "Pisanie",
-  },
-  none: { label: "Żaden", icon: null },
-};
+import { useMemo } from "react";
+import { ICON_FOR_MODE, QUIZ_CONFIG } from "@/core/constants/quiz";
 
 interface QuizLaunchProps {
   language: Language;
   onChange: (opt: { language: Language; mode: QuizMode }) => void;
 }
-
 export default function ({ language, onChange }: QuizLaunchProps) {
   const config: QuizConfig = useMemo(() => {
     return QUIZ_CONFIG[language.code];

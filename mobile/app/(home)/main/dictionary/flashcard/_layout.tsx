@@ -13,7 +13,6 @@ export default function () {
           name="add-flashcards-words"
           options={{ presentation: "modal", headerTitle: "Dodaj słówka" }}
         />
-        <Stack.Screen name="[id]" />
       </Stack>
     </NewFlashcardWordsContext.Provider>
   );

@@ -28,8 +28,8 @@ import {
   CreateFlashcardResponse,
 } from "@/core/api/models/flashcard";
 import { useToast } from "@/core/hooks/useToast";
-import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "@/core/constants/tailwind-colors";
+import { Trash } from "phosphor-react-native";
 
 interface FlashcardForm {
   flashcardName: string;
@@ -111,7 +111,7 @@ export default function FlashcardEditor() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteFlashcard,
-    onSuccess: () => router.back(),
+    onSuccess: () => router.navigate("/(home)/main/dictionary"),
     onError: (error) => {
       showToast("Nie udało się usunać fiszki", "error");
     },
@@ -184,11 +184,7 @@ export default function FlashcardEditor() {
             options={{
               headerRight: (params) => (
                 <TouchableOpacity onPress={onDeleteFlashcard}>
-                  <AntDesign
-                    name={"delete"}
-                    size={20}
-                    color={COLORS.gray["500"]}
-                  />
+                  <Trash weight={"bold"} size={24} color={COLORS.gray["500"]} />
                 </TouchableOpacity>
               ),
             }}

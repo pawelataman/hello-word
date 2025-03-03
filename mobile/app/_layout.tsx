@@ -27,7 +27,7 @@ function MainLayout() {
 
   return (
     <RootSiblingParent>
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      <GestureHandlerRootView style={{ flex: 1, zIndex: 999 }}>
         <PortalProvider>
           <AppLoader>
             <Stack>
