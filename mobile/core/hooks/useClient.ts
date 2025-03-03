@@ -145,9 +145,11 @@ export const useClient = (): HttpClient => {
         },
       });
     },
-
     getFlashcardDetails(id: number): Promise<FlashcardDetailsResponse> {
       return request({ url: `/flashcards/${id}`, method: "GET" });
+    },
+    deleteFlashcard(id: number): Promise<void> {
+      return request({ url: `/flashcards/${id}`, method: "DELETE" });
     },
   };
 };

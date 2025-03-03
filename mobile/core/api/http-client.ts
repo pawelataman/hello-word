@@ -46,4 +46,6 @@ export interface HttpClient {
   updateFlashcard(
     data: UpdateFlashcardRequest,
   ): Promise<UpdateFlashcardResponse>;
+
+  deleteFlashcard(id: number): Promise<void>;
 }

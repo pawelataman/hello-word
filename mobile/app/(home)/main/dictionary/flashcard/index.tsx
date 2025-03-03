@@ -1,13 +1,14 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   Modal,
   SafeAreaView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
 
 // Components
@@ -27,6 +28,8 @@ import {
   CreateFlashcardResponse,
 } from "@/core/api/models/flashcard";
 import { useToast } from "@/core/hooks/useToast";
+import { AntDesign } from "@expo/vector-icons";
+import { COLORS } from "@/core/constants/tailwind-colors";
 
 interface FlashcardForm {
   flashcardName: string;
@@ -48,7 +51,8 @@ export default function FlashcardEditor() {
   const { selectedWordsArr, setSelectedWordsArr } = useContext(
     NewFlashcardWordsContext,
   )!;
-  const { createFlashcard, updateFlashcard } = useContext(HttpClientContext)!;
+  const { createFlashcard, updateFlashcard, deleteFlashcard } =
+    useContext(HttpClientContext)!;
 
   useEffect(() => {
     if (existingFlashcard) {
@@ -105,9 +109,18 @@ export default function FlashcardEditor() {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: deleteFlashcard,
+    onSuccess: () => router.back(),
+    onError: (error) => {
+      showToast("Nie udało się usunać fiszki", "error");
+    },
+  });
+
   const isPending =
     createMutation.isPending ||
     updateMutation.isPending ||
+    deleteMutation.isPending ||
     isLoadExisingPending;
 
   const handleSubmitFlashcard = useCallback(() => {
@@ -156,8 +169,38 @@ export default function FlashcardEditor() {
     );
   }
 
+  const onDeleteFlashcard = useCallback(() => {
+    Alert.alert("Usuń fiszkę", "Czy na pewno chcesz usunąć tę fiszkę?", [
+      {
+        text: "Anuluj",
+        style: "cancel",
+      },
+      {
+        text: "Usuń",
+        onPress: () => deleteMutation.mutate(existingFlashcard!.id),
+      },
+    ]);
+  }, [existingFlashcard]);
+
   return (
     <SafeAreaView className="h-full">
+      {mode === "edit" ? (
+        <>
+          <Stack.Screen
+            options={{
+              headerRight: (params) => (
+                <TouchableOpacity onPress={onDeleteFlashcard}>
+                  <AntDesign
+                    name={"delete"}
+                    size={20}
+                    color={COLORS.gray["500"]}
+                  />
+                </TouchableOpacity>
+              ),
+            }}
+          />
+        </>
+      ) : null}
       <View className="gap-4 p-4">
         <RegularInput
           value={flashcardData.name}
