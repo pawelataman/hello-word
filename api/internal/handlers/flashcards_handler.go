@@ -16,9 +16,44 @@ func RegisterFlashcardsHandler(router fiber.Router) {
 	app := router.Group("/flashcards")
 	app.Get("/", handleGetFlashcards)
 	app.Post("/", handleCreateFlashcard)
+	app.Put("/:id", handleUpdateFlashcard)
 	app.Get("/:id", handleGetFlashcardById)
 	app.Delete("/:id", handleDeleteFlashcard)
 	app.Put("/:id/words", handleAssignFlashcardWords)
+}
+
+func handleUpdateFlashcard(ctx *fiber.Ctx) error {
+	idStr := ctx.Params("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		return api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf(api_errors.InvalidId))
+	}
+
+	var body models.UpdateFlashcardRequest
+	err = ctx.BodyParser(&body)
+	if err != nil {
+		slog.Error(err.Error())
+		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+	}
+
+	if err = conform.Struct(ctx.Context(), &body); err != nil {
+		slog.Error(err.Error())
+		return err
+	}
+
+	if validationErrors, ok := validation.ValidateStruct(body); !ok {
+		return api_errors.InvalidReqDataErr(validationErrors)
+	}
+
+	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
+	updatedFlashcard, err := services.FlashcardService.UpdateFlashcard(ctx.Context(), userSubject, body, id)
+
+	if err != nil {
+		slog.Error(err.Error())
+		return err
+	}
+
+	return ctx.JSON(updatedFlashcard)
 }
 
 func handleAssignFlashcardWords(ctx *fiber.Ctx) error {

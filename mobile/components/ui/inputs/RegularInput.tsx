@@ -1,5 +1,5 @@
 import { TextInput, TextInputProps } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ({
   placeholder,
@@ -11,6 +11,10 @@ export default function ({
 }: TextInputProps) {
   const [internalValue, setInternalValue] = useState(value);
   const [focus, setFocus] = useState(false);
+
+  useEffect(() => {
+    setInternalValue(value);
+  }, [value]);
 
   return (
     <TextInput

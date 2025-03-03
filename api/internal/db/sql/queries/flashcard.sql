@@ -22,9 +22,9 @@ INSERT INTO flashcards("name", "author","color")
 VALUES (@name, @author, @color)
 RETURNING *;
 
--- name: UpdateFlashcardName :one
+-- name: UpdateFlashcard :one
 UPDATE flashcards
-SET "name" = @name
+SET "name" = @name, "color" = @color, updated_at = CURRENT_TIMESTAMP
 WHERE flashcards.id = @id
 RETURNING *;
 

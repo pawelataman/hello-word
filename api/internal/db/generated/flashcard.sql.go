@@ -252,20 +252,21 @@ func (q *Queries) GetWordsByFlashcardId(ctx context.Context, flashcardID int32) 
 	return items, nil
 }
 
-const updateFlashcardName = `-- name: UpdateFlashcardName :one
+const updateFlashcard = `-- name: UpdateFlashcard :one
 UPDATE flashcards
-SET "name" = $1
-WHERE flashcards.id = $2
+SET "name" = $1, "color" = $2, updated_at = CURRENT_TIMESTAMP
+WHERE flashcards.id = $3
 RETURNING id, name, author, created_at, updated_at, color
 `
 
-type UpdateFlashcardNameParams struct {
-	Name string
-	ID   int32
+type UpdateFlashcardParams struct {
+	Name  string
+	Color string
+	ID    int32
 }
 
-func (q *Queries) UpdateFlashcardName(ctx context.Context, arg UpdateFlashcardNameParams) (Flashcard, error) {
-	row := q.db.QueryRow(ctx, updateFlashcardName, arg.Name, arg.ID)
+func (q *Queries) UpdateFlashcard(ctx context.Context, arg UpdateFlashcardParams) (Flashcard, error) {
+	row := q.db.QueryRow(ctx, updateFlashcard, arg.Name, arg.Color, arg.ID)
 	var i Flashcard
 	err := row.Scan(
 		&i.ID,

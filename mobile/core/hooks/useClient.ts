@@ -21,6 +21,9 @@ import {
   CreateFlashcardRequest,
   CreateFlashcardResponse,
   FlashcardBrief,
+  FlashcardDetailsResponse,
+  UpdateFlashcardRequest,
+  UpdateFlashcardResponse,
 } from "@/core/api/models/flashcard";
 
 export const useClient = (): HttpClient => {
@@ -127,6 +130,24 @@ export const useClient = (): HttpClient => {
       data: CreateFlashcardRequest,
     ): Promise<CreateFlashcardResponse> {
       return request({ url: "/flashcards", method: "POST", data });
+    },
+
+    updateFlashcard(
+      data: UpdateFlashcardRequest,
+    ): Promise<UpdateFlashcardResponse> {
+      return request({
+        url: `/flashcards/${data.id}`,
+        method: "PUT",
+        data: {
+          flashcardName: data.flashcardName,
+          flashcardColor: data.flashcardColor,
+          wordsIds: data.wordsIds,
+        },
+      });
+    },
+
+    getFlashcardDetails(id: number): Promise<FlashcardDetailsResponse> {
+      return request({ url: `/flashcards/${id}`, method: "GET" });
     },
   };
 };

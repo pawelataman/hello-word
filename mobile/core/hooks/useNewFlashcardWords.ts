@@ -21,11 +21,20 @@ export const useNewFlashcardWords = (): NewFlashcardWords => {
       setSelectedWords({ ...selectedWords, [word.id]: word });
     }
   };
+
+  const setSelectedWordsArr = (words: DictionaryWord[]) => {
+    const wordsDict = words.reduce(
+      (acc, curr) => ({ ...acc, [curr.id]: curr }),
+      {},
+    );
+    setSelectedWords(wordsDict);
+  };
   return {
     selectedWords,
     selectedWordCount,
     onSelectWord,
     selectedWordsArr,
+    setSelectedWordsArr,
   };
 };
 
@@ -36,4 +45,5 @@ export interface NewFlashcardWords {
   selectedWordCount: number;
   onSelectWord: (word: DictionaryWord) => void;
   selectedWordsArr: DictionaryWord[];
+  setSelectedWordsArr: (words: DictionaryWord[]) => void;
 }

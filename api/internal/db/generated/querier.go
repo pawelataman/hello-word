@@ -25,7 +25,7 @@ type Querier interface {
 	GetQuizQuestions(ctx context.Context, limit int32) ([]GetQuizQuestionsRow, error)
 	GetWordById(ctx context.Context, wordID int32) (GetWordByIdRow, error)
 	GetWordsByFlashcardId(ctx context.Context, flashcardID int32) ([]GetWordsByFlashcardIdRow, error)
-	UpdateFlashcardName(ctx context.Context, arg UpdateFlashcardNameParams) (Flashcard, error)
+	UpdateFlashcard(ctx context.Context, arg UpdateFlashcardParams) (Flashcard, error)
 }
 
 var _ Querier = (*Queries)(nil)

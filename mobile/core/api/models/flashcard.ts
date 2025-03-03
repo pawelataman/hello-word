@@ -20,3 +20,11 @@ export interface CreateFlashcardRequest {
   wordsIds: number[];
 }
 export interface CreateFlashcardResponse extends FlashcardBrief {}
+export interface FlashcardDetailsResponse extends FlashcardBrief {
+  words: DictionaryWord[];
+}
+
+export interface UpdateFlashcardRequest extends CreateFlashcardRequest {
+  id: number;
+}
+export interface UpdateFlashcardResponse extends CreateFlashcardResponse {}

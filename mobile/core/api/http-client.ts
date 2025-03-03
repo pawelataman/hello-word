@@ -13,6 +13,9 @@ import {
   CreateFlashcardRequest,
   CreateFlashcardResponse,
   FlashcardBrief,
+  FlashcardDetailsResponse,
+  UpdateFlashcardRequest,
+  UpdateFlashcardResponse,
 } from "@/core/api/models/flashcard";
 
 export interface HttpClient {
@@ -37,4 +40,10 @@ export interface HttpClient {
   createFlashcard(
     data: CreateFlashcardRequest,
   ): Promise<CreateFlashcardResponse>;
+
+  getFlashcardDetails(id: number): Promise<FlashcardDetailsResponse>;
+
+  updateFlashcard(
+    data: UpdateFlashcardRequest,
+  ): Promise<UpdateFlashcardResponse>;
 }

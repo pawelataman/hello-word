@@ -5,9 +5,10 @@ export default function () {
     <Stack>
       <Stack.Screen name="index" />
       <Stack.Screen
-        name="new-flashcard"
+        name="flashcard"
         options={{ headerShown: false, presentation: "modal" }}
       />
+      s
       <Stack.Screen
         name="new-words"
         options={{

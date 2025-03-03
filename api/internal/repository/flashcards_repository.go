@@ -17,6 +17,7 @@ type IFlashcardsRepository interface {
 	CheckWordExistsInFlashcard(ctx context.Context, arg generated.CheckWordExistsInFlashcardParams) (generated.WordsFlashcard, error)
 	AssignFlashcardsWords(ctx context.Context, arg generated.AssignFlashcardsWordsParams) error
 	GetWordsByFlashcardId(ctx context.Context, flashcardID int32) ([]generated.GetWordsByFlashcardIdRow, error)
+	UpdateFlashcard(ctx context.Context, arg generated.UpdateFlashcardParams) (generated.Flashcard, error)
 
 	Transactional(tx pgx.Tx) IFlashcardsRepository
 }

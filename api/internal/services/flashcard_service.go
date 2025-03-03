@@ -10,6 +10,7 @@ import (
 	"github.com/pawelataman/hello-word/internal/db"
 	"github.com/pawelataman/hello-word/internal/db/generated"
 	"github.com/pawelataman/hello-word/internal/repository"
+	"log/slog"
 )
 
 var (
@@ -120,6 +121,8 @@ func (ds *FlashcardServiceImpl) GetFlashcardById(ctx context.Context, id int) (m
 			ID:        flashcard.ID,
 			Name:      flashcard.Name,
 			Author:    flashcard.Author,
+			Color:     flashcard.Color,
+			WordQty:   len(wordsResult),
 			CreatedAt: flashcard.CreatedAt.Time,
 			UpdatedAt: flashcard.UpdatedAt.Time,
 		},
@@ -164,4 +167,50 @@ func (ds *FlashcardServiceImpl) AssignFlashcardWords(ctx context.Context, wordsI
 		}
 		return nil
 	})
+}
+
+func (ds *FlashcardServiceImpl) UpdateFlashcard(ctx context.Context, userSubject *models.UserSubject, payload models.UpdateFlashcardRequest, id int) (models.Flashcard, error) {
+	existingFlashcard, err := ds.repository.GetFlashcardById(ctx, int32(id))
+
+	if err != nil {
+		return models.Flashcard{}, api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf(api_errors.FlashcardNotFound))
+	}
+
+	if existingFlashcard.Author != userSubject.EmailAddress {
+		slog.Error(fmt.Errorf("user %s is not author of the flashcard", userSubject.EmailAddress).Error())
+		return models.Flashcard{}, fiber.ErrUnauthorized
+	}
+
+	updatedFlashcard, err := ds.repository.UpdateFlashcard(ctx, generated.UpdateFlashcardParams{ID: int32(id), Color: payload.FlashcardColor, Name: payload.FlashcardName})
+
+	if err != nil {
+		return models.Flashcard{}, err
+	}
+
+	if err = ds.repository.DeleteWordsFlashcardByFlashcardId(ctx, int32(id)); err != nil {
+		return models.Flashcard{}, err
+	}
+
+	err = ds.AssignFlashcardWords(ctx, payload.WordsIds, id)
+
+	if err != nil {
+		return models.Flashcard{}, err
+	}
+
+	words, err := ds.repository.GetWordsByFlashcardId(ctx, updatedFlashcard.ID)
+	wordQty := 0
+
+	if err == nil {
+		wordQty = len(words)
+	}
+
+	return models.Flashcard{
+		ID:        updatedFlashcard.ID,
+		Name:      updatedFlashcard.Name,
+		Author:    updatedFlashcard.Author,
+		CreatedAt: updatedFlashcard.CreatedAt.Time,
+		UpdatedAt: updatedFlashcard.UpdatedAt.Time,
+		Color:     updatedFlashcard.Color,
+		WordQty:   wordQty,
+	}, nil
 }

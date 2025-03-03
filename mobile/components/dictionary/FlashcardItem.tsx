@@ -1,6 +1,6 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { isContrastLight } from "@/utils/color";
-import React, { memo, useEffect, useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import { FlashcardBrief } from "@/core/api/models/flashcard";
 
 interface FlashcardItemProps {
@@ -13,27 +13,21 @@ export default memo(function ({ flashcard }: FlashcardItemProps) {
     [flashcard],
   );
 
-  useEffect(() => {
-    console.log(textColor);
-  }, [textColor]);
-
   return (
-    <TouchableOpacity
+    <View
       style={{
         backgroundColor: `${flashcard.color}`,
       }}
-      className={
-        "m-2 h-36 max-w-[30%] flex-1 p-4 rounded-lg mb-4 justify-between"
-      }
+      className={"m-2 flex-1 p-4  gap-2 rounded-xl"}
     >
-      <Text className={` ${textColor} font-bold text-lg`}>
+      <Text className={` ${textColor} font-bold text-xl`}>
         {flashcard.name}
       </Text>
-      <View className={"items-end"}>
-        <Text className={`${textColor} text-sm font-semibold`}>
+      <View className={"items-start "}>
+        <Text className={`${textColor} text-m font-semibold`}>
           Słowa: {flashcard.wordQty}
         </Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 });

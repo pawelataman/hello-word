@@ -18,6 +18,10 @@ type CreateFlashcardRequest struct {
 	WordsIds       []int  `json:"wordsIds"`
 }
 
+type UpdateFlashcardRequest struct {
+	CreateFlashcardRequest
+}
+
 type GetFlashcardByIdResponse struct {
 	Flashcard
 	Words []Word `json:"words"`
