@@ -63,11 +63,7 @@ export default function () {
     bottomSheetRef.current?.expand();
   }, [data, canStartQuiz]);
 
-  // Function to reset QuizStarter when bottom sheet is closed
-  const handleSheetClose = useCallback(() => {
-    // We can increment the key when the sheet is closed to reset for next time
-    setQuizStarterKey((prev) => prev + 1);
-  }, []);
+  const withOpacity = (colorHex: string) => `${colorHex}55`;
 
   return (
     <>
@@ -77,7 +73,10 @@ export default function () {
           <>
             <Stack.Screen options={{ title: data?.name }} />
             <View className="bg-gray-100 p-4 rounded-3xl gap-4 flex-1">
-              <View className={"bg-white gap-2 p-4 rounded-xl"}>
+              <View
+                className={"bg-white gap-2 p-4 rounded-xl"}
+                style={{ backgroundColor: withOpacity(data!.color) }}
+              >
                 <View className={"mb-4 flex-row justify-between items-center"}>
                   <Text className={"font-semibold text-xl"}>
                     Szczegóły fiszki
@@ -85,7 +84,7 @@ export default function () {
                   <TouchableOpacity
                     onPress={navigateToEdit}
                     className={
-                      "bg-green-500 text-white rounded-xl p-2 flex-row justify-center"
+                      "bg-green-500/70 text-white rounded-xl p-2 flex-row justify-center"
                     }
                   >
                     <PencilSimple
@@ -152,11 +151,15 @@ export default function () {
                   showsVerticalScrollIndicator={false}
                 />
               ) : (
-                <Text
-                  className={"text-center font-semibold text-lg text-gray-500"}
-                >
-                  Nie dodano żadnych słowek
-                </Text>
+                <>
+                  <Text
+                    className={
+                      "text-center font-semibold text-lg text-gray-500"
+                    }
+                  >
+                    Edytuj aby dodać słówka do fiszki.
+                  </Text>
+                </>
               )}
             </View>
           </>
