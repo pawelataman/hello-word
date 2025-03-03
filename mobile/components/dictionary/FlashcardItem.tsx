@@ -15,16 +15,12 @@ export default memo(function ({ flashcard }: FlashcardItemProps) {
 
   return (
     <View
-      style={{
-        backgroundColor: `${flashcard.color}`,
-      }}
-      className={"m-2 flex-1 p-4  gap-2 rounded-xl"}
+      style={{ borderColor: flashcard.color }}
+      className={"bg-white m-2 flex-1 p-4 border-r-[6px] gap-2 rounded-xl"}
     >
-      <Text className={` ${textColor} font-bold text-xl`}>
-        {flashcard.name}
-      </Text>
+      <Text className={`text-black font-bold text-xl`}>{flashcard.name}</Text>
       <View className={"items-start "}>
-        <Text className={`${textColor} text-m font-semibold`}>
+        <Text className={"text-black text-m font-semibold"}>
           Słowa: {flashcard.wordQty}
         </Text>
       </View>

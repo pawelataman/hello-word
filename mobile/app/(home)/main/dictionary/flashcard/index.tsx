@@ -124,11 +124,6 @@ export default function FlashcardEditor() {
     isLoadExisingPending;
 
   const handleSubmitFlashcard = useCallback(() => {
-    if (!selectedWordsArr?.length) {
-      console.warn("No words selected");
-      return;
-    }
-
     const { name, color } = flashcardData;
 
     if (!name.trim()) {
@@ -158,8 +153,7 @@ export default function FlashcardEditor() {
 
   const submitButtonLabel =
     mode === "create" ? "Zapisz fiszke" : "Zapisz edycję";
-  const isFormValid =
-    flashcardData.name.trim().length > 0 && selectedWordsArr?.length > 0;
+  const isFormValid = flashcardData.name.trim().length > 0;
 
   if (!createFlashcard) {
     return (

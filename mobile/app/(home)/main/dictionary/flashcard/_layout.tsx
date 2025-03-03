@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Stack } from "expo-router";
 import { NewFlashcardWordsContext } from "@/core/context/new-flashcard-words-context";
 import { useNewFlashcardWords } from "@/core/hooks/useNewFlashcardWords";
@@ -13,6 +13,7 @@ export default function () {
           name="add-flashcards-words"
           options={{ presentation: "modal", headerTitle: "Dodaj słówka" }}
         />
+        <Stack.Screen name="[id]" />
       </Stack>
     </NewFlashcardWordsContext.Provider>
   );

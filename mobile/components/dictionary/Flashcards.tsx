@@ -26,8 +26,10 @@ export default function () {
 
   const onFlashcardPressed = (flashcard: FlashcardBrief) => {
     router.navigate({
-      pathname: "/(home)/main/dictionary/flashcard",
-      params: { flashcardId: flashcard.id },
+      pathname: `/(home)/main/dictionary/flashcard/[id]`,
+      params: {
+        id: flashcard.id,
+      },
     });
   };
   return (
