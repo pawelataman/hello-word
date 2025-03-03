@@ -1,6 +1,6 @@
 -- name: GetFlashcards :many
 SELECT *
-FROM flashcards;
+FROM flashcards ORDER BY flashcards."updated_at" DESC;
 
 -- name: GetFlashcardById :one
 SELECT *

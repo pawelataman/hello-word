@@ -146,7 +146,7 @@ func (q *Queries) GetFlashcardByName(ctx context.Context, name string) (Flashcar
 
 const getFlashcards = `-- name: GetFlashcards :many
 SELECT id, name, author, created_at, updated_at, color
-FROM flashcards
+FROM flashcards ORDER BY flashcards."updated_at" DESC
 `
 
 func (q *Queries) GetFlashcards(ctx context.Context) ([]Flashcard, error) {
