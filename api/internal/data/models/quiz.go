@@ -17,6 +17,6 @@ type Quiz struct {
 	Questions []QuizQuestion `json:"questions"`
 }
 
-type GetQuizQueryParams struct {
-	NumOfQuestions int `json:"numOfQuestions" validate:"number,gte=5,lte=20"`
+type CreateQuizRequest struct {
+	FlashcardsIds []int `json:"flashcardsIds"`
 }

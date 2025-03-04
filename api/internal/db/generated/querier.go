@@ -22,6 +22,7 @@ type Querier interface {
 	GetFlashcardByName(ctx context.Context, name string) (Flashcard, error)
 	GetFlashcards(ctx context.Context) ([]Flashcard, error)
 	GetFlashcardsByAuthor(ctx context.Context, author string) ([]Flashcard, error)
+	GetQuizFalseAnswers(ctx context.Context, arg GetQuizFalseAnswersParams) ([]GetQuizFalseAnswersRow, error)
 	GetQuizQuestions(ctx context.Context, limit int32) ([]GetQuizQuestionsRow, error)
 	GetWordById(ctx context.Context, wordID int32) (GetWordByIdRow, error)
 	GetWordsByFlashcardId(ctx context.Context, flashcardID int32) ([]GetWordsByFlashcardIdRow, error)

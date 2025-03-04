@@ -8,6 +8,7 @@ import (
 
 type IQuizRepository interface {
 	GetQuizQuestions(ctx context.Context, limit int32) ([]generated.GetQuizQuestionsRow, error)
+	GetQuizFalseAnswers(ctx context.Context, arg generated.GetQuizFalseAnswersParams) ([]generated.GetQuizFalseAnswersRow, error)
 
 	Transactional(tx pgx.Tx) IQuizRepository
 }
