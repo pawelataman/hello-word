@@ -1,7 +1,7 @@
-import { LANG_CODE } from "@/core/constants/common";
+import { LanguageCode } from "@/core/constants/common";
 
 export interface Language {
-  code: LANG_CODE;
+  code: LanguageCode;
   label: string;
 }
 

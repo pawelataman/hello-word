@@ -5,7 +5,7 @@ import PL from "@/assets/images/icons/PL.svg";
 import React from "react";
 import RightAction from "@/components/dictionary/NewWordRightAction";
 import LeftAction from "@/components/dictionary/NewWordLeftAction";
-import { LANG_CODE } from "@/core/constants/common";
+import { LanguageCode } from "@/core/constants/common";
 import { CreateWord } from "@/core/models/models";
 
 interface NewWordProps {
@@ -34,12 +34,12 @@ export default function ({ onDelete, word, onEdit }: NewWordProps) {
       >
         <View className={"flex-row gap-4 items-center"}>
           <EN width={24} height={16} />
-          <Text className={"text-lg font-bold"}>{word[LANG_CODE.EN]}</Text>
+          <Text className={"text-lg font-bold"}>{word[LanguageCode.EN]}</Text>
         </View>
 
         <View className={"flex-row gap-4 items-center"}>
           <PL width={24} height={16} />
-          <Text className={"text-xl font-bold"}>{word[LANG_CODE.PL]}</Text>
+          <Text className={"text-xl font-bold"}>{word[LanguageCode.PL]}</Text>
         </View>
       </View>
     </ReanimatedSwipeable>

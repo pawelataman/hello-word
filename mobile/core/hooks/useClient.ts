@@ -25,6 +25,10 @@ import {
   UpdateFlashcardRequest,
   UpdateFlashcardResponse,
 } from "@/core/api/models/flashcard";
+import {
+  GetQuizFromFlashcardsRequest,
+  QuizResponse,
+} from "@/core/api/models/quiz";
 
 export const useClient = (): HttpClient => {
   const { getToken } = useAuth();
@@ -32,6 +36,7 @@ export const useClient = (): HttpClient => {
     baseURL: process.env.EXPO_PUBLIC_BASE_URL,
     headers: {
       Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
     },
   });
 
@@ -77,10 +82,19 @@ export const useClient = (): HttpClient => {
   };
 
   return {
-    getQuiz(numOfQuestions: number): Promise<any> {
+    getQuiz(): Promise<QuizResponse> {
       return request({
-        url: `/quiz?numOfQuestions=${numOfQuestions}`,
+        url: `/quiz`,
         method: "GET",
+      });
+    },
+    getQuizFromFlashcards(
+      data: GetQuizFromFlashcardsRequest,
+    ): Promise<QuizResponse> {
+      return request({
+        url: `/quiz/flashcards`,
+        method: "GET",
+        data,
       });
     },
     getDictionaryWords(

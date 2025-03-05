@@ -13,7 +13,7 @@ import {
   GetDictionaryWordsParams,
   GetDictionaryWordsResponse,
 } from "@/core/api/models/dictionary";
-import { LANG_CODE } from "@/core/constants/common";
+import { LanguageCode } from "@/core/constants/common";
 import DictionaryItem from "@/components/dictionary/DictionaryItem";
 import Search from "@/components/ui/inputs/Search";
 import { debounce } from "@/utils/timing";
@@ -63,7 +63,7 @@ export default function ({
         const params: GetDictionaryWordsParams = {
           pageSize: PAGE_SIZE,
           page: pageParam as number,
-          language: LANG_CODE.PL,
+          language: LanguageCode.PL,
           ascending: queryKey[1] as boolean,
           search: queryKey[2] as string,
         };

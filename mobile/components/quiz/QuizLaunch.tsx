@@ -17,7 +17,9 @@ export default function ({ language, onChange }: QuizLaunchProps) {
   };
 
   return (
-    <View className={`w-full h-auto pb-12 pt-4 px-4 gap-8`}>
+    <View
+      className={`w-full h-auto pb-12 pt-4 px-4 gap-8 bg-gray-100 rounded-t-xl`}
+    >
       <Text className={"text-center font-semibold text-xl "}>Wybierz tryb</Text>
       <View className={"flex-row justify-around items-center"}>
         {config.availableModes.map((mode, index) => (
@@ -28,7 +30,7 @@ export default function ({ language, onChange }: QuizLaunchProps) {
             >
               <View
                 className={
-                  "bg-green-500 items-center justify-center rounded-2xl w-full h-full"
+                  "bg-white items-center justify-center rounded-2xl w-full h-full"
                 }
               >
                 {ICON_FOR_MODE[mode].icon}

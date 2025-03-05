@@ -30,27 +30,25 @@ const LANG_OPTIONS = [
 
 export default function () {
   const queryClient = useQueryClient();
-  const { reset } = useQuizStore();
+  const { setQuizMetadata } = useQuizStore();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [quizLanguage, setQuizLanguage] = useState<Language>(LANG_EN);
 
-  const navigateToQuiz = (quizOptions: QuizOptions): void => {
-    queryClient.clear(); // clear queryClient cache
-    reset(); // reset quiz store
-
+  const onPickQuizLaguage = (quizOptions: QuizOptions): void => {
     setQuizLanguage(quizOptions.language);
-
     bottomSheetRef.current?.expand();
   };
 
   const modeChanged = (opt: { language: Language; mode: QuizMode }) => {
     bottomSheetRef.current?.close();
+    queryClient.clear(); // clear queryClient cache
+
+    setQuizMetadata({
+      mode: opt.mode,
+      language: opt.language.code,
+    });
     router.push({
       pathname: "/quiz",
-      params: {
-        language: opt.language.code,
-        mode: opt.mode,
-      },
     });
   };
 
@@ -64,7 +62,7 @@ export default function () {
               <TouchableOpacity
                 className=" gap-2 p-4 flex-row items-center justify-between bg-gray-100  rounded-2xl relative"
                 key={opt.lang.code}
-                onPress={() => navigateToQuiz({ language: opt.lang })}
+                onPress={() => onPickQuizLaguage({ language: opt.lang })}
               >
                 <View>
                   <Text

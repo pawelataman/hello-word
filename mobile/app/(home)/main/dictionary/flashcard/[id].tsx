@@ -26,12 +26,16 @@ import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { bottomSheetBackdrop } from "@/components/ui/BottomSheetBackDrop";
 import { Portal } from "@gorhom/portal";
 import QuizStarter from "@/components/quiz/QuizStarter.";
+import { LanguageCode } from "@/core/constants/common";
+import { QuizMode } from "@/core/models/models";
+import { useQuizStore } from "@/core/state/quiz.state";
 
 export default function () {
   const [quizStarterKey, setQuizStarterKey] = useState(0);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { setQuizMetadata } = useQuizStore();
   const { getFlashcardDetails } = useContext(HttpClientContext)!;
   const { data, isPending, refetch, isRefetching } = useQuery({
     queryKey: [id, "get-flashcard-details"],
@@ -59,12 +63,22 @@ export default function () {
   const onInvokeQuizStarter = useCallback(() => {
     if (!canStartQuiz) return;
     setQuizStarterKey((prev) => prev + 1);
-
     bottomSheetRef.current?.expand();
   }, [data, canStartQuiz]);
 
   const withOpacity = (colorHex: string) => `${colorHex}55`;
 
+  const onStartQuiz = (mode: QuizMode, language: LanguageCode) => {
+    bottomSheetRef.current?.close();
+    setQuizMetadata({
+      mode,
+      language,
+      flashcardsIds: [data!.id],
+    });
+    router.push({
+      pathname: "/quiz",
+    });
+  };
   return (
     <>
       <SafeAreaView className="h-full">
@@ -178,7 +192,7 @@ export default function () {
             handleComponent={null}
           >
             <BottomSheetView>
-              <QuizStarter key={quizStarterKey} />
+              <QuizStarter key={quizStarterKey} onStartQuiz={onStartQuiz} />
             </BottomSheetView>
           </BottomSheet>
         </Portal>

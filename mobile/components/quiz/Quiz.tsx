@@ -16,30 +16,31 @@ import {
   selectQuizStatus,
   useQuizStore,
 } from "@/core/state/quiz.state";
-import { Language, QuizMode } from "@/core/models/models";
 import { shuffle } from "@/utils/array";
 import QuizWritableAnswer from "@/components/quiz/QuizWritableAnswer";
 import Bulb from "@/assets/images/icons/bulb.svg";
 import QuizChosenAnswer from "@/components/quiz/QuizChosenAnswer";
 
-const TOTAL_QUESTIONS_REQUEST = 10;
-
-interface QuizProps {
-  language: Language;
-  mode: QuizMode;
-}
-
-export default function ({ language, mode }: QuizProps) {
+export default function () {
   const quizStatus = useQuizStore(selectQuizStatus);
   const currentQuestion = useQuizStore(selectCurrentQuestion);
-
   const { handleChooseAnswer, handleTypedAnswer } = useQuiz();
-  const { initializeQuiz, currentQuestionStatus } = useQuizStore();
-  const { getQuiz } = useContext(HttpClientContext)!;
+  const { initializeQuiz, quizMetadata, quizRunData } = useQuizStore();
+  const { getQuiz, getQuizFromFlashcards } = useContext(HttpClientContext)!;
 
-  const { data, refetch } = useSuspenseQuery({
-    queryKey: ["quiz"],
-    queryFn: () => getQuiz(TOTAL_QUESTIONS_REQUEST),
+  const { data } = useSuspenseQuery({
+    queryKey: ["quiz", quizMetadata.flashcardsIds],
+    queryFn: ({ queryKey }) => {
+      const [_, flashcardsIds] = queryKey;
+      if (
+        flashcardsIds &&
+        Array.isArray(flashcardsIds) &&
+        flashcardsIds.length
+      ) {
+        return getQuizFromFlashcards({ flashcardsIds: flashcardsIds });
+      }
+      return getQuiz();
+    },
   });
 
   if (!data) return;
@@ -53,14 +54,20 @@ export default function ({ language, mode }: QuizProps) {
   }, [currentQuestion]);
 
   useEffect(() => {
-    initializeQuiz(data, language, mode);
+    initializeQuiz(data);
   }, [data]);
 
-  const isWriting = useMemo(() => mode === "writing", [mode]);
-  const isChoosing = useMemo(() => mode !== "writing", [mode]);
+  const isWriting = useMemo(
+    () => quizMetadata.mode === "writing",
+    [quizMetadata],
+  );
+  const isChoosing = useMemo(
+    () => quizMetadata.mode !== "writing",
+    [quizMetadata],
+  );
   const isAnswered = useMemo(
-    () => currentQuestionStatus === "answered",
-    [currentQuestionStatus],
+    () => quizRunData.currentQuestionStatus === "answered",
+    [quizRunData],
   );
 
   const giveUpAnswer = () => {
@@ -98,7 +105,7 @@ export default function ({ language, mode }: QuizProps) {
               <View className={"w-full my-2 "}>
                 <QuizQuestion
                   question={currentQuestion?.question}
-                  mode={mode}
+                  mode={quizMetadata.mode}
                 />
               </View>
               {isChoosing && (

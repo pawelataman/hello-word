@@ -13,18 +13,17 @@ interface AnswerButtonProps {
 
 export default function ({ onPress, answer, index }: AnswerButtonProps) {
   const { getAnswerLabel } = useQuizTranslation();
-  const {
-    questionIndex,
-    answeredQuestions,
-    currentQuestionStatus,
-    answeringEnabled,
-  } = useQuizStore();
+  const { quizRunData } = useQuizStore();
 
   const highlighted = useMemo<HighlightMode>(() => {
-    if (questionIndex > answeredQuestions.length || questionIndex === -1)
+    if (
+      quizRunData.questionIndex > quizRunData.answeredQuestions.length ||
+      quizRunData.questionIndex === -1
+    )
       return "idle";
 
-    const answeredQuestion = answeredQuestions[questionIndex];
+    const answeredQuestion =
+      quizRunData.answeredQuestions[quizRunData.questionIndex];
     if (!answeredQuestion || answeredQuestion.type === "typed") return "idle";
 
     if (answer.id === answeredQuestion.question.question.id) return "correct";
@@ -37,11 +36,14 @@ export default function ({ onPress, answer, index }: AnswerButtonProps) {
     }
 
     return "idle";
-  }, [questionIndex, answeredQuestions]);
+  }, [quizRunData]);
 
   const disabled = useMemo<boolean>(() => {
-    return currentQuestionStatus === "answered" || !answeringEnabled;
-  }, [currentQuestionStatus, answeringEnabled]);
+    return (
+      quizRunData.currentQuestionStatus === "answered" ||
+      !quizRunData.answeringEnabled
+    );
+  }, [quizRunData]);
 
   const getHighlightColor = (disabled: boolean) => {
     if (highlighted === "correct") {

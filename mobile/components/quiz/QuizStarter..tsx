@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Dimensions,
   Pressable,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { LANG_CODE, LANG_DATA } from "@/core/constants/common";
+import { LANG_DATA, LanguageCode } from "@/core/constants/common";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import { QuizConfig, QuizMode } from "@/core/models/models";
 import AppButton from "@/components/ui/AppButton";
@@ -16,23 +16,32 @@ import PL from "@/assets/images/icons/PL.svg";
 import { ICON_FOR_MODE, QUIZ_CONFIG } from "@/core/constants/quiz";
 
 interface QuizStarterForm {
-  language: LANG_CODE;
+  language: LanguageCode;
   mode: QuizMode;
+}
+
+interface QuizStarterProps {
+  onStartQuiz: (mode: QuizMode, language: LanguageCode) => void;
 }
 
 const width = Dimensions.get("window").width;
 
-export default function () {
+export default function ({ onStartQuiz }: QuizStarterProps) {
+  const ref = React.useRef<ICarouselInstance>(null);
   const [starterData, setStarterData] = useState<QuizStarterForm>({
-    language: LANG_CODE.PL,
+    language: LanguageCode.PL,
     mode: "reading",
   });
-  const ref = React.useRef<ICarouselInstance>(null);
+
   const onLanguageSelected = (form: QuizStarterForm) => {
     setStarterData({ ...starterData, language: form.language });
     ref.current?.next();
   };
-  const onModeSelected = (form: QuizStarterForm) => {};
+
+  const onModeSelected = (form: QuizStarterForm) => {
+    onStartQuiz(form.mode, form.language);
+  };
+
   const steps = useMemo(() => {
     return [
       {
@@ -80,12 +89,12 @@ interface StarterStepProps {
   prev: () => void;
 }
 
-const QuizStarterLanguagePicker = memo(function ({
+const QuizStarterLanguagePicker = function ({
   form,
   next,
   prev,
 }: StarterStepProps) {
-  const [lang, setLang] = useState<LANG_CODE>(form.language);
+  const [lang, setLang] = useState<LanguageCode>(form.language);
   const selectedClass = "border-green-500";
 
   const onNext = useCallback(() => {
@@ -96,14 +105,14 @@ const QuizStarterLanguagePicker = memo(function ({
     <View className={"gap-8 bg-gray-100 rounded-t-xl justify-evenly"}>
       <View className={"justify-evenly items-center flex-row"}>
         <Pressable
-          onPress={() => setLang(LANG_CODE.PL)}
-          className={`border-4 overflow-hidden w-16 h-16 justify-center items-center rounded-full relative ${lang === LANG_CODE.PL ? selectedClass : "border-gray-100"}`}
+          onPress={() => setLang(LanguageCode.PL)}
+          className={`border-4 overflow-hidden w-16 h-16 justify-center items-center rounded-full relative ${lang === LanguageCode.PL ? selectedClass : "border-gray-100"}`}
         >
           <PL height={60} width={84} />
         </Pressable>
         <Pressable
-          onPress={() => setLang(LANG_CODE.EN)}
-          className={`border-4 overflow-hidden w-16 h-16 justify-center items-center rounded-full relative ${lang === LANG_CODE.EN ? selectedClass : "border-gray-100"}`}
+          onPress={() => setLang(LanguageCode.EN)}
+          className={`border-4 overflow-hidden w-16 h-16 justify-center items-center rounded-full relative ${lang === LanguageCode.EN ? selectedClass : "border-gray-100"}`}
         >
           <GB height={60} width={84}></GB>
         </Pressable>
@@ -111,9 +120,8 @@ const QuizStarterLanguagePicker = memo(function ({
       <Text className={"text-center font-semibold text-lg"}>
         Przetłumacz na {LANG_DATA[lang].label}
       </Text>
-      <View className={"flex-row gap-4"}>
+      <View className={"flex-row justify-center"}>
         <AppButton
-          className={"flex-1"}
           variant={"primary"}
           onPress={onNext}
           label={"Dalej"}
@@ -121,17 +129,17 @@ const QuizStarterLanguagePicker = memo(function ({
       </View>
     </View>
   );
-});
+};
 
-const QuizStarterModePicker = memo(function ({
+const QuizStarterModePicker = function ({
   form,
   next,
   prev,
 }: StarterStepProps) {
   const [mode, setMode] = useState<QuizMode>(form.mode);
   const onNext = useCallback(() => {
-    next({ ...form, mode });
-  }, [form]);
+    next({ ...form, mode: mode });
+  }, [mode, form]);
 
   const config: QuizConfig = useMemo(() => {
     return QUIZ_CONFIG[form.language];
@@ -169,15 +177,13 @@ const QuizStarterModePicker = memo(function ({
           </View>
         ))}
       </View>
-      <View className={"flex-row gap-2"}>
+      <View className={"flex-row justify-center gap-2"}>
         <AppButton
-          className={"flex-1 "}
           variant={"tertiary"}
           onPress={prev}
           label={"Cofnij"}
         ></AppButton>
         <AppButton
-          className={"flex-1"}
           variant={"primary"}
           onPress={onNext}
           label={"Rozpocznij"}
@@ -185,4 +191,4 @@ const QuizStarterModePicker = memo(function ({
       </View>
     </View>
   );
-});
+};

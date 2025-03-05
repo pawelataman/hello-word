@@ -1,4 +1,7 @@
-import { QuizResponse } from "@/core/api/models/quiz";
+import {
+  GetQuizFromFlashcardsRequest,
+  QuizResponse,
+} from "@/core/api/models/quiz";
 import {
   CreateCategoryRequest,
   CreateCategoryResponse,
@@ -19,7 +22,10 @@ import {
 } from "@/core/api/models/flashcard";
 
 export interface HttpClient {
-  getQuiz(numOfQuestions: number): Promise<QuizResponse>;
+  getQuiz(): Promise<QuizResponse>;
+  getQuizFromFlashcards(
+    data: GetQuizFromFlashcardsRequest,
+  ): Promise<QuizResponse>;
 
   getDictionaryWords(
     params: GetDictionaryWordsParams,

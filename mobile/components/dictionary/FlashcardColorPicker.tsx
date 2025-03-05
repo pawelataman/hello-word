@@ -2,7 +2,6 @@ import { SafeAreaView, View } from "react-native";
 import ColorPicker, {
   ColorPickerRef,
   HueSlider,
-  Panel1,
 } from "reanimated-color-picker";
 import AppButton from "@/components/ui/AppButton";
 import React, { useEffect, useRef, useState } from "react";
@@ -11,7 +10,7 @@ interface FlashcardColorPickerProps {
   currentColor: string;
   onSelectColor: (color?: string) => void;
 }
-
+// do i even need this component ? maybe inline hue select would be sufficient
 export default function ({
   currentColor,
   onSelectColor,
@@ -34,7 +33,6 @@ export default function ({
           }}
         >
           <View className={"gap-4"}>
-            <Panel1 />
             <HueSlider />
             <View className={"flex-row gap-2"}>
               <AppButton

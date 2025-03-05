@@ -5,7 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import RightAction from "@/components/dictionary/NewWordRightAction";
 import { useController, useForm } from "react-hook-form";
-import { LANG_CODE } from "@/core/constants/common";
+import { LanguageCode } from "@/core/constants/common";
 import { CreateWord } from "@/core/models/models";
 
 interface NewWordFormProps {
@@ -48,8 +48,8 @@ export default function ({ onDelete, word, onSubmit }: NewWordFormProps) {
       Keyboard.dismiss();
       onSubmit({
         ...word,
-        [LANG_CODE.EN]: enField.value.trim(),
-        [LANG_CODE.PL]: plField.value.trim(),
+        [LanguageCode.EN]: enField.value.trim(),
+        [LanguageCode.PL]: plField.value.trim(),
       });
     }
   };

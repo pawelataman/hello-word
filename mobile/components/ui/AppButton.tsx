@@ -43,7 +43,7 @@ export default function (props: AppButtonProps) {
       onPress={props.onPress}
     >
       <View
-        className={`px-2 py-2 rounded-lg ${getBackgroundColor()} ${props.disabled && "opacity-30"}`}
+        className={`px-10 py-2 rounded-lg ${getBackgroundColor()} ${props.disabled && "opacity-30"}`}
       >
         <Text className={`font-semibold text-center text-l ${getTextColor()}`}>
           {props.label}
