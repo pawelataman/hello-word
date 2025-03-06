@@ -12,7 +12,7 @@ import (
 func RegisterQuizHandlers(router fiber.Router) {
 	app := router.Group("/quiz")
 	app.Get("/", handleCreateQuiz)
-	app.Get("/flashcards", handleCreateQuizFromFlashcards)
+	app.Post("/flashcards", handleCreateQuizFromFlashcards)
 }
 
 func handleCreateQuiz(c *fiber.Ctx) error {

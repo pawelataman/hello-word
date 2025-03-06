@@ -93,7 +93,7 @@ export const useClient = (): HttpClient => {
     ): Promise<QuizResponse> {
       return request({
         url: `/quiz/flashcards`,
-        method: "GET",
+        method: "POST",
         data,
       });
     },
