@@ -5,7 +5,6 @@ import AppButton from "@/components/ui/AppButton";
 import { useRouter } from "expo-router";
 import React, { memo, useCallback, useRef, useState } from "react";
 import Search from "@/components/ui/inputs/Search";
-import { useRefetchOnFocus } from "@/core/hooks/useRefetchOnFocus";
 import FlashcardItem from "@/components/dictionary/FlashcardItem";
 import { FlashcardBrief } from "@/core/api/models/flashcard";
 import { Portal } from "@gorhom/portal";
@@ -20,11 +19,10 @@ export default memo(function () {
   const [quizStarterKey, setQuizStarterKey] = useState(0);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { getFlashcards } = useClient();
-  const { data, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: ["get-flashcards"],
     queryFn: () => getFlashcards(),
   });
-  useRefetchOnFocus(refetch);
   const router = useRouter();
   const [selectMode, setSelectMode] = useState<boolean>(false);
   const [selectedFlashcards, setSelectedFlashcards] = useState<{
@@ -92,6 +90,7 @@ export default memo(function () {
       ),
     });
 
+    onResetSelection();
     router.navigate("/(home)/quiz");
   };
 

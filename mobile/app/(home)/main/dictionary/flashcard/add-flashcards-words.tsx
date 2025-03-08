@@ -18,7 +18,7 @@ export default function () {
       <SafeAreaView className={"flex-1"}>
         <Dictionary
           action={{
-            label: `Zapisz słówka (${selectedWordCount})`,
+            label: `Dodaj słówka (${selectedWordCount})`,
             execute: handleSubmit,
           }}
           onSelectWord={onSelectWord}

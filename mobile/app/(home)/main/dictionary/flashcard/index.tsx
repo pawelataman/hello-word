@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import RegularInput from "@/components/ui/inputs/RegularInput";
 import FlashcardColorPicker from "@/components/dictionary/FlashcardColorPicker";
 import FlashcardWords from "@/components/dictionary/FlashcardWords";
@@ -26,11 +26,6 @@ import { COLORS } from "@/core/constants/tailwind-colors";
 import { Trash } from "phosphor-react-native";
 import { extractApiErrorMessage } from "@/core/constants/api-errors";
 import { ApiErrorCodes } from "@/core/models/error";
-
-interface FlashcardForm {
-  flashcardName: string;
-  flashcardColor: string;
-}
 
 export default function FlashcardEditor() {
   const { showToast } = useToast();
@@ -50,6 +45,11 @@ export default function FlashcardEditor() {
   const { createFlashcard, updateFlashcard, deleteFlashcard } =
     useContext(HttpClientContext)!;
 
+  const { refetch } = useQuery({
+    queryKey: ["get-flashcards"],
+    enabled: false,
+  });
+
   useEffect(() => {
     if (existingFlashcard) {
       setMode("edit");
@@ -64,6 +64,8 @@ export default function FlashcardEditor() {
         setSelectedWordsArr
       ) {
         setSelectedWordsArr(existingFlashcard.words);
+      } else {
+        setSelectedWordsArr([]);
       }
     }
   }, [existingFlashcard]);
@@ -88,7 +90,13 @@ export default function FlashcardEditor() {
   const createMutation = useMutation({
     mutationFn: createFlashcard,
     onSuccess: (_data: CreateFlashcardResponse) => {
-      router.back();
+      refetch();
+      router.navigate({
+        pathname: "/(home)/main/dictionary",
+        params: {
+          tabName: "flashcards",
+        },
+      });
     },
     onError: (error) => {
       showToast(
@@ -101,6 +109,7 @@ export default function FlashcardEditor() {
   const updateMutation = useMutation({
     mutationFn: updateFlashcard,
     onSuccess: (_data: CreateFlashcardResponse) => {
+      refetch();
       router.back();
     },
     onError: (error) => {
@@ -110,7 +119,15 @@ export default function FlashcardEditor() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteFlashcard,
-    onSuccess: () => router.navigate("/(home)/main/dictionary"),
+    onSuccess: () => {
+      refetch();
+      router.navigate({
+        pathname: "/(home)/main/dictionary",
+        params: {
+          tabName: "flashcards",
+        },
+      });
+    },
     onError: (error) => {
       showToast("Nie udało się usunać fiszki", "error");
     },

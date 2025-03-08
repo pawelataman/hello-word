@@ -17,7 +17,6 @@ import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { HttpClientContext } from "@/core/context/client-context";
 import { useQuery } from "@tanstack/react-query";
 import DictionaryItem from "@/components/dictionary/DictionaryItem";
-import { useRefetchOnFocus } from "@/core/hooks/useRefetchOnFocus";
 import AppButton from "@/components/ui/AppButton";
 import { MIN_WORDS_QTY } from "@/core/constants/quiz";
 import { PencilSimple } from "phosphor-react-native";
@@ -41,8 +40,6 @@ export default function () {
     queryKey: [id, "get-flashcard-details"],
     queryFn: ({ queryKey }) => getFlashcardDetails(parseInt(queryKey[0])),
   });
-
-  useRefetchOnFocus(refetch);
 
   const getDate = useCallback((date: Date) => {
     const newDate = new Date(date);
@@ -92,9 +89,7 @@ export default function () {
                 style={{ backgroundColor: withOpacity(data!.color) }}
               >
                 <View className={"mb-4 flex-row justify-between items-center"}>
-                  <Text className={"font-semibold text-xl"}>
-                    Szczegóły fiszki
-                  </Text>
+                  <Text className={"font-semibold text-xl"}>{data!.name}</Text>
                   <TouchableOpacity
                     onPress={navigateToEdit}
                     className={
@@ -108,10 +103,6 @@ export default function () {
                     />
                   </TouchableOpacity>
                 </View>
-                <Text className={"text-m"}>
-                  <Text className={"text-gray-500"}>Nazwa: </Text>
-                  <Text>{data!.name}</Text>
-                </Text>
                 <Text className={"text-m"}>
                   <Text className={"text-gray-500"}>Autor:</Text> {data!.author}
                 </Text>

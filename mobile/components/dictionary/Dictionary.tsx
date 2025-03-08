@@ -47,7 +47,7 @@ export default memo(function ({
     useInfiniteQuery<GetDictionaryWordsResponse>({
       refetchOnWindowFocus: "always",
       queryKey: ["get-dictionary-words", ascending, search],
-      getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
+      getNextPageParam: (lastPage, allPages) => {
         if (
           allPages.length < (lastPage as GetDictionaryWordsResponse).totalPages
         ) {
@@ -153,7 +153,13 @@ export default memo(function ({
               />
             </View>
           </>
-        ) : null}
+        ) : (
+          <View className={"items-center justify-center h-4/5"}>
+            <Text className={"text-gray-500 font-semibold"}>
+              Nie znaleziono żadnych słówek
+            </Text>
+          </View>
+        )}
 
         {!isLoading && !dataFlattened?.length && (
           <View className={"items-center justify-center h-4/5"}>
