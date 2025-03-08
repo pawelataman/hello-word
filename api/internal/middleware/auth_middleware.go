@@ -10,7 +10,7 @@ import (
 
 func AuthMiddleware(ctx *fiber.Ctx) error {
 
-	if os.Getenv("SECURE_API") != "true" {
+	if os.Getenv("INSECURE_API") == "true" {
 		userSubject := &models.UserSubject{
 			ID:           "test_user_2qcjJGCcz1K2ToEkxlWVwasHoOM",
 			EmailAddress: "test.tytanus97@gmai.com",
