@@ -1,7 +1,8 @@
 import { SafeAreaView, View } from "react-native";
 import ColorPicker, {
   ColorPickerRef,
-  HueSlider,
+  Panel5,
+  Swatches,
 } from "reanimated-color-picker";
 import AppButton from "@/components/ui/AppButton";
 import React, { useEffect, useRef, useState } from "react";
@@ -33,7 +34,8 @@ export default function ({
           }}
         >
           <View className={"gap-4"}>
-            <HueSlider />
+            <Panel5 />
+            <Swatches />
             <View className={"flex-row gap-2"}>
               <AppButton
                 className={"flex-1"}

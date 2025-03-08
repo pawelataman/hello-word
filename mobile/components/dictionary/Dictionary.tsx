@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, { memo, useCallback, useContext, useMemo, useState } from "react";
 import { HttpClientContext } from "@/core/context/client-context";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import {
@@ -33,7 +33,7 @@ interface DictionaryProps {
     execute: () => void;
   };
 }
-export default function ({
+export default memo(function ({
   action,
   onSelectWord,
   selectedWords,
@@ -93,8 +93,8 @@ export default function ({
 
   return (
     <>
-      <View className={"px-2 flex-1 gap-y-2"}>
-        <View className={"flex-row gap-2 mt-4"}>
+      <View className={"px-2 py-6 flex-1 gap-y-2"}>
+        <View className={"flex-row gap-2"}>
           <Search
             onChangeText={debounce(setSearch, 500)}
             placeholder={"Wyszukaj słówka"}
@@ -145,7 +145,7 @@ export default function ({
               onEndReached={onReachEnd}
               onEndReachedThreshold={0.2}
             />
-            <View className={"my-2"}>
+            <View>
               <AppButton
                 variant={"primary"}
                 label={action?.label || "Dodaj słówka +"}
@@ -157,7 +157,7 @@ export default function ({
 
         {!isLoading && !dataFlattened?.length && (
           <View className={"items-center justify-center h-4/5"}>
-            <Text className={"text-gray-500 font-semibold mb-4"}>
+            <Text className={"text-gray-500 font-semibold"}>
               Nie znaleziono żadnych słówek
             </Text>
             <AppButton
@@ -175,4 +175,4 @@ export default function ({
       ) : null}
     </>
   );
-}
+});

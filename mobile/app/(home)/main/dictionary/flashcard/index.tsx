@@ -10,19 +10,13 @@ import {
 } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
-
-// Components
 import RegularInput from "@/components/ui/inputs/RegularInput";
 import FlashcardColorPicker from "@/components/dictionary/FlashcardColorPicker";
 import FlashcardWords from "@/components/dictionary/FlashcardWords";
 import AppButton from "@/components/ui/AppButton";
-
-// Contexts & Hooks
 import { NewFlashcardWordsContext } from "@/core/context/new-flashcard-words-context";
 import { HttpClientContext } from "@/core/context/client-context";
 import { useExistingFlashcard } from "@/core/hooks/useExistingFlashcard";
-
-// Types
 import {
   CreateFlashcardRequest,
   CreateFlashcardResponse,
@@ -30,6 +24,8 @@ import {
 import { useToast } from "@/core/hooks/useToast";
 import { COLORS } from "@/core/constants/tailwind-colors";
 import { Trash } from "phosphor-react-native";
+import { extractApiErrorMessage } from "@/core/constants/api-errors";
+import { ApiErrorCodes } from "@/core/models/error";
 
 interface FlashcardForm {
   flashcardName: string;
@@ -95,7 +91,10 @@ export default function FlashcardEditor() {
       router.back();
     },
     onError: (error) => {
-      showToast("Nie udało sie stworzyc fiszki", "error");
+      showToast(
+        extractApiErrorMessage(error.message as ApiErrorCodes),
+        "error",
+      );
     },
   });
 

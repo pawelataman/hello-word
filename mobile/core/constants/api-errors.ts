@@ -6,6 +6,7 @@ const API_ERROR_MESSAGES: { [key in ApiErrorCodes]: string } = {
   invalid_id: "Nieprawidłowy identyfikator",
   delete_not_allowed: "Nie można usunąć",
   insufficient_word_qty: "Zbyt maly zasób słów aby stworzyć quiz",
+  flashcard_already_exists: "Fiszka o podanej nazwie juz istnieje",
 };
 
 export function extractApiErrorMessage(error: ApiErrorCodes): string {
