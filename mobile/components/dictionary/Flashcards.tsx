@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import AppButton from "@/components/ui/AppButton";
 import { useRouter } from "expo-router";
 import React, { memo, useCallback, useRef, useState } from "react";
-import Search from "@/components/ui/inputs/Search";
 import FlashcardItem from "@/components/dictionary/FlashcardItem";
 import { FlashcardBrief } from "@/core/api/models/flashcard";
 import { Portal } from "@gorhom/portal";
@@ -16,6 +15,7 @@ import { LanguageCode } from "@/core/constants/common";
 import { useQuizStore } from "@/core/state/quiz.state";
 
 export default memo(function () {
+  const [indeterminate, setIndeterminate] = useState<boolean>(false);
   const [quizStarterKey, setQuizStarterKey] = useState(0);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { getFlashcards } = useClient();
@@ -33,18 +33,25 @@ export default memo(function () {
     router.navigate("/(home)/main/dictionary/flashcard");
   };
 
-  const onFlashcardPressed = (flashcard: FlashcardBrief) => {
-    if (selectMode) {
-      selectFlashcard(flashcard);
-    } else {
-      router.navigate({
-        pathname: `/(home)/main/dictionary/flashcard/[id]`,
-        params: {
-          id: flashcard.id,
-        },
-      });
-    }
-  };
+  const onFlashcardPressed = useCallback(
+    (flashcard: FlashcardBrief) => {
+      if (indeterminate) return;
+
+      setIndeterminate(true);
+      if (selectMode) {
+        selectFlashcard(flashcard);
+      } else {
+        router.navigate({
+          pathname: `/(home)/main/dictionary/flashcard/[id]`,
+          params: {
+            id: flashcard.id,
+          },
+        });
+        setTimeout(() => setIndeterminate(false), 1000);
+      }
+    },
+    [indeterminate],
+  );
 
   const selectFlashcard = useCallback(
     (flashcard: FlashcardBrief) => {
@@ -102,10 +109,6 @@ export default memo(function () {
 
   return (
     <View className={"flex-1  py-6 gap-2"}>
-      <View className={"flex-row px-2"}>
-        <Search placeholder={"Wyszukaj fiszki"}></Search>
-      </View>
-
       {data && data.length ? (
         <>
           <FlatList
