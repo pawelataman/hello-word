@@ -39,6 +39,7 @@ func AuthMiddleware(ctx *fiber.Ctx) error {
 		ID:           usr.ID,
 		EmailAddress: usr.EmailAddresses[0].EmailAddress,
 	}
+
 	ctx.Locals("userSubject", userSubject)
 
 	return ctx.Next()
