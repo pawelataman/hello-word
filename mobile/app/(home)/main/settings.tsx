@@ -18,7 +18,7 @@ export default function() {
 			await signOut();
 			router.replace('/');
 		} catch (e) {
-			showToast(extractClerkErrorMessage(e));
+			showToast(extractClerkErrorMessage(e), 'error');
 		} finally {
 			setIsLoading(false);
 		}

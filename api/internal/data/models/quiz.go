@@ -1,10 +1,9 @@
-package data
+package models
 
 type QuizWord struct {
-	Id         int    `json:"id"`
-	CategoryId int    `json:"categoryId"`
-	En         string `json:"en"`
-	Pl         string `json:"pl"`
+	Id int    `json:"id"`
+	En string `json:"en"`
+	Pl string `json:"pl"`
 }
 
 type QuizQuestion struct {
@@ -18,6 +17,6 @@ type Quiz struct {
 	Questions []QuizQuestion `json:"questions"`
 }
 
-type GetQuizParam struct {
-	QuestionsQty int `json:"questionsQty"`
+type CreateQuizRequest struct {
+	FlashcardsIds []int `json:"flashcardsIds"`
 }

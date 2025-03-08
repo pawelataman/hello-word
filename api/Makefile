@@ -1,30 +1,36 @@
 # Simple Makefile for a Go project
 DB_URL ?="postgresql://admin:password@localhost:5432/hello-word"
 
+.PHONY: build
 build:
 	@echo "Building..."
 	@go build -o ./build/main cmd/main.go
 
-# Run the application
+.PHNONY: run
 run:
 	@go run cmd/api/main.go
 
+.PHONY: migration
 migration:
 	@goose create $(name) sql -dir ./internal/db/sql/migrations
 
+.PHONY: upgrade
 upgrade:
 	@GOOSE_DRIVER=postgres GOOSE_DBSTRING=$(DB_URL) goose up -dir ./internal/db/sql/migrations
 
+.PHONY: downgrade
 downgrade:
 	@GOOSE_DRIVER=postgres GOOSE_DBSTRING=$(DB_URL) goose down -dir ./internal/db/sql/migrations
 
+.PHONY: status
 status:
 	@GOOSE_DRIVER=postgres GOOSE_DBSTRING=$(DB_URL) goose status -dir ./internal/db/sql/migrations
 
+.PHONY: db-models
 db-models:
 	@sqlc generate
 
-# Live Reload
+.PHONY: watch
 watch:
 	@if command -v air > /dev/null; then \
             air; \
@@ -41,7 +47,6 @@ watch:
             fi; \
         fi
 
+.PHONY: docker-dev
 docker-dev:
 	@docker compose -f ./compose-local.yaml --env-file .env up --build
-
-.PHONY: all build run test clean watch

@@ -1,74 +1,71 @@
-import { Text, useWindowDimensions, View } from 'react-native';
-import { useMemo } from 'react';
-import { selectNumOfQuestions, useQuizStore } from '@/core/state/quiz.state';
+import { Text, useWindowDimensions, View } from "react-native";
+import { ReactNode, useMemo } from "react";
+import { selectNumOfQuestions, useQuizStore } from "@/core/state/quiz.state";
 
-export default function() {
-	const { width } = useWindowDimensions();
-	const { answeredQuestions, questionIndex } = useQuizStore();
-	const numOfQuestions = useQuizStore(selectNumOfQuestions);
+interface QuizProgresProps {
+  giveUpAnswer?: ReactNode;
+}
 
-	const segmentWidth = useMemo(() => {
-		if (numOfQuestions === 0) return 0;
-		return width / numOfQuestions - 10;
-	}, [width, numOfQuestions]);
+export default function ({ giveUpAnswer }: QuizProgresProps) {
+  const { width } = useWindowDimensions();
+  const { quizRunData } = useQuizStore();
+  const numOfQuestions = useQuizStore(selectNumOfQuestions);
 
-	const { correct, incorrect } = useMemo(() => {
-			return answeredQuestions.reduce((acc, curr) => {
+  const segmentWidth = useMemo(() => {
+    if (numOfQuestions === 0) return 0;
+    return width / numOfQuestions - 10;
+  }, [width, numOfQuestions]);
 
-				if (curr.isCorrect) {
-					return { ...acc, correct: acc.correct + 1 };
-				}
-				return { ...acc, incorrect: acc.incorrect + 1 };
-			}, { correct: 0, incorrect: 0 });
-		}, [answeredQuestions])
+  const { correct } = useMemo(() => {
+    return quizRunData.answeredQuestions.reduce(
+      (acc, curr) => {
+        if (curr.isCorrect) {
+          return { ...acc, correct: acc.correct + 1 };
+        }
+        return { ...acc, incorrect: acc.incorrect + 1 };
+      },
+      { correct: 0, incorrect: 0 },
+    );
+  }, [quizRunData]);
 
-	;
+  const segments = new Array(numOfQuestions).fill(0).map((val, index) => index);
 
-	const segments = new Array(numOfQuestions).fill(0).map((val, index) => index);
+  const getColor = (index: number): string => {
+    const answeredQuestion = quizRunData.answeredQuestions[index];
+    if (!answeredQuestion) return "bg-gray-300";
 
-	const getColor = (index: number): string => {
-		const answeredQuestion = answeredQuestions[index];
-		if (!answeredQuestion) return 'bg-gray-300';
+    const { isCorrect } = answeredQuestion;
+    switch (isCorrect) {
+      case true:
+        return "bg-green-500";
+      case false:
+        return "bg-red-500";
+    }
+  };
 
+  if (numOfQuestions === 0) return;
 
-		const { isCorrect } = answeredQuestion;
-		switch (isCorrect) {
-			case true:
-				return 'bg-green-500';
-			case false:
-				return 'bg-red-500';
-		}
-	};
-
-	if (numOfQuestions === 0) return;
-
-	return (
-		<View className="mt-2 mx-5 gap-8">
-			<View className="h-2 flex-row justify-between">
-				{segments.map((val) => {
-					return (
-						<View
-							key={val}
-							style={{ width: segmentWidth }}
-							className={`bg-gray-300 h-full rounded-2xl ${getColor(val)}`}
-						></View>
-					);
-				})}
-			</View>
-			<View className="flex-row justify-between gap-2">
-				<View className="py-2 px-2 bg-gray-100 rounded-md">
-					<View className=" flex-row gap-4 justify-between">
-						<Text
-							className="text-black text-lg font-semibold">Pytanie {questionIndex + 1} z {numOfQuestions}</Text>
-					</View>
-				</View>
-				<View className="py-2 px-2  bg-gray-100 rounded-md">
-					<View className=" flex-row gap-4 justify-between">
-						<Text className="text-green-500 text-lg font-semibold">Punkty {correct}</Text>
-					</View>
-				</View>
-			</View>
-
-		</View>
-	);
+  return (
+    <View className="mt-2 gap-4">
+      <View className="h-2 flex-row justify-between">
+        {segments.map((val) => {
+          return (
+            <View
+              key={val}
+              style={{ width: segmentWidth }}
+              className={`bg-gray-300 h-full rounded-2xl ${getColor(val)}`}
+            ></View>
+          );
+        })}
+      </View>
+      <View className="flex-row justify-between">
+        <View>{giveUpAnswer}</View>
+        <View className="py-2 px-2 rounded-xl  bg-white border-2 border-gray-100">
+          <Text className="text-green-500 text-md font-semibold">
+            Punkty {correct}
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
 }

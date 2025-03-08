@@ -47,7 +47,7 @@ export default function SignUpScreen() {
 			bottomSheetRef.current?.expand();
 			setEmailVerificationData({ ...data });
 		} catch (error: any) {
-			showToast(extractClerkErrorMessage(error));
+			showToast(extractClerkErrorMessage(error), 'error');
 		} finally {
 			setIsLoading(false);
 		}

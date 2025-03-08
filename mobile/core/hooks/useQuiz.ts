@@ -1,71 +1,98 @@
-import { Word } from '@/core/api/models/quiz';
-import { selectCurrentQuestion, selectNumOfQuestions, useQuizStore } from '@/core/state/quiz.state';
-import { LANG_CODE } from '@/core/constants/common';
-import * as Speech from 'expo-speech';
-import { useMMKVBoolean } from 'react-native-mmkv';
-import { CONFIG_VOICEOVER, storage } from '@/core/constants/storage';
-import { useQuizTranslation } from '@/core/hooks/useQuizTranslation';
+import { Word } from "@/core/api/models/quiz";
+import { selectCurrentQuestion, useQuizStore } from "@/core/state/quiz.state";
+import { LanguageCode } from "@/core/constants/common";
+import * as Speech from "expo-speech";
+import { useMMKVBoolean } from "react-native-mmkv";
+import {
+  CONFIG_AUTO_NEXT_QUESTION,
+  CONFIG_VOICEOVER,
+  storage,
+} from "@/core/constants/storage";
+import { useQuizTranslation } from "@/core/hooks/useQuizTranslation";
+import { NEXT_QUESTION_TIMEOUT } from "@/core/constants/quiz";
+import { useEffect, useRef } from "react";
 
 export function useQuiz() {
-	const { addAnsweredQuestion, nextQuestion, quizLanguage, questionIndex } = useQuizStore();
-	const numOfQuestions = useQuizStore(selectNumOfQuestions);
-	const { getAnswerLabel } = useQuizTranslation();
-	const currentQuestion = useQuizStore(selectCurrentQuestion);
-	const [voiceover] = useMMKVBoolean(CONFIG_VOICEOVER, storage);
+  const { addAnsweredQuestion, nextQuestion, quizRunData } = useQuizStore();
+  const { getAnswerLabel } = useQuizTranslation();
+  const currentQuestion = useQuizStore(selectCurrentQuestion);
+  const [voiceover] = useMMKVBoolean(CONFIG_VOICEOVER, storage);
+  const [autoNextQuestion] = useMMKVBoolean(CONFIG_AUTO_NEXT_QUESTION, storage);
+  const nextQuestionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-	const handleChooseAnswer = (answer: Word): void => {
-		if (!currentQuestion) return;
+  useEffect(() => {
+    if (quizRunData.currentQuestionStatus === "answered") {
+      if (autoNextQuestion && nextQuestionTimeoutRef.current === null) {
+        invokeNextQuestion();
+      }
+      if (!autoNextQuestion && nextQuestionTimeoutRef.current !== null) {
+        clearTimeout(nextQuestionTimeoutRef.current);
+        nextQuestionTimeoutRef.current = null;
+      }
+    }
+  }, [autoNextQuestion]);
 
-		const isCorrect = answer.id === currentQuestion.question.id;
+  const handleChooseAnswer = (answer: Word): void => {
+    if (!currentQuestion) return;
 
-		addAnsweredQuestion(currentQuestion, answer, 'choose', isCorrect);
+    const isCorrect = answer.id === currentQuestion.question.id;
 
-		setTimeout(() => {
-			if (voiceover && quizLanguage?.code !== LANG_CODE.PL) {
-				playbackWord(getAnswerLabel(currentQuestion.question), 1000, () => nextQuestion());
-			} else {
-				setTimeout(() => {
-					nextQuestion();
-				}, 200);
-			}
-		}, 250);
-	};
+    addAnsweredQuestion(currentQuestion, answer, "choose", isCorrect);
 
-	const handleTypedAnswer = (answer: string): void => {
-		if (!currentQuestion) return;
+    const word = currentQuestion.question[LanguageCode.EN];
+    if (voiceover) {
+      playbackWord(word, () => invokeNextQuestion());
+    } else {
+      invokeNextQuestion();
+    }
+  };
 
-		const isCorrect = getAnswerLabel(currentQuestion.question) === answer;
+  const handleTypedAnswer = (answer: string): void => {
+    if (!currentQuestion) return;
 
-		addAnsweredQuestion(currentQuestion, answer, 'typed', isCorrect);
+    const isCorrect = getAnswerLabel(currentQuestion.question) === answer;
 
-		setTimeout(() => {
-			if (voiceover) {
-				playbackWord(getAnswerLabel(currentQuestion.question), 1000, () => {
-					if (questionIndex + 1 === numOfQuestions) {
-						nextQuestion();
-					}
-				});
-			}
-		}, 250);
-	};
+    addAnsweredQuestion(currentQuestion, answer, "typed", isCorrect);
 
-	return {
-		handleChooseAnswer,
-		handleTypedAnswer,
-	};
+    setTimeout(() => {
+      if (voiceover) {
+        playbackWord(getAnswerLabel(currentQuestion.question), () =>
+          invokeNextQuestion(),
+        );
+      } else {
+        invokeNextQuestion();
+      }
+    }, 250);
+  };
+
+  function invokeNextQuestion() {
+    if (autoNextQuestion) {
+      nextQuestionTimeoutRef.current = setTimeout(() => {
+        nextQuestion();
+      }, NEXT_QUESTION_TIMEOUT);
+    }
+  }
+
+  return {
+    handleChooseAnswer,
+    handleTypedAnswer,
+  };
 }
 
-function playbackWord(word: string, timeout: number, onDone: () => void = () => {
-}): void {
-	Speech.speak(word, {
-		language: LANG_CODE.EN,
-		rate: 0.8,
-		onDone: () => {
-			setTimeout(() => {
-				onDone();
-			}, timeout);
-		},
-	});
+function playbackWord(word: string, onDone: () => void = () => {}): void {
+  const beforePlaybackDelay = 250;
+  const afterPlaybackDelay = 1000;
+  setTimeout(() => {
+    Speech.speak(word, {
+      language: LanguageCode.EN,
+      rate: 0.8,
+      onDone: () => {
+        setTimeout(() => {
+          onDone();
+        }, afterPlaybackDelay);
+      },
+    });
+  }, beforePlaybackDelay);
 }
 
 //https://dictionaryapi.dev/?ref=freepublicapis.com

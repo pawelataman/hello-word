@@ -1,13 +1,12 @@
 -- name: GetQuizQuestions :many
-SELECT *
+SELECT words.id, words.en, words.pl
 FROM words
 ORDER BY RANDOM()
 LIMIT $1;
 
--- name: PutWordCategory :exec
-INSERT INTO words_categories ("id", "categoryName")
-VALUES ($1, $2);
-
--- name: PutWord :exec
-INSERT INTO words ("categoryId", "en", "pl")
-VALUES ($1, $2, $3);
+-- name: GetQuizFalseAnswers :many
+SELECT words.id, words.en, words.pl
+FROM words
+WHERE words.id != @answer_id
+ORDER BY RANDOM()
+LIMIT @false_answers_qty;

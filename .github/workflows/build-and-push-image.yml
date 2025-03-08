@@ -51,8 +51,12 @@ jobs:
         with:
           envkey_HOST_NAME: ${{vars.HOST_NAME}}
           envkey_DASHBOARD_USERNAME: ${{vars.DASHBOARD_USERNAME}}
-          envkey_DB_URL: ${{secrets.DB_URL}}
+          envkey_DB_URL: postgresql://${{secrets.DB_USERNAME}}:${{secrets.DB_PASSWORD}}@db:5432/${{secrets.DB_NAME}}
           envkey_CLERK_SECRET_KEY: ${{secrets.CLERK_SECRET_KEY}}
+          envkey_DB_USERNAME: ${{secrets.DB_USERNAME}}
+          envkey_DB_NAME: ${{secrets.DB_NAME}}
+          envkey_DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+
 
       - name: Docker Stack Deploy
         uses: jtwebman/stack-deploy-action@proposed_registry_login_change

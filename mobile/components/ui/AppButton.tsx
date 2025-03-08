@@ -1,9 +1,15 @@
-import { GestureResponderEvent, Pressable, Text, View } from "react-native";
+import {
+  GestureResponderEvent,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface AppButtonProps {
   label: string;
   onPress: (event: GestureResponderEvent) => void;
   variant: "primary" | "secondary" | "tertiary";
+  className?: string;
   disabled?: boolean;
 }
 
@@ -31,14 +37,18 @@ export default function (props: AppButtonProps) {
   };
 
   return (
-    <Pressable disabled={props.disabled} onPress={props.onPress}>
+    <TouchableOpacity
+      className={props.className}
+      disabled={props.disabled}
+      onPress={props.onPress}
+    >
       <View
         className={`px-10 py-2 rounded-lg ${getBackgroundColor()} ${props.disabled && "opacity-30"}`}
       >
-        <Text className={`font-medium text-center text-xl ${getTextColor()}`}>
+        <Text className={`font-semibold text-center text-l ${getTextColor()}`}>
           {props.label}
         </Text>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 }

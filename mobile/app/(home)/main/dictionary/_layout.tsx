@@ -1,11 +1,21 @@
-import { Stack } from 'expo-router';
+import { Stack } from "expo-router";
 
-export default function() {
-	return (
-		<Stack>
-			<Stack.Screen name="index" />
-			<Stack.Screen name="new-words" options={{ presentation: 'modal', title: 'Dodaj słówka' }} />
-		</Stack>
-	);
+export default function () {
+  return (
+    <Stack>
+      <Stack.Screen name="index" />
+      <Stack.Screen
+        name="flashcard"
+        options={{ headerShown: false, presentation: "modal" }}
+      />
+
+      <Stack.Screen
+        name="new-words"
+        options={{
+          presentation: "modal",
+          title: "Dodaj słówka",
+        }}
+      />
+    </Stack>
+  );
 }
-

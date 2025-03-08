@@ -1,19 +1,22 @@
-import { LANG_CODE } from '@/core/constants/common';
+import { LanguageCode } from "@/core/constants/common";
 
 export interface QuizResponse {
-	id: string;
-	questions: QuizQuestion[];
+  id: string;
+  questions: QuizQuestion[];
 }
 
 export interface QuizQuestion {
-	id: number;
-	question: Word;
-	answers: Word[];
+  id: number;
+  question: Word;
+  answers: Word[];
 }
 
 export interface Word {
-	id: number;
-	categoryId: number;
-	[LANG_CODE.EN]: string;
-	[LANG_CODE.PL]: string;
+  id: number;
+  [LanguageCode.EN]: string;
+  [LanguageCode.PL]: string;
+}
+
+export interface GetQuizFromFlashcardsRequest {
+  flashcardsIds: number[];
 }
