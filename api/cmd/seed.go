@@ -15,11 +15,15 @@ import (
 func main() {
 	ctx := context.Background()
 	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("error loading .env file")
+
+	DB_URL := os.Getenv("DB_URL")
+
+	if DB_URL == "" {
+		log.Fatal("DB_URL env not provided")
+		return
 	}
 
-	appConfig := config.NewAppConfig(config.WithDSN(os.Getenv("DB_URL")), config.WithMaxConnections(1))
+	appConfig := config.NewAppConfig(config.WithDSN(DB_URL), config.WithMaxConnections(1))
 	pool, err := db.CreateDbConnection(ctx, appConfig)
 
 	if err != nil {

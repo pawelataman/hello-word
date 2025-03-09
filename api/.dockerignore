@@ -1,0 +1,6 @@
+.env
+.env.docker
+.env.tpl
+build
+Makefile
+.gitignore
