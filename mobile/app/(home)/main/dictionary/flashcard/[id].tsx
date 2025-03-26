@@ -36,7 +36,7 @@ export default function () {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { setQuizMetadata } = useQuizStore();
   const { getFlashcardDetails } = useContext(HttpClientContext)!;
-  const { data, isPending, refetch, isRefetching } = useQuery({
+  const { data, isPending, isRefetching } = useQuery({
     queryKey: [id, "get-flashcard-details"],
     queryFn: ({ queryKey }) => getFlashcardDetails(parseInt(queryKey[0])),
   });
@@ -93,7 +93,7 @@ export default function () {
                   <TouchableOpacity
                     onPress={navigateToEdit}
                     className={
-                      "bg-green-500/70 text-white rounded-xl p-2 flex-row justify-center"
+                      "bg-white/30 text-white rounded-xl p-2 flex-row justify-center"
                     }
                   >
                     <PencilSimple

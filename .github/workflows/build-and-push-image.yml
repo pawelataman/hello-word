@@ -1,4 +1,4 @@
-name: "Build and Push API docker image"
+name: "Build and Push hello-word API docker image"
 
 permissions:
   packages: write
@@ -34,39 +34,3 @@ jobs:
           tags: |
             ghcr.io/pawelataman/hello-word-api:latest
             ghcr.io/pawelataman/hello-word-api:${{github.sha}}
-  
-
-  deploy:
-    runs-on: ubuntu-22.04
-    environment: production
-    needs:
-      - build-and-push
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_HOST_NAME: ${{vars.HOST_NAME}}
-          envkey_DASHBOARD_USERNAME: ${{vars.DASHBOARD_USERNAME}}
-          envkey_DB_URL: postgresql://${{secrets.DB_USERNAME}}:${{secrets.DB_PASSWORD}}@db:5432/${{secrets.DB_NAME}}
-          envkey_CLERK_SECRET_KEY: ${{secrets.CLERK_SECRET_KEY}}
-          envkey_DB_USERNAME: ${{secrets.DB_USERNAME}}
-          envkey_DB_NAME: ${{secrets.DB_NAME}}
-          envkey_DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-          envkey_TRAEFIK_CREDENTIALS: ${{secrets.TRAEFIK_CREDENTIALS}}
-
-
-      - name: Docker Stack Deploy
-        uses: jtwebman/stack-deploy-action@proposed_registry_login_change
-        with:
-          name: hello-word-api
-          file: ./infra/deploy-stack.yaml
-          host: ${{vars.HOST_NAME}}
-          user: ${{vars.DEPLOY_SSH_USER}}
-          ssh_key: ${{ secrets.DEPLOY_SSH_PK}}
-          env_file: .env
-          registry_auth: echo "${{ secrets.CONTAINER_REGISTRY_PASSWORD }}" | docker login ghcr.io -u ${{ vars.CONTAINER_REGISTRY_USER }} --password-stdin
-

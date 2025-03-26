@@ -15,7 +15,6 @@ import { LanguageCode } from "@/core/constants/common";
 import { useQuizStore } from "@/core/state/quiz.state";
 
 export default memo(function () {
-  const [indeterminate, setIndeterminate] = useState<boolean>(false);
   const [quizStarterKey, setQuizStarterKey] = useState(0);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { getFlashcards } = useClient();
@@ -33,25 +32,18 @@ export default memo(function () {
     router.navigate("/(home)/main/dictionary/flashcard");
   };
 
-  const onFlashcardPressed = useCallback(
-    (flashcard: FlashcardBrief) => {
-      if (indeterminate) return;
-
-      setIndeterminate(true);
-      if (selectMode) {
-        selectFlashcard(flashcard);
-      } else {
-        router.navigate({
-          pathname: `/(home)/main/dictionary/flashcard/[id]`,
-          params: {
-            id: flashcard.id,
-          },
-        });
-        setTimeout(() => setIndeterminate(false), 1000);
-      }
-    },
-    [indeterminate],
-  );
+  const onFlashcardPressed = (flashcard: FlashcardBrief) => {
+    if (selectMode) {
+      selectFlashcard(flashcard);
+    } else {
+      router.navigate({
+        pathname: `/(home)/main/dictionary/flashcard/[id]`,
+        params: {
+          id: flashcard.id,
+        },
+      });
+    }
+  };
 
   const selectFlashcard = useCallback(
     (flashcard: FlashcardBrief) => {
@@ -81,10 +73,10 @@ export default memo(function () {
     [selectedFlashcards],
   );
 
-  const onResetSelection = () => {
+  const onResetSelection = useCallback(() => {
     setSelectMode(false);
     setSelectedFlashcards({});
-  };
+  }, []);
 
   const onStartQuiz = (mode: QuizMode, language: LanguageCode) => {
     bottomSheetRef.current?.forceClose();

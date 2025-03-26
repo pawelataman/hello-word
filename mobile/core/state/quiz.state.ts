@@ -98,6 +98,7 @@ export const useQuizStore = create<QuizState>((set) => ({
     set(
       (state): State => ({
         ...state,
+        quizRunData: INITIAL_STATE.quizRunData,
         quizData: quiz,
       }),
     ),

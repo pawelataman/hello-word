@@ -7,9 +7,5 @@ RUN go install github.com/pressly/goose/v3/cmd/goose@latest
 COPY . .
 RUN chmod +x ./migrate.sh ./seed.sh
 RUN CGO_ENABLED=0 GOOS=linux go build -o ./build/hello-word-api ./cmd/main.go
-EXPOSE 3000
+EXPOSE 8080
 CMD ["./build/hello-word-api"]
-
-
-
-
