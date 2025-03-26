@@ -8,4 +8,4 @@ COPY . .
 RUN chmod +x ./migrate.sh ./seed.sh ./start.sh
 RUN CGO_ENABLED=0 GOOS=linux go build -o ./build/hello-word-api ./cmd/main.go
 EXPOSE 8080
-CMD ["/bin/bash","-c","./start.sh"]
+CMD ["./start.sh"]
