@@ -1,12 +1,6 @@
 -- +goose Up
 -- +goose StatementBegin
-
-DO $$
-    BEGIN
-        IF NOT EXISTS (SELECT FROM pg_database WHERE datname = 'hello-word-api-db') THEN
-            CREATE DATABASE "hello-word-api-db";
-        END IF;
-    END $$;
+CREATE DATABASE "hello-word-api-db";
 
 CREATE TABLE IF NOT EXISTS "flashcards"
 (
