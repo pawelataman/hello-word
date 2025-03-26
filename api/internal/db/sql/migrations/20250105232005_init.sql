@@ -1,6 +1,8 @@
 -- +goose Up
 -- +goose StatementBegin
 
+CREATE DATABASE IF NOT EXISTS "hello-word-api-db";
+
 CREATE TABLE IF NOT EXISTS "flashcards"
 (
     "id"         serial PRIMARY KEY NOT NULL,
@@ -34,4 +36,5 @@ CREATE TABLE IF NOT EXISTS "words_flashcards"
 DROP TABLE IF EXISTS "words";
 DROP TABLE IF EXISTS "flashcards";
 DROP TABLE IF EXISTS "words_flashcards";
+DROP DATABASE "hello-word-api-db";
 -- +goose StatementEnd
