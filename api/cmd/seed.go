@@ -17,13 +17,14 @@ func main() {
 	err := godotenv.Load()
 
 	DB_URL := os.Getenv("DB_URL")
+	DB_NAME := os.Getenv("DB_NAME")
 
-	if DB_URL == "" {
+	if DB_URL == "" || DB_NAME == "" {
 		log.Fatal("DB_URL env not provided")
 		return
 	}
 
-	appConfig := config.NewAppConfig(config.WithDSN(DB_URL), config.WithMaxConnections(1))
+	appConfig := config.NewAppConfig(config.WithDSN(DB_URL, DB_NAME), config.WithMaxConnections(1))
 	pool, err := db.CreateDbConnection(ctx, appConfig)
 
 	if err != nil {

@@ -1,5 +1,7 @@
 package config
 
+import "fmt"
+
 type AppConfigOptFn func(*AppConfig)
 
 func defaultOpts() *AppConfig {
@@ -27,9 +29,9 @@ func NewAppConfig(optFns ...AppConfigOptFn) *AppConfig {
 	}
 }
 
-func WithDSN(dsn string) AppConfigOptFn {
+func WithDSN(dsn string, dbName string) AppConfigOptFn {
 	return func(config *AppConfig) {
-		config.DSN = dsn
+		config.DSN = fmt.Sprintf("%s/%s", dsn, dbName)
 	}
 }
 

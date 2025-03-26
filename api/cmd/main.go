@@ -24,7 +24,7 @@ func main() {
 	_ = godotenv.Load()
 	ctx := context.Background()
 
-	appConfig := config.NewAppConfig(config.WithDSN(os.Getenv("DB_URL")), config.WithMaxConnections(4))
+	appConfig := config.NewAppConfig(config.WithDSN(os.Getenv("DB_URL"), os.Getenv("DB_NAME")), config.WithMaxConnections(4))
 
 	pool, err := db.CreateDbConnection(ctx, appConfig)
 	queries := generated.New(pool)
@@ -45,8 +45,8 @@ func main() {
 		db.DisposeConnection(pool)
 	}()
 
-	log.Println("Server is listening on port :3000")
-	log.Fatal(app.Listen(":3000"))
+	log.Println("Server is listening on port :8080")
+	log.Fatal(app.Listen(":8080"))
 }
 
 func Setup(tm db.ITransactionManager, queries *generated.Queries) (*server.Server, error) {
