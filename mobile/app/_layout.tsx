@@ -13,6 +13,7 @@ import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from "react-native-reanimated";
+import { Toasts } from "@backpackapp-io/react-native-toast";
 
 if (__DEV__) {
   require("../ReactotronConfig");
@@ -34,6 +35,7 @@ function MainLayout() {
               <Stack.Screen name="(auth)" options={{ headerShown: false }} />
               <Stack.Screen name="(home)" options={{ headerShown: false }} />
             </Stack>
+            <Toasts />
           </AppLoader>
         </PortalProvider>
       </GestureHandlerRootView>

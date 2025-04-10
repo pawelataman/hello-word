@@ -56,7 +56,7 @@ export default function ({ answer, submitAnswer }: QuizWritableAnswerProps) {
       )}
       {isAnswered && (
         <Text
-          className={`${isCorrect ? "color-green-500" : "color-black"} text-2xl font-bold text-center`}
+          className={`${isCorrect ? "color-green-500" : "color-black"} text-4xl font-bold text-center`}
         >
           {segmentAnswers.map((segAns) => segAns + " ")}
         </Text>

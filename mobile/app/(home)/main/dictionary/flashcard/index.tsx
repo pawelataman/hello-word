@@ -91,14 +91,10 @@ export default function FlashcardEditor() {
     mutationFn: createFlashcard,
     onSuccess: (_data: CreateFlashcardResponse) => {
       refetch();
-      router.navigate({
-        pathname: "/(home)/main/dictionary",
-        params: {
-          tabName: "flashcards",
-        },
-      });
+      router.dismissAll();
     },
     onError: (error) => {
+      console.log(extractApiErrorMessage(error.message as ApiErrorCodes));
       showToast(
         extractApiErrorMessage(error.message as ApiErrorCodes),
         "error",
@@ -121,7 +117,7 @@ export default function FlashcardEditor() {
     mutationFn: deleteFlashcard,
     onSuccess: () => {
       refetch();
-      router.navigate({
+      router.replace({
         pathname: "/(home)/main/dictionary",
         params: {
           tabName: "flashcards",
