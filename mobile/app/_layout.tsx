@@ -8,7 +8,6 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import React, { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { RootSiblingParent } from "react-native-root-siblings";
 import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
@@ -27,19 +26,17 @@ function MainLayout() {
   useAuthZoneGuard();
 
   return (
-    <RootSiblingParent>
-      <GestureHandlerRootView style={{ flex: 1, zIndex: 999 }}>
-        <PortalProvider>
-          <AppLoader>
-            <Stack>
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              <Stack.Screen name="(home)" options={{ headerShown: false }} />
-            </Stack>
-            <Toasts />
-          </AppLoader>
-        </PortalProvider>
-      </GestureHandlerRootView>
-    </RootSiblingParent>
+    <GestureHandlerRootView style={{ flex: 1, zIndex: 999 }}>
+      <PortalProvider>
+        <AppLoader>
+          <Stack>
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="(home)" options={{ headerShown: false }} />
+          </Stack>
+          <Toasts />
+        </AppLoader>
+      </PortalProvider>
+    </GestureHandlerRootView>
   );
 }
 
