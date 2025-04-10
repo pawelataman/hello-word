@@ -26,6 +26,7 @@ func (s *Seeder) Seed(ctx context.Context) {
 	seedWords(s.queries, ctx, "ordering.json")
 	seedWords(s.queries, ctx, "rolki.json")
 	seedWords(s.queries, ctx, "size-position.json")
+	seedWords(s.queries, ctx, "body-parts.json")
 }
 
 func seedWords(queries *generated.Queries, ctx context.Context, source string) {
