@@ -1,0 +1,23 @@
+[
+  { "en": "available", "pl": "dostępny" },
+  { "en": "unavailable", "pl": "niedostępny" },
+  { "en": "in stock", "pl": "na stanie" },
+  { "en": "out of stock", "pl": "brak na stanie" },
+  { "en": "order", "pl": "zamówienie" },
+  { "en": "delivery", "pl": "dostawa" },
+  { "en": "supplier", "pl": "dostawca" },
+  { "en": "warehouse", "pl": "magazyn" },
+  { "en": "price", "pl": "cena" },
+  { "en": "discount", "pl": "zniżka" },
+  { "en": "payment", "pl": "płatność" },
+  { "en": "cash", "pl": "gotówka" },
+  { "en": "card", "pl": "karta" },
+  { "en": "invoice", "pl": "faktura" },
+  { "en": "receipt", "pl": "paragon" },
+  { "en": "wait", "pl": "czekać" },
+  { "en": "shipping", "pl": "wysyłka" },
+  { "en": "confirmation", "pl": "potwierdzenie" },
+  { "en": "pickup", "pl": "odbiór osobisty" },
+  { "en": "return", "pl": "zwrot" },
+  { "en": "refund", "pl": "zwrot pieniędzy" }
+]

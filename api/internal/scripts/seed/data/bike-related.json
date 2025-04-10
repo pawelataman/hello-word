@@ -1,0 +1,471 @@
+[
+  { "en": "mountain bike", "pl": "rower gorski" },
+  { "en": "road bike", "pl": "rower szosowy" },
+  { "en": "city bike", "pl": "rower miejski" },
+  { "en": "electric bike", "pl": "rower elektryczny" },
+  { "en": "kids bike", "pl": "rower dzieciecy" },
+  { "en": "folding bike", "pl": "rower skladany" },
+  { "en": "gravel bike", "pl": "rower gravelowy" },
+  { "en": "hybrid bike", "pl": "rower hybrydowy" },
+  { "en": "frame", "pl": "rama" },
+  { "en": "handlebars", "pl": "kierownica" },
+  { "en": "saddle", "pl": "siodelko" },
+  { "en": "pedals", "pl": "pedaly" },
+  { "en": "chain", "pl": "lancuch" },
+  { "en": "crankset", "pl": "mechanizm korbowy" },
+  { "en": "derailleur", "pl": "przerzutka" },
+  { "en": "gears", "pl": "biegi" },
+  { "en": "brakes", "pl": "hamulce" },
+  { "en": "disc brakes", "pl": "hamulce tarczowe" },
+  { "en": "rim brakes", "pl": "hamulce szczekowe" },
+  { "en": "wheel", "pl": "kolo" },
+  { "en": "tire", "pl": "opona" },
+  { "en": "inner tube", "pl": "detka" },
+  { "en": "fork", "pl": "widelec" },
+  { "en": "seat post", "pl": "sztyca siodla" },
+  { "en": "cassette", "pl": "kaseta" },
+  { "en": "chainring", "pl": "zebatka przednia" },
+  { "en": "spokes", "pl": "szprychy" },
+  { "en": "hub", "pl": "piasta" },
+  { "en": "wrench", "pl": "klucz" },
+  { "en": "allen key", "pl": "klucz imbusowy" },
+  { "en": "screwdriver", "pl": "srubokret" },
+  { "en": "torque wrench", "pl": "klucz dynamometryczny" },
+  { "en": "pump", "pl": "pompka" },
+  { "en": "grease", "pl": "smar" },
+  { "en": "lubricant", "pl": "olej smarujacy" },
+  { "en": "multitool", "pl": "narzedzie wielofunkcyjne" },
+  { "en": "helmet", "pl": "kask" },
+  { "en": "bike lock", "pl": "zapiecie rowerowe" },
+  { "en": "lights", "pl": "lampki" },
+  { "en": "bell", "pl": "dzwonek" },
+  { "en": "bottle holder", "pl": "uchwyt na bidon" },
+  { "en": "mudguards", "pl": "blotniki" },
+  { "en": "basket", "pl": "koszyk" },
+  { "en": "mirror", "pl": "lusterko" },
+
+  {
+    "en": "mountain bike",
+    "pl": "rower górski"
+  },
+  {
+    "en": "road bike",
+    "pl": "rower szosowy"
+  },
+  {
+    "en": "city bike",
+    "pl": "rower miejski"
+  },
+  {
+    "en": "trekking bike",
+    "pl": "rower trekkingowy"
+  },
+  {
+    "en": "touring bike",
+    "pl": "rower turystyczny"
+  },
+  {
+    "en": "e-bike",
+    "pl": "rower elektryczny"
+  },
+  {
+    "en": "kids bike",
+    "pl": "rower dziecięcy"
+  },
+  {
+    "en": "folding bike",
+    "pl": "rower składany"
+  },
+  {
+    "en": "gravel bike",
+    "pl": "rower gravelowy"
+  },
+  {
+    "en": "cross bike",
+    "pl": "rower crossowy"
+  },
+  {
+    "en": "used bike",
+    "pl": "rower używany"
+  },
+  {
+    "en": "new bike",
+    "pl": "nowy rower"
+  },
+  {
+    "en": "frame",
+    "pl": "rama"
+  },
+  {
+    "en": "aluminum frame",
+    "pl": "rama aluminiowa"
+  },
+  {
+    "en": "carbon frame",
+    "pl": "rama karbonowa"
+  },
+  {
+    "en": "steel frame",
+    "pl": "rama stalowa"
+  },
+  {
+    "en": "titanium frame",
+    "pl": "rama tytanowa"
+  },
+  {
+    "en": "frame size",
+    "pl": "rozmiar ramy"
+  },
+  {
+    "en": "fork",
+    "pl": "widelec"
+  },
+  {
+    "en": "suspension",
+    "pl": "zawieszenie"
+  },
+  {
+    "en": "drivetrain",
+    "pl": "napęd"
+  },
+  {
+    "en": "shifter",
+    "pl": "manetka"
+  },
+  {
+    "en": "cassette",
+    "pl": "kaseta"
+  },
+  {
+    "en": "crankset",
+    "pl": "korba"
+  },
+  {
+    "en": "chainring",
+    "pl": "zębatka"
+  },
+  {
+    "en": "stem",
+    "pl": "mostek"
+  },
+  {
+    "en": "seatpost",
+    "pl": "sztyca"
+  },
+  {
+    "en": "wheel",
+    "pl": "koło"
+  },
+  {
+    "en": "rim",
+    "pl": "obręcz"
+  },
+  {
+    "en": "hub",
+    "pl": "piasta"
+  },
+  {
+    "en": "spoke",
+    "pl": "szprycha"
+  },
+  {
+    "en": "tire",
+    "pl": "opona"
+  },
+  {
+    "en": "tubeless tire",
+    "pl": "opona bezdętkowa"
+  },
+  {
+    "en": "clincher tire",
+    "pl": "opona dętkowa"
+  },
+  {
+    "en": "inner tube",
+    "pl": "dętka"
+  },
+  {
+    "en": "valve",
+    "pl": "wentyl"
+  },
+  {
+    "en": "brake",
+    "pl": "hamulec"
+  },
+  {
+    "en": "disc brake",
+    "pl": "hamulec tarczowy"
+  },
+  {
+    "en": "hydraulic brake",
+    "pl": "hamulec hydrauliczny"
+  },
+  {
+    "en": "mechanical brake",
+    "pl": "hamulec mechaniczny"
+  },
+  {
+    "en": "v-brake",
+    "pl": "hamulec v-brake"
+  },
+  {
+    "en": "caliper brake",
+    "pl": "hamulec szczękowy"
+  },
+  {
+    "en": "brake pad",
+    "pl": "klocek hamulcowy"
+  },
+  {
+    "en": "brake disc",
+    "pl": "tarcza hamulcowa"
+  },
+  {
+    "en": "pedal",
+    "pl": "pedał"
+  },
+  {
+    "en": "helmet",
+    "pl": "kask"
+  },
+  {
+    "en": "bike lock",
+    "pl": "zapięcie rowerowe"
+  },
+  {
+    "en": "chain lock",
+    "pl": "łańcuch"
+  },
+  {
+    "en": "lighting",
+    "pl": "oświetlenie"
+  },
+  {
+    "en": "front light",
+    "pl": "lampka przednia"
+  },
+  {
+    "en": "rear light",
+    "pl": "lampka tylna"
+  },
+  {
+    "en": "pump",
+    "pl": "pompka"
+  },
+  {
+    "en": "hand pump",
+    "pl": "pompka ręczna"
+  },
+  {
+    "en": "mudguard",
+    "pl": "błotnik"
+  },
+  {
+    "en": "rack",
+    "pl": "bagażnik"
+  },
+  {
+    "en": "bag",
+    "pl": "torba"
+  },
+  {
+    "en": "kickstand",
+    "pl": "stopka"
+  },
+  {
+    "en": "bell",
+    "pl": "dzwonek"
+  },
+  {
+    "en": "mirror",
+    "pl": "lusterko"
+  },
+  {
+    "en": "allen key",
+    "pl": "klucz imbusowy"
+  },
+  {
+    "en": "lubricant",
+    "pl": "smar"
+  },
+  {
+    "en": "price",
+    "pl": "cena"
+  },
+  {
+    "en": "discount",
+    "pl": "rabat"
+  },
+  {
+    "en": "sale",
+    "pl": "promocja"
+  },
+  {
+    "en": "special offer",
+    "pl": "oferta specjalna"
+  },
+  {
+    "en": "availability",
+    "pl": "dostępność"
+  },
+  {
+    "en": "in stock",
+    "pl": "na stanie"
+  },
+  {
+    "en": "on order",
+    "pl": "na zamówienie"
+  },
+  {
+    "en": "warranty",
+    "pl": "gwarancja"
+  },
+  {
+    "en": "invoice",
+    "pl": "faktura"
+  },
+  {
+    "en": "receipt",
+    "pl": "paragon"
+  },
+  {
+    "en": "payment",
+    "pl": "płatność"
+  },
+  {
+    "en": "cash payment",
+    "pl": "płatność gotówką"
+  },
+  {
+    "en": "card payment",
+    "pl": "płatność kartą"
+  },
+  {
+    "en": "bank transfer",
+    "pl": "przelew"
+  },
+  {
+    "en": "blik payment",
+    "pl": "płatność blik"
+  },
+  {
+    "en": "installments",
+    "pl": "raty"
+  },
+  {
+    "en": "size",
+    "pl": "rozmiar"
+  },
+  {
+    "en": "bike fitting",
+    "pl": "dopasowanie roweru"
+  },
+  {
+    "en": "test ride",
+    "pl": "jazda próbna"
+  },
+  {
+    "en": "recommendation",
+    "pl": "rekomendacja"
+  },
+  {
+    "en": "model",
+    "pl": "model"
+  },
+  {
+    "en": "brand",
+    "pl": "marka"
+  },
+  {
+    "en": "specification",
+    "pl": "specyfikacja"
+  },
+  {
+    "en": "order",
+    "pl": "zamówienie"
+  },
+  {
+    "en": "delivery",
+    "pl": "dostawa"
+  },
+  {
+    "en": "personal pickup",
+    "pl": "odbiór osobisty"
+  },
+  {
+    "en": "return",
+    "pl": "zwrot"
+  },
+  {
+    "en": "complaint",
+    "pl": "reklamacja"
+  },
+  {
+    "en": "bike service",
+    "pl": "serwis rowerowy"
+  },
+  {
+    "en": "service",
+    "pl": "przegląd"
+  },
+  {
+    "en": "repair",
+    "pl": "naprawa"
+  },
+  {
+    "en": "maintenance",
+    "pl": "konserwacja"
+  },
+  {
+    "en": "adjustment",
+    "pl": "regulacja"
+  },
+  {
+    "en": "wheel truing",
+    "pl": "centrowanie koła"
+  },
+  {
+    "en": "replacement",
+    "pl": "wymiana"
+  },
+  {
+    "en": "brake bleeding",
+    "pl": "odpowietrzanie hamulca"
+  },
+  {
+    "en": "cleaning",
+    "pl": "czyszczenie"
+  },
+  {
+    "en": "diagnostics",
+    "pl": "diagnostyka"
+  },
+  {
+    "en": "cost estimate",
+    "pl": "kosztorys"
+  },
+  {
+    "en": "spare parts",
+    "pl": "części zamienne"
+  },
+  {
+    "en": "labor cost",
+    "pl": "robocizna"
+  },
+  {
+    "en": "flat tire",
+    "pl": "przebita dętka"
+  },
+  {
+    "en": "inventory",
+    "pl": "stan magazynowy"
+  },
+  {
+    "en": "supplier",
+    "pl": "dostawca"
+  },
+  {
+    "en": "customer",
+    "pl": "klient"
+  }
+]

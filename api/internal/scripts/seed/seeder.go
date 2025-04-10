@@ -21,16 +21,22 @@ func New(queries *generated.Queries) *Seeder {
 }
 
 func (s *Seeder) Seed(ctx context.Context) {
-	seedWords(s.queries, ctx)
+	seedWords(s.queries, ctx, "adjectives.json")
+	seedWords(s.queries, ctx, "bike-related.json")
+	seedWords(s.queries, ctx, "ordering.json")
+	seedWords(s.queries, ctx, "rolki.json")
+	seedWords(s.queries, ctx, "size-position.json")
 }
 
-func seedWords(queries *generated.Queries, ctx context.Context) {
+func seedWords(queries *generated.Queries, ctx context.Context, source string) {
 	var words []Word
-	byteData := readData("./internal/scripts/seed/data/words.json")
+	fmt.Println(fmt.Sprintf("read data from %s", fmt.Sprintf("./internal/scripts/seed/data/%s", source)))
+	byteData := readData(fmt.Sprintf("./internal/scripts/seed/data/%s", source))
 	if err := json.Unmarshal(byteData, &words); err != nil {
 		fmt.Println(err)
-		log.Fatal("could not unmarshal word from json")
+		log.Fatalf("could not unmarshal word from json %s", source)
 	}
+
 	for i := 0; i < len(words); i++ {
 		putWordParam := generated.AddWordParams{
 			En:     words[i].En,

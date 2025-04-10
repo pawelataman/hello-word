@@ -1,5 +1,5 @@
 # Simple Makefile for a Go project
-DB_URL ?="postgresql://admin:password@localhost:5432/hello-word"
+DB_URL ?="postgresql://admin:password@localhost:5432/hello-word-api-db"
 
 .PHONY: build
 build:
@@ -49,4 +49,4 @@ watch:
 
 .PHONY: docker-dev
 docker-dev:
-	@docker compose -f ./compose-local.yaml --env-file .env up --build
+	@docker compose -f ./compose-local.yaml --env-file .env up --build -d
