@@ -29,9 +29,20 @@ SELECT words.id, words.pl, words.en, words.author, words.created_at, words.updat
 FROM words
 where words.id = @word_id;
 
+-- name: GetWordByEn :one
+SELECT *
+FROM words
+where words.en = @en;
+
+-- name: GetWordByPl :one
+SELECT *
+FROM words
+where words.pl = @pl;
+
 -- name: DeleteWord :exec
 DELETE
 FROM words
 WHERE words.id = @word_id;
+
 
 

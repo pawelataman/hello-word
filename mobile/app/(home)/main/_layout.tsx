@@ -2,7 +2,6 @@ import { Tabs } from "expo-router";
 import { Platform, SafeAreaView, StyleSheet } from "react-native";
 import Book from "@/assets/images/icons/book_open.svg";
 import Brain from "@/assets/images/icons/brain.svg";
-import Settings from "@/assets/images/icons/settings.svg";
 import Person from "@/assets/images/icons/person.svg";
 
 export default function () {
@@ -60,21 +59,6 @@ export default function () {
             ),
             animation: "shift",
             headerShown: false,
-            tabBarLabelStyle: styles.tabBarLabelStyle,
-          }}
-        ></Tabs.Screen>
-
-        <Tabs.Screen
-          name="settings"
-          options={{
-            title: "Opcje",
-            tabBarIcon: ({ color }) => (
-              <>
-                <Settings width={32} height={32} color={color} />
-              </>
-            ),
-            animation: "shift",
-            headerShadowVisible: false,
             tabBarLabelStyle: styles.tabBarLabelStyle,
           }}
         ></Tabs.Screen>

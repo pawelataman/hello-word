@@ -38,6 +38,11 @@ func seedWords(queries *generated.Queries, ctx context.Context, source string) {
 	}
 
 	for i := 0; i < len(words); i++ {
+		if wordExists(queries, ctx, words[i]) {
+			fmt.Printf("word %d.%s %s", i, words[i].En, " already exists\n")
+			continue
+		}
+
 		putWordParam := generated.AddWordParams{
 			En:     words[i].En,
 			Pl:     words[i].Pl,
@@ -62,4 +67,18 @@ func readData(path string) []byte {
 	byteValue, _ := io.ReadAll(jsonFile)
 
 	return byteValue
+}
+
+func wordExists(queries *generated.Queries, ctx context.Context, word Word) bool {
+	_, err := queries.GetWordByEn(ctx, word.En)
+	if err == nil {
+		return true
+	}
+	_, err = queries.GetWordByPl(ctx, word.Pl)
+
+	if err == nil {
+		return true
+	}
+
+	return false
 }

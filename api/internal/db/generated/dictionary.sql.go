@@ -122,6 +122,26 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 	return items, nil
 }
 
+const getWordByEn = `-- name: GetWordByEn :one
+SELECT id, en, pl, author, created_at, updated_at
+FROM words
+where words.en = $1
+`
+
+func (q *Queries) GetWordByEn(ctx context.Context, en string) (Word, error) {
+	row := q.db.QueryRow(ctx, getWordByEn, en)
+	var i Word
+	err := row.Scan(
+		&i.ID,
+		&i.En,
+		&i.Pl,
+		&i.Author,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const getWordById = `-- name: GetWordById :one
 SELECT words.id, words.pl, words.en, words.author, words.created_at, words.updated_at
 FROM words
@@ -144,6 +164,26 @@ func (q *Queries) GetWordById(ctx context.Context, wordID int32) (GetWordByIdRow
 		&i.ID,
 		&i.Pl,
 		&i.En,
+		&i.Author,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const getWordByPl = `-- name: GetWordByPl :one
+SELECT id, en, pl, author, created_at, updated_at
+FROM words
+where words.pl = $1
+`
+
+func (q *Queries) GetWordByPl(ctx context.Context, pl string) (Word, error) {
+	row := q.db.QueryRow(ctx, getWordByPl, pl)
+	var i Word
+	err := row.Scan(
+		&i.ID,
+		&i.En,
+		&i.Pl,
 		&i.Author,
 		&i.CreatedAt,
 		&i.UpdatedAt,
