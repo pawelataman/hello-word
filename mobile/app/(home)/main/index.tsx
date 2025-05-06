@@ -60,6 +60,7 @@ export default function () {
           <View className="gap-8 h-full items-center justify-center">
             {LANG_OPTIONS.map((opt) => (
               <TouchableOpacity
+                key={opt.lang.code}
                 onPress={() => onPickQuizLaguage({ language: opt.lang })}
               >
                 {opt.icon}
