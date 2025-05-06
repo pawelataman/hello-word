@@ -1,4 +1,4 @@
-import { Alert, TouchableOpacity, View } from "react-native";
+import { Alert, Pressable, TouchableOpacity, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import React, { Suspense, useCallback, useMemo, useRef } from "react";
 import QuizLoading from "@/components/quiz/QuizLoading";
@@ -60,11 +60,15 @@ export default function () {
               </TouchableOpacity>
             ),
             headerRight: (props) => (
-              <TouchableOpacity
-                onPress={() => bottomSheetRef.current?.expand()}
+              <Pressable
+                onPressIn={() => {
+                  console.log("Expamd");
+                  bottomSheetRef.current?.expand();
+                }}
+                className="pr-4"
               >
                 <SettingsIcon width={28} height={28} fill={props.tintColor} />
-              </TouchableOpacity>
+              </Pressable>
             ),
           }}
         ></Stack.Screen>

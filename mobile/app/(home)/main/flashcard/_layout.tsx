@@ -8,7 +8,7 @@ export default function () {
   return (
     <NewFlashcardWordsContext.Provider value={newFlashcardWords}>
       <Stack>
-        <Stack.Screen name="index" options={{ headerTitle: "Dodaj fiszkę" }} />
+        <Stack.Screen name="index" options={{ title: "Fiszki" }} />
         <Stack.Screen
           name="add-flashcards-words"
           options={{ presentation: "modal", headerTitle: "Dodaj słówka" }}

@@ -3,6 +3,7 @@ import { Platform, SafeAreaView, StyleSheet } from "react-native";
 import Book from "@/assets/images/icons/book_open.svg";
 import Brain from "@/assets/images/icons/brain.svg";
 import Person from "@/assets/images/icons/person.svg";
+import { Cards } from "phosphor-react-native";
 
 export default function () {
   return (
@@ -55,6 +56,20 @@ export default function () {
             tabBarIcon: ({ color }) => (
               <>
                 <Book width={32} height={32} color={color} />
+              </>
+            ),
+            animation: "shift",
+            headerShown: false,
+            tabBarLabelStyle: styles.tabBarLabelStyle,
+          }}
+        ></Tabs.Screen>
+        <Tabs.Screen
+          name="flashcard"
+          options={{
+            popToTopOnBlur: true,
+            tabBarIcon: ({ color }) => (
+              <>
+                <Cards weight="bold" size={32} color={color} />
               </>
             ),
             animation: "shift",

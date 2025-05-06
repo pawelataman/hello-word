@@ -14,7 +14,7 @@ interface FlashcardWordsProps {
 export default function ({ words }: FlashcardWordsProps) {
   const router = useRouter();
   const navigateAddFlashcardWords = () => {
-    router.navigate("/(home)/main/dictionary/flashcard/add-flashcards-words");
+    router.navigate("/(home)/main/flashcard/add-flashcards-words");
   };
 
   return (

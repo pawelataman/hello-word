@@ -3,12 +3,7 @@ import { Stack } from "expo-router";
 export default function () {
   return (
     <Stack>
-      <Stack.Screen name="index" />
-      <Stack.Screen
-        name="flashcard"
-        options={{ headerShown: false, presentation: "modal" }}
-      />
-
+      <Stack.Screen name="index" options={{ title: "Słownik" }} />
       <Stack.Screen
         name="new-words"
         options={{

@@ -1,4 +1,10 @@
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useClient } from "@/core/hooks/useClient";
 import { useQuery } from "@tanstack/react-query";
 import AppButton from "@/components/ui/AppButton";
@@ -13,12 +19,13 @@ import QuizStarter from "@/components/quiz/QuizStarter.";
 import { QuizMode } from "@/core/models/models";
 import { LanguageCode } from "@/core/constants/common";
 import { useQuizStore } from "@/core/state/quiz.state";
+import { useRefetchOnFocus } from "@/core/hooks/useRefetchOnFocus";
 
 export default memo(function () {
   const [quizStarterKey, setQuizStarterKey] = useState(0);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { getFlashcards } = useClient();
-  const { data } = useQuery({
+  const { data, refetch, isLoading, isRefetching } = useQuery({
     queryKey: ["get-flashcards"],
     queryFn: () => getFlashcards(),
   });
@@ -29,15 +36,17 @@ export default memo(function () {
   }>({});
   const { setQuizMetadata } = useQuizStore();
   const navigateAddFlashcards = () => {
-    router.navigate("/(home)/main/dictionary/flashcard");
+    router.navigate("/(home)/main/flashcard/flashcard-brief");
   };
+
+  useRefetchOnFocus(refetch);
 
   const onFlashcardPressed = (flashcard: FlashcardBrief) => {
     if (selectMode) {
       selectFlashcard(flashcard);
     } else {
       router.navigate({
-        pathname: `/(home)/main/dictionary/flashcard/[id]`,
+        pathname: `/(home)/main/flashcard/[id]`,
         params: {
           id: flashcard.id,
         },
@@ -55,7 +64,7 @@ export default memo(function () {
       }
       setSelectedFlashcards(newSelectedFlashcards);
     },
-    [selectedFlashcards, setSelectedFlashcards],
+    [selectedFlashcards, setSelectedFlashcards]
   );
 
   const onLongPressFlashcard = useCallback(
@@ -63,14 +72,14 @@ export default memo(function () {
       setSelectMode(true);
       selectFlashcard(flashcard);
     },
-    [setSelectMode, selectFlashcard],
+    [setSelectMode, selectFlashcard]
   );
 
   const isFlashcardSelected = useCallback(
     (flashcard: FlashcardBrief): boolean => {
       return Boolean(selectedFlashcards[flashcard.id]);
     },
-    [selectedFlashcards],
+    [selectedFlashcards]
   );
 
   const onResetSelection = useCallback(() => {
@@ -85,7 +94,7 @@ export default memo(function () {
       mode,
       language,
       flashcardsIds: Object.keys(selectedFlashcards).map((key) =>
-        parseInt(key),
+        parseInt(key)
       ),
     });
 
@@ -107,6 +116,8 @@ export default memo(function () {
             className={""}
             data={data}
             numColumns={1}
+            refreshing={isRefetching}
+            onRefresh={refetch}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onLongPress={() => onLongPressFlashcard(item)}
@@ -170,6 +181,11 @@ export default memo(function () {
           />
         </View>
       )}
+      {isLoading || isRefetching ? (
+        <View className=" bg-gray-100/50 absolute top-0 bottom-0 left-0 right-0  h-full w-full items-center justify-center gap-4">
+          <ActivityIndicator size="small" color={"#22c55e"} />
+        </View>
+      ) : null}
     </View>
   );
 });

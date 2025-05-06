@@ -29,6 +29,7 @@ import { LanguageCode } from "@/core/constants/common";
 import { QuizMode } from "@/core/models/models";
 import { useQuizStore } from "@/core/state/quiz.state";
 import * as Speech from "expo-speech";
+import { useRefetchOnFocus } from "@/core/hooks/useRefetchOnFocus";
 
 export default function () {
   const [quizStarterKey, setQuizStarterKey] = useState(0);
@@ -37,10 +38,12 @@ export default function () {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { setQuizMetadata } = useQuizStore();
   const { getFlashcardDetails } = useContext(HttpClientContext)!;
-  const { data, isPending, isRefetching } = useQuery({
+  const { data, isPending, isRefetching, refetch } = useQuery({
     queryKey: [id, "get-flashcard-details"],
     queryFn: ({ queryKey }) => getFlashcardDetails(parseInt(queryKey[0])),
   });
+
+  useRefetchOnFocus(refetch);
 
   const getDate = useCallback((date: Date) => {
     const newDate = new Date(date);
@@ -49,7 +52,7 @@ export default function () {
 
   const navigateToEdit = useCallback(() => {
     router.navigate({
-      pathname: "/(home)/main/dictionary/flashcard",
+      pathname: "/(home)/main/flashcard/flashcard-brief",
       params: { flashcardId: data!.id },
     });
   }, [data]);

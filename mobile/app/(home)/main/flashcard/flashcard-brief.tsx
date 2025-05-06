@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
+  Pressable,
   SafeAreaView,
   Text,
   TouchableOpacity,
@@ -43,7 +44,7 @@ export default function FlashcardEditor() {
   const [showColorPicker, setShowColorPicker] = useState(false);
   const router = useRouter();
   const { selectedWordsArr, setSelectedWordsArr } = useContext(
-    NewFlashcardWordsContext,
+    NewFlashcardWordsContext
   )!;
   const { createFlashcard, updateFlashcard, deleteFlashcard } =
     useContext(HttpClientContext)!;
@@ -61,16 +62,9 @@ export default function FlashcardEditor() {
         name: existingFlashcard.name || "",
         color: existingFlashcard.color || "#22c55e",
       });
-
-      if (
-        existingFlashcard.words &&
-        existingFlashcard.words.length > 0 &&
-        setSelectedWordsArr
-      ) {
-        setSelectedWordsArr(existingFlashcard.words);
-      } else {
-        setSelectedWordsArr([]);
-      }
+      setSelectedWordsArr(existingFlashcard.words || []);
+    } else {
+      setSelectedWordsArr([]);
     }
   }, [existingFlashcard]);
 
@@ -81,14 +75,14 @@ export default function FlashcardEditor() {
       }
       setShowColorPicker(false);
     },
-    [flashcardData],
+    [flashcardData]
   );
 
   const handleNameChange = useCallback(
     (name: string) => {
       setFlashcardData({ ...flashcardData, name });
     },
-    [flashcardData],
+    [flashcardData]
   );
 
   const createMutation = useMutation({
@@ -101,7 +95,7 @@ export default function FlashcardEditor() {
       console.log(extractApiErrorMessage(error.message as ApiErrorCodes));
       showToast(
         extractApiErrorMessage(error.message as ApiErrorCodes),
-        "error",
+        "error"
       );
     },
   });
@@ -122,10 +116,7 @@ export default function FlashcardEditor() {
     onSuccess: () => {
       refetch();
       router.replace({
-        pathname: "/(home)/main/dictionary",
-        params: {
-          tabName: "flashcards",
-        },
+        pathname: "/(home)/main/flashcard",
       });
     },
     onError: (error) => {
@@ -198,10 +189,11 @@ export default function FlashcardEditor() {
         <>
           <Stack.Screen
             options={{
+              title: existingFlashcard?.name || "Nowa fiszka",
               headerRight: (params) => (
-                <TouchableOpacity onPress={onDeleteFlashcard}>
+                <Pressable onPressIn={onDeleteFlashcard}>
                   <Trash weight={"bold"} size={24} color={COLORS.gray["500"]} />
-                </TouchableOpacity>
+                </Pressable>
               ),
             }}
           />

@@ -20,11 +20,11 @@ interface QuizOptions {
 const LANG_OPTIONS = [
   {
     lang: LANG_PL,
-    icon: <PL width={64} height={48} />,
+    icon: <PL width={250} height={200} />,
   },
   {
     lang: LANG_EN,
-    icon: <EN width={64} height={48} />,
+    icon: <EN width={250} height={200} />,
   },
 ];
 
@@ -53,25 +53,16 @@ export default function () {
   };
 
   return (
-    <View className="bg-gray-200">
+    <View>
       <Tabs.Screen options={{ title: "Rozpocznij Quiz!" }}></Tabs.Screen>
       <SafeAreaView>
-        <View className="p-5 bg-white h-full">
-          <View className="gap-6">
+        <View className="p-5 bg-gray-100 h-full">
+          <View className="gap-8 h-full items-center justify-center">
             {LANG_OPTIONS.map((opt) => (
               <TouchableOpacity
-                className=" gap-2 p-4 flex-row items-center justify-between bg-gray-100  rounded-2xl relative"
-                key={opt.lang.code}
                 onPress={() => onPickQuizLaguage({ language: opt.lang })}
               >
-                <View>
-                  <Text
-                    className={"text-black font-semibold text-lg text-center"}
-                  >
-                    Przetłumacz na {opt.lang.label}
-                  </Text>
-                </View>
-                <View>{opt.icon}</View>
+                {opt.icon}
               </TouchableOpacity>
             ))}
           </View>

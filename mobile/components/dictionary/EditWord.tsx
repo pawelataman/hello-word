@@ -1,4 +1,11 @@
-import { View, Text, Keyboard, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Keyboard,
+  TouchableOpacity,
+  Alert,
+  Pressable,
+} from "react-native";
 import React, { useCallback } from "react";
 import {
   DictionaryWord,
@@ -127,9 +134,9 @@ export default function EditWord({ word, onSuccess }: EditWordProps) {
     <View className="p-4 gap-8 rounded-t-xl">
       <View className="flex-row justify-between items-center">
         <Text className="font-bold text-lg">Edytuj słowo</Text>
-        <TouchableOpacity onPress={onDeleteWord}>
-          <Trash size={24} color={COLORS.red["500"]} />
-        </TouchableOpacity>
+        <Pressable onPressIn={onDeleteWord}>
+          <Text className="text-red-500 font-bold">Usuń</Text>
+        </Pressable>
       </View>
       <View
         className={"flex-row gap-4  items-center bg-gray-100 p-4 rounded-xl"}

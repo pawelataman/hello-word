@@ -5,6 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 
 export function useExistingFlashcard() {
   const { flashcardId } = useLocalSearchParams<{ flashcardId: string }>();
+
+  if (!flashcardId) return { data: null, isPending: false };
+
   const { getFlashcardDetails } = useContext(HttpClientContext)!;
   const { data, isPending } = useQuery({
     queryKey: [flashcardId, "get-flashcard-details"],

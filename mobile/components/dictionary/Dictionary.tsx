@@ -39,6 +39,7 @@ import DictionaryFilters, {
 } from "./DictionaryFilters";
 import EditWord from "./EditWord";
 import { Word } from "@/core/api/models/quiz";
+import { useRefetchOnFocus } from "@/core/hooks/useRefetchOnFocus";
 
 const PAGE_SIZE = 20;
 interface DictionaryProps {
@@ -94,6 +95,7 @@ export default function ({
       },
     });
 
+  useRefetchOnFocus(refetch);
   const currentUserEmail = useMemo(() => {
     return user?.emailAddresses?.[0]?.emailAddress;
   }, [user]);

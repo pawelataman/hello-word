@@ -35,7 +35,6 @@ export default function ({
         >
           <View className={"gap-4"}>
             <Panel5 />
-            <Swatches />
             <View className={"flex-row gap-2"}>
               <AppButton
                 className={"flex-1"}
