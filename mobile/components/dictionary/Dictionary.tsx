@@ -5,7 +5,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { memo, useCallback, useContext, useMemo, useState } from "react";
+import React, {
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { HttpClientContext } from "@/core/context/client-context";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import {
@@ -17,14 +25,19 @@ import { LanguageCode } from "@/core/constants/common";
 import DictionaryItem from "@/components/dictionary/DictionaryItem";
 import Search from "@/components/ui/inputs/Search";
 import { debounce } from "@/utils/timing";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import AppButton from "@/components/ui/AppButton";
-import { useRouter } from "expo-router";
-import { useRefetchOnFocus } from "@/core/hooks/useRefetchOnFocus";
+import { useFocusEffect, useRouter } from "expo-router";
 import { COLORS } from "@/core/constants/tailwind-colors";
 import { useUser } from "@clerk/clerk-expo";
 import * as Speech from "expo-speech";
-import { SpeakerHigh } from "phosphor-react-native";
+import { Funnel, SpeakerHigh } from "phosphor-react-native";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { bottomSheetBackdrop } from "../ui/BottomSheetBackDrop";
+import DictionaryFilters, {
+  DistionaryFiltersModel,
+  INITIAL_FILTERS,
+} from "./DictionaryFilters";
 
 const PAGE_SIZE = 20;
 interface DictionaryProps {
@@ -35,20 +48,22 @@ interface DictionaryProps {
     execute: () => void;
   };
 }
-export default memo(function ({
+export default function ({
   action,
   onSelectWord,
   selectedWords,
 }: DictionaryProps) {
   const router = useRouter();
-  const [ascending, setAscending] = useState(true);
+  const [filters, setFilters] = useState<DistionaryFiltersModel>({
+    ...INITIAL_FILTERS,
+  });
   const [search, setSearch] = useState<string>("");
   const { user } = useUser();
   const { getDictionaryWords } = useContext(HttpClientContext)!;
   const { data, fetchNextPage, isLoading, isRefetching, hasNextPage, refetch } =
     useInfiniteQuery<GetDictionaryWordsResponse>({
       refetchOnWindowFocus: "always",
-      queryKey: ["get-dictionary-words", ascending, search],
+      queryKey: ["get-dictionary-words", filters, search],
       getNextPageParam: (lastPage, allPages) => {
         if (
           allPages.length < (lastPage as GetDictionaryWordsResponse).totalPages
@@ -66,14 +81,12 @@ export default memo(function ({
           pageSize: PAGE_SIZE,
           page: pageParam as number,
           language: LanguageCode.PL,
-          ascending: queryKey[1] as boolean,
+          ascending: (queryKey[1] as DistionaryFiltersModel).ascending,
           search: queryKey[2] as string,
         };
         return getDictionaryWords(params);
       },
     });
-
-  useRefetchOnFocus(refetch);
 
   const currentUserEmail = useMemo(() => {
     return user?.emailAddresses?.[0]?.emailAddress;
@@ -103,6 +116,10 @@ export default memo(function ({
     });
   };
 
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  useFocusEffect(() => {
+    bottomSheetRef.current?.close();
+  });
   return (
     <>
       <View className={"px-2 py-6 flex-1 gap-y-2"}>
@@ -111,22 +128,17 @@ export default memo(function ({
             onChangeText={debounce(setSearch, 500)}
             placeholder={"Wyszukaj słówka"}
           ></Search>
-          <TouchableOpacity onPress={() => setAscending(!ascending)}>
-            <MaterialCommunityIcons
-              name={
-                ascending
-                  ? "sort-alphabetical-ascending"
-                  : "sort-alphabetical-descending"
-              }
-              size={20}
-              color="#6b7280"
-              className={"self-start bg-white rounded-xl p-2"}
-            />
+          <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
+            <View className={"self-start bg-white rounded-xl p-2"}>
+              <Funnel size={20} color="#6b7280" />
+            </View>
           </TouchableOpacity>
         </View>
         {dataFlattened?.length ? (
           <>
             <FlatList
+              onRefresh={() => refetch()}
+              refreshing={isRefetching}
               data={dataFlattened}
               renderItem={({ item, index }) => (
                 <View className={"flex-row gap-2 items-center"}>
@@ -194,6 +206,26 @@ export default memo(function ({
             />
           </View>
         )}
+
+        <BottomSheet
+          ref={bottomSheetRef}
+          index={-1}
+          backdropComponent={bottomSheetBackdrop}
+          enablePanDownToClose={false}
+          handleComponent={null}
+          keyboardBlurBehavior={"restore"}
+          enableContentPanningGesture={false}
+        >
+          <BottomSheetView>
+            <DictionaryFilters
+              onFiltersChange={(filters) => {
+                setFilters(filters);
+                bottomSheetRef.current?.close();
+              }}
+              initialFilters={{ ...filters }}
+            />
+          </BottomSheetView>
+        </BottomSheet>
       </View>
       {isLoading || isRefetching ? (
         <View className=" bg-gray-100/50 absolute top-0 bottom-0 left-0 right-0  h-full w-full items-center justify-center gap-4">
@@ -202,4 +234,4 @@ export default memo(function ({
       ) : null}
     </>
   );
-});
+}
