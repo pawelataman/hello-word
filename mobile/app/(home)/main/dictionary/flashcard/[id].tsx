@@ -19,7 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import DictionaryItem from "@/components/dictionary/DictionaryItem";
 import AppButton from "@/components/ui/AppButton";
 import { MIN_WORDS_QTY } from "@/core/constants/quiz";
-import { PencilSimple } from "phosphor-react-native";
+import { PencilSimple, SpeakerHigh } from "phosphor-react-native";
 import { COLORS } from "@/core/constants/tailwind-colors";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { bottomSheetBackdrop } from "@/components/ui/BottomSheetBackDrop";
@@ -28,6 +28,7 @@ import QuizStarter from "@/components/quiz/QuizStarter.";
 import { LanguageCode } from "@/core/constants/common";
 import { QuizMode } from "@/core/models/models";
 import { useQuizStore } from "@/core/state/quiz.state";
+import * as Speech from "expo-speech";
 
 export default function () {
   const [quizStarterKey, setQuizStarterKey] = useState(0);
@@ -74,6 +75,16 @@ export default function () {
     });
     router.push({
       pathname: "/quiz",
+    });
+  };
+
+  const playbackWord = async (word: string) => {
+    if (await Speech.isSpeakingAsync()) return;
+
+    Speech.speak(word, {
+      language: LanguageCode.EN,
+      rate: 0.5,
+      onDone: () => {},
     });
   };
   return (
@@ -141,15 +152,26 @@ export default function () {
                 <FlatList
                   data={data!.words}
                   renderItem={({ item, index }) => (
-                    <View key={item.id}>
-                      <DictionaryItem isSelected={false}>
-                        <Text className={"text-xl font-bold"}>
-                          {item["pl"]}
-                        </Text>
-                        <Text className={"text-lg text-gray-500"}>
-                          {item["en"]}
-                        </Text>
-                      </DictionaryItem>
+                    <View
+                      key={item.id}
+                      className={"my-1.5 flex-row gap-2 items-center"}
+                    >
+                      <View className={"flex-1"}>
+                        <DictionaryItem isSelected={false}>
+                          <Text className={"text-xl font-bold"}>
+                            {item["pl"]}
+                          </Text>
+                          <Text className={"text-lg text-gray-500"}>
+                            {item["en"]}
+                          </Text>
+                        </DictionaryItem>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => playbackWord(item["en"])}
+                        className={"bg-white p-1.5 rounded-xl"}
+                      >
+                        <SpeakerHigh color={COLORS["green"]["500"]} />
+                      </TouchableOpacity>
                     </View>
                   )}
                   keyExtractor={(word, index) => word.id.toString()}

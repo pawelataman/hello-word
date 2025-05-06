@@ -26,9 +26,12 @@ import { COLORS } from "@/core/constants/tailwind-colors";
 import { Trash } from "phosphor-react-native";
 import { extractApiErrorMessage } from "@/core/constants/api-errors";
 import { ApiErrorCodes } from "@/core/models/error";
+import { useClient } from "@/core/hooks/useClient";
 
 export default function FlashcardEditor() {
   const { showToast } = useToast();
+  const { getFlashcards } = useClient();
+
   const { data: existingFlashcard, isPending: isLoadExisingPending } =
     useExistingFlashcard();
   const initialMode = existingFlashcard ? "edit" : "create";
@@ -48,6 +51,7 @@ export default function FlashcardEditor() {
   const { refetch } = useQuery({
     queryKey: ["get-flashcards"],
     enabled: false,
+    queryFn: () => getFlashcards(),
   });
 
   useEffect(() => {
@@ -229,7 +233,7 @@ export default function FlashcardEditor() {
       <AppButton
         label={submitButtonLabel}
         variant="primary"
-        className="mx-4"
+        className="mx-4 mb-4"
         disabled={!isFormValid}
         onPress={handleSubmitFlashcard}
       />

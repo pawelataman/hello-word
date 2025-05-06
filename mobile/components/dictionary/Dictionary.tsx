@@ -23,6 +23,8 @@ import { useRouter } from "expo-router";
 import { useRefetchOnFocus } from "@/core/hooks/useRefetchOnFocus";
 import { COLORS } from "@/core/constants/tailwind-colors";
 import { useUser } from "@clerk/clerk-expo";
+import * as Speech from "expo-speech";
+import { SpeakerHigh } from "phosphor-react-native";
 
 const PAGE_SIZE = 20;
 interface DictionaryProps {
@@ -91,6 +93,16 @@ export default memo(function ({
     router.navigate("/main/dictionary/new-words");
   };
 
+  const playbackWord = async (word: string) => {
+    if (await Speech.isSpeakingAsync()) return;
+
+    Speech.speak(word, {
+      language: LanguageCode.EN,
+      rate: 0.5,
+      onDone: () => {},
+    });
+  };
+
   return (
     <>
       <View className={"px-2 py-6 flex-1 gap-y-2"}>
@@ -117,28 +129,37 @@ export default memo(function ({
             <FlatList
               data={dataFlattened}
               renderItem={({ item, index }) => (
-                <TouchableOpacity
-                  key={item.id}
-                  onPress={() => onSelectWord?.(item)}
-                >
-                  <DictionaryItem
-                    icon={
-                      item.author === currentUserEmail && (
-                        <AntDesign
-                          name={"user"}
-                          color={COLORS.gray["500"]}
-                          size={16}
-                        />
-                      )
-                    }
-                    isSelected={Boolean(selectedWords?.[item.id])}
+                <View className={"flex-row gap-2 items-center"}>
+                  <TouchableOpacity
+                    className={"flex-1 my-[5px]"}
+                    key={item.id}
+                    onPress={() => onSelectWord?.(item)}
                   >
-                    <Text className={"text-xl font-bold"}>{item["pl"]}</Text>
-                    <Text className={"text-lg text-gray-500"}>
-                      {item["en"]}
-                    </Text>
-                  </DictionaryItem>
-                </TouchableOpacity>
+                    <DictionaryItem
+                      icon={
+                        item.author === currentUserEmail && (
+                          <AntDesign
+                            name={"user"}
+                            color={COLORS.gray["500"]}
+                            size={16}
+                          />
+                        )
+                      }
+                      isSelected={Boolean(selectedWords?.[item.id])}
+                    >
+                      <Text className={"text-xl font-bold"}>{item["pl"]}</Text>
+                      <Text className={"text-lg text-gray-500"}>
+                        {item["en"]}
+                      </Text>
+                    </DictionaryItem>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => playbackWord(item["en"])}
+                    className={"bg-white p-1.5 rounded-xl"}
+                  >
+                    <SpeakerHigh color={COLORS["green"]["500"]} />
+                  </TouchableOpacity>
+                </View>
               )}
               keyExtractor={(_, index) => index.toString()}
               showsVerticalScrollIndicator={false}

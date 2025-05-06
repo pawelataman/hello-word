@@ -43,7 +43,7 @@ export default function ({ words }: FlashcardWordsProps) {
           <FlatList
             data={words}
             renderItem={({ item, index }) => (
-              <View key={item.id}>
+              <View key={item.id} className={"my-1.5"}>
                 <DictionaryItem isSelected={false}>
                   <Text className={"text-xl font-bold"}>{item["pl"]}</Text>
                   <Text className={"text-lg text-gray-500"}>{item["en"]}</Text>
