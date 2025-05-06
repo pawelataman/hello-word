@@ -281,3 +281,22 @@ func (q *Queries) GetWordByPl(ctx context.Context, pl string) (Word, error) {
 	)
 	return i, err
 }
+
+const updateWord = `-- name: UpdateWord :exec
+UPDATE words
+SET "en" = $1,
+    "pl" = $2,
+    updated_at = CURRENT_TIMESTAMP
+WHERE words.id = $3
+`
+
+type UpdateWordParams struct {
+	En     string
+	Pl     string
+	WordID int32
+}
+
+func (q *Queries) UpdateWord(ctx context.Context, arg UpdateWordParams) error {
+	_, err := q.db.Exec(ctx, updateWord, arg.En, arg.Pl, arg.WordID)
+	return err
+}

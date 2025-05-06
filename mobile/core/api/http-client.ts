@@ -11,6 +11,7 @@ import {
   GetDictionaryCategoriesResponse,
   GetDictionaryWordsParams,
   GetDictionaryWordsResponse,
+  UpdateWordRequest,
 } from "@/core/api/models/dictionary";
 import {
   CreateFlashcardRequest,
@@ -24,11 +25,11 @@ import {
 export interface HttpClient {
   getQuiz(): Promise<QuizResponse>;
   getQuizFromFlashcards(
-    data: GetQuizFromFlashcardsRequest,
+    data: GetQuizFromFlashcardsRequest
   ): Promise<QuizResponse>;
 
   getDictionaryWords(
-    params: GetDictionaryWordsParams,
+    params: GetDictionaryWordsParams
   ): Promise<GetDictionaryWordsResponse>;
 
   getDictionaryCategories(): Promise<GetDictionaryCategoriesResponse>;
@@ -36,7 +37,7 @@ export interface HttpClient {
   getDictionaryCategoryDetails(id: number): Promise<GetCategoryDetailsResponse>;
 
   postCreateCategory(
-    data: CreateCategoryRequest,
+    data: CreateCategoryRequest
   ): Promise<CreateCategoryResponse>;
 
   postCreateWord(data: CreateWordsRequest): Promise<DictionaryWord[]>;
@@ -44,14 +45,16 @@ export interface HttpClient {
   getFlashcards(): Promise<FlashcardBrief[]>;
 
   createFlashcard(
-    data: CreateFlashcardRequest,
+    data: CreateFlashcardRequest
   ): Promise<CreateFlashcardResponse>;
 
   getFlashcardDetails(id: number): Promise<FlashcardDetailsResponse>;
 
   updateFlashcard(
-    data: UpdateFlashcardRequest,
+    data: UpdateFlashcardRequest
   ): Promise<UpdateFlashcardResponse>;
 
   deleteFlashcard(id: number): Promise<void>;
-}
+  deleteWord(id: number): Promise<void>;
+  updateWord(id: number, data: UpdateWordRequest): Promise<void> ;
+  }

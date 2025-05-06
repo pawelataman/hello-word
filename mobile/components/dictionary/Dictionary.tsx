@@ -1,15 +1,15 @@
 import {
   ActivityIndicator,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import React, {
-  memo,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -25,19 +25,20 @@ import { LanguageCode } from "@/core/constants/common";
 import DictionaryItem from "@/components/dictionary/DictionaryItem";
 import Search from "@/components/ui/inputs/Search";
 import { debounce } from "@/utils/timing";
-import { AntDesign } from "@expo/vector-icons";
 import AppButton from "@/components/ui/AppButton";
 import { useFocusEffect, useRouter } from "expo-router";
 import { COLORS } from "@/core/constants/tailwind-colors";
 import { useUser } from "@clerk/clerk-expo";
 import * as Speech from "expo-speech";
-import { Funnel, SpeakerHigh } from "phosphor-react-native";
+import { Funnel, Pencil, SpeakerHigh } from "phosphor-react-native";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { bottomSheetBackdrop } from "../ui/BottomSheetBackDrop";
 import DictionaryFilters, {
   DistionaryFiltersModel,
   INITIAL_FILTERS,
 } from "./DictionaryFilters";
+import EditWord from "./EditWord";
+import { Word } from "@/core/api/models/quiz";
 
 const PAGE_SIZE = 20;
 interface DictionaryProps {
@@ -54,10 +55,14 @@ export default function ({
   selectedWords,
 }: DictionaryProps) {
   const router = useRouter();
+  const [bottomSheetView, setBottomSheetView] = useState<
+    "filters" | "editWord"
+  >("filters");
   const [filters, setFilters] = useState<DistionaryFiltersModel>({
     ...INITIAL_FILTERS,
   });
   const [search, setSearch] = useState<string>("");
+  const [editWord, setEditWord] = useState<DictionaryWord | null>(null);
   const { user } = useUser();
   const { getDictionaryWords } = useContext(HttpClientContext)!;
   const { data, fetchNextPage, isLoading, isRefetching, hasNextPage, refetch } =
@@ -118,9 +123,6 @@ export default function ({
   };
 
   const bottomSheetRef = useRef<BottomSheet>(null);
-  useFocusEffect(() => {
-    bottomSheetRef.current?.close();
-  });
   return (
     <>
       <View className={"px-2 py-6 flex-1 gap-y-2"}>
@@ -129,7 +131,12 @@ export default function ({
             onChangeText={debounce(setSearch, 500)}
             placeholder={"Wyszukaj słówka"}
           ></Search>
-          <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
+          <TouchableOpacity
+            onPress={() => {
+              setBottomSheetView("filters");
+              bottomSheetRef.current?.expand();
+            }}
+          >
             <View className={"self-start bg-white rounded-xl p-2"}>
               <Funnel size={20} color="#6b7280" />
             </View>
@@ -146,16 +153,21 @@ export default function ({
                   <TouchableOpacity
                     className={"flex-1 my-[5px]"}
                     key={item.id}
-                    onPress={() => onSelectWord?.(item)}
+                    onPress={() => {
+                      if (onSelectWord) {
+                        onSelectWord(item);
+                      } else if (item.author === currentUserEmail) {
+                        setBottomSheetView("editWord");
+                        setEditWord(item);
+                        bottomSheetRef.current?.expand();
+                      }
+                    }}
                   >
                     <DictionaryItem
                       icon={
+                        !onSelectWord &&
                         item.author === currentUserEmail && (
-                          <AntDesign
-                            name={"user"}
-                            color={COLORS.gray["500"]}
-                            size={16}
-                          />
+                          <Pencil color={COLORS.gray["500"]} size={20} />
                         )
                       }
                       isSelected={Boolean(selectedWords?.[item.id])}
@@ -188,10 +200,17 @@ export default function ({
             </View>
           </>
         ) : (
-          <View className={"items-center justify-center h-4/5"}>
+          <View className={"items-center justify-center h-4/5 gap-4"}>
             <Text className={"text-gray-500 font-semibold"}>
               Nie znaleziono żadnych słówek
             </Text>
+            <View>
+              <AppButton
+                variant={"primary"}
+                label={action?.label || "Dodaj słówka +"}
+                onPress={action?.execute || navigateAddWords}
+              />
+            </View>
           </View>
         )}
 
@@ -207,7 +226,6 @@ export default function ({
             />
           </View>
         )}
-
         <BottomSheet
           ref={bottomSheetRef}
           index={-1}
@@ -217,14 +235,28 @@ export default function ({
           keyboardBlurBehavior={"restore"}
           enableContentPanningGesture={false}
         >
-          <BottomSheetView>
-            <DictionaryFilters
-              onFiltersChange={(filters) => {
-                setFilters(filters);
-                bottomSheetRef.current?.close();
-              }}
-              initialFilters={{ ...filters }}
-            />
+          <BottomSheetView key={bottomSheetView}>
+            {bottomSheetView === "filters" && (
+              <DictionaryFilters
+                onFiltersChange={(filters) => {
+                  setFilters(filters);
+                  bottomSheetRef.current?.close();
+                }}
+                initialFilters={{ ...filters }}
+              />
+            )}
+            {bottomSheetView === "editWord" && editWord && (
+              <EditWord
+                word={editWord}
+                key={editWord.id}
+                onSuccess={() => {
+                  refetch();
+                  setTimeout(() => {
+                    bottomSheetRef.current?.close();
+                  }, 100);
+                }}
+              />
+            )}
           </BottomSheetView>
         </BottomSheet>
       </View>

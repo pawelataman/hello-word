@@ -46,7 +46,7 @@ export default function () {
   });
 
   const [currEditId, setCurrEditId] = useState<string | null>(
-    defaultNewWord.id,
+    defaultNewWord.id
   );
 
   const handleAdd = useCallback(() => {
@@ -69,7 +69,7 @@ export default function () {
     (word: CreateWord) => {
       setWordPairs(wordPairs.filter((w) => w.id != word.id));
     },
-    [wordPairs],
+    [wordPairs]
   );
 
   const onSubmitWord = useCallback(
@@ -78,7 +78,7 @@ export default function () {
       setWordPairs(wordPairs.toSpliced(index, 1, word));
       setCurrEditId(null);
     },
-    [wordPairs],
+    [wordPairs]
   );
 
   const onEdit = useCallback((word: CreateWord) => {

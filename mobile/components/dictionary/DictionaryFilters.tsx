@@ -35,14 +35,6 @@ export default function DictionaryFilters(filterProps: DictionaryFiltersProps) {
 
   return (
     <View className="min-h-min p-4 gap-6 relative">
-      <TouchableOpacity
-        onPress={() => filterProps.onFiltersChange({ ...INITIAL_FILTERS })}
-        disabled={areInitial}
-        className={`absolute top-4 right-4 z-50 p-2 rounded-xl bg-gray-200 ${areInitial ? "opacity-50" : ""}`}
-      >
-        <ArrowCounterClockwise size={20} />
-      </TouchableOpacity>
-
       <View>
         <Text className="font-bold text-lg">Sortuj</Text>
         <View className="flex-row gap-2 mt-2">

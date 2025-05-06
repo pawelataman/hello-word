@@ -21,7 +21,28 @@ func RegisterDictionaryHandler(router fiber.Router) {
 	app := router.Group("/dictionary")
 	app.Get("/words", handleGetDictionaryWords)
 	app.Post("/words", handleCreateDictionaryWords)
+	app.Put("/words/:id", handleUpdateDictionaryWord)
 	app.Delete("/words/:id", handleDeleteDictionaryWord)
+}
+func handleUpdateDictionaryWord(ctx *fiber.Ctx) error {
+	wordId, err := ctx.ParamsInt("id")
+
+	if err != nil {
+		slog.Error(err.Error())
+		return api_errors.NewApiErr(fiber.StatusBadRequest, fmt.Errorf(api_errors.InvalidId))
+	}
+
+	var body models.UpdateWordRequest
+	err = ctx.BodyParser(&body)
+	if err != nil {
+		slog.Error(err.Error())
+		return api_errors.NewApiErr(fiber.StatusBadRequest, err)
+	}
+
+	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
+
+	return services.WordsService.UpdateWord(ctx.Context(), wordId, body, userSubject.EmailAddress)
+
 }
 
 func handleDeleteDictionaryWord(ctx *fiber.Ctx) error {

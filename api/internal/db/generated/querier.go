@@ -30,6 +30,7 @@ type Querier interface {
 	GetWordByPl(ctx context.Context, pl string) (Word, error)
 	GetWordsByFlashcardId(ctx context.Context, flashcardID int32) ([]GetWordsByFlashcardIdRow, error)
 	UpdateFlashcard(ctx context.Context, arg UpdateFlashcardParams) (Flashcard, error)
+	UpdateWord(ctx context.Context, arg UpdateWordParams) error
 }
 
 var _ Querier = (*Queries)(nil)

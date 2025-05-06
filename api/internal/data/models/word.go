@@ -36,3 +36,8 @@ type GetAllWordsResponse struct {
 	TotalRecords int    `json:"totalRecords"`
 	Records      []Word `json:"records"`
 }
+
+type UpdateWordRequest struct {
+	Pl string `json:"pl" validate:"required,min=1,max=255" mod:"trim"`
+	En string `json:"en" validate:"required,min=1,max=255" mod:"trim"`
+}

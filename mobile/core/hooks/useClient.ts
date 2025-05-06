@@ -14,6 +14,7 @@ import {
   GetDictionaryCategoriesResponse,
   GetDictionaryWordsParams,
   GetDictionaryWordsResponse,
+  UpdateWordRequest,
 } from "@/core/api/models/dictionary";
 import { HttpClient } from "@/core/api/http-client";
 import { ApiError } from "@/core/models/error";
@@ -165,5 +166,11 @@ export const useClient = (): HttpClient => {
     deleteFlashcard(id: number): Promise<void> {
       return request({ url: `/flashcards/${id}`, method: "DELETE" });
     },
+    deleteWord(id: number): Promise<void> {
+      return request({ url: `/dictionary/words/${id}`, method: "DELETE" });
+    },
+    updateWord(id: number, data: UpdateWordRequest): Promise<void> {
+      return request({ url: `/dictionary/words/${id}`, method: "PUT", data });
+    }
   };
 };

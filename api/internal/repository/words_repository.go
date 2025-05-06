@@ -15,7 +15,7 @@ type IWordsRepository interface {
 	DeleteWord(ctx context.Context, wordID int32) error
 	GetWordByPl(ctx context.Context, pl string) (generated.Word, error)
 	GetWordByEn(ctx context.Context, en string) (generated.Word, error)
-
+	UpdateWord(ctx context.Context, arg generated.UpdateWordParams) error
 	Transactional(tx pgx.Tx) IWordsRepository
 }
 

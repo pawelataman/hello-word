@@ -48,8 +48,8 @@ export default function ({ onDelete, word, onSubmit }: NewWordFormProps) {
       Keyboard.dismiss();
       onSubmit({
         ...word,
-        [LanguageCode.EN]: enField.value.trim(),
-        [LanguageCode.PL]: plField.value.trim(),
+        [LanguageCode.EN]: enField.value.trim().toLowerCase(),
+        [LanguageCode.PL]: plField.value.trim().toLowerCase(),
       });
     }
   };

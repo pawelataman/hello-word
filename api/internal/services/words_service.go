@@ -13,7 +13,6 @@ import (
 	"github.com/pawelataman/hello-word/internal/db"
 	"github.com/pawelataman/hello-word/internal/db/generated"
 	"github.com/pawelataman/hello-word/internal/repository"
-	"github.com/valyala/fasthttp"
 )
 
 var (
@@ -101,8 +100,6 @@ func (ds *WordsServiceImpl) GetAllWordsByAuthor(ctx context.Context, params mode
 	}
 
 	rows, err := ds.repository.GetAllWordsByAuthor(ctx, pagination)
-	fmt.Println("by author rows")
-	fmt.Println(rows)
 
 	if err != nil {
 		log.Println("could not retrieve all words", err)
@@ -171,7 +168,7 @@ func (ds *WordsServiceImpl) AddWords(ctx context.Context, words []models.CreateW
 	return createdWords, nil
 }
 
-func (ds *WordsServiceImpl) DeleteWord(ctx *fasthttp.RequestCtx, id int, user string) error {
+func (ds *WordsServiceImpl) DeleteWord(ctx context.Context, id int, user string) error {
 	word, err := ds.repository.GetWordById(ctx, int32(id))
 	if err != nil {
 		return api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf(api_errors.WordNotFound))
@@ -184,4 +181,20 @@ func (ds *WordsServiceImpl) DeleteWord(ctx *fasthttp.RequestCtx, id int, user st
 		return err
 	}
 	return ds.repository.DeleteWord(ctx, int32(id))
+}
+
+func (ds *WordsServiceImpl) UpdateWord(ctx context.Context, id int, updateWord models.UpdateWordRequest, user string) error {
+	word, err := ds.repository.GetWordById(ctx, int32(id))
+
+	if err != nil {
+		return api_errors.NewApiErr(fiber.StatusNotFound, fmt.Errorf(api_errors.WordNotFound))
+	}
+	if word.Author != user {
+		return api_errors.NewApiErr(fiber.StatusForbidden, fmt.Errorf(api_errors.DeleteNotAllowed))
+	}
+	return ds.repository.UpdateWord(ctx, generated.UpdateWordParams{
+		En:     updateWord.En,
+		Pl:     updateWord.Pl,
+		WordID: int32(id),
+	})
 }

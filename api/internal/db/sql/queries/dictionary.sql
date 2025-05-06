@@ -73,3 +73,9 @@ where words.pl = @pl;
 -- name: DeleteWord :exec
 DELETE FROM words
 WHERE words.id = @word_id;
+-- name: UpdateWord :exec
+UPDATE words
+SET "en" = @en,
+    "pl" = @pl,
+    updated_at = CURRENT_TIMESTAMP
+WHERE words.id = @word_id;

@@ -60,3 +60,8 @@ export interface CreateDictionaryWord {
 export interface CreateWordsRequest {
   words: CreateDictionaryWord[];
 }
+
+export interface UpdateWordRequest  {
+  [LanguageCode.EN]: string;
+  [LanguageCode.PL]: string;
+}
