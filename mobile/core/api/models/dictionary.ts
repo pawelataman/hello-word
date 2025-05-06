@@ -6,6 +6,7 @@ export interface GetDictionaryWordsParams {
   ascending: boolean;
   language: LanguageCode.PL | LanguageCode.EN;
   search: string;
+  usersOnly: boolean;
 }
 
 export interface GetDictionaryWordsResponse {

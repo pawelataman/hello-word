@@ -38,8 +38,7 @@ func (q *Queries) AddWord(ctx context.Context, arg AddWordParams) (Word, error) 
 }
 
 const deleteWord = `-- name: DeleteWord :exec
-DELETE
-FROM words
+DELETE FROM words
 WHERE words.id = $1
 `
 
@@ -50,23 +49,27 @@ func (q *Queries) DeleteWord(ctx context.Context, wordID int32) error {
 
 const getAllWords = `-- name: GetAllWords :many
 SELECT words.id,
-       words.pl,
-       words.en,
-       words.author,
-       words.created_at,
-       words.updated_at,
-       COUNT(*) over () as total_rows
+    words.pl,
+    words.en,
+    words.author,
+    words.created_at,
+    words.updated_at,
+    COUNT(*) over () as total_rows
 FROM words
 WHERE words.en LIKE '%' || $1::text || '%'
-   OR words.pl LIKE '%' || $1::text || '%'
+    OR words.pl LIKE '%' || $1::text || '%'
 ORDER BY CASE
-             WHEN $2 = 'pl' AND $3::bool = true THEN pl
-             WHEN $2 = 'en' AND $3::bool = true THEN en
-             END DESC,
-         CASE
-             WHEN $2 = 'pl' AND $3::bool = false THEN pl
-             WHEN $2 = 'en' AND $3::bool = false THEN en
-             END
+        WHEN $2 = 'pl'
+        AND $3::bool = true THEN pl
+        WHEN $2 = 'en'
+        AND $3::bool = true THEN en
+    END DESC,
+    CASE
+        WHEN $2 = 'pl'
+        AND $3::bool = false THEN pl
+        WHEN $2 = 'en'
+        AND $3::bool = false THEN en
+    END
 LIMIT $5 OFFSET $4
 `
 
@@ -122,6 +125,89 @@ func (q *Queries) GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]Get
 	return items, nil
 }
 
+const getAllWordsByAuthor = `-- name: GetAllWordsByAuthor :many
+SELECT words.id,
+    words.pl,
+    words.en,
+    words.author,
+    words.created_at,
+    words.updated_at,
+    COUNT(*) over () as total_rows
+FROM words
+WHERE words.author = $1
+    AND (
+        words.en LIKE '%' || $2::text || '%'
+        OR words.pl LIKE '%' || $2::text || '%'
+    )
+ORDER BY CASE
+        WHEN $3 = 'pl'
+        AND $4::bool = true THEN pl
+        WHEN $3 = 'en'
+        AND $4::bool = true THEN en
+    END DESC,
+    CASE
+        WHEN $3 = 'pl'
+        AND $4::bool = false THEN pl
+        WHEN $3 = 'en'
+        AND $4::bool = false THEN en
+    END
+LIMIT $6 OFFSET $5
+`
+
+type GetAllWordsByAuthorParams struct {
+	Author         string
+	Search         string
+	SortColumn     interface{}
+	SortDescending bool
+	PageOffset     int32
+	PageSize       int32
+}
+
+type GetAllWordsByAuthorRow struct {
+	ID        int32
+	Pl        string
+	En        string
+	Author    string
+	CreatedAt pgtype.Timestamp
+	UpdatedAt pgtype.Timestamp
+	TotalRows int64
+}
+
+func (q *Queries) GetAllWordsByAuthor(ctx context.Context, arg GetAllWordsByAuthorParams) ([]GetAllWordsByAuthorRow, error) {
+	rows, err := q.db.Query(ctx, getAllWordsByAuthor,
+		arg.Author,
+		arg.Search,
+		arg.SortColumn,
+		arg.SortDescending,
+		arg.PageOffset,
+		arg.PageSize,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetAllWordsByAuthorRow
+	for rows.Next() {
+		var i GetAllWordsByAuthorRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Pl,
+			&i.En,
+			&i.Author,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.TotalRows,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getWordByEn = `-- name: GetWordByEn :one
 SELECT id, en, pl, author, created_at, updated_at
 FROM words
@@ -143,7 +229,12 @@ func (q *Queries) GetWordByEn(ctx context.Context, en string) (Word, error) {
 }
 
 const getWordById = `-- name: GetWordById :one
-SELECT words.id, words.pl, words.en, words.author, words.created_at, words.updated_at
+SELECT words.id,
+    words.pl,
+    words.en,
+    words.author,
+    words.created_at,
+    words.updated_at
 FROM words
 where words.id = $1
 `

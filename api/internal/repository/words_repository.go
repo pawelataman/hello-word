@@ -2,12 +2,14 @@ package repository
 
 import (
 	"context"
+
 	"github.com/jackc/pgx/v5"
 	"github.com/pawelataman/hello-word/internal/db/generated"
 )
 
 type IWordsRepository interface {
 	GetAllWords(ctx context.Context, arg generated.GetAllWordsParams) ([]generated.GetAllWordsRow, error)
+	GetAllWordsByAuthor(ctx context.Context, arg generated.GetAllWordsByAuthorParams) ([]generated.GetAllWordsByAuthorRow, error)
 	AddWord(ctx context.Context, arg generated.AddWordParams) (generated.Word, error)
 	GetWordById(ctx context.Context, wordID int32) (generated.GetWordByIdRow, error)
 	DeleteWord(ctx context.Context, wordID int32) error

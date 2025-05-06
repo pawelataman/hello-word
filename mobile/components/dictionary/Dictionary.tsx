@@ -83,6 +83,7 @@ export default function ({
           language: LanguageCode.PL,
           ascending: (queryKey[1] as DistionaryFiltersModel).ascending,
           search: queryKey[2] as string,
+          usersOnly: (queryKey[1] as DistionaryFiltersModel).usersOnly,
         };
         return getDictionaryWords(params);
       },

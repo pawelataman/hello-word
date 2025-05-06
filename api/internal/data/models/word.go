@@ -26,6 +26,7 @@ type GetAllWordsParams struct {
 	Ascending bool   `json:"ascending" validate:"boolean"`
 	Language  string `json:"language" validate:"required"`
 	Search    string `json:"search"`
+	UsersOnly bool   `json:"usersOnly" validate:"boolean"`
 }
 
 type GetAllWordsResponse struct {

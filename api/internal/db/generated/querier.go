@@ -18,6 +18,7 @@ type Querier interface {
 	DeleteWordsFlashcardByFlashcardId(ctx context.Context, flashcardID int32) error
 	DeleteWordsFlashcardByWordId(ctx context.Context, wordID int32) error
 	GetAllWords(ctx context.Context, arg GetAllWordsParams) ([]GetAllWordsRow, error)
+	GetAllWordsByAuthor(ctx context.Context, arg GetAllWordsByAuthorParams) ([]GetAllWordsByAuthorRow, error)
 	GetFlashcardById(ctx context.Context, id int32) (Flashcard, error)
 	GetFlashcardByName(ctx context.Context, name string) (Flashcard, error)
 	GetFlashcards(ctx context.Context) ([]Flashcard, error)

@@ -45,6 +45,16 @@ func handleGetDictionaryWords(ctx *fiber.Ctx) error {
 	if validationErrors, ok := validation.ValidateStruct(paginationParams); !ok {
 		return api_errors.InvalidReqDataErr(validationErrors)
 	}
+
+	userSubject := ctx.Locals(consts.UserSubjectKey).(*models.UserSubject)
+	if paginationParams.UsersOnly {
+		words, err := services.WordsService.GetAllWordsByAuthor(ctx.Context(), paginationParams, userSubject.EmailAddress)
+		if err != nil {
+			slog.Error(err.Error())
+			return err
+		}
+		return ctx.JSON(words)
+	}
 	words, err := services.WordsService.GetAllWords(ctx.Context(), paginationParams)
 
 	if err != nil {

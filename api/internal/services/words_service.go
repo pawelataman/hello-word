@@ -3,6 +3,9 @@ package services
 import (
 	"context"
 	"fmt"
+	"log"
+	"math"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/jackc/pgx/v5"
 	"github.com/pawelataman/hello-word/internal/api_errors"
@@ -11,8 +14,6 @@ import (
 	"github.com/pawelataman/hello-word/internal/db/generated"
 	"github.com/pawelataman/hello-word/internal/repository"
 	"github.com/valyala/fasthttp"
-	"log"
-	"math"
 )
 
 var (
@@ -86,6 +87,57 @@ func (ds *WordsServiceImpl) GetAllWords(ctx context.Context, params models.GetAl
 
 	return response, nil
 
+}
+
+func (ds *WordsServiceImpl) GetAllWordsByAuthor(ctx context.Context, params models.GetAllWordsParams, author string) (models.GetAllWordsResponse, error) {
+
+	pagination := generated.GetAllWordsByAuthorParams{
+		PageSize:       int32(params.PageSize),
+		PageOffset:     int32((params.Page - 1) * params.PageSize),
+		SortColumn:     params.Language,
+		SortDescending: !params.Ascending,
+		Search:         params.Search,
+		Author:         author,
+	}
+
+	rows, err := ds.repository.GetAllWordsByAuthor(ctx, pagination)
+	fmt.Println("by author rows")
+	fmt.Println(rows)
+
+	if err != nil {
+		log.Println("could not retrieve all words", err)
+		return models.GetAllWordsResponse{}, err
+	}
+	dictionaryWords := make([]models.Word, len(rows))
+
+	totalRows := 0
+	for index, row := range rows {
+
+		if index == 0 {
+			totalRows = int(row.TotalRows)
+		}
+
+		dictionaryWords[index] = models.Word{
+			ID:        row.ID,
+			En:        row.En,
+			Pl:        row.Pl,
+			Author:    row.Author,
+			CreatedAt: row.CreatedAt.Time,
+			UpdatedAt: row.UpdatedAt.Time,
+		}
+	}
+
+	totalPages := math.Ceil(float64(totalRows) / float64(params.PageSize))
+
+	response := models.GetAllWordsResponse{
+		Records:      dictionaryWords,
+		Page:         params.Page,
+		PageSize:     len(dictionaryWords),
+		TotalRecords: totalRows,
+		TotalPages:   int(totalPages),
+	}
+
+	return response, nil
 }
 
 func (ds *WordsServiceImpl) AddWords(ctx context.Context, words []models.CreateWord, author string) ([]models.Word, error) {

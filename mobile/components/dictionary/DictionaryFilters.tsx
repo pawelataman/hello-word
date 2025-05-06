@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, Touchable } from "react-native";
 import React, { useMemo, useState } from "react";
 import AppButton from "../ui/AppButton";
 import { ArrowCounterClockwise } from "phosphor-react-native";
-import { COLORS } from "@/core/constants/tailwind-colors";
 
 export interface DistionaryFiltersModel {
   ascending: boolean;
